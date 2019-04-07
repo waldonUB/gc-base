@@ -82,17 +82,26 @@
 // // var fullName = person.getFullName
 // // // console.log(person.getFullName())
 // // console.log(fullName())
-let a = 1;
-let promise2 = (function () {
-    return new Promise((resolve, reject) => {
-        if (a) {
-            resolve(a, a)
-        } else {
-            reject(a)
-        }
-    })
-})().then((onFulfilled, onRejected) => {
-    console.log(onFulfilled)
-}).catch(onRejected => {
-    console.log(onRejected)
-})
+// let a = 1;
+// let promise2 = (function () {
+//     return new Promise((resolve, reject) => {
+//         if (a) {
+//             resolve(a, a)
+//         } else {
+//             reject(a)
+//         }
+//     })
+// })().then((onFulfilled, onRejected) => {
+//     console.log(onFulfilled)
+// }).catch(onRejected => {
+//     console.log(onRejected)
+// })
+
+function f() {
+    console.log(`我是f`)
+    function f1() {
+        console.log(`我是f1`)
+    }
+}
+
+
