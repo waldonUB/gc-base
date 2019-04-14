@@ -652,12 +652,76 @@
 // // p1.setSex()
 // console.log(user1.sex)
 
-function Person() {
-    this.name = 'wdq'
-}
-function User() {
-    Person.call(this)
-}
-User.prototype = new Person()
-var user1 = new User()
+// function Person() {
+//     this.name = 'wdq'
+// }
+// function User() {
+//     Person.call(this)
+// }
+// User.prototype = new Person()
+// // User.prototype.constructor = User // 这一句是必须的吗？
+// var user1 = new User()
+// console.log(user1.constructor)
 
+// function Person(age) {
+//     this.age = age // Object.create()时，不能执行函数内的代码
+// }
+// Person.prototype.name = 'wdq'
+// var o = Object.create(Person.prototype) // Person{}
+// var person = new Person(16) // Person{age: 16}
+//
+// var person = {}
+// person.__prop__ = Person.prototype
+// Person.call(person)
+//
+// Object.create = function (o) {
+//     var fn = function () {}
+//     fn.prototype = o // 这里一般传对象的prototype
+//     // 把父类的prototype当做__proto__返回
+//     // 当User.prototype = Object.create(Person.prototype)时
+//     // 相当于把User.prototype内的constructor和__proto__重写成父类的__proto__
+//     // 当var o = Object.create(Person.prototype)时
+//     // 相当于创建Person{}
+//     return new fn
+//     // var obj = {} // 相当于后面又执行了这几步操作，省去了执行函数内的代码
+//     // obj.__prop__ = fn.prototype
+//     // fn.call(obj)
+// }
+//
+//
+// function Person(age) {
+//     this.age = age
+// }
+// function User() {
+//
+// }
+// Person.prototype.sex = '男'
+// // User.prototype = Object.create(Person.prototype)
+// User.prototype = new Person(16)
+// var user = new User()
+// console.log(User.hasOwnProperty('age')) // false
+// console.log(user instanceof Person) // true
+
+// 组合继承
+// function Father(age, sex) {
+//     this.age = age
+//     this.sex = sex
+// }
+//
+// function Son() {
+//     Father.call(this) // 继承实例属性
+//     this.age = 16
+// }
+// // 不使用new Father()是为了防止二次调用，避免不必要消耗
+// Son.prototype = Object.create(Father.prototype) //继承父类方法
+
+var person = {sex: '男', age: 16}
+var person1 = Object.create(person)
+person1.__proto__.sex = '女'
+
+function create(obj) {
+    function F1() {} // 定义一个临时的构造函数
+    F1.prototype = obj // 让传入的对象作为构造函数的原型
+    return new F1 // 返回这个构造函数的实例
+}
+console.log(person1)
