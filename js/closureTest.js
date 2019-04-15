@@ -199,7 +199,7 @@
 // function shallow(obj) {
 //     var newObj = {}
 //     for (let field in obj) {
-//         if (obj.hasOwnProperty(field)) {
+//         if (obj.hasOwnProperty(field)) { // Object.keys(obj)遍历自身可枚举的属性，Object.create()的properties传进来的不算
 //             newObj[field] = obj[field]
 //         } else {
 //             console.log(field)
@@ -715,13 +715,131 @@
 // // 不使用new Father()是为了防止二次调用，避免不必要消耗
 // Son.prototype = Object.create(Father.prototype) //继承父类方法
 
-var person = {sex: '男', age: 16}
-var person1 = Object.create(person)
-person1.__proto__.sex = '女'
+// var person = {sex: '男', age: 16}
+// var person1 = Object.create(person)
+// person1.__proto__.sex = '女'
+//
+// function create(obj) {
+//     function F1() {} // 定义一个临时的构造函数
+//     F1.prototype = obj // 让传入的对象作为构造函数的原型
+//     return new F1 // 返回这个构造函数的实例
+// }
+// console.log(person1)
 
-function create(obj) {
-    function F1() {} // 定义一个临时的构造函数
-    F1.prototype = obj // 让传入的对象作为构造函数的原型
-    return new F1 // 返回这个构造函数的实例
-}
-console.log(person1)
+// 寄生组合式继承
+// function extend(subClass, superClass) {
+//     var Fn = function () {}
+//     Fn.prototype = superClass.prototype
+//     subClass.prototype = new Fn()
+//     subClass.prototype.constructor = subClass
+// }
+
+// function Person() {
+//     this.name = 'wdq'
+// }
+// function User() {
+//
+// }
+// function newTest(o) {
+//     var obj = {}
+//     obj.__proto__ = o.prototype
+//     o.call(obj)
+//     return obj // obj.name，最终是Child.prototype = obj，所以是Child.prototype.name
+// }
+// User.prototype = newTest(Person)
+// User.prototype.constructor = User
+// var p1 = new User()
+// // User { name: 'wdq', constructor: [Function: User] } ES6中__proto__的标准实现
+// console.log(Object.getPrototypeOf(p1))
+// console.log(p1.__proto__) // User { name: 'wdq', constructor: [Function: User] }
+// console.log(p1.__proto__.__proto__) // Person {}
+// console.log(p1.__proto__.__proto__.__proto__) // {}
+// console.log(p1.__proto__.__proto__.__proto__.__proto__) // null
+
+// var obj = {
+//     name: 'wdq'
+// }
+// obj.userInfo = function () {
+//     console.log(this.name) // 这里把userInfo当做function，指向的是obj
+// }
+// obj.userInfo()
+
+// var arr = [1, 2]
+// var obj = {
+//     name: 'wdq',
+//     age: 16,
+//     info: function () {
+//        console.log(666)
+//     }
+// }
+// var obj1 = Object.create(Object.prototype, {
+//     name1: {
+//         value: 'wdq'
+//     }
+// })
+// console.log(obj1.hasOwnProperty('name1')) // true
+// obj1.age = 16
+// Object.keys(arr)
+// Object.keys(obj)
+// Object.keys(obj1) // 只有age
+// console.log((Object.keys(obj)) instanceof Array)
+// console.log(typeof Object.keys(obj))
+
+// var obj = {
+//     get x() {
+//         return 5
+//     }
+// }
+// console.log(obj.x)
+
+// instanceof和Object.prototype.isPrototypeOf的比较
+// function Person() {
+//
+// }
+// function User() {
+//     Person.call(this)
+// }
+// function WDQ() {
+//
+// }
+// User.prototype = new Person()
+// WDQ.prototype = new User()
+// var user = new User()
+// var user1 = new WDQ()
+// console.log(user1 instanceof User)
+// console.log(user1 instanceof Person)
+// console.log(Person.prototype.isPrototypeOf(user1))
+// console.log(Person.prototype.isPrototypeOf(WDQ.prototype)) // true
+// console.log(Person.isPrototypeOf(user1)) // false 要Person.prototype.isPrototypeOf，里面的参数是__proto__或者prototype
+// console.log(WDQ.prototype instanceof Person) // true 第一个参数要__proto__或者prototype，对象的原型
+// console.log(user.isPrototypeOf(user1)) // false 必须要构造函数的prototype指定isPrototypeOf方法
+var $ = require('jquery')
+// function imgOnload(url) {
+//     return new Promise(function (resolve, reject) {
+//         var request = new XMLHttpRequest();
+//         request.open('GET', url);
+//         request.responseType = "blob";
+//         request.onload = function () {
+//             if (request.status === 200) {
+//                 resolve(request.response)
+//             } else {
+//                 reject(Error('image onload failed'))
+//             }
+//         }
+//         request.onerror = function () {
+//             reject(Error('image onload failed'))
+//         }
+//         request.send();
+//     })
+// }
+// imgOnload('http://pic1.nipic.com/2008-08-14/2008814183939909_2.jpg')
+
+(function () {
+    $.ajax({
+        url: 'http://pic1.nipic.com/2008-08-14/2008814183939909_2.jpg',
+        type: 'get',
+        success: function () {
+            console.log(666)
+        }
+    })
+})()
