@@ -813,7 +813,9 @@
 // console.log(Person.isPrototypeOf(user1)) // false 要Person.prototype.isPrototypeOf，里面的参数是__proto__或者prototype
 // console.log(WDQ.prototype instanceof Person) // true 第一个参数要__proto__或者prototype，对象的原型
 // console.log(user.isPrototypeOf(user1)) // false 必须要构造函数的prototype指定isPrototypeOf方法
-var $ = require('jquery')
+
+// XHR加载图片
+// var $ = require('jquery')
 // function imgOnload(url) {
 //     return new Promise(function (resolve, reject) {
 //         var request = new XMLHttpRequest();
@@ -834,12 +836,18 @@ var $ = require('jquery')
 // }
 // imgOnload('http://pic1.nipic.com/2008-08-14/2008814183939909_2.jpg')
 
-(function () {
-    $.ajax({
-        url: 'http://pic1.nipic.com/2008-08-14/2008814183939909_2.jpg',
-        type: 'get',
-        success: function () {
-            console.log(666)
-        }
-    })
-})()
+// (function () {
+//     $.ajax({
+//         url: 'http://pic1.nipic.com/2008-08-14/2008814183939909_2.jpg',
+//         type: 'get',
+//         success: function () {
+//             console.log(666)
+//         }
+//     })
+// })()
+
+// function f() {
+//     var arr = arguments
+// }
+//
+// f()

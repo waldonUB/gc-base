@@ -12,7 +12,7 @@ var pubsub = {};
             var subscribers = topics[topic],
                 len = subscribers ? subscribers.length : 0
             while (len--) {
-                subscribers[len].func(topic, args) // 这是啥方法
+                subscribers[len].func(topic, args) // 这是啥方法(执行订阅的方法)
             }
         }, 0)
         return true
