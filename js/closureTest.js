@@ -744,6 +744,10 @@
 //     var obj = {}
 //     obj.__proto__ = o.prototype
 //     o.call(obj)
+// 如果构造函数有返回值，并且返回值是个对象，则覆盖掉新建的对象
+//     if (typeof o() === 'Object') {
+//        return o()
+//     }
 //     return obj // obj.name，最终是Child.prototype = obj，所以是Child.prototype.name
 // }
 // User.prototype = newTest(Person)
@@ -851,3 +855,70 @@
 // }
 //
 // f()
+//
+// 'use strict'
+// a = 16
+
+// function f() {
+//     console.log(`当前age：` + this.age++)
+// }
+// (function () {
+//     var user = {
+//         age: 0
+//     }
+//     user.name = f
+//     user.name()
+// }())
+// function Parent(name1) {
+//     this.name1 = name1
+// }
+//
+// function Child(name1) {
+//     Parent.call(this, name1)
+// }
+// Child.prototype = Object.create(Parent.prototype, {
+//     age1: {value: 17}
+// })
+// var child = new Child('wdq')
+// console.log(child.hasOwnProperty('name1')) // true
+// console.log(child.hasOwnProperty('age1')) // false
+// console.log(Object.keys(child))
+
+// 对象字面量
+// var obj = {}
+// var arr = []
+// // 会返回对应的对象类型，比如Array，Object，String
+// var obj1 = new Object({name: 1})
+//
+// // 构造函数
+// function Person() {
+//
+// }
+// var person = new Person()
+//
+// // Object.create，创建一个临时的构造函数，返回他的实例
+// var Person1 = {name: 'wdq'}
+// var p1 = Object.create(Person1)
+// p1.__proto__.name = 'ksl'
+// console.log(p1.__proto__.name) // ksl
+//
+// console.log(obj.__proto__) // {}
+// console.log(obj.__proto__.__proto__) // null
+// console.log(obj1.__proto__) // {}
+// console.log(obj1.__proto__.__proto__) // null
+
+// function Person() {
+//
+// }
+// function User() {
+//
+// }
+// User.prototype = Object.create(Person.prototype)
+// // User.prototype.constructor = User
+// var p1 = new Person()
+// var u1 = new User()
+// console.log(p1 instanceof User) // false
+// console.log(u1 instanceof User) // true
+// console.log(u1 instanceof Person) // true
+// console.log(u1.__proto__.constructor === User) // false，因为还没有修正
+

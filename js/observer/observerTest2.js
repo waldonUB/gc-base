@@ -1,8 +1,8 @@
 var observer = function (name) { // 这里可以控制观察者，应该提供添加和删除观察者的方法
     this.name = name
-}
-var subscribes = {}; // 这里是每个主题对应所有观察者的方法，结构为{[],[]}
-(function () {
+};
+(function () { // 这个立即执行函数是干嘛的？
+    var subscribes = {}; // 这里是每个主题对应所有观察者的方法，结构为{[],[]}
     /**
      * @param topic 主题
      * @param args 订阅的方法的参数
