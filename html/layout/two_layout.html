@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    html * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<body>
+<div class="layout absolute">
+    <style>
+        .layout.absolute{
+            position: relative;
+            height: 100px;
+            /*overflow: auto;  不是BFC，解决不了*/
+        }
+        .layout.absolute > div {
+            height: 100px;
+            position: absolute;
+        }
+        .layout.absolute > .left {
+            width: 300px;
+            background-color: red;
+        }
+        .layout.absolute > .right {
+            background-color: yellow;
+            /*无宽度时指定左右*/
+            right: 0;
+            left: 300px;
+        }
+    </style>
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+<div class="layout float">
+    <style>
+        .layout.float > div {
+            height: 100px;
+        }
+        .layout.float > .left {
+            float: left;
+            width: 300px;
+            background-color: green;
+        }
+        .layout.float > .right {
+            background-color: blue;
+            /*BFC*/
+            overflow: auto;
+        }
+    </style>
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+<div class="layout flex">
+    <style>
+        .layout.flex{
+            display: flex;
+        }
+        .layout.flex > div {
+            height: 100px;
+        }
+        .layout.flex > .left {
+            width: 300px;
+            background-color: blueviolet;
+        }
+        .layout.flex > .right {
+            background-color: orange;
+            flex: auto;
+        }
+    </style>
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+<div class="layout grid">
+    <style>
+        .layout.grid{
+            display: grid;
+            grid-template-rows: 100px;
+            grid-template-columns: 300px auto;
+        }
+        .layout.grid > .left {
+            background-color: pink;
+        }
+        .layout.grid > .right {
+            background-color: peru;
+        }
+    </style>
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+<div class="layout table">
+    <style>
+        .layout.table{
+            /*这个一定要指定*/
+            width: 100%;
+            display: table;
+        }
+        .layout.table > div {
+            height: 100px;
+            display: table-cell;
+        }
+        .layout.table > .left {
+            background-color: brown;
+            width: 300px;
+        }
+        .layout.table > .right {
+            background-color: yellowgreen;
+        }
+    </style>
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+</body>
+</html>

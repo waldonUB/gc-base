@@ -8,7 +8,6 @@
 
         }
         .main > div{
-
             height: 100px;
         }
         .main .float {
@@ -23,7 +22,8 @@
         }
         .main .foo {
             /*position: relative;*/
-            /*块级元素display:inline-block时带了内联样式的属性，所以能撑开*/
+            /*块级元素display:inline-block时带了内联样式的属性，所以能撑开（这个是错误的）*/
+            /*其实是因为display: inline-block的时候创建了一个BFC，不与浮动元素重叠*/
             display: inline-block;
             /*float: left;*/
             width: 100px;
