@@ -1,0 +1,28 @@
+{
+  "name": "gc-base",
+  "version": "1.0.0",
+  "description": "用来总结个人前端知识的一个小仓库",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "./node_modules/.bin/webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waldonUB/gc-base.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/waldonUB/gc-base/issues"
+  },
+  "homepage": "https://github.com/waldonUB/gc-base#readme",
+  "devDependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "dependencies": {
+    "jquery": "^3.4.0"
+  }
+}

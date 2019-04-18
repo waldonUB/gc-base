@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .layout.absolute {
+            position: relative;
+        }
+        .layout.absolute > div{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        .relative {
+            width: 150px;
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+<div class="layout absolute">
+    <div></div>
+</div>
+<div class="relative"></div>
+</body>
+</html>

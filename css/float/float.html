@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .main {
+
+        }
+        .main > div{
+
+            height: 100px;
+        }
+        .main .float {
+            float: left;
+            width: 100px;
+            background-color: red;
+        }
+        .main .float.right {
+            float: right;
+            width: 100px;
+            background-color: green;
+        }
+        .main .foo {
+            /*position: relative;*/
+            /*块级元素display:inline-block时带了内联样式的属性，所以能撑开*/
+            display: inline-block;
+            /*float: left;*/
+            width: 100px;
+            background-color: yellow;
+        }
+        .clear {
+            clear: right;
+        }
+    </style>
+</head>
+<body>
+<div class="main"><div class="foo"></div>
+    <div class="float"></div>
+    <!--<div class="clear"></div>-->
+    <!--<div class="float right"></div>-->
+</div>
+</body>
+</html>

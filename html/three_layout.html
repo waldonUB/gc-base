@@ -13,7 +13,7 @@
         }
         /*两栏布局，三栏布局的上下高度固定，中间自适应？*/
         /*article和section是什么元素？ 语义化这一块*/
-        /*绝对定位为什么会挡住后面的？*/
+        /*绝对定位为什么会挡住后面的？  从当前文档流脱离了，如果父元素没有指定高度，就会和后面的重叠*/
         /*五种解决方案的优缺点？*/
         /*高度不是已知的情况？ flex布局和表格布局还能用，要理解为啥能用和不能用*/
         /*去掉高度之后，哪些方案还能生效，业务中常用的是哪种？哪种兼容性好？*/
@@ -25,38 +25,38 @@
     </style>
 </head>
 <body>
-<div class="layout">
-    <style>
-        .container {
-            /*父类为min-height时，子类为inherit，100%，auto都不生效*/
-            /*min-height: 100px;*/
-            height: 100px;
-            background-color: rgba(255, 6, 233, 0.5);
-        }
-        .left {
-            background-color: red;
-            float: left;
-            width: 300px;
-            height: 100%;
-            /*height: auto;*/
-        }
-        .right {
-            background-color: red;
-            float: right;
-            width: 300px;
-            height: 100%;
-        }
-        .center {
-            background-color: yellow;
-            height: inherit;
-        }
-    </style>
-    <div class="container">
-        <div class="left"></div>
-        <div class="right"></div>
-        <div class="center"></div>
-    </div>
-</div>
+<!--<div class="layout">-->
+    <!--<style>-->
+        <!--.container {-->
+            <!--/*父类为min-height时，子类为inherit，100%，auto都不生效*/-->
+            <!--/*min-height: 100px;*/-->
+            <!--height: 100px;-->
+            <!--background-color: rgba(255, 6, 233, 0.5);-->
+        <!--}-->
+        <!--.left {-->
+            <!--background-color: red;-->
+            <!--float: left;-->
+            <!--width: 300px;-->
+            <!--height: 100%;-->
+            <!--/*height: auto;*/-->
+        <!--}-->
+        <!--.right {-->
+            <!--background-color: red;-->
+            <!--float: right;-->
+            <!--width: 300px;-->
+            <!--height: 100%;-->
+        <!--}-->
+        <!--.center {-->
+            <!--background-color: yellow;-->
+            <!--height: inherit;-->
+        <!--}-->
+    <!--</style>-->
+    <!--<div class="container">-->
+        <!--<div class="left"></div>-->
+        <!--<div class="right"></div>-->
+        <!--<div class="center"></div>-->
+    <!--</div>-->
+<!--</div>-->
 <!--<div>-->
     <!--<style>-->
         <!--.container {-->
@@ -65,78 +65,78 @@
         <!--}-->
     <!--</style>-->
 <!--</div>-->
-<!--<div class="layout">-->
-    <!--<style>-->
-        <!--.container>div {-->
-            <!--/*父类为min-height时，子类为inherit，100%，auto都不生效*/-->
-            <!--/*min-height: 100px;*/-->
-            <!--height: 100px;-->
-            <!--/*background-color: rgba(255, 6, 233, 0.2);*/-->
-            <!--/*绝对定位，不指定宽度，就一定要指定左右距离？*/-->
-            <!--position: absolute;-->
-        <!--}-->
-        <!--.left {-->
-            <!--background-color: red;-->
-            <!--left: 0;-->
-            <!--width: 300px;-->
-            <!--/*height: auto;*/-->
-        <!--}-->
-        <!--.right {-->
-            <!--background-color: red;-->
-            <!--right: 0;-->
-            <!--width: 300px;-->
-        <!--}-->
-        <!--.center {-->
-            <!--background-color: yellow;-->
-            <!--/*height: inherit;*/-->
-            <!--left: 300px;-->
-            <!--right: 300px;-->
-        <!--}-->
-    <!--</style>-->
-    <!--<div class="container">-->
-        <!--<div class="left"></div>-->
-        <!--&lt;!&ndash;哪个位置都可以&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="center"></div>&ndash;&gt;-->
-        <!--<div class="right"></div>-->
+<div class="layout">
+    <style>
+        .container>div {
+            /*父类为min-height时，子类为inherit，100%，auto都不生效*/
+            /*min-height: 100px;*/
+            height: 100px;
+            /*background-color: rgba(255, 6, 233, 0.2);*/
+            /*绝对定位，不指定宽度，就一定要指定左右距离？*/
+            position: absolute;
+        }
+        .left {
+            background-color: red;
+            left: 0;
+            width: 300px;
+            /*height: auto;*/
+        }
+        .right {
+            background-color: red;
+            right: 0;
+            width: 300px;
+        }
+        .center {
+            background-color: yellow;
+            /*height: inherit;*/
+            left: 300px;
+            right: 300px;
+        }
+    </style>
+    <div class="container">
+        <div class="left"></div>
+        <!--哪个位置都可以-->
         <!--<div class="center"></div>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div class="layout">-->
-    <!--<style>-->
-        <!--.container {-->
-            <!--display: flex;-->
-            <!--flex-wrap: nowrap;-->
-            <!--flex-direction: row;-->
-            <!--/*justify-content: space-around;*/-->
-        <!--}-->
-        <!--.container > div {-->
-            <!--height: 100px;-->
-        <!--}-->
-        <!--.left {-->
-            <!--background-color: red;-->
-            <!--width: 300px;-->
-            <!--/*height: auto;*/-->
-        <!--}-->
-        <!--.right {-->
-            <!--background-color: red;-->
-            <!--width: 300px;-->
-        <!--}-->
-        <!--.center {-->
-            <!--background-color: yellow;-->
-            <!--flex: 1;-->
-            <!--/*flex: auto 和 flex: 1的区别？*/-->
+        <div class="right"></div>
+        <div class="center"></div>
+    </div>
+</div>
+<div class="layout">
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            /*justify-content: space-around;*/
+        }
+        .container > div {
+            height: 100px;
+        }
+        .left {
+            background-color: red;
+            width: 300px;
+            /*height: auto;*/
+        }
+        .right {
+            background-color: red;
+            width: 300px;
+        }
+        .center {
+            background-color: yellow;
+            flex: 1;
+            /*flex: auto 和 flex: 1的区别？*/
 
-            <!--/*flex: auto;*/-->
-            <!--/*height: inherit;*/-->
-        <!--}-->
-    <!--</style>-->
-    <!--<div class="container">-->
-        <!--<div class="left"></div>-->
-        <!--看看自动填充可以不可以把center位置变一下？-->
-        <!--<div class="center"></div>-->
-        <!--<div class="right"></div>-->
-    <!--</div>-->
-<!--</div>-->
+            /*flex: auto;*/
+            /*height: inherit;*/
+        }
+    </style>
+    <div class="container">
+        <div class="left"></div>
+        看看自动填充可以不可以把center位置变一下？
+        <div class="center"></div>
+        <div class="right"></div>
+    </div>
+</div>
 <!--<div class="layout">-->
     <!--<style>-->
         <!--.container {-->
