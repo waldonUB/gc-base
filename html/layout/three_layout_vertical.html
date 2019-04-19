@@ -54,15 +54,8 @@
     }
     .layout.flex {
         height: 100%;
-        width: 100%;
         display: flex;
         flex-direction: column;
-        /*align-items: stretch;*/
-    }
-    .layout.flex div{
-        /*这个一定要指定？*/
-        width: 100%;
-        /*position: fixed;*/
     }
     .layout.flex .top{
         flex-shrink: 0;
@@ -76,50 +69,15 @@
     }
     .layout.flex .center{
         background-color: yellowgreen;
-        /*不加会把两头撑走*/
+        flex: auto;
         /*overflow: auto*/
-        /*flex-basis: content;*/
     }
 </style>
 <section class="layout flex">
     <div class="top"></div>
     <div class="center">
         <!--为什么会把两头的撑走？-->
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
-        <h1>ww</h1>
+        <!--设置flex-shrink: 0就可以了，不让他收缩-->
     </div>
     <div class="bottom"></div>
 </section>
