@@ -922,3 +922,37 @@
 // console.log(u1 instanceof Person) // true
 // console.log(u1.__proto__.constructor === User) // false，因为还没有修正
 
+// function Person() {
+//
+// }
+// Person.prototype.name = 'wdq'
+// function User() {
+//
+// }
+// function create(o) {
+//     function f() {
+//
+//     }
+//     f.prototype = o
+//     var obj = {}
+//     obj.__proto__ = f.prototype
+//     f.call(obj)
+//     return obj
+// }
+// User.prototype = create(Person.prototype) // 中间隔了一层obj.__proto__
+// User.prototype.__proto__.name = 'ksl'
+// console.log(Person.prototype.name)
+
+// function Person() {
+//
+// }
+// Person.prototype.name = 'wdq'
+// var p1 = new Person()
+// p1.__proto__.name = 'ksl'
+// console.log(Person.prototype.name)
+
+function Person() {
+    return this.a
+}
+var newPerson = Person.bind({a: 'wdq'})
+console.log(newPerson())
