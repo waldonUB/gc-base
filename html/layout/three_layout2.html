@@ -13,7 +13,7 @@
         margin-top: 10px;
     }
     .layout > div {
-        /*height: 100px;*/
+        height: 100px;
     }
     .left {
         background-color: rgba(244, 233, 1, 1);
@@ -25,7 +25,7 @@
         background-color: rgba(24, 233, 109, 1);
     }
     .layout.float {
-        
+
     }
     .layout.float .left {
         width: 300px;
@@ -77,6 +77,23 @@
         grid-template-rows: 100px;
         grid-template-columns: 300px auto 300px;
     }
+    .layout.table {
+        /*表格宽度一定要指定*/
+        width: 100%;
+        display: table;
+    }
+    .layout.table > div {
+        display: table-cell;
+    }
+    .layout.table .left{
+        width: 300px;
+    }
+    .layout.table .right{
+        width: 300px;
+    }
+    .layout.table .center{
+
+    }
 </style>
 <body>
 <div class="layout float">
@@ -95,6 +112,11 @@
     <div class="right"></div>
 </div>
 <div class="layout grid">
+    <div class="left"></div>
+    <div class="center"></div>
+    <div class="right"></div>
+</div>
+<div class="layout table">
     <div class="left"></div>
     <div class="center"></div>
     <div class="right"></div>

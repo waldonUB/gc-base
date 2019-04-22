@@ -56,8 +56,9 @@ function Child3() {
 
 // 优化方式2：达到了父类和子类的原型对象的一个隔离
 // 原因分析：Child3.prototype指向的是临时构造函数的实例，
-// 临时构造函数.prototype指向的才是父类的原型？
+// 临时构造函数.prototype指向的才是父类的原型
 // 相当于一个间接指向
+// 其实就相当于var obj = {}; obj.__proto__ = Parent3.prototype; Child3.prototype = obj
 Child3.prototype = Object.create(Parent3.prototype)
 // Child3.prototype.constructor = Child3
 
