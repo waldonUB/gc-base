@@ -13,11 +13,17 @@
             justify-content: space-between;
             align-items: center;
         }
+        /*父元素如果flex-basis: auto的时候，会根据子元素宽度增加*/
+        /*flex: auto相当于flex: 1 1 auto*/
+        /*如果想二等分，正确做法应该是flex: 1，相当于flex: 1 1 0%*/
         .container .item1 {
-            /*flex-grow: 1;*/
-            /*flex-basis: auto;和百分比的区别？*/
-            flex: 1 1 auto;
+            /*flex: 1;*/
+            /*flex-basis: 0;*/
             /*width: 100px;*/
+            /*flex: auto;*/
+            /*flex: 1 1 auto;*/
+            flex-grow: 1;
+            /*flex-basis: auto;*/
             height: 100px;
             background-color: rebeccapurple;
             border: 1px solid black;
@@ -35,7 +41,7 @@
 <body>
 <div class="container">
     <div class="item1">
-        <h1>ww</h1>
+        <h1>w</h1>
     </div>
     <div class="item2"></div>
 </div>
