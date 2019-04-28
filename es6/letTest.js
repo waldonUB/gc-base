@@ -96,12 +96,30 @@
 // }).catch(onRejected => {
 //     console.log(onRejected)
 // })
-
-function f() {
-    console.log(`我是f`)
-    function f1() {
-        console.log(`我是f1`)
-    }
+let src = 'http://seopic.699pic.com/photo/50035/0520.jpg_wh1200.jpg'
+function loadImg(src) {
+    return new Promise((resolve, reject) => {
+        var img = document.createElement('img')
+        img.onload = function () {
+            resolve(img)
+        }
+        img.onerror = function () {
+            reject(`图片加载失败`)
+        }
+        img.src = src
+    })
 }
+
+var promise = loadImg(src)
+promise.then(function (result) {
+    console.log(result)
+    return result
+}).catch(function (e) {
+    console.log(e)
+}).then(null, function () {
+
+})
+
+
 
 
