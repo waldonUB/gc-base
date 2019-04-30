@@ -11,10 +11,11 @@ class Div {
 
     }
     init() {
-        console.log(`I am the init method：${this.name}`)
+        console.log(`I am the init method：${this.name}`);
+        
     }
 }
-// 用不到实例化的class直接用static关键字？
+/** 用不到实例化的class直接用static关键字 */
 class Factory {
     static create(type) {
         switch (type) {
