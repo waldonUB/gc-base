@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IE中的flex和子元素absolute</title>
+    <style>
+        .relative {
+            width: 200px;
+            height: 200px;
+            background-color: rgba(0, 0, 0, .2);
+            position: relative;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+        .relative::before {
+            content: '';
+            width: 100%;
+            height: 200px;
+            z-index: -1;
+            position: absolute;
+            /*这两个属性不指定的话，在IE下位置会偏移*/
+            /*top: 0;*/
+            /*left: 0;*/
+            background-color: red;
+            border: 1px solid black;
+        }
+        .child {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+<div class="relative"></div>
+<div class="relative">
+    <div class="child"></div>
+</div>
+</body>
+</html>
