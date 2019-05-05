@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>入口html</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    {{content}}
+    {{computedContent = 'cc,5'}}
+    <app :data-content="content" @change-data="changeData"></app>
+    <button @click="addList">AddList</button>
+    <div v-for="item of list">
+        {{item}}
+    </div>
+    <div v-for="item of userInfo">
+        {{item}}
+    </div>
+</div>
+
+<script>
+    // import App from "./src/App"
+    // var App = require('./src/App')
+    var App = {
+        template: `<div id="temp">我是模板{{dataContent}}</div>`,
+        // 父组件给子组件传值
+        props: ['data-content'],
+        data: function () {
+            return {
+                // dataContent: 'I am dataContent'
+            }
+        },
+        methods: {
+            emitTest() {
+                let ev = document.getElementById('temp')
+                let vm =  this
+                ev.addEventListener('click', function () {
+                    console.log(`我是监听事件`)
+                    vm.$emit('change-data', 'param1', 'param2')
+                }, true)
+            },
+            fatherMethod() {
+                console.log('I am father')
+            }
+        },
+        mounted() {
+            this.emitTest()
+        }
+    }
+    var vm = new Vue({
+        el: '#app',
+        // template: `<div>我是实例的template</div>`,
+        data: {
+            content: 'myWorld',
+            list: [1, 2, 3],
+            userInfo: {
+                name: 'wdq',
+                age: 23
+            }
+        },
+        components: {
+            App
+        },
+        computed: {
+            computedContent: {
+                get: function () {
+                    return this.content + `666`
+                },
+                set: function (value) {
+                    this.content = value.split(',')[0]
+                }
+            }
+        },
+        methods: {
+            changeData(param1, param2) {
+                console.log(`这是子组件传过来的事件:${param1},${param2}`)
+            },
+            addList() {
+                // this.list.push(4) 可以触发页面渲染
+                // this.list[4] = 4  无法渲染
+                // Vue.set(this, 'list[4]', 4)
+                // Vue.set(this.userInfo, 'sex', '男') 可以触发页面渲染
+                // vm.$set(this.userInfo, 'sex', '男') vm和this都表示这个vue的实例
+            }
+        },
+        beforeMount() {
+            console.log(`beforeMount:`, this.$el)
+        },
+        mounted() {
+            console.log(`mounted:`, this.$el)
+        }
+    })
+</script>
+</body>
+</html>
+<!--<script>-->
+    <!--import App from "./src/App";-->
+    <!--export default {-->
+        <!--components: {App}-->
+    <!--}-->
+<!--</script>-->
