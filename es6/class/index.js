@@ -17,6 +17,7 @@ class User extends Person {
         console.log(`${this.name}的idCard为${this.idCard}`)
     }
 }
+// JQuery的实现
 class JQuery {
     constructor(selector) {
         let slice = Array.prototype.slice
