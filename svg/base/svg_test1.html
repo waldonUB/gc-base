@@ -3,20 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        html * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+        div {
+            width: 100%;
+            height: 9%;
+        }
+        /*svg为什么会盒模型高度一样还会有滚动条？这是浏览器在渲染SVG的时候的1像素问题？*/
+        svg {
+            box-sizing: border-box;
+            border: 30px solid rgba(60, 63, 65, 0.5);
+            padding: 200px;
+            width: 100%;
+            height: 90%;
+        }
+        .start-event{
+            fill: #ffffff;
+            stroke: black;
+            stroke-width: 1pt;
+        }
+        .end{
+            fill: #ffffff;
+            stroke: black;
+            stroke-width: 3pt;
+        }
+    </style>
 </head>
 <body>
-<svg>
-    <rect x="18" y="11">
-
-    </rect>
-    <circle r="18" cx="18" cy="18">
-
+<svg id="svgContainer">
+    <circle id="startEvent" r="24" cx="100" cy="100" class="start-event">
     </circle>
+    <circle id="endEvent" r="24" cx="400" cy="100" class="end">
+    </circle>
+    <!--<line id="normalLine" x1="0" y1="0" x2="200" y2="0" style="stroke:rgb(0,0,0);stroke-width:5" ></line>-->
 </svg>
 <script>
-    (function f() {
-        document.createElementNS(ns, tagName)
-    }())
+    var startPoint = {}
+    var endPoint = {}
+    var startEvent = document.getElementById("startEvent")
+    var endEvent = document.getElementById("endEvent")
+    var svgContainer = document.getElementById("svgContainer")
+    startEvent.addEventListener('click', startEventFn)
+    endEvent.addEventListener('click', endEventFn)
+    function startEventFn() {
+        if (Object.keys(startPoint).length !== 0) {
+            startPoint = {}
+        }
+        startPoint.cx = startEvent.getAttribute('cx')
+        startPoint.cy = startEvent.getAttribute('cy')
+    }
+    function endEventFn() {
+        endPoint.cx = endEvent.getAttribute('cx')
+        endPoint.cy = endEvent.getAttribute('cy')
+        var line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        line.setAttribute('x1', startPoint.cx)
+        line.setAttribute('y1', startPoint.cy)
+        line.setAttribute('x2', endPoint.cx)
+        line.setAttribute('y2', endPoint.cy)
+        line.style.stroke = 'red'
+        line.style.strokeWidth = '5'
+        svgContainer.appendChild(line)
+    }
 </script>
 </body>
 </html>
