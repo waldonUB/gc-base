@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="timer" style="width: 100px;height: 100px;background-color: red;"></div>
+<script>
+    var timer = {
+        timer: 0
+    }
+    var timerElement = document.getElementById("timer")
+    timerElement.addEventListener("click", function () {
+        // 其实清掉的是id池内的id，
+        // 只要一直在间隔内一直点击，就会一直清掉上一个id
+        clearTimeout(timer.timer)
+        timer.timer = setTimeout(function () {
+            alert(`我被点击了`)
+        }, 1000)
+        console.log(timer.timer)
+        // console.log(`${timer.timer}被清掉了`)
+        // delete timer.timer
+    })
+</script>
+</body>
+</html>

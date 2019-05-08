@@ -6,61 +6,62 @@
     <link href="../style/css/common.css" rel="stylesheet">
 </head>
 <body>
-<div class="wrapper">
+<div id="designWrapper" class="wrapper">
     <div class="header"></div>
     <div class="main">
-        <div class="left">
+        <div id="toolBox" class="left">
             <ul>
-                <li id="startEvent">
+                <li id="startEvent" class="b-node">
                     <img src="../static/img/startEvent.png" alt="startEvent">
                     <span>开始节点</span>
                 </li>
-                <li id="endEvent">
+                <li id="endEvent" class="b-node">
                     <img src="../static/img/endEvent.png" alt="endEvent">
                     <span>结束节点</span>
                 </li>
-                <li id="userTask">
+                <li id="userTask" class="b-node">
                     <img src="../static/img/type.user.png" alt="startEvent">
                     <span>用户任务</span>
                 </li>
-                <li id="subProcess">
+                <li id="subProcess" class="b-node">
                     <img src="../static/img/expanded.subprocess.png" alt="startEvent">
                     <span>子流程</span>
                 </li>
-                <li id="outSubProcess">
+                <li id="outSubProcess" class="b-node">
                     <img src="../static/img/task.png" alt="startEvent">
                     <span>外部子流程</span>
                 </li>
-                <li id="branch">
+                <li id="branch" class="b-node">
                     <img src="../static/img/exclusive.databased.png" alt="startEvent">
                     <span>分支网关</span>
                 </li>
-                <li id="parallel">
+                <li id="parallel" class="b-node">
                     <img src="../static/img/parallel.png" alt="startEvent">
                     <span>并行网关</span>
                 </li>
-                <li id="conditionParallel">
+                <li id="conditionParallel" class="b-node">
                     <img src="../static/img/inclusive.png" alt="startEvent">
                     <span>条件并行网关</span>
                 </li>
-                <li id="pool">
+                <li id="pool" class="b-node">
                     <img src="../static/img/pool.png" alt="startEvent">
                     <span>池</span>
                 </li>
-                <li id="lane">
+                <li id="lane" class="b-node">
                     <img src="../static/img/lane.png" alt="startEvent">
                     <span>泳道</span>
                 </li>
-                <li id="description">
+                <li id="description" class="b-node">
                     <img src="../static/img/text.annotation.png" alt="startEvent">
                     <span>注释说明</span>
                 </li>
             </ul>
         </div>
-        <div class="center"></div>
+        <div id="designArea" class="center"></div>
         <div class="right"></div>
     </div>
     <div class="footer"></div>
 </div>
+<script src="../js/index.js"></script>
 </body>
 </html>
