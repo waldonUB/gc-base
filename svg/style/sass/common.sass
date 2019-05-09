@@ -43,6 +43,12 @@ html, body
         span
           font-size: 18px
           margin-left: 4px
+  >.left[data-content='show']::before
+    content: attr(data-content)
+    position: absolute
+    width: 100%
+    height: 100%
+    z-index: 99
   >.center
     position: relative
     flex: 6 1 0
