@@ -951,8 +951,32 @@
 // p1.__proto__.name = 'ksl'
 // console.log(Person.prototype.name)
 
-function Person() {
-    return this.a
-}
-var newPerson = Person.bind({a: 'wdq'})
-console.log(newPerson())
+// function Person() {
+//     return this.a
+// }
+// var newPerson = Person.bind({a: 'wdq'})
+// console.log(newPerson())
+
+// var fn = (function () {
+//     var userInfo = {
+//         name: 'wdq',
+//         age: 12
+//     }
+//     return function () {
+//         // delete userInfo.name 在退出函数前把不用的局部变量删除
+//         // userInfo = null 清除引用
+//         return userInfo
+//     }
+// }())
+//
+// console.log(fn())
+
+// // 循环引用
+// var obj1 = {}
+// var obj2 = {}
+// obj1.o = obj2
+// obj2.o = obj1
+
+// console.log(typeof null) // object
+// console.log(typeof undefined) // undefined
+// console.log(typeof Symbol) // function
