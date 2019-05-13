@@ -2,6 +2,7 @@
 const nodes = document.getElementsByClassName("b-node") // 获取的所有流程节点
 const headerNode = document.getElementById("headerNode") // 头部容器
 const toolBox = document.getElementById("toolBox")// 左边工具栏
+const center = document.getElementById("center")// 画布的wrapper
 const designArea = document.getElementById("designArea") // 流程设计画布
 let selectNode // 工具栏中被选中的节点
 let timer
@@ -35,14 +36,23 @@ for (let node of nodes) {
 //     e.preventDefault() // 阻止默认事件
 //     initSelectNode()
 // })
-designArea.addEventListener('mouseover', function () {
-    console.log('进去了')
-    isInDesignArea = true
-})
-designArea.addEventListener('mouseout', function () {
-    console.log('出去了')
-    isInDesignArea = false
-})
+// 以坐标计算的方式代替绑定移入移除
+// designArea.addEventListener('mouseover', function () {
+//     isInDesignArea = true
+// })
+// designArea.addEventListener('mouseout', function () {
+//     isInDesignArea = false
+// })
+/**
+ * 以坐标计算的方式监听元素放的位置，避免绑定多个移入移除事件
+ * */
+function getOffsetXY(e) {
+    let startX = toolBox.offsetWidth
+    let startY = headerNode.offsetHeight
+    let endX = toolBox.offsetWidth + designArea.clientWidth
+    let endY = headerNode.offsetHeight + designArea.clientHeight
+    isInDesignArea = e.clientX > startX && e.clientY > startY && e.clientX < endX && e.clientY < endY
+}
 /**
  * @param e 为回调函数中的当前元素，移到哪里就是哪个元素
  * */
@@ -56,16 +66,18 @@ document.body.addEventListener('mousemove', function (e) {
     }, 10)
 })
 document.body.addEventListener('mouseup', function (e) {
-    console.log('弹')
     setTimeout(function () {
         if (selectNode) { // 防止js队列没执行完
             document.body.removeChild(selectNode)
+            getOffsetXY(e)
             if (isInDesignArea) {
+                var arrow = document.getElementById("arrow")
                 const id = selectNode.id
                 const x = e.clientX - toolBox.offsetWidth
                 const y = e.clientY - headerNode.offsetHeight
                 const node = processNodeFactory(id, x, y)
                 designArea.appendChild(node)
+                designArea.appendChild(arrow)
             }
             selectNode = null
             document.body.style.overflow = 'auto'
@@ -91,6 +103,7 @@ function processNodeFactory(id, x, y) {
             node = createRect(x, y)
     }
     node.addEventListener('mousedown', svgDown)
+    node.addEventListener('click', svgClick)
     return node
 }
 
@@ -115,10 +128,10 @@ function createEndEvent(x , y) {
     const endEvent = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     endEvent.setAttribute("cx", x)
     endEvent.setAttribute("cy", y)
-    endEvent.setAttribute("r", '80')
+    endEvent.setAttribute("r", '20')
     endEvent.style.stroke = 'rgba(88, 88, 88, 1)'
     endEvent.style.fill = 'transparent'
-    endEvent.style.strokeWidth = '40px'
+    endEvent.style.strokeWidth = '4px'
     return endEvent
 }
 
@@ -157,10 +170,20 @@ function designAreaMove(e) {
         clearTimeout(svgTimer)
         svgTimer = setTimeout(function () {
             if (svgNode) {
-                const x = e.clientX - toolBox.offsetWidth
-                const y = e.clientY - headerNode.offsetHeight
-                svgNode.setAttribute("cx", x)
-                svgNode.setAttribute("cy", y)
+                let nodeInfo = svgNode.getBBox()
+                const currentX = e.clientX - toolBox.offsetWidth
+                const currentY = e.clientY - headerNode.offsetHeight
+                switch (svgNode.nodeName) {
+                    case 'circle':
+                        svgNode.setAttribute("cx", currentX)
+                        svgNode.setAttribute("cy", currentY)
+                        break;
+                    case 'rect':
+                        svgNode.setAttribute("x", (currentX - nodeInfo.width / 2))
+                        svgNode.setAttribute("y", (currentY - nodeInfo.height / 2))
+                        break;
+                }
+
             }
         }, 10)
     }
@@ -174,3 +197,33 @@ headerNode.addEventListener('mouseover', function () {
         svgNode = null
     }
 })
+
+/**
+ * 流程画布内，svg元素点击事件
+ * */
+function svgClick(e) {
+    debugger
+    let currentNode = e.target.getBBox()
+    let toolBar = toolBarSingleton(currentNode)
+    center.appendChild(toolBar)
+}
+
+/**
+ * 创建跟随svg元素移动的单例工具栏
+ * */
+let toolBarSingleton = getToolBar()
+function getToolBar() {
+    let toolBar
+    if (!toolBar) {
+        toolBar = document.createElement('div')
+        toolBar.style.width = '50px'
+        toolBar.style.height = '50px'
+        toolBar.style.position = 'absolute'
+        toolBar.style.backgroundColor = '#ff0'
+    }
+    return function (currentNode) {
+        toolBar.style.left = (currentNode.x + currentNode.width) + 'px'
+        toolBar.style.top = (currentNode.y - 50) + 'px'
+        return toolBar
+    }
+}
