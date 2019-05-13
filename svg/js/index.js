@@ -1,10 +1,11 @@
-var nodes = document.getElementsByClassName("b-node")
-var headerNode = document.getElementById("headerNode")
-var toolBox = document.getElementById("toolBox")
-var designArea = document.getElementById("designArea")
-var selectNode
-var timer
-var isInDesignArea = false
+'use strict'
+const nodes = document.getElementsByClassName("b-node") // 获取的所有流程节点
+const headerNode = document.getElementById("headerNode") // 头部容器
+const toolBox = document.getElementById("toolBox")// 左边工具栏
+const designArea = document.getElementById("designArea") // 流程设计画布
+let selectNode // 工具栏中被选中的节点
+let timer
+let isInDesignArea = false // 是否放到流程画布中
 for (let node of nodes) {
     node.addEventListener('mousedown', function (e) {
         e.preventDefault() // 阻止默认事件
@@ -34,10 +35,12 @@ for (let node of nodes) {
 //     e.preventDefault() // 阻止默认事件
 //     initSelectNode()
 // })
-designArea.addEventListener('mouseover', function (e) {
+designArea.addEventListener('mouseover', function () {
+    console.log('进去了')
     isInDesignArea = true
 })
-designArea.addEventListener('mouseout', function (e) {
+designArea.addEventListener('mouseout', function () {
+    console.log('出去了')
     isInDesignArea = false
 })
 /**
@@ -53,18 +56,21 @@ document.body.addEventListener('mousemove', function (e) {
     }, 10)
 })
 document.body.addEventListener('mouseup', function (e) {
+    console.log('弹')
     setTimeout(function () {
         if (selectNode) { // 防止js队列没执行完
             document.body.removeChild(selectNode)
             if (isInDesignArea) {
-                var id = selectNode.id
-                var x = e.clientX - toolBox.offsetWidth
-                var y = e.clientY - headerNode.offsetHeight
-                var node = processNodeFactory(id, x, y)
+                const id = selectNode.id
+                const x = e.clientX - toolBox.offsetWidth
+                const y = e.clientY - headerNode.offsetHeight
+                const node = processNodeFactory(id, x, y)
                 designArea.appendChild(node)
             }
             selectNode = null
             document.body.style.overflow = 'auto'
+        }else if (svgNode) {
+            svgNode = null // 清除引用，停止移动
         }
     }, 15)
 })
@@ -73,27 +79,31 @@ document.body.addEventListener('mouseup', function (e) {
  * 根据传入的流程id和坐标创建对应svg实例
  * */
 function processNodeFactory(id, x, y) {
+    let node
     switch (id) {
         case 'startEvent':
-            return createStartEvent(x, y)
+            node = createStartEvent(x, y)
+            break
         case 'endEvent':
-            return createEndEvent(x, y)
+            node = createEndEvent(x, y)
+            break
         case 'userTask':
-            return createRect(x, y)
+            node = createRect(x, y)
     }
+    node.addEventListener('mousedown', svgDown)
+    return node
 }
 
 /**
  * 创建开始节点
  * */
 function createStartEvent(x , y) {
-    var startEvent = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
-    debugger
+    const startEvent = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     startEvent.setAttribute("cx", x)
     startEvent.setAttribute("cy", y)
     startEvent.setAttribute("r", '20')
     startEvent.style.stroke = 'rgba(88, 88, 88, 1)'
-    startEvent.style.fill = 'none'
+    startEvent.style.fill = 'transparent' // 这个属性存在的时候，点不到svg元素中心
     // startEvent.style.pointerEvents = 'pointer'
     return startEvent
 }
@@ -102,28 +112,65 @@ function createStartEvent(x , y) {
  * 创建结束节点
  * */
 function createEndEvent(x , y) {
-    var endEvent = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+    const endEvent = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     endEvent.setAttribute("cx", x)
     endEvent.setAttribute("cy", y)
-    endEvent.setAttribute("r", '20')
+    endEvent.setAttribute("r", '80')
     endEvent.style.stroke = 'rgba(88, 88, 88, 1)'
-    endEvent.style.fill = 'none'
-    endEvent.style.strokeWidth = '4px'
+    endEvent.style.fill = 'transparent'
+    endEvent.style.strokeWidth = '40px'
     return endEvent
 }
 
 /**
  * 创建用户任务图
  * */
-var createRect = function (x , y) {
-    var userRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+let createRect = function (x , y) {
+    const userRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
     userRect.setAttribute("x", x)
     userRect.setAttribute("y", y)
     userRect.setAttribute("rx", '10')
     userRect.setAttribute("width", '120')
     userRect.setAttribute("height", '80')
     userRect.style.stroke = 'rgba(88, 88, 88, 1)'
-    userRect.style.fill = 'none'
+    userRect.style.fill = 'transparent'
     userRect.style.borderRadius = '4px'
     return userRect
 }
+
+// 流程内的svg元素拖拽事件
+let svgNode
+let svgTimer
+
+/**
+ * 鼠标按下去
+ * */
+function svgDown(e) {
+    e.preventDefault() // 防止出现拖拽的图标
+    svgNode = e.target
+}
+/**
+ * 鼠标移动
+ * */
+function designAreaMove(e) {
+    if (svgNode) { // 避免定义不必要的定时器
+        clearTimeout(svgTimer)
+        svgTimer = setTimeout(function () {
+            if (svgNode) {
+                const x = e.clientX - toolBox.offsetWidth
+                const y = e.clientY - headerNode.offsetHeight
+                svgNode.setAttribute("cx", x)
+                svgNode.setAttribute("cy", y)
+            }
+        }, 10)
+    }
+}
+designArea.addEventListener('mousemove', designAreaMove)
+/**
+ * 监听头部鼠标移进事件
+ * */
+headerNode.addEventListener('mouseover', function () {
+    if (svgNode) { // 防止从头部移除window窗口的监听范围
+        svgNode = null
+    }
+})

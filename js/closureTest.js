@@ -980,3 +980,11 @@
 // console.log(typeof null) // object
 // console.log(typeof undefined) // undefined
 // console.log(typeof Symbol) // function
+
+var num1 = "22.0"
+var num2 = 22
+var num3 = 22.0
+console.log(num1 === num2)
+console.log(Number(num1) === Number(num2))
+console.log(Number(num1) === Number(num3))
+console.log(Number(num1))
