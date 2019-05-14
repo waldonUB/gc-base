@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<label for="vueTest">测试defineProperty</label>
+<input type="text" id="vueTest">
+<script>
+    // 可以用不同的值来指定
+    let obj = {_vueTest: 'wdq'}
+    Object.defineProperty(obj, 'vueTest', {
+        // value: '',
+        // writable: true, 不能同时声明存储器和value、writable这两个属性
+        configurable: true,
+        enumerable: true,
+        get() {
+            return document.getElementById("vueTest").value + this._vueTest
+        },
+        set(v) {
+            document.getElementById("vueTest").value = v
+        }
+    })
+</script>
+</body>
+</html>
