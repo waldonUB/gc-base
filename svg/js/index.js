@@ -202,21 +202,19 @@ headerNode.addEventListener('mouseover', function () {
  * 流程画布内，svg元素点击事件
  * */
 function svgClick(e) {
-    debugger
     let currentNode = e.target.getBBox()
-    let toolBar = toolBarSingleton(currentNode)
+    let toolBar = getToolBar(currentNode)
     center.appendChild(toolBar)
 }
 
 /**
  * 创建跟随svg元素移动的单例工具栏
  * */
-let toolBarSingleton = getToolBar()
-function getToolBar() {
+let getToolBar = (function () {
     let toolBar
     if (!toolBar) {
         toolBar = document.createElement('div')
-        toolBar.style.width = '50px'
+        toolBar.style.width = '100px'
         toolBar.style.height = '50px'
         toolBar.style.position = 'absolute'
         toolBar.style.backgroundColor = '#ff0'
@@ -226,4 +224,5 @@ function getToolBar() {
         toolBar.style.top = (currentNode.y - 50) + 'px'
         return toolBar
     }
-}
+}())
+
