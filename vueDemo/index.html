@@ -17,6 +17,8 @@
     <div v-for="item of userInfo">
         {{item}}
     </div>
+    <label for="inputInit">测试双向绑定</label>
+    <input type="text" id="inputInit" v-model="inputVal">
 </div>
 
 <script>
@@ -57,7 +59,8 @@
             userInfo: {
                 name: 'wdq',
                 age: 23
-            }
+            },
+            inputVal: 'init'
         },
         components: {
             App
@@ -90,6 +93,9 @@
         mounted() {
             console.log(`mounted:`, this.$el)
         }
+    })
+    document.getElementById("inputInit").addEventListener('input', function () {
+        console.log(`我是vue中的${vm.inputVal}`)
     })
 </script>
 </body>

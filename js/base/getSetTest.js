@@ -25,7 +25,8 @@
 // obj.name = 'waldon'
 // console.log(obj.userName)
 
-'use strict' // 使用严格模式，会报TypeERROR的错误，obj.name为只读
+// 使用严格模式，如果只有get属性，赋值时会报TypeERROR的错误，obj.name为只读
+'use strict'
 let obj = {
     get age() {
         return '666?'
