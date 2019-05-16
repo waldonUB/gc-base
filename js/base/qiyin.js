@@ -37,16 +37,37 @@
 //     }, i*1000)
 // }
 
-var workshop = {
-    teacher:"17dian",
-    ask(){
-        console.log(this.teacher,this.question)
-    },
-    ask1: function () {
-        console.log(this.teacher,this.question)
-    }
-}
-var teacher = "dongyang";
-var question = "are you OK?"
-workshop.ask()
-workshop.ask1()
+// var workshop = {
+//     teacher:"17dian",
+//     ask(){
+//         console.log(this.teacher,this.question)
+//     },
+//     ask1: function () {
+//         console.log(this.teacher,this.question)
+//     }
+// }
+// var teacher = "dongyang";
+// var question = "are you OK?"
+// workshop.ask()
+// workshop.ask1()
+
+// var a = 1
+// function test () {
+//     console.log(this.a)
+// }
+// var obj = {
+//     a: 2,
+//     test
+// }
+// var testCopy = obj.test // 相当于执行了一个setTimeout函数
+// testCopy()
+
+// var a = 1
+// var test = () => {
+//     console.log(this.a)
+// }
+// var obj = {
+//     a: 2,
+//     test
+// }
+// obj.test()

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 'use strict'
+    // 箭头函数没有自己的this，arguments，super或 new.target
+    // var test = arg1 => {return arg1}
+    // var obj = () => ({name: 'wdq'})
+
+    // var a = 2
+    // var test1 = () => {
+    //     console.log(this.a)
+    // }
+    //
+    // var test2 = function () {
+    //     console.log(this.a)
+    // }
+    // var obj1 = {
+    //     a: 1,
+    //     b: {
+    //         test1
+    //     },
+    //     test1,
+    //     test2
+    // }
+    // obj1.test1() // 2
+    // obj1.test2() // 1
+    // obj1.b.test1() // 也还是2
+
+    // var a = 1
+    // var test1 = function () {
+    //     console.log(this.a)
+    //     // var a = 2
+    //     // function f() {
+    //     //
+    //     // }
+    //     // return f
+    // }
+    // test1()()
+
+    // 'use strict'
+    // function PersonX() {
+    //     this.age = 0;
+    //     var closure = "123"
+    //     setInterval(()=>{ // 箭头函数的this是继承父类的
+    //         console.log(this.age++)
+    //     }, 1000);
+    // }
+    // var px = new PersonX()
+    //
+    // var age = 5
+    // function Person() {
+    //     this.age = 0;
+    //     var closure = "123"
+    //     setInterval(function () { // 这里会指向window
+    //         console.log(this.age++)
+    //     }, 1000);
+    // }
+    // var p = new Person()
+
+    // 'use strict';
+    // var obj = {
+    //     a: 10
+    // };
+    //
+    // Object.defineProperty(obj, "b", {
+    //     get: () => {
+    //         console.log(this.a, typeof this.a, this);
+    //         return this.a+10;
+    //         // 代表全局对象 'Window', 因此 'this.a' 返回 'undefined'
+    //     }
+    // });
+    //
+    // obj.b;
+
+    // (() => {
+    //     console.log(`直接执行`)
+    // })();
+    // (() => {
+    //     console.log(`直接执行`)
+    // })()
+
+    // 'use strict'
+    // var a = 1
+    // function f() {
+    //     console.log(this.a) // 严格模式时，表现为undefined
+    // }
+    // var obj = {
+    //     a: 2,
+    //     f
+    // }
+    // obj.f() // 这里可以直接执行，结果为2
+    // f() 直接执行时，非严格模式会指向window，严格模式会报undefined的错
+
+    // 'use strict'
+    // var a = 1;
+    // (() => { // 输出1
+    //     console.log(this.a)
+    // })()
+    // (function f() { // undefined
+    //     console.log(this.a)
+    // })()
+    // 'use strict'
+    // var a = 1
+    // function f() {
+    //     setInterval(function () { // setTimeout和setInterval中的this默认是window对象
+    //         console.log(this.a)
+    //     }, 1000)
+    // }
+    // f()
+    // function f() {
+    //     var test = () => {
+    //         console.log(this.a) // 输出2
+    //     }
+    //     test()
+    // }
+    // f.call({a: 2})
+    // function foo() {
+    //     return function () {
+    //         // 用的是这一层的this，如果是多层箭头函数，就是最外层的this
+    //         return () => {
+    //             console.log('id:' + this.id)
+    //         }
+    //     }
+    // }
+    // foo().call({id: 1})()
+</script>
+</body>
+</html>
