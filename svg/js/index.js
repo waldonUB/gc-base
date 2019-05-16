@@ -165,29 +165,32 @@ function svgDown(e) {
 /**
  * 鼠标移动
  * */
-function designAreaMove(e) {
-    if (svgNode) { // 避免定义不必要的定时器
-        clearTimeout(svgTimer)
-        svgTimer = setTimeout(function () {
-            if (svgNode) {
-                let nodeInfo = svgNode.getBBox()
-                const currentX = e.clientX - toolBox.offsetWidth
-                const currentY = e.clientY - headerNode.offsetHeight
-                switch (svgNode.nodeName) {
-                    case 'circle':
-                        svgNode.setAttribute("cx", currentX)
-                        svgNode.setAttribute("cy", currentY)
-                        break;
-                    case 'rect':
-                        svgNode.setAttribute("x", (currentX - nodeInfo.width / 2))
-                        svgNode.setAttribute("y", (currentY - nodeInfo.height / 2))
-                        break;
+var designAreaMove = (function () {
+    let isMove // 鼠标是否在移动，用于节流
+    return function (e) {
+        if (svgNode && !isMove) { // 避免定义不必要的定时器
+            isMove = true
+            svgTimer = setTimeout(function () { // 应该改用函数节流来做！！！
+                if (svgNode) {
+                    let nodeInfo = svgNode.getBBox()
+                    const currentX = e.clientX - toolBox.offsetWidth
+                    const currentY = e.clientY - headerNode.offsetHeight
+                    switch (svgNode.nodeName) {
+                        case 'circle':
+                            svgNode.setAttribute("cx", currentX)
+                            svgNode.setAttribute("cy", currentY)
+                            break;
+                        case 'rect':
+                            svgNode.setAttribute("x", (currentX - nodeInfo.width / 2))
+                            svgNode.setAttribute("y", (currentY - nodeInfo.height / 2))
+                            break;
+                    }
                 }
-
-            }
-        }, 10)
+                isMove = false
+            }, 30)
+        }
     }
-}
+})();
 designArea.addEventListener('mousemove', designAreaMove)
 /**
  * 监听头部鼠标移进事件
