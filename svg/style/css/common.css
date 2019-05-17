@@ -13,7 +13,7 @@ html, body {
   display: flex;
   flex-flow: column nowrap;
   border: 1px solid black; }
-  .wrapper div {
+  .wrapper > div {
     box-sizing: border-box;
     border: 1px solid black; }
 
@@ -46,6 +46,7 @@ html, body {
           margin-left: 4px; }
   .main > .center {
     position: relative;
+    border: 1px solid black;
     flex: 6 1 0; }
   .center > #designArea {
     width: 100%;
@@ -57,4 +58,15 @@ html, body {
 .footer {
   flex: 3 1 0; }
 
+/*流程图中图标的处理*/
+.icon-config {
+  display: inline-block;
+  list-style: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.icon-config:hover {
+  background-color: rgba(211, 237, 243, 0.8);
+}
 /*# sourceMappingURL=common.css.map */

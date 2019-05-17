@@ -5,8 +5,8 @@ const toolBox = document.getElementById("toolBox")// 左边工具栏
 const center = document.getElementById("center")// 画布的wrapper
 const designArea = document.getElementById("designArea") // 流程设计画布
 let selectNode // 工具栏中被选中的节点
-let timer
 let isInDesignArea = false // 是否放到流程画布中
+let toolBar // 点击画布中流程节点显示的工具栏
 for (let node of nodes) {
     node.addEventListener('mousedown', function (e) {
         e.preventDefault() // 阻止默认事件
@@ -53,38 +53,47 @@ function getOffsetXY(e) {
     let endY = headerNode.offsetHeight + designArea.clientHeight
     isInDesignArea = e.clientX > startX && e.clientY > startY && e.clientX < endX && e.clientY < endY
 }
+var bodyMove = (function() {
+    let isMove = true
+    return function (e) {
+        if (isMove) {
+            isMove = false
+            setTimeout(function () {
+                if (selectNode) {
+                    selectNode.style.left = e.clientX + 'px'
+                    selectNode.style.top = e.clientY + 'px'
+                }
+                isMove = true
+            }, 15)
+        }
+    }
+})()
 /**
  * @param e 为回调函数中的当前元素，移到哪里就是哪个元素
  * */
-document.body.addEventListener('mousemove', function (e) {
-    clearTimeout(timer)
-    timer = setTimeout(function () {
-        if (selectNode) {
-            selectNode.style.left = e.clientX + 'px'
-            selectNode.style.top = e.clientY + 'px'
-        }
-    }, 10)
-})
+document.body.addEventListener('mousemove', bodyMove)
 document.body.addEventListener('mouseup', function (e) {
     setTimeout(function () {
         if (selectNode) { // 防止js队列没执行完
             document.body.removeChild(selectNode)
             getOffsetXY(e)
             if (isInDesignArea) {
-                var arrow = document.getElementById("arrow")
                 const id = selectNode.id
                 const x = e.clientX - toolBox.offsetWidth
                 const y = e.clientY - headerNode.offsetHeight
                 const node = processNodeFactory(id, x, y)
                 designArea.appendChild(node)
-                designArea.appendChild(arrow)
             }
             selectNode = null
             document.body.style.overflow = 'auto'
         }else if (svgNode) {
             svgNode = null // 清除引用，停止移动
+        } else if (toolBar) {
+            if (toolBar.parentNode) {
+                toolBar.parentNode.removeChild(toolBar)
+            }
         }
-    }, 15)
+    }, 50)
 })
 
 /**
@@ -116,7 +125,7 @@ function createStartEvent(x , y) {
     startEvent.setAttribute("cy", y)
     startEvent.setAttribute("r", '20')
     startEvent.style.stroke = 'rgba(88, 88, 88, 1)'
-    startEvent.style.fill = 'transparent' // 这个属性存在的时候，点不到svg元素中心
+    startEvent.style.fill = 'transparent' // 这个属性为none时的时候，点不到svg元素中心
     // startEvent.style.pointerEvents = 'pointer'
     return startEvent
 }
@@ -161,16 +170,19 @@ let svgTimer
 function svgDown(e) {
     e.preventDefault() // 防止出现拖拽的图标
     svgNode = e.target
+    let currentNode = svgNode.getBBox()
+    toolBar = getToolBar(currentNode)
+    center.appendChild(toolBar)
 }
 /**
  * 鼠标移动
  * */
 var designAreaMove = (function () {
-    let isMove // 鼠标是否在移动，用于节流
+    let isMove = true // 判断鼠标是否在移动，用于节流
     return function (e) {
-        if (svgNode && !isMove) { // 避免定义不必要的定时器
-            isMove = true
-            svgTimer = setTimeout(function () { // 应该改用函数节流来做！！！
+        if (svgNode && isMove) { // 避免定义不必要的定时器
+            isMove = false
+            svgTimer = setTimeout(function () {
                 if (svgNode) {
                     let nodeInfo = svgNode.getBBox()
                     const currentX = e.clientX - toolBox.offsetWidth
@@ -186,11 +198,11 @@ var designAreaMove = (function () {
                             break;
                     }
                 }
-                isMove = false
-            }, 30)
+                isMove = true
+            }, 20)
         }
     }
-})();
+})()
 designArea.addEventListener('mousemove', designAreaMove)
 /**
  * 监听头部鼠标移进事件
@@ -205,9 +217,6 @@ headerNode.addEventListener('mouseover', function () {
  * 流程画布内，svg元素点击事件
  * */
 function svgClick(e) {
-    let currentNode = e.target.getBBox()
-    let toolBar = getToolBar(currentNode)
-    center.appendChild(toolBar)
 }
 
 /**
@@ -217,14 +226,20 @@ let getToolBar = (function () {
     let toolBar
     if (!toolBar) {
         toolBar = document.createElement('div')
+        let arrow = document.createElement('li')
+        let trash = document.createElement('li')
+        arrow.setAttribute("class", "iconfont icon-config icon-arrow_");
+        trash.setAttribute("class", "iconfont icon-config icon-trash");
         toolBar.style.width = '100px'
-        toolBar.style.height = '50px'
+        toolBar.style.height = '30px'
         toolBar.style.position = 'absolute'
-        toolBar.style.backgroundColor = '#ff0'
+        // toolBar.style.backgroundColor = '#ff0'
+        toolBar.appendChild(arrow)
+        toolBar.appendChild(trash)
     }
     return function (currentNode) {
         toolBar.style.left = (currentNode.x + currentNode.width) + 'px'
-        toolBar.style.top = (currentNode.y - 50) + 'px'
+        toolBar.style.top = (currentNode.y - 30) + 'px'
         return toolBar
     }
 }())
