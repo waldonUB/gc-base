@@ -40,7 +40,7 @@ html, body {
         display: flex;
         align-items: center;
         justify-content: center;
-        cursor: pointer; }
+        cursor: grab; }
         .main > .left ul li span {
           font-size: 18px;
           margin-left: 4px; }
@@ -64,7 +64,7 @@ html, body {
   list-style: none;
   padding: 5px;
   border-radius: 5px;
-  cursor: pointer;
+  cursor: grab;
 }
 .icon-config:hover {
   background-color: rgba(211, 237, 243, 0.8);
