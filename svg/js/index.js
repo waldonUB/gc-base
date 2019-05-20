@@ -83,8 +83,14 @@ var bodyMove = (function() {
  * @param e 为回调函数中的当前元素，移到哪里就是哪个元素
  * */
 document.body.addEventListener('mousemove', bodyMove)
-document.body.addEventListener('mouseup', function (e) {
-    if (selectNode) { // 防止js队列没执行完
+document.body.addEventListener('mouseup', bodyMouseup, false)
+
+/**
+ * body内的鼠标弹起事件
+ * */
+function bodyMouseup(e) {
+    // 从左边工具栏拖拽进画布
+    if (selectNode) {
         document.body.removeChild(selectNode)
         getOffsetXY(e)
         if (isInDesignArea) {
@@ -92,29 +98,47 @@ document.body.addEventListener('mouseup', function (e) {
             const x = e.clientX - toolBox.offsetWidth
             const y = e.clientY - headerNode.offsetHeight
             const node = processNodeFactory(id, x, y)
+            const nodeInfoId = getUUID()
+            node.setAttribute("id", nodeInfoId)
             designArea.appendChild(node)
-            // 还要加一个id
-            svgNodesInfo.push(getSvgNodeInfo(node.getBBox()))
+            svgNodesInfo.push(getSvgNodeInfo(node.getBBox(), nodeInfoId))
         }
         selectNode = null
         document.body.style.overflow = 'auto'
     }
+    // 弹起后不再允许移动
     if (isMove) {
         isMove = false
     }
-    if (toolBar && toolBar.parentNode) {
-        debugger
+    let isInLi = isMouseupInLi(e)
+    let isInSvg = isMouseupInSvg(e)
+    // 弹起位置不在svg元素和工具栏内时，清除工具栏
+    if (toolBar && toolBar.parentNode && !isInLi && !isInSvg) {
         toolBar.parentNode.removeChild(toolBar)
     }
+    // 箭头连线按钮是否被按下
     if (isArrowDown) {
+        if (isInSvg) {
+            const nodeInfoId = e.target.getAttribute("id")
+            endNodeInfo = svgNodesInfo.find(item => item.id === nodeInfoId)
+            let line = document.getElementById("initLine")
+            line.setAttribute("x1", startNodeInfo['right']['x'])
+            line.setAttribute("y1", startNodeInfo['right']['y'])
+            line.setAttribute("x2", endNodeInfo['left']['x'])
+            line.setAttribute("y2", endNodeInfo['left']['y'])
+            designArea.appendChild(line)
+            startNodeInfo = {}
+            endNodeInfo = {}
+        }
+        if (dottedLine && dottedLine.parentNode) {
+            dottedLine.parentNode.removeChild(dottedLine)
+        }
         isArrowDown = false
     }
-    debugger
     if (e.target.nodeName === 'circle') {
         console.log(`${e.target.nodeName}`)
     }
-}, true)
-
+}
 /**
  * 根据传入的流程id和坐标创建对应svg实例
  * */
@@ -131,7 +155,7 @@ function processNodeFactory(id, x, y) {
             node = createRect(x, y)
     }
     node.addEventListener('mousedown', svgDown)
-    node.addEventListener('mouseup', designAreaUp, true)
+    node.addEventListener('mouseup', designAreaUp, false)
     return node
 }
 
@@ -272,11 +296,15 @@ let getToolBar = (function () {
 /**
  * 工具栏的trash事件,从画布上移除当前svg节点，并删除引用
  * */
-function trashFn() {
-    debugger
+function trashFn(e) {
     if (svgNode && svgNode.parentNode) {
         svgNode.parentNode.removeChild(svgNode)
         svgNode = null
+    }
+    let currentToolBar = e.target.parentNode
+    let currentArea = e.target.parentNode.parentNode
+    if (currentToolBar && currentArea) {
+        currentArea.removeChild(currentToolBar)
     }
 }
 /**
@@ -284,14 +312,14 @@ function trashFn() {
  * */
 function arrowDownFn() {
     let currentNode = svgNode.getBBox()
-    startNodeInfo = {
-    }
+    let nodeInfoId = svgNode.getAttribute("id")
+    debugger
+    startNodeInfo = svgNodesInfo.find(item => item.id === nodeInfoId)
     isArrowDown = true
     if (!dottedLine) {
         dottedLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
         dottedLine.setAttribute("stroke", "#000")
         dottedLine.setAttribute("stroke-dasharray", "1 2")
-        // dottedLine.setAttribute("marker-end", "url(#myArrow)")
     }
     let nodeCenterX = currentNode.x + (currentNode.width / 2)
     let nodeCenterY = currentNode.y + (currentNode.height / 2)
@@ -309,3 +337,25 @@ function svgMouseupFn(e) {
     designArea.appendChild(line)
 }
 
+/**
+ * 判断是否在svg元素内弹起
+ * */
+function isMouseupInSvg(e) {
+    let nodeName = e.target.nodeName
+    switch (nodeName) {
+        case "circle":
+        case "rect":
+        case "path":
+            return true
+        default:
+            return false
+    }
+}
+
+/**
+ * 判断是否在工具栏的元素内，默认为li
+ * */
+function isMouseupInLi(e) {
+    let nodeName = e.target.nodeName.toLowerCase()
+    return nodeName === 'li'
+}

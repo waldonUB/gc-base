@@ -1,9 +1,9 @@
 /**
  * 返回svg节点各个方位坐标的点
  * */
-function getSvgNodeInfo(currentNodeBBox) {
+function getSvgNodeInfo(currentNodeBBox, nodeInfoId) {
     return {
-        id: getUUID(),
+        id: nodeInfoId,
         top: {
             x: currentNodeBBox.x + currentNodeBBox.width / 2,
             y: currentNodeBBox.y,
