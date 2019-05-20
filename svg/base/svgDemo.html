@@ -8,7 +8,21 @@
 </head>
 <body>
 <div id="designWrapper" class="wrapper">
-    <div id="headerNode" class="header"></div>
+    <div id="headerNode" class="header">
+        <ul>
+            <li class="iconfont iconsave icon-header"></li>
+            <li class="iconfont iconcopy icon-header"></li>
+            <li class="iconfont iconcut icon-header"></li>
+            <li class="iconfont iconshrink1 icon-header"></li>
+            <li class="iconfont iconarrawsalt icon-header"></li>
+            <li class="iconfont iconshrink icon-header"></li>
+            <li class="iconfont iconmagnify icon-header"></li>
+            <li class="iconfont iconup-circle icon-header"></li>
+            <li class="iconfont icondown-circle icon-header"></li>
+            <li class="iconfont iconleft-circle icon-header"></li>
+            <li class="iconfont iconright-circle icon-header"></li>
+        </ul>
+    </div>
     <div id="ToolContainer" class="main" data-content="">
         <div id="toolBox" class="left" data-content="">
             <ul>
@@ -65,7 +79,9 @@
                         <path d="m 0 0 v -6 l 20 6 l -20 6 v -6" stroke="#000" ></path>
                     </marker>
                 </defs>
-                <line x1="100" y1="100" x2="300" y2="200" stroke="#000" marker-end="url(#myArrow)"></line>
+                <defs>
+                    <line id="initLine" x1="100" y1="100" x2="300" y2="200" stroke="#000" marker-end="url(#myArrow)"></line>
+                </defs>
                 <!--<path d="m 0 0 v -6 l 10 6 l -10 6 v -6" stroke="#f00" fill="transparent"></path>-->
                 <!--<path d="M 100 100 h 300 v 100 h 100 s(100, 0, 200, 200)+" stroke="#f00" fill="transparent"></path>-->
                 <!--<line x1="295" y1="50" x2="95" y2="75" stroke="#000" stroke-width="5" marker-end="url(#arrow)"></line>-->

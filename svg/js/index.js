@@ -69,7 +69,7 @@ var bodyMove = (function() {
     return function (e) {
         if (flag) {
             flag = false
-            setTimeout(function () { // 节流用的
+            setTimeout(function () {
                 if (selectNode) {
                     selectNode.style.left = e.clientX + 'px'
                     selectNode.style.top = e.clientY + 'px'
@@ -84,7 +84,6 @@ var bodyMove = (function() {
  * */
 document.body.addEventListener('mousemove', bodyMove)
 document.body.addEventListener('mouseup', function (e) {
-    debugger
     if (selectNode) { // 防止js队列没执行完
         document.body.removeChild(selectNode)
         getOffsetXY(e)
@@ -104,10 +103,15 @@ document.body.addEventListener('mouseup', function (e) {
         isMove = false
     }
     if (toolBar && toolBar.parentNode) {
+        debugger
         toolBar.parentNode.removeChild(toolBar)
     }
     if (isArrowDown) {
         isArrowDown = false
+    }
+    debugger
+    if (e.target.nodeName === 'circle') {
+        console.log(`${e.target.nodeName}`)
     }
 }, true)
 
@@ -127,7 +131,7 @@ function processNodeFactory(id, x, y) {
             node = createRect(x, y)
     }
     node.addEventListener('mousedown', svgDown)
-    node.addEventListener('mouseup', svgMouseup, true)
+    node.addEventListener('mouseup', designAreaUp, true)
     return node
 }
 
@@ -209,7 +213,6 @@ var designAreaMove = (function () {
                             break;
                     }
                 } else if (svgNode && isArrowDown) {
-                    debugger
                     dottedLine.setAttribute("x2", currentX)
                     dottedLine.setAttribute("y2", currentY)
                     designArea.appendChild(dottedLine)
@@ -232,7 +235,7 @@ headerNode.addEventListener('mouseover', function () {
 /**
  * 流程画布内，svg元素鼠标弹起事件
  * */
-function svgMouseup(e) {
+function designAreaUp(e) {
     let currentNode = e.target.getBBox()
     toolBar = getToolBar(currentNode)
     center.appendChild(toolBar)
@@ -247,14 +250,14 @@ let getToolBar = (function () {
         toolBar = document.createElement('div')
         let arrow = document.createElement('li')
         let trash = document.createElement('li')
-        arrow.setAttribute("class", "iconfont icon-config icon-arrow_");
-        trash.setAttribute("class", "iconfont icon-config icon-trash");
+        arrow.setAttribute("class", "iconfont icon-config iconarrow_");
+        trash.setAttribute("class", "iconfont icon-config icontrash");
         toolBar.style.width = '100px'
         toolBar.style.height = '30px'
         toolBar.style.position = 'absolute'
         toolBar.appendChild(arrow)
         toolBar.appendChild(trash)
-        trash.addEventListener('click', trashFn)
+        trash.addEventListener('click', trashFn, false)
         arrow.addEventListener('mousedown', arrowDownFn)
     }
     return function (currentNode) {
@@ -270,6 +273,7 @@ let getToolBar = (function () {
  * 工具栏的trash事件,从画布上移除当前svg节点，并删除引用
  * */
 function trashFn() {
+    debugger
     if (svgNode && svgNode.parentNode) {
         svgNode.parentNode.removeChild(svgNode)
         svgNode = null
@@ -279,7 +283,6 @@ function trashFn() {
  * 工具栏arrow按下的触发事件
  * */
 function arrowDownFn() {
-    // debugger
     let currentNode = svgNode.getBBox()
     startNodeInfo = {
     }
@@ -294,5 +297,15 @@ function arrowDownFn() {
     let nodeCenterY = currentNode.y + (currentNode.height / 2)
     dottedLine.setAttribute("x1", nodeCenterX.toString())
     dottedLine.setAttribute("y1", nodeCenterY.toString())
+}
+
+/**
+ * 在svg元素上弹起的事件,限定用户任务和结束节点
+ * */
+function svgMouseupFn(e) {
+    let line = document.getElementById("initLine")
+    line.setAttribute("x2", e.clientX)
+    line.setAttribute("y2", e.clientY)
+    designArea.appendChild(line)
 }
 
