@@ -14,7 +14,7 @@
         name: 'Home'
     }
 </script>
-<style lang="scss" module>
+<style scoped lang="scss" module>
     @import "../css/reset";
     .current {
         color: blue;

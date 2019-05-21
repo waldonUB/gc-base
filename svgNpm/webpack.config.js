@@ -1,7 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin'); // 可以把缓存目录清掉
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 /**
  * 用来配置别名
@@ -31,18 +32,24 @@ module.exports = {
             loader: 'html-loader'
         },{
             test: /\.vue$/,
-            loader: "vue-loader",
+            loader: "vue-loader"
         },{
             test: /\.scss$/,
             use: [
-                MiniCssExtractPlugin.loader,
+                // MiniCssExtractPlugin.loader,
+                'vue-style-loader',
                 {
                     loader: 'css-loader',
                     options: {
-                        // 开启 CSS Modules
-                        modules: false,
-                        // 自定义生成的类名
-                        localIdentName: '[local]_[hash:4]'
+                        modules: true
+                    }
+                },
+                {
+                    loader: 'px2rem-loader',
+                    // options here
+                    options: {
+                        remUni: 75,
+                        remPrecision: 4
                     }
                 },
                 'sass-loader'
@@ -55,9 +62,11 @@ module.exports = {
             title: 'SVG',
             template: './index.html'
         }),
-        new MiniCssExtractPlugin({
-            filename: 'style.css'
-        })
+        // vue-loader@15时,请确保引入这个插件！
+        new VueLoaderPlugin()
+        // new MiniCssExtractPlugin({
+        //     filename: 'style.css'
+        // })
     ],
     output: {
         filename: '[name].min.js',
