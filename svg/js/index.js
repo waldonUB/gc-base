@@ -15,6 +15,7 @@ let dottedLine // 箭头按下的虚线
 let svgNodesInfo = [] // 画布上所有svg节点的信息数组
 let startNodeInfo = {} // 连线开始的svg节点的信息
 let endNodeInfo = {} // 连线结束的svg节点的信息
+let linesInfo = [] // 连接线信息集合
 for (let node of nodes) {
     node.addEventListener('mousedown', function (e) {
         e.preventDefault() // 阻止默认事件
@@ -121,22 +122,25 @@ function bodyMouseup(e) {
         if (isInSvg) {
             const nodeInfoId = e.target.getAttribute("id")
             endNodeInfo = svgNodesInfo.find(item => item.id === nodeInfoId)
-            let line = document.getElementById("initLine")
+            let line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+            line.setAttribute("stroke", "#000")
+            line.setAttribute("marker-end", "url(#myArrow)")
             line.setAttribute("x1", startNodeInfo['right']['x'])
             line.setAttribute("y1", startNodeInfo['right']['y'])
             line.setAttribute("x2", endNodeInfo['left']['x'])
             line.setAttribute("y2", endNodeInfo['left']['y'])
             designArea.appendChild(line)
+            debugger
+            let lineInfo = line.getBBox()
+            linesInfo.push(line)
             startNodeInfo = {}
             endNodeInfo = {}
+            svgNode = e.target
         }
         if (dottedLine && dottedLine.parentNode) {
             dottedLine.parentNode.removeChild(dottedLine)
         }
         isArrowDown = false
-    }
-    if (e.target.nodeName === 'circle') {
-        console.log(`${e.target.nodeName}`)
     }
 }
 /**
@@ -236,10 +240,16 @@ var designAreaMove = (function () {
                             svgNode.setAttribute("y", (currentY - nodeInfo.height / 2))
                             break;
                     }
+                    const currentNodeId = svgNode.getAttribute("id")
+                    const currentSvgNodeInfo = getSvgNodeInfo(svgNode.getBBox(), currentNodeId)
+                    svgNodesInfo = svgNodesInfo.filter(item => item.id !== currentNodeId)
+                    svgNodesInfo.push(currentSvgNodeInfo)
                 } else if (svgNode && isArrowDown) {
                     dottedLine.setAttribute("x2", currentX)
                     dottedLine.setAttribute("y2", currentY)
-                    designArea.appendChild(dottedLine)
+                    if (!dottedLine.parentNode) {
+                        designArea.appendChild(dottedLine)
+                    }
                 }
                 flag = true
             }, 20)
@@ -290,52 +300,6 @@ let getToolBar = (function () {
         return toolBar
     }
 }())
-
-
-/*-------------------------- svg节点工具栏的操作 --------------------------*/
-/**
- * 工具栏的trash事件,从画布上移除当前svg节点，并删除引用
- * */
-function trashFn(e) {
-    if (svgNode && svgNode.parentNode) {
-        svgNode.parentNode.removeChild(svgNode)
-        svgNode = null
-    }
-    let currentToolBar = e.target.parentNode
-    let currentArea = e.target.parentNode.parentNode
-    if (currentToolBar && currentArea) {
-        currentArea.removeChild(currentToolBar)
-    }
-}
-/**
- * 工具栏arrow按下的触发事件
- * */
-function arrowDownFn() {
-    let currentNode = svgNode.getBBox()
-    let nodeInfoId = svgNode.getAttribute("id")
-    debugger
-    startNodeInfo = svgNodesInfo.find(item => item.id === nodeInfoId)
-    isArrowDown = true
-    if (!dottedLine) {
-        dottedLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-        dottedLine.setAttribute("stroke", "#000")
-        dottedLine.setAttribute("stroke-dasharray", "1 2")
-    }
-    let nodeCenterX = currentNode.x + (currentNode.width / 2)
-    let nodeCenterY = currentNode.y + (currentNode.height / 2)
-    dottedLine.setAttribute("x1", nodeCenterX.toString())
-    dottedLine.setAttribute("y1", nodeCenterY.toString())
-}
-
-/**
- * 在svg元素上弹起的事件,限定用户任务和结束节点
- * */
-function svgMouseupFn(e) {
-    let line = document.getElementById("initLine")
-    line.setAttribute("x2", e.clientX)
-    line.setAttribute("y2", e.clientY)
-    designArea.appendChild(line)
-}
 
 /**
  * 判断是否在svg元素内弹起

@@ -49,6 +49,7 @@
     var startEvent = document.getElementById("startEvent")
     var endEvent = document.getElementById("endEvent")
     var svgContainer = document.getElementById("svgContainer")
+    var line
     startEvent.addEventListener('click', startEventFn)
     endEvent.addEventListener('click', endEventFn)
     function startEventFn() {
@@ -59,11 +60,12 @@
         startPoint.cy = startEvent.getAttribute('cy')
     }
     function endEventFn() {
+        debugger
         endPoint.cx = endEvent.getAttribute('cx')
         endPoint.cy = endEvent.getAttribute('cy')
-        var line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-        line.setAttribute('x1', startPoint.cx)
-        line.setAttribute('y1', startPoint.cy)
+        line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        line.setAttribute('x1', '0')
+        line.setAttribute('y1', '0')
         line.setAttribute('x2', endPoint.cx)
         line.setAttribute('y2', endPoint.cy)
         line.style.stroke = 'red'
