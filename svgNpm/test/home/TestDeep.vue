@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <DeepChild></DeepChild>
+        <el-button type="success">成功</el-button>
     </div>
 </template>
 
@@ -21,7 +22,10 @@
     /deep/ .btn-child {
         color: yellow;
     }
-    /*.btn-child {*/
-        /*color: yellow;*/
-    /*}*/
+    /deep/ .el-button--success {
+        margin: 20px;
+        color: green;
+        border: 1px solid #FFCCFF;
+        background-color: rgba(0, 0, 0,0.8);
+    }
 </style>

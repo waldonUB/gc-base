@@ -12,8 +12,10 @@ function resolve (dir) {
 }
 module.exports = {
     entry: {
-        app: './src/main.js'
+        app: './src/main.js',
+        viewport: './src/js/viewport.js'
     },
+    // entry: ['./src/js/viewport.js', './src/main.js'],
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
@@ -64,6 +66,9 @@ module.exports = {
                 'vue-style-loader',
                 'css-loader'
             ]
+        },{
+            test: /\.(eot|svg|ttf|woff|woff2)$/,
+            loader: 'file-loader'
         }]
     },
     plugins: [
