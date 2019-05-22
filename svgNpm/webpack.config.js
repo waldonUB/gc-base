@@ -23,7 +23,8 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.esm.js', // 用 webpack 1 时需用 'vue/dist/vue.common.js'
             '@': resolve('src'),
-            'pages': resolve('src/pages')
+            'pages': resolve('src/pages'),
+            'test': resolve('test/')
         }
     },
     module: {
@@ -38,21 +39,30 @@ module.exports = {
             use: [
                 // MiniCssExtractPlugin.loader,
                 'vue-style-loader',
-                {
-                    loader: 'css-loader',
-                    options: {
-                        modules: true
-                    }
-                },
+                'css-loader',
+                // { // 如果设定范围就用oneOf
+                //     loader: 'css-loader',
+                //     options: {
+                //         modules: true,
+                //         // 自定义生成的类名
+                //         localIdentName: '[local]_[hash:4]'
+                //     }
+                // },
                 {
                     loader: 'px2rem-loader',
                     // options here
                     options: {
-                        remUni: 75,
-                        remPrecision: 4
+                        remUnit: 16,
+                        remPrecision: 2
                     }
                 },
                 'sass-loader'
+            ]
+        },{
+            test: /\.css$/,
+            use: [
+                'vue-style-loader',
+                'css-loader'
             ]
         }]
     },
