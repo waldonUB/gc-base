@@ -323,3 +323,10 @@ function isMouseupInLi(e) {
     let nodeName = e.target.nodeName.toLowerCase()
     return nodeName === 'li'
 }
+
+var xhr = new XMLHttpRequest();
+xhr.open('get', "initial.bpmn")
+xhr.send()
+xhr.onload = function (res) {
+    console.log(res)
+}
