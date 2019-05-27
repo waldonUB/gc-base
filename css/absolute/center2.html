@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*行内元素*/
+        /*垂直居中*/
+        /*1.设置line-height*/
+        .line-center {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border: 1px solid black;
+        }
+        /*2.设置vertical-align(只对行内元素和表格的td或th生效)*/
+        .vertical-table {
+            display: table;
+        }
+        .vertical-td {
+            display: table-cell;
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            vertical-align: center;
+        }
+        /*行内块级元素*/
+        /*1.伪类+vertical-align*/
+        .pseudo-vertical {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            display:inline-block;
+            vertical-align:middle;
+        }
+        .son{
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            display:inline-block;
+            vertical-align:middle;
+        }
+        .pseudo-vertical::after {
+            content: "";
+            height: 100%;
+        }
+        /*块级元素*/
+        /*1.table-cell方法*/
+        .table-cell {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .table-cell-child {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+        }
+        /*2.flex*/
+        .flex-layout {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+        }
+        .flex-layout-child {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+        }
+        /*3.position:absolute的第一种*/
+        .absolute-layout{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            position: relative;
+        }
+        .absolute-layout-child{
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            position: absolute;
+            top: 50%;
+            margin-top: -10px;
+        }
+        /*4.position:absolute + margin*/
+        .absolute-margin-layout {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            position: relative;
+        }
+        .absolute-margin-layout-child {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="line-center">
+    666啊
+</div>
+<table class="vertical-table">
+    <td class="vertical-td">
+        666a
+    </td>
+</table>
+<div class="pseudo-vertical">
+    <div class="son"></div>
+</div>
+<div class="table-cell">
+    <div class="table-cell-child"></div>
+</div>
+<div class="flex-layout">
+    <div class="flex-layout-child"></div>
+</div>
+<div class="absolute-layout">
+    <div class="absolute-layout-child"></div>
+</div>
+<div class="absolute-margin-layout">
+    <div class="absolute-margin-layout-child"></div>
+</div>
+</body>
+</html>
