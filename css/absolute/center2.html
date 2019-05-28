@@ -13,16 +13,13 @@
             line-height: 100px;
             border: 1px solid black;
         }
-        /*2.设置vertical-align(只对行内元素和表格的td或th生效)*/
-        .vertical-table {
-            display: table;
-        }
+        /*2.设置vertical-align(只对行内元素inline和表格display:table-cell(td或th)生效)*/
         .vertical-td {
             display: table-cell;
             width: 100px;
             height: 100px;
             border: 1px solid black;
-            vertical-align: center;
+            vertical-align: middle;
         }
         /*行内块级元素*/
         /*1.伪类+vertical-align*/
@@ -71,7 +68,7 @@
             height: 20px;
             border: 1px solid black;
         }
-        /*3.position:absolute的第一种*/
+        /*3.position:absolute+ margin:-0.5高度*/
         .absolute-layout{
             width: 100px;
             height: 100px;
@@ -86,7 +83,7 @@
             top: 50%;
             margin-top: -10px;
         }
-        /*4.position:absolute + margin*/
+        /*4.position:absolute + margin:auto*/
         .absolute-margin-layout {
             width: 100px;
             height: 100px;
@@ -102,17 +99,50 @@
             bottom: 0;
             margin: auto;
         }
+        /*5.position:absolute + translate*/
+        .translate-layout{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            position: relative;
+        }
+        .translate-layout-child{
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+        /*6.inline-block伪元素+vertical*/
+        .ver-layout{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            position: relative;
+        }
+        .ver-layout::after{
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .ver-layout-child {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            display: inline-block;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
 <div class="line-center">
     666啊
 </div>
-<table class="vertical-table">
-    <td class="vertical-td">
-        666a
-    </td>
-</table>
+<div class="vertical-td">
+    666a<div class="son"></div>
+</div>
 <div class="pseudo-vertical">
     <div class="son"></div>
 </div>
@@ -127,6 +157,12 @@
 </div>
 <div class="absolute-margin-layout">
     <div class="absolute-margin-layout-child"></div>
+</div>
+<div class="translate-layout">
+    <div class="translate-layout-child"></div>
+</div>
+<div class="ver-layout">
+    <div class="ver-layout-child"></div>
 </div>
 </body>
 </html>
