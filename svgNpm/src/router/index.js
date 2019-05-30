@@ -3,6 +3,8 @@ import Router from "vue-router"
 import Home from "../pages/Home.vue"
 import TestHome from "../../test/home/TestHome.vue"
 import TestDeep from "../../test/home/TestDeep.vue"
+import VON from "../../test/components/EventBus/VON.vue"
+import VON2 from "../../test/components/EventBus/VON2.vue"
 
 Vue.use(Router)
 
@@ -19,5 +21,13 @@ export default new Router({
         path: '/deep',
         name: 'TestDeep',
         component: TestDeep
+    },{
+        path: '/VON',
+        name: 'VON',
+        component: VON
+    },{
+        path: '/VON2',
+        name: 'VON2',
+        component: VON2
     }]
 })

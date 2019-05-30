@@ -28,10 +28,15 @@
             <p slot="hasName">具名插槽</p>
             <p slot="scopeSlot" slot-scope="scopeInfo">作用域插槽：{{scopeInfo.userName}}</p>
         </slot-test>
+        <v-o-n></v-o-n>
+        <v-o-n2></v-o-n2>
     </div>
 </template>
 <script>
+    // 这个项目不加.vue找不到？
     import SlotTest from '../components/SlotTest.vue'
+    import VON from '../components/EventBus/VON.vue'
+    import VON2 from '../components/EventBus/VON2.vue'
     export default {
         name: 'Home',
         data() {
@@ -39,7 +44,7 @@
 
             }
         },
-        components: {SlotTest}
+        components: {SlotTest,VON, VON2}
     }
 </script>
 
