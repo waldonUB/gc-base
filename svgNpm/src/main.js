@@ -15,7 +15,8 @@ new Vue({
     el: '#app',
     data() {
         return {
-            root: '根实例'
+            root: '根实例',
+            test: ''
         }
     },
     router,

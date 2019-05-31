@@ -1,6 +1,7 @@
 <template>
     <div >
         <button ref="VOnTest" @click="testEmit">{{testVOn}}</button>
+        {{count}}
     </div>
 </template>
 
@@ -10,6 +11,11 @@
     export default {
         name: "VON2",
         components: {Vue},
+        computed: {
+            count() {
+                console.log(`VON2的$root改变了`)
+            }
+        },
         data() {
             return {
                 testVOn: '777'

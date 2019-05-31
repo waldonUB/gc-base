@@ -1,5 +1,7 @@
 function foo() {
-    return "123"
+    return new Promise(function (resolve, reject) {
+        resolve(1)
+    })
 }
 
 async function f() {
@@ -8,7 +10,7 @@ async function f() {
         resolve(1)
     })
     let normal = await "666"
-    let promiseAll = await Promise.all([promises])
-
+    let promiseAll = await Promise.all([foo()])
+    console.log(promiseAll)
 }
 f()

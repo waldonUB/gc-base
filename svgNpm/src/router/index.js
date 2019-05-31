@@ -5,6 +5,8 @@ import TestHome from "../../test/home/TestHome.vue"
 import TestDeep from "../../test/home/TestDeep.vue"
 import VON from "../../test/components/EventBus/VON.vue"
 import VON2 from "../../test/components/EventBus/VON2.vue"
+import TestObserver from "../../test/home/TestObserver.vue"
+import TestCorrespond from "../../test/home/TestCorrespond.vue"
 
 Vue.use(Router)
 
@@ -29,5 +31,13 @@ export default new Router({
         path: '/VON2',
         name: 'VON2',
         component: VON2
+    },{
+        path: '/testObserver',
+        name: 'testObserver',
+        component: TestObserver
+    },{
+        path: '/testCorrespond',
+        name: 'TestCorrespond',
+        component: TestCorrespond
     }]
 })

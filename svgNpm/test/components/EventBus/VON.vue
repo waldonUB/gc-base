@@ -22,6 +22,7 @@
                 return normal.a
             },
             count2() {
+                console.log(`计算属性内的b：` + store.testInfo.b)
                 return store.testInfo.b
             },
             count3() {
@@ -31,6 +32,7 @@
                 return this.store.store
             },
             rootTest() {
+                console.log(`VON的$root改变了`)
                 return this.$root.root
             }
         },
@@ -40,6 +42,7 @@
                 observeData: {
                     // a: ''
                 },
+                jsStore: {}
                 // bb: 0
             }
         },
@@ -93,6 +96,7 @@
             console.log(`VON:` + JSON.stringify(this.store))
             this.store.store = '888'
             console.log(normal)
+            this.jsStore = store
         },
         destroyed(data) {
             console.log(`跳转路由被摧毁了` + data)
