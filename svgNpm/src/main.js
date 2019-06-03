@@ -10,8 +10,10 @@ Vue.prototype.bus = new Vue()
 Vue.prototype.store = {
     store: 'test'
 }
-debugger
-console.log(store)
+
+// Vue.observable可以用这种方式来实现，共享的属性一般加$来区分
+// Vue.prototype.$store = store
+
 new Vue({
     el: '#app',
     data() {

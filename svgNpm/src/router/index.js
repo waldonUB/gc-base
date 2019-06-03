@@ -8,6 +8,7 @@ import VON2 from "../../test/components/EventBus/VON2.vue"
 import TestObserver from "../../test/home/TestObserver.vue"
 import TestCorrespond from "../../test/home/TestCorrespond.vue"
 import VuexTest from "../../test/home/VuexTest.vue"
+import RenderTest from "../../test/home/RenderTest.vue"
 
 Vue.use(Router)
 
@@ -44,5 +45,9 @@ export default new Router({
         path: '/vuexTest',
         name: 'VuexTest',
         component: VuexTest
+    },{
+        path: '/renderTest',
+        name: 'RenderTest',
+        component: RenderTest
     }]
 })

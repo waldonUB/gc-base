@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            width: 500px;
+            height: 500px;
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        .child-container {
+            height: 200px;
+            /*width设置为auto时，默认是父类宽度的100%*/
+            width: fit-content;
+            min-width: 200px;
+            background-color: rgba(0, 255, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="child-container"></div>
+</div>
+</body>
+</html>
