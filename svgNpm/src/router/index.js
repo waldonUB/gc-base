@@ -9,6 +9,7 @@ import TestObserver from "../../test/home/TestObserver.vue"
 import TestCorrespond from "../../test/home/TestCorrespond.vue"
 import VuexTest from "../../test/home/VuexTest.vue"
 import RenderTest from "../../test/home/RenderTest.vue"
+import DestroyTest from "../../test/home/DestroyTest.vue"
 
 Vue.use(Router)
 
@@ -49,5 +50,9 @@ export default new Router({
         path: '/renderTest',
         name: 'RenderTest',
         component: RenderTest
+    },{
+        path: '/destroyTest',
+        name: 'DestroyTest',
+        component: DestroyTest
     }]
 })

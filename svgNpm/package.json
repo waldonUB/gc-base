@@ -29,6 +29,8 @@
   },
   "dependencies": {
     "element-ui": "^2.8.2",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.11",
     "px2rem-loader": "^0.1.9",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",

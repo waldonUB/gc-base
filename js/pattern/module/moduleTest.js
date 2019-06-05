@@ -21,3 +21,5 @@ var moduleExpand = (function (module) {
 }(module))
 moduleExpand.foo()
 moduleExpand.foo1()
+
+console.log(Math.abs(~2016))
