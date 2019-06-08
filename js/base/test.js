@@ -1,0 +1,6 @@
+console.log(undefined instanceof Object)
+console.log(null instanceof Object)
+console.log(5 instanceof Object)
+console.log("" instanceof Object)
+console.log(true instanceof Object)
+console.log(Symbol instanceof Object)
