@@ -7,6 +7,9 @@
         <span class="title">
             我是title
         </span>
+        <span>
+            我是message:{{message}}
+        </span>
         <!--2.6版本-->
         <!--v-slot的标签只能放在template或者组件之中-->
         <!--v-slot可以简写为#-->
@@ -39,12 +42,40 @@
     import VON2 from '../components/EventBus/VON2.vue'
     export default {
         name: 'Home',
-        data() {
+        data: () => {
             return {
-
+                message: 666
             }
         },
-        components: {SlotTest,VON, VON2}
+        components: {SlotTest,VON, VON2},
+        beforeRouteEnter (to, from, next) {
+            console.log('to:' + to)
+            console.log('from:' + from)
+            next(function (vm) {
+                console.log(vm)
+            })
+        },
+        beforeCreate() {
+            console.log('beforeCreate:' + this.$el)
+            console.log('beforeCreate:' + this.$data)
+            console.log('beforeCreate:' + this.message)
+        },
+        created() {
+            console.log('create:' + this.$el)
+            console.log('create:' + this.$data)
+            console.log('create:' + this.message)
+        },
+        beforeMount() {
+            console.log('beforeMount:' + this.$el)
+            console.log('beforeMount:' + this.$data)
+            console.log('beforeMount:' + this.message)
+        },
+        mounted() {
+            console.log('mounted:' + this.$el)
+            console.log('mounted:' + this.$data)
+            console.log('mounted:' + this.message)
+        }
+        // beforeRouteUpdate:
     }
 </script>
 

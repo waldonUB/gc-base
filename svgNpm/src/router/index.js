@@ -13,7 +13,7 @@ import DestroyTest from "../../test/home/DestroyTest.vue"
 
 Vue.use(Router)
 
-export default new Router({
+export let router = new Router({
     routes: [{
         path: '/',
         name: 'home',
@@ -21,11 +21,18 @@ export default new Router({
     }, {
         path: '/test',
         name: 'TestHome',
-        component: TestHome
+        component: TestHome,
+        // beforeEnter: (to, from, next) => {
+        //     debugger
+        //     console.log('to:' + to)
+        //     console.log('from:' + from)
+        //     next()
+        // }
+
     },{
         path: '/deep',
         name: 'TestDeep',
-        component: TestDeep
+        component: TestDeep,
     },{
         path: '/VON',
         name: 'VON',
@@ -55,4 +62,13 @@ export default new Router({
         name: 'DestroyTest',
         component: DestroyTest
     }]
+})
+
+router.beforeEach((to, from, next) => {
+    next()
+    // if (to.fullPath !== "/test") {
+    //     next('/test')
+    // } else {
+    //     next()
+    // }
 })
