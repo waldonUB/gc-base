@@ -10,6 +10,10 @@ import TestCorrespond from "../../test/home/TestCorrespond.vue"
 import VuexTest from "../../test/home/VuexTest.vue"
 import RenderTest from "../../test/home/RenderTest.vue"
 import DestroyTest from "../../test/home/DestroyTest.vue"
+import RefTest from "../../test/home/RefTest.vue"
+import DialogTest from "../../test/home/DialogTest.vue"
+import PopoverTest from "../../test/home/PopoverTest.vue"
+import SimpleDialogTest from "../../test/home/SimpleDialogTest.vue"
 
 Vue.use(Router)
 
@@ -61,14 +65,30 @@ export let router = new Router({
         path: '/destroyTest',
         name: 'DestroyTest',
         component: DestroyTest
+    },{
+        path: '/refTest',
+        name: 'refTest',
+        component: RefTest
+    },{
+        path: '/dialogTest',
+        name: 'DialogTest',
+        component: DialogTest
+    },{
+        path: '/popoverTest',
+        name: 'PopoverTest',
+        component: PopoverTest
+    },{
+        path: '/simpleDialogTest',
+        name: 'SimpleDialogTest',
+        component: SimpleDialogTest
     }]
 })
 
-router.beforeEach((to, from, next) => {
-    next()
-    // if (to.fullPath !== "/test") {
-    //     next('/test')
-    // } else {
-    //     next()
-    // }
-})
+// router.beforeEach((to, from, next) => {
+//     next()
+//     // if (to.fullPath !== "/test") {
+//     //     next('/test')
+//     // } else {
+//     //     next()
+//     // }
+// })

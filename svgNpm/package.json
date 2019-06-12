@@ -28,7 +28,7 @@
     "webpack-dev-server": "^3.4.1"
   },
   "dependencies": {
-    "element-ui": "^2.8.2",
+    "element-ui": "^2.9.1",
     "jquery": "^3.4.1",
     "lodash": "^4.17.11",
     "px2rem-loader": "^0.1.9",
