@@ -14,6 +14,8 @@ import RefTest from "../../test/home/RefTest.vue"
 import DialogTest from "../../test/home/DialogTest.vue"
 import PopoverTest from "../../test/home/PopoverTest.vue"
 import SimpleDialogTest from "../../test/home/SimpleDialogTest.vue"
+import DynamicRouter from "../../test/components/dynamicRouter/DynamicRouter.vue"
+import DynamicRouterTest from "../../test/home/DynamicRouterTest.vue"
 
 Vue.use(Router)
 
@@ -81,6 +83,14 @@ export let router = new Router({
         path: '/simpleDialogTest',
         name: 'SimpleDialogTest',
         component: SimpleDialogTest
+    },{
+        path: '/dynamicRouter/:name',
+        name: 'DynamicRouter',
+        component: DynamicRouter
+    },{
+        path: '/dynamicRouterTest',
+        name: 'DynamicRouterTest',
+        component: DynamicRouterTest
     }]
 })
 
