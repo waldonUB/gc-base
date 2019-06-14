@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--克隆这个节点到伪元素上，然后拷贝属性，然后设置为absolute之后，再对图片进行放大缩小旋转的操作-->
+    <!--增加一个div，然后获取img的src地址，再把div的bgimg的url地址给这个-->
+    <style>
+        .myImg {
+            width: 100px;
+            height: 60px;
+        }
+        .myImg::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-color: red;
+            top: 0;
+            left: 0;
+        }
+        .v-img {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        .v-img::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-color: green;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="message">
+    {{message}}
+    <img src="../../static/image/新垣结衣.jpg" alt="" v-rotate>
+    <div class="test"></div>
+</div>
+<script>
+    var rotate = {
+        bind(el, binding, vnode) {
+            // let position = ['relative', 'absolute', 'fixed'].find(item => item === binding.arg)
+            // el.style.position = position || 'relative'
+            // el.classList.add('myImg')
+            let vImg = document.getElementById("vImg")
+        },
+        inserted(el, binding, vnode) {
+
+        },
+        update(el, binding, vnode) {
+
+        },
+        componentUpdated(el, binding, vnode) {
+
+        }
+
+    }
+    function initImgContainer() {
+        let vImg = document.createElement('div')
+        vImg.setAttribute("id", "vImg")
+        vImg.classList.add('v-img')
+        document.body.appendChild(vImg)
+    }
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                message: ''
+            }
+        },
+        directives: {
+            rotate
+        },
+        mounted() {
+            initImgContainer()
+        }
+    })
+</script>
+</body>
+</html>
