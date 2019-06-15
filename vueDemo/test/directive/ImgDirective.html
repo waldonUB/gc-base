@@ -31,7 +31,7 @@
             width: 100%;
             height: 100%;
             z-index: 1;
-            background-color: green;
+            border: 1px solid black;
             top: 0;
             left: 0;
         }
@@ -43,7 +43,6 @@
     <input type="text" v-model="message">
     {{message}}
     <img src="../../static/image/新垣结衣.jpg" alt="" v-rotate>
-    <div class="test"></div>
 </div>
 <script>
     var rotate = {
@@ -51,10 +50,19 @@
             // let position = ['relative', 'absolute', 'fixed'].find(item => item === binding.arg)
             // el.style.position = position || 'relative'
             // el.classList.add('myImg')
+            debugger
             let vImg = document.getElementById("vImg")
+            let src = el.getAttribute("src")
+            vImg.style.backgroundImage = 'url(' + src + ')'
+            vImg.style.backgroundPosition = 'center'
         },
+        // 在绑定和插入阶段，如果是在mounted中完成div添加的，要在nextTick中操作dom节点
+        // img这种类型的可替换元素用不到content属性，所以无法添加伪元素
         inserted(el, binding, vnode) {
 
+            Vue.nextTick(function () {
+
+            })
         },
         update(el, binding, vnode) {
 
@@ -80,8 +88,11 @@
         directives: {
             rotate
         },
-        mounted() {
+        created() {
             initImgContainer()
+        },
+        mounted() {
+
         }
     })
 </script>
