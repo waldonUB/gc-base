@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <style>
+        .container {
+            width: 800px;
+            height: 800px;
+            border: 1px solid black;
+        }
+        .child {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            z-index: 1;
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
-$END$
+<div class="container" id="container">
+    <div class="child" id="child"></div>
+</div>
+<script>
+    let child = document.getElementById("child")
+    let container = document.getElementById("container")
+    // container.addEventListener('click', function (e) {
+    //     console.log(`我是` + e.target.className)
+    // })
+    container.addEventListener('mousemove', function (e) {
+        console.log(`我是` + e.target.className)
+    })
+</script>
 </body>
 </html>
