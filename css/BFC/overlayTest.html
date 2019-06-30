@@ -20,10 +20,28 @@
             /*可行*/
             /*float: left;*/
         }
+        /* 这种是父子的，只是用来清除浮动*/
+        .container2::after,
+        .container2::before{
+            content: '';
+            display: table;
+        }
+        .child2 {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            background-color: yellowgreen;
+            float: left;
+        }
+        .container2::after{
+            clear: both;
+        }
     </style>
 </head>
 <body>
 <div class="container"></div>
-<div class="container2"></div>
+<div class="container2">
+    <div class="child2"></div>
+</div>
 </body>
 </html>
