@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态组件缓存最大实例测试</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--max要大于2才有用.......-->
+    <keep-alive max="2">
+        <component :is="currentTab">
+        </component>
+    </keep-alive>
+    <button @click="changeTab('1')">to tab1</button>
+    <button @click="changeTab('2')">to tab2</button>
+    <button @click="changeTab('3')">to tab3</button>
+</div>
+<script>
+    let tab1 = {
+        template: `<div>tab1</div>`,
+        destroyed() {
+            console.log(`tab1 被销毁`)
+        }
+    }
+    let tab2 = {
+        template: `<div>tab2</div>`,
+        destroyed() {
+            console.log(`tab2 被销毁`)
+        }
+    }
+    let tab3 = {
+        template: `<div>tab3</div>`,
+        destroyed() {
+            console.log(`tab3 被销毁`)
+        }
+    }
+    new Vue({
+        el: '#app',
+        components: {tab1, tab2, tab3},
+        data: {
+            currentTab: 'tab1'
+        },
+        methods: {
+            changeTab (index) {
+                this.currentTab = 'tab' + index
+            }
+        }
+    })
+</script>
+</body>
+</html>
