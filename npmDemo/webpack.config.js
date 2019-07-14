@@ -50,14 +50,14 @@ module.exports = {
                 //         localIdentName: '[local]_[hash:4]'
                 //     }
                 // },
-                {
-                    loader: 'px2rem-loader',
-                    // options here
-                    options: {
-                        remUnit: 16,
-                        remPrecision: 2
-                    }
-                },
+                // {
+                //     loader: 'px2rem-loader',
+                //     // options here
+                //     options: {
+                //         remUnit: 16,
+                //         remPrecision: 2
+                //     }
+                // },
                 'sass-loader'
             ]
         },{

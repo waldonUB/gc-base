@@ -17,6 +17,7 @@ import SimpleDialogTest from "../../test/home/SimpleDialogTest.vue"
 import DynamicRouter from "../../test/components/dynamicRouter/DynamicRouter.vue"
 import DynamicRouterTest from "../../test/home/DynamicRouterTest.vue"
 import CustomComponentTest from "../../test/home/CustomComponentTest.vue"
+import Border1Px from "../../test/components/dprTest/Border1Px.vue"
 
 Vue.use(Router)
 
@@ -96,6 +97,10 @@ export let router = new Router({
         path: '/customComponentTest',
         name: 'CustomComponentTest',
         component: CustomComponentTest
+    },{
+        path: '/border1Px',
+        name: 'Border1Px',
+        component: Border1Px
     }]
 })
 
