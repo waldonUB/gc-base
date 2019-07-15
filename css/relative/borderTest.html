@@ -2,17 +2,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>一像素边框测试</title>
     <style>
+        html * {
+            /*margin: 0;*/
+            /*padding: 0;*/
+        }
         .container {
-            width: 50%;
-            height: 500px;
+            box-sizing: border-box;
+            width: 200px;
+            height: 200px;
+            /*background-color: turquoise;*/
+            /*border: 2px solid red;*/
+        }
+        .container2 {
+            box-sizing: border-box;
+            width: 200px;
+            height: 200px;
             /*background-color: turquoise;*/
             border: 1px solid black;
+        }
+        .background-gradient-1px {
+            background:
+                    linear-gradient(180deg, black, black 50%, transparent 50%) top left / 100% 1px no-repeat,
+                    linear-gradient(90deg, black, black 50%, transparent 50%) top right / 1px 100% no-repeat,
+                    linear-gradient(0, black, black 50%, transparent 50%) bottom right / 100% 1px no-repeat,
+                    linear-gradient(-90deg, black, black 50%, transparent 50%) bottom left / 1px 100% no-repeat;
+        }
+        .box-shadow-1px {
+            box-shadow: inset 0px -1px 1px -1px black;
+        }
+        .scale-1px{
+            position: relative;
+            margin-bottom: 20px;
+            border:none;
+        }
+        .scale-1px:after{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid #000;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 200%;
+            height: 200%;
+            -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+            -webkit-transform-origin: left top;
+            transform-origin: left top;
         }
     </style>
 </head>
 <body>
-<div class="container"></div>
+<div class="container background-gradient-1px"></div>
+<button onclick="getDPR()">获取dpr</button>
+<div class="container box-shadow-1px"></div>
+<button onclick="getDPR()">获取dpr</button>
+<div class="container scale-1px"></div>
+<button onclick="getDPR()">获取dpr</button>
+<div class="container2"></div>
+<script>
+    function getDPR() {
+        let dpr = window.devicePixelRatio
+        console.log(`当前的dpr为：` + dpr)
+    }
+</script>
 </body>
 </html>
