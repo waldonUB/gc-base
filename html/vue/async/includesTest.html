@@ -2,21 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>动态组件缓存最大实例测试</title>
+    <title>测试keepAlive的includes的用法</title>
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
 </head>
 <body>
 <div id="app">
-    <!--max要大于2才有用.......-->
-    <keep-alive max="2">
-        <component :is="currentTab" ref="componentRef" :key="key" :msg="key">
-        </component>
+    <keep-alive>
+        <component :is="currentTab" :key=""></component>
     </keep-alive>
-    <button @click="changeTab('1', '1')">to tab1 key1</button>
-    <button @click="changeTab('1', '2')">to tab1 key2</button>
+    <div>{{current}}</div>
+    <button @click="changeTab('1')">to tab1</button>
     <button @click="changeTab('2')">to tab2</button>
     <button @click="changeTab('3')">to tab3</button>
-    <button @click="getRef">获取Ref</button>
 </div>
 <script>
     let tab1 = {
@@ -37,40 +34,35 @@
             console.log(`tab3 被销毁`)
         }
     }
-    let vmAll = new Vue({
-        el: '#app',
+    new Vue({
         components: {tab1, tab2, tab3},
         data: {
             currentTab: 'tab1',
-            key: '1',
-            keys: []
+            includes: [],
+            index: 0,
+            max: 3
         },
         computed: {
-            oldKey: {
-                get () {
-                    return this.key
+            current: {
+                get() {
+                    // 改变get内的属性时会执行
+                    return this.index;
                 },
-                set (key) {
-                    this.keys.push(key)
+                set(value) {
+                    debugger
+                    // 改变当前属性(this.current)时会执行
+                    this.currentTab = 'tab2'
+                    this.current = value
                 }
             }
         },
         methods: {
-            changeTab (index, key) {
-                debugger
-                if (this.oldKey === key) {
-                    return
-                }
+            changeTab (index) {
                 this.currentTab = 'tab' + index
-                this.key = key
-                this.keys.push(key)
-            },
-            getRef () {
-                debugger
-                console.log(this.$refs.componentRef)
+                // this.current = 6
             }
         }
-    })
+    }).$mount("#app")
 </script>
 </body>
 </html>
