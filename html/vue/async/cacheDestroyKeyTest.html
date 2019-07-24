@@ -18,6 +18,12 @@
 <script>
     let tab1 = {
         template: `<div>tab1</div>`,
+        mounted() {
+            debugger
+            let cache = this.$vnode.parent.componentInstance.cache
+            let cacheKeys = Object.keys(cache)
+            console.log(`tab1的mounted`)
+        },
         destroyed() {
             console.log(`tab1 被销毁`)
         }
@@ -33,12 +39,14 @@
             console.log(`tab2的activated`)
         },
         deactivated() {
-            debugger
             let cache = this.$vnode.parent.componentInstance.cache
             cache['1'].componentInstance.$destroy()
             // delete cache['1']
         },
         mounted() {
+            debugger
+            let cache = this.$vnode.parent.componentInstance.cache
+            let cacheKeys = Object.keys(cache)
             console.log(`tab2的mounted`)
         },
         destroyed() {
@@ -47,6 +55,12 @@
     }
     let tab3 = {
         template: `<div>tab3</div>`,
+        mounted() {
+            debugger
+            let cache = this.$vnode.parent.componentInstance.cache
+            let cacheKeys = Object.keys(cache)
+            console.log(`tab3的mounted`)
+        },
         destroyed() {
             console.log(`tab3 被销毁`)
         }
