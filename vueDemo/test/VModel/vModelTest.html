@@ -5,7 +5,10 @@
     <title>title</title>
 </head>
 <body>
-<input type="text" v-model="testData">
+<div id="app">
+    <input type="text" v-model="testData">
+</div>
+
 <script>
     /**
      * 1.是通过发布订阅者模式来实现的，主要核心是通过defineProperty对data内的数据进行一个劫持
@@ -16,11 +19,20 @@
       testData: ''
     }
     function init() {
+      const el = document.getElementById("app")
+      compileEle(el)
       Object.defineProperty(data, 'testData', {
         get () {
           return 'q'
+        },
+        set (value) {
+
         }
       })
+    }
+    function compileEle (el) {
+      debugger
+      let childNodes = el.childNodes
     }
     init()
     console.log(data.testData)
