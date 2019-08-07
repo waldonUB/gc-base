@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <temp1></temp1>
+</div>
+<script>
+    const mixin = {
+      data() {
+        return {
+          message: '666'
+        }
+      }
+    }
+    const temp1 = {
+      mixins: [mixin],
+      data() {
+        return {};
+      },
+      template: `<div>{{message}}</div>`
+    }
+    new Vue({
+      // mixins: [mixin],
+      components: {temp1},
+      data: {
+
+      }
+    }).$mount("#app")
+</script>
+</body>
+</html>
