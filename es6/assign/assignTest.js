@@ -1,5 +1,4 @@
 function assignTest() {
-  let obj
   const args = Array.prototype.slice.call(arguments)
   for (let i = 0; i < args.length; i++) {
     // if (i === 0) {
@@ -11,7 +10,6 @@ function assignTest() {
       }
     }
   }
-  return args[0]
 }
 let obj1 = {
   a: 1
