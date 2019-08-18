@@ -1,8 +1,10 @@
-function f() {
-  console.log(arguments)
-  console.log(arguments instanceof Array) // false
-  const list = Array.prototype.slice.call(arguments)
-  console.log(list instanceof Array) // true
-  debugger
-}
-f(66, 55)
+this.tableData = [
+  {
+    'ranking': 2,
+    'contract': '施工合同'
+  },
+  {
+    'ranking': 1,
+    'contract': '总包合同'
+  }
+]
