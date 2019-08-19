@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>update也不会实时跟着值改变</title>
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
 </head>
 <body>
@@ -22,14 +22,15 @@
     methods: {
       updateA () {
         for (let i = 0; i < 5; i++) {
-          debugger
           this.a = i
         }
       }
     },
-    updated (newVal) {
-      debugger
-      console.log(newVal)
+    beforeUpdate () {
+      console.log()
+    },
+    updated () {
+      console.log()
     },
     mounted() {
       this.updateA()
