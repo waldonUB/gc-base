@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <temp1></temp1>
+    <temp2></temp2>
+</div>
+<script>
+    Vue.prototype.$bus = new Vue()
+    const temp1 = {
+      template: `<div><button @click="changeVal">changeVal</button></button></div>`,
+      methods: {
+        changeVal() {
+          this.$bus.$emit('changeVal', Math.random())
+        }
+      },
+      mounted () {
+
+      }
+    }
+    const temp2 = {
+      template: `<div></div>`,
+      mounted () {
+        this.$bus.$on('changeVal', function (val) {
+          console.log(val)
+        })
+      }
+    }
+    new Vue({
+      components: {temp1, temp2},
+      data: {
+        test: ''
+      }
+    }).$mount("#app")
+</script>
+</body>
+</html>

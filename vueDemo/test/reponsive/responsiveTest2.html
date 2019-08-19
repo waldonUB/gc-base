@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    {{a}}
+</div>
+<script>
+  new Vue({
+    data: {
+      a: 10
+    },
+    watch: {
+      a (newVal) {
+        console.log(`本次的A:` + newVal)
+      }
+    },
+    methods: {
+      updateA () {
+        for (let i = 0; i < 5; i++) {
+          debugger
+          this.a = i
+        }
+      }
+    },
+    updated (newVal) {
+      debugger
+      console.log(newVal)
+    },
+    mounted() {
+      this.updateA()
+    }
+  }).$mount("#app")
+</script>
+</body>
+</html>
