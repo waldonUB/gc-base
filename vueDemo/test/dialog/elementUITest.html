@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>测试elementUI对话框</title>
-    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+    <!--<script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>-->
+    <script src="https://cdn.bootcss.com/vue/2.5.18/vue.common.dev.js"></script>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
@@ -32,7 +33,7 @@
             :visible.sync="dialogVisible"
             width="30%"
             :before-close="handleClose">
-        <span>这是一段信息</span>
+        <el-button @click="getCache">获取cache</el-button>
         <input type="text">
         <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
@@ -52,6 +53,10 @@
               done();
             })
             .catch(_ => {});
+        },
+        getCache () {
+          const cache = this.$vnode.parent.componentInstance.cache
+          console.log(cache)
         }
       }
     }
