@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="test()">点击</button>
+<script>
+    let throttle1 = throttleTest2(fn, 1000)
+    function test() {
+        throttle1()
+    }
+    function throttleTest2(fn, interval) {
+        let flag = false
+        return function () {
+            if (flag) {
+                return
+            }
+            flag = true
+            setTimeout(() => {
+                fn.apply(this, arguments)
+                flag = false
+            }, interval)
+        }
+    }
+    function fn() {
+        console.log(`我是：` + new Date())
+    }
+</script>
+</body>
+</html>

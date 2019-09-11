@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    html * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<body>
+<!--absolute布局-->
+<!--<style>-->
+    <!--.layout.absolute div{-->
+        <!--/*这个一定要指定？*/-->
+        <!--width: 100%;-->
+        <!--position: absolute;-->
+        <!--/*这个也可以*/-->
+        <!--/*position: fixed;*/-->
+    <!--}-->
+    <!--.layout.absolute .top{-->
+        <!--top: 0;-->
+        <!--height: 100px;-->
+        <!--background-color: red;-->
+    <!--}-->
+    <!--.layout.absolute .bottom{-->
+        <!--bottom: 0;-->
+        <!--height: 100px;-->
+        <!--background-color: red;-->
+    <!--}-->
+    <!--.layout.absolute .center{-->
+        <!--/*height: 100%;*/-->
+        <!--background-color: yellowgreen;-->
+        <!--overflow: auto;-->
+        <!--top: 100px;-->
+        <!--bottom: 100px;-->
+    <!--}-->
+<!--</style>-->
+<!--<section class="layout absolute">-->
+    <!--<article>-->
+        <!--<div class="top"></div>-->
+        <!--<div class="bottom"></div>-->
+        <!--<div class="center">-->
+        <!--</div>-->
+    <!--</article>-->
+<!--</section>-->
+
+<!--flex布局-->
+<style>
+    html, body{
+        height: 100%;
+    }
+    .layout.flex {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .layout.flex .top{
+        flex-shrink: 0;
+        height: 100px;
+        background-color: red;
+    }
+    .layout.flex .bottom{
+        flex-shrink: 0;
+        height: 100px;
+        background-color: red;
+    }
+    .layout.flex .center{
+        background-color: yellowgreen;
+        flex: auto;
+        /*overflow: auto*/
+    }
+</style>
+<section class="layout flex">
+    <div class="top"></div>
+    <div class="center">
+        <!--为什么会把两头的撑走？-->
+        <!--设置flex-shrink: 0就可以了，不让他收缩-->
+    </div>
+    <div class="bottom"></div>
+</section>
+
+<!--grid布局-->
+<!--<style>-->
+    <!--html, body{-->
+        <!--height: 100%;-->
+    <!--}-->
+    <!--.layout.grid {-->
+        <!--display: grid;-->
+        <!--grid-template-rows: 100px auto 100px;-->
+        <!--width: 100%;-->
+        <!--height: 100%;-->
+    <!--}-->
+    <!--.layout.grid div{-->
+        <!--/*这个一定要指定？*/-->
+        <!--/*width: 100%;*/-->
+        <!--/*position: fixed;*/-->
+    <!--}-->
+    <!--.layout.grid .top{-->
+        <!--background-color: red;-->
+    <!--}-->
+    <!--.layout.grid .bottom{-->
+        <!--background-color: red;-->
+    <!--}-->
+    <!--.layout.grid .center{-->
+        <!--background-color: yellowgreen;-->
+    <!--}-->
+<!--</style>-->
+<!--<section class="layout grid">-->
+    <!--<div class="top"></div>-->
+    <!--<div class="center">-->
+        <!--&lt;!&ndash;grid布局不需要加overflow&ndash;&gt;-->
+    <!--</div>-->
+    <!--<div class="bottom"></div>-->
+<!--</section>-->
+</body>
+</html>

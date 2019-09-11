@@ -1,0 +1,42 @@
+<template>
+    <div>
+        <div class="current">
+            我是
+        </div>
+        <h1>我是h1</h1>
+        <span class="title">
+            我是title
+        </span>
+        <btn>
+            <template v-slot>
+                <p>我是父组件传过来的内容</p>
+            </template>
+            <template v-slot:hasName>
+                <p>具名插槽</p>
+            </template>
+            <template v-slot:scopeSlot="scopeInfo">
+                <p>作用域插槽：{{scopeInfo.userName}}</p>
+            </template>
+        </btn>
+    </div>
+</template>
+<script>
+    import Btn from '../components/Btn.vue'
+    export default {
+        name: 'Home',
+        data() {
+            return {
+
+            }
+        },
+        components: {Btn}
+    }
+</script>
+
+<style scoped lang="scss">
+    @import "../css/reset";
+    .current {
+        color: blue;
+        font-size: 60px;
+    }
+</style>

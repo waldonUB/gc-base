@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    html * {
+        padding: 0;
+        margin: 0;
+    }
+    .layout {
+        margin-top: 10px;
+    }
+    .layout > div {
+        height: 100px;
+    }
+    .left {
+        background-color: rgba(244, 233, 1, 1);
+    }
+    .right {
+        background-color: rgba(24, 23, 1, 1);
+    }
+    .center {
+        background-color: rgba(24, 233, 109, 1);
+    }
+    .layout.float {
+
+    }
+    .layout.float .left {
+        width: 300px;
+        float: left;
+    }
+    .layout.float .right {
+        width: 300px;
+        float: right;
+    }
+    .layout.float .center {
+
+    }
+    .layout.absolute {
+
+    }
+    .layout.absolute > div{
+        position: absolute;
+    }
+    .layout.absolute .left{
+        width: 300px;
+        left: 0;
+    }
+    .layout.absolute .right{
+        width: 300px;
+        right: 0;
+    }
+    .layout.absolute .center{
+        left: 300px;
+        right: 300px;
+    }
+    .layout.flex {
+        /*margin-top: 10px;*/
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .layout.flex .left{
+        width: 300px;
+    }
+    .layout.flex .right{
+        width: 300px;
+    }
+    .layout.flex .center{
+        flex: 1;
+    }
+    .layout.grid {
+        display: grid;
+        /*行高*/
+        grid-template-rows: 100px;
+        grid-template-columns: 300px auto 300px;
+    }
+    .layout.table {
+        /*表格宽度一定要指定*/
+        width: 100%;
+        display: table;
+    }
+    .layout.table > div {
+        display: table-cell;
+    }
+    .layout.table .left{
+        width: 300px;
+    }
+    .layout.table .right{
+        width: 300px;
+    }
+    .layout.table .center{
+
+    }
+</style>
+<body>
+<div class="layout float">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center"></div>
+</div>
+<div class="layout absolute">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="center"></div>
+</div>
+<div class="layout flex">
+    <div class="left"></div>
+    <div class="center"></div>
+    <div class="right"></div>
+</div>
+<div class="layout grid">
+    <div class="left"></div>
+    <div class="center"></div>
+    <div class="right"></div>
+</div>
+<div class="layout table">
+    <div class="left"></div>
+    <div class="center"></div>
+    <div class="right"></div>
+</div>
+</body>
+</html>

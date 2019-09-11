@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试keepAlive的includes的用法</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <keep-alive>
+        <component :is="currentTab" :key=""></component>
+    </keep-alive>
+    <div>{{current}}</div>
+    <button @click="changeTab('1')">to tab1</button>
+    <button @click="changeTab('2')">to tab2</button>
+    <button @click="changeTab('3')">to tab3</button>
+</div>
+<script>
+    let tab1 = {
+        template: `<div>tab1</div>`,
+        destroyed() {
+            console.log(`tab1 被销毁`)
+        }
+    }
+    let tab2 = {
+        template: `<div>tab2</div>`,
+        destroyed() {
+            console.log(`tab2 被销毁`)
+        }
+    }
+    let tab3 = {
+        template: `<div>tab3</div>`,
+        destroyed() {
+            console.log(`tab3 被销毁`)
+        }
+    }
+    new Vue({
+        components: {tab1, tab2, tab3},
+        data: {
+            currentTab: 'tab1',
+            includes: [],
+            index: 0,
+            max: 3
+        },
+        computed: {
+            current: {
+                get() {
+                    // 改变get内的属性时会执行
+                    return this.index;
+                },
+                set(value) {
+                    debugger
+                    // 改变当前属性(this.current)时会执行
+                    this.currentTab = 'tab2'
+                    this.current = value
+                }
+            }
+        },
+        methods: {
+            changeTab (index) {
+                this.currentTab = 'tab' + index
+                // this.current = 6
+            }
+        }
+    }).$mount("#app")
+</script>
+</body>
+</html>

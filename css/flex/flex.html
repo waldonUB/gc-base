@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            display: inline-flex;
+            width: 800px;
+            /*height: 1500px;*/
+            flex-wrap: nowrap;
+            flex-direction: row;
+            justify-content: space-around;
+            background-color: rgba(25, 255, 125, 0.8);
+        }
+        .item {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 0, 0, 1);
+            border: black solid 2px;
+            /*top: 15px;*/
+            /*left: 50px;*/
+        }
+        .abs {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            right: 202px;
+            bottom: 2px;
+            background-color: rgba(255, 0, 255, 1);
+        }
+
+        .container1 {
+            width: 800px;
+        }
+        .item1 {
+            display: inline-block;
+            width: 100px;
+            height: 150px;
+            background-color: blue;
+        }
+        .relative {
+            display: inline-block;
+            position: relative;
+            width: 100px;
+            height: 100px;
+            left: 50px;
+            background-color: green;
+            z-index: -2;
+        }
+        .container2 {
+            position: relative;
+            width: 800px;
+            height: 100px;
+            background-color: rgba(255, 255, 125, 0.8);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="item"></div>
+    <!--aaaaaaaaaaaaaaaaaa-->
+    <div class="item"></div>
+    <div class="item"></div>
+    <!--<div class="abs"></div>-->
+</div>
+<div class="container1">
+    <div class="relative"></div>
+    <div class="item1"></div>
+</div>
+<div class="container2">
+    <div class="abs"></div>
+</div>
+</body>
+</html>

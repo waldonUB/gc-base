@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+  <temp1 v-model="param"></temp1>
+  <!--<temp1 v-bind:value="param"-->
+         <!--v-on:input="param = $event">-->
+  <!--</temp1>-->
+</div>
+<script>
+    let temp1 = {
+      props: ['value'],
+      template: `<input :value="value" @input="$emit('input', $event.target.value)">`
+    }
+    new Vue({
+      components: {temp1},
+      data: {
+        param: 'a'
+      },
+      watch: {
+        param (newVal) {
+          console.log(newVal)
+        }
+      }
+    }).$mount("#app")
+</script>
+</body>
+</html>

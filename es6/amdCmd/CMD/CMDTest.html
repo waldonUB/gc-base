@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="https://cdn.bootcss.com/seajs/3.0.3/runtime-debug.js"></script>
+<script>
+
+  // 加载入口模块
+  seajs.use("./lib.js", function(main) {
+    // 执行完 main.js导出(exports/module.exports)之前的同步操作之后的 回调
+    main.doSomething(); // init
+  });
+
+</script>
+</body>
+</html>

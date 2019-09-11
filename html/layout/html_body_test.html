@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--一个div块级元素没有主动为其设置宽度和高度，浏览器会为其分配可使用的最大宽度(比如全屏宽度)，
+但是不负责分配高度，块级元素的高度是由子元素堆砌撑起来的。那么，html和body标签的高度也都是由子级元素堆砌撑起来的-->
+<!--元素高度百分比需要向上遍历父标签要找到一个定值高度才能起作用，如果中途有个height为auto或是没有设置height属性，则高度百分比不起作用-->
+<div style="height: 500px; width: 500px;background-color: rgba(244, 233, 10, 0.1);">
+    <div style="height: auto">
+        <div style="height: 100%; background-color:red;">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

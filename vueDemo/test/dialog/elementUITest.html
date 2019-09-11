@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试elementUI对话框</title>
+    <!--<script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>-->
+    <script src="https://cdn.bootcss.com/vue/2.5.18/vue.common.dev.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<section id="app">
+    <!--这个可以测出动态组件可以缓存同一个对话框中不同的key值-->
+    <keep-alive max="3">
+        <component :is="temp1" :key="key" :theKey="key"></component>
+    </keep-alive>
+    <el-button type="info" @click="change('1')">切换key1</el-button>
+    <el-button type="info" @click="change('2')">切换key2</el-button>
+    <el-button type="info" @click="change('3')">切换key3</el-button>
+    <el-button type="info" @click="change('4')">切换key4</el-button>
+</section>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    const temp1 = {
+      name: 'temp1',
+      mounted() {
+      },
+      template: `<div>
+<el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+
+    <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%"
+            :before-close="handleClose">
+        <el-button @click="getCache">获取cache</el-button>
+        <input type="text">
+        <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+    </el-dialog>
+</div>`,
+      data() {
+        return {
+          dialogVisible: false
+        };
+      },
+      methods: {
+        handleClose(done) {
+          this.$confirm('确认关闭？')
+            .then(_ => {
+              done();
+            })
+            .catch(_ => {});
+        },
+        getCache () {
+          const cache = this.$vnode.parent.componentInstance.cache
+          console.log(cache)
+        }
+      }
+    }
+    new Vue({
+    components: {temp1},
+      data: {
+        temp1: 'temp1',
+        key: '1'
+      },
+      methods: {
+        change(type) {
+          this.key = type
+          console.log(this.key)
+        }
+      }
+    }).$mount("#app")
+</script>
+</body>
+</html>

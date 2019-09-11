@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  function fn(name, age) {
+    this.name = name
+    this.age = age
+  }
+  var wdq = new fn('wdq', '18')
+  console.log(wdq.age)
+</script>
+</body>
+</html>

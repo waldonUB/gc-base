@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .g-container {
+            height: 100vh;
+            width: 800px;
+        }
+        .g-container > div {
+              height: 100vh;
+              float: left;
+          }
+
+        .g-middle {
+            width: 100%;
+            background: #cc6630;
+        }
+        .g-middle-inner {
+            margin: 0 200px;
+        }
+        .g-left {
+            width: 200px;
+            background: #ffcc00;
+            margin-left: -100%;
+        }
+
+        .g-right {
+            width: 200px;
+            background: pink;
+            margin-left: -200px;
+        }
+    </style>
+</head>
+<body>
+<div class="g-container">
+    <div class="g-middle">
+        <div class="g-middle-inner"></div>
+    </div>
+    <div class="g-left"></div>
+    <div class="g-right"></div>
+</div>
+</body>
+</html>

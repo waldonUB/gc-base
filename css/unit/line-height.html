@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .line-height-box {
+            width: 200px;
+            height: 200px;
+            background-color: rgba(244, 233, 1, 0.2);
+            /*换行*/
+            /*word-break: break-all;*/
+        }
+        i {
+            /*line-height等于height的时候，单行文字垂直居中*/
+            /*line-height: 1.15;*/
+
+            /*行内元素无宽度*/
+            /*width: 1000px;*/
+
+            /*可以通过display: block;切换*/
+            /*display: block;*/
+            /*width: 1500px;*/
+            /*height: 100px;*/
+
+            /*只对左右内外边距生效*/
+            /*padding-right: 10px;*/
+            /*margin-right: 10px;*/
+        }
+        /*button既是行内元素，也是块级元素*/
+        .btn-test {
+            color: yellow;
+            width: 1000px;
+            height: 50px;
+        }
+        .green {
+            line-height: 1.1;
+            border: solid limegreen;
+        }
+
+        .red {
+            line-height: 1.1em;
+            border: solid red;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        .box {
+            width: 18em;
+            display: inline-block;
+            vertical-align: top;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+<i>sssssssssssssssssssssssssssssssssssssssssssssssssss</i>
+<i>sssssssssssssssssssssssssssssssssssssssssssssssssss</i>
+<button class="btn-test">66</button>
+<button class="btn-test">66</button>
+<div class="line-height-box">
+
+</div>
+
+<div class="box green">
+    <h1>Avoid unexpected results by using unitless line-height.</h1>
+    length and percentage line-heights have poor inheritance behavior ...
+</div>
+
+<div class="box red">
+    <h1>Avoid unexpected results by using unitless line-height.</h1>
+    length and percentage line-heights have poor inheritance behavior ...
+</div>
+
+</body>
+</html>
