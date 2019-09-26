@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    html, body {
+      /*height: 100%;*/
+    }
+    .parent {
+      width: 500px;
+      height: 500px;
+      position: absolute;
+      border: 1px solid black;
+      top: calc(50% - 250px);
+      left: calc(50% - 250px);
+    }
+    .child {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+      position: absolute;
+      top: 1000px;
+    }
+  </style>
+</head>
+<body>
+<div id="parent" class="parent">
+  <div id="child1" class="child"></div>
+</div>
+<script>
+  (function () {
+      let point = {
+          offsetTop: 0,
+          offsetLeft: 0
+      }
+      const parent = document.getElementById("parent")
+      const child1 = document.getElementById("child1")
+      parent.addEventListener('click', function () {
+          const height = document.documentElement.scrollHeight || document.body.scrollHeight // 兼容的写法
+          console.log(`body高：` + document.body.scrollHeight)
+          console.log(`document高：` + document.documentElement.scrollHeight)
+          console.log(`window高：` + window.innerHeight)
+      })
+      child1.addEventListener('click', function () {
+          const height = document.documentElement.scrollHeight || document.body.scrollHeight // 兼容的写法
+          console.log(`body高：` + document.body.scrollHeight)
+          console.log(`document高：` + document.documentElement.scrollHeight)
+      })
+      getPosition(point, child1)
+      console.log(point)
+  }())
+  function getPosition(point, e) {
+      point.offsetTop += e.offsetTop
+      point.offsetLeft += e.offsetLeft
+      e = e.offsetParent
+      if (e) {
+          getPosition(point, e)
+      }
+  }
+</script>
+</body>
+</html>
