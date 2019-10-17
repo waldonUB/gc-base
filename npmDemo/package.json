@@ -30,7 +30,7 @@
   "dependencies": {
     "element-ui": "^2.9.1",
     "jquery": "^3.4.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "px2rem-loader": "^0.1.9",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
