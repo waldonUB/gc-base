@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+  <style>
+    .visit-right-enter-active, .visit-right-leave-active {
+      transition: opacity 3.5s;
+    }
+    .visit-right-enter, .visit-right-leave-to /* .fade-leave-active below version 2.1.8 */ {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <transition name="visit-right">
+    <div class="context" v-show="isShow">
+      qwewqdasd
+    </div>
+  </transition>
+  <button @click="toggle">{{msg}}</button>
+</div>
+<script>
+  new Vue({
+      data: {
+          isShow: false,
+          msg: '帅啊'
+      },
+      methods: {
+          toggle () {
+              this.isShow = !this.isShow
+          }
+      }
+  }).$mount("#app")
+</script>
+</body>
+</html>
