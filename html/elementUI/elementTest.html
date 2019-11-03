@@ -10,6 +10,7 @@
 <body>
 <div id="app">
   <el-select
+          @remove-tag="removeTag"
           filterable
           v-model="value2"
           multiple
@@ -45,7 +46,12 @@
               value: '选项5',
               label: '北京烤鸭'
           }]
+      },
+    methods: {
+      removeTag () {
+        return false
       }
+    }
   }).$mount("#app")
 </script>
 </body>
