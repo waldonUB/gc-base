@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>图片预加载</title>
+  <script src="./js/vue.js"></script>
+  <style>
+    .imgBox {
+      border: 1px solid black;
+      width: 500px;
+      height: 500px;
+    }
+    
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="imgBox" >
+    <div v-if="isShow">
+      <img src="https://images.unsplash.com/photo-1572705690857-2069088a2514?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="">
+    </div>
+  </div>
+  <button @click="toggle">展示图片</button>
+</div>
+<script>
+  new Vue({
+      data: {
+          isShow: false
+      },
+      methods: {
+          toggle () {
+              this.isShow = !this.isShow
+          }
+      },
+      mounted () {
+          
+      }
+  }).$mount("#app")
+</script>
+</body>
+</html>
