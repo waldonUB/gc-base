@@ -1,2 +1,1 @@
-let a = () => {return {}}
-console.log(a())
+console.log(new Date().getTime())
