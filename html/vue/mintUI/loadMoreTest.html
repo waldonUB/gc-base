@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../resource/mint-ui.js"></script>
+    <script src="../resource/vue.js"></script>
+    <script src="../resource/mint-ui.js"></script>
+    <style>
+        html {
+            font-size: 50px;
+            height: 100%;
+        }
+        body {
+            height: 100%;
+        }
+        #app {
+            height: 100%;
+            overflow: scroll;
+            padding-top: 100px;
+        }
+        .clue {
+            position: relative;
+            box-sizing: border-box;
+            padding-top: 300px;
+        }
+        .absoluteBox {
+            width: 100%;
+            height: 300px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            background-color: aqua;
+        }
+        .fakeBox {
+            width: 100%;
+            height: 300px;
+        }
+        ul {
+            list-style: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <mt-loadmore :top-method="loadTop" :bottom-all-loaded="allLoaded" ref="loadmore">
+        <div class="clue">
+            <div class="absoluteBox"></div>
+<!--            <div class="fakeBox"></div>-->
+            <ul>
+                <li v-for="(item, index) in 50" :key="index">{{ index }}</li>
+            </ul>
+        </div>
+    </mt-loadmore>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            allLoaded: false
+        },
+        methods: {
+            loadTop () {
+                setTimeout(() => {
+                    this.$refs.loadmore.onTopLoaded()
+                    console.log(`下拉刷新成功`)
+                }, 1000)
+            },
+            loadBottom () {
+                setTimeout(() => {
+                    this.$refs.loadmore.onBottomLoaded()
+                    console.log(`上拉刷新成功`)
+                }, 1000)
+            }
+        }
+    })
+</script>
+</body>
+</html>
