@@ -3,39 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="../resource/mint-ui.js"></script>
+    <link rel="stylesheet" href="../resource/mint-ui.css">
     <script src="../resource/vue.js"></script>
     <script src="../resource/mint-ui.js"></script>
     <style>
         html {
             font-size: 50px;
-            height: 100%;
+            /*height: 100%;*/
         }
         body {
-            height: 100%;
+            /*height: 100%;*/
         }
         #app {
-            height: 100%;
-            overflow: scroll;
-            padding-top: 100px;
+            /*height: 100%;*/
+            /*overflow: scroll;*/
         }
         .clue {
             position: relative;
             box-sizing: border-box;
-            padding-top: 300px;
-        }
-        .absoluteBox {
-            width: 100%;
-            height: 300px;
-            position: fixed;
-            left: 0;
-            top: 0;
-            z-index: 1;
-            background-color: aqua;
-        }
-        .fakeBox {
-            width: 100%;
-            height: 300px;
         }
         ul {
             list-style: none;
@@ -45,10 +30,8 @@
 </head>
 <body>
 <div id="app">
-    <mt-loadmore :top-method="loadTop" :bottom-all-loaded="allLoaded" ref="loadmore">
+    <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <div class="clue">
-            <div class="absoluteBox"></div>
-<!--            <div class="fakeBox"></div>-->
             <ul>
                 <li v-for="(item, index) in 50" :key="index">{{ index }}</li>
             </ul>
