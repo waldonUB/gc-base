@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../js/vue.js"></script>
+  <style>
+  </style>
+</head>
+<body>
+<div id="app">
+  <p>
+    <button @click="changeImg">改图</button>
+  </p>
+  <img id="imgTest" :src="imgMini" alt="">
+</div>
+<script>
+  new Vue({
+    data: {
+      msg: '666',
+      imgMini: 'http://ww1.sinaimg.cn/large/00760Iw1gy1gckd9cca7kj318g0xc4qp.jpg', // 略缩图
+      imgLarge: 'https://cdn.dribbble.com/users/204298/screenshots/10591284/media/fcb663928523b4c5bd8ce3bc537fc921.png', // 初始图
+    },
+    methods: {
+      changeImg () {
+        this.imgMini = this.imgLarge
+      }
+    },
+    created () {
+      let img = new Image()
+      img.src = this.imgMini
+      img.onload = () => {
+        this.imgMini = this.imgLarge
+      }
+    }
+  }).$mount("#app")
+</script>
+</body>
+</html>
