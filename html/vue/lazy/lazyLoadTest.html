@@ -5,6 +5,10 @@
   <title>Title</title>
   <script src="../js/vue.js"></script>
   <style>
+    #imgTest {
+      width: 800px;
+      height: 800px;
+    }
   </style>
 </head>
 <body>
@@ -20,7 +24,7 @@
     
     data: {
       msg: '666',
-      imgMini: 'http://ww1.sinaimg.cn/large/00760Iw1gy1gckd9cca7kj318g0xc4qp.jpg', // 略缩图
+      imgMini: 'http://ww1.sinaimg.cn/large/00760Iw1gy1gcnx0zkef2j302s02374g.jpg', // 略缩图
       imgLarge: 'https://cdn.dribbble.com/users/204298/screenshots/10591284/media/fcb663928523b4c5bd8ce3bc537fc921.png', // 初始图
     },
     methods: {
@@ -32,7 +36,9 @@
       let img = new Image()
       img.src = this.imgMini
       img.onload = () => {
-        this.imgMini = this.imgLarge
+        setTimeout(() => {
+          this.imgMini = this.imgLarge
+        }, 2000)
       }
     }
   }).$mount("#app")
