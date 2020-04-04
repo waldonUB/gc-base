@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+    <style>
+        .nav {
+            display: flex;
+        }
+        .navItem {
+            cursor: pointer;
+            margin-right: 10px;
+
+        }
+        .navItem.active {
+            color: red;
+            position: relative;
+            transition: all 1000ms;
+        }
+        .navItem.active::after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 2px;
+            background-color: blue;
+            left: 0;
+            bottom: 0;
+        }
+        .navItem.active::after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 2px;
+            background-color: blue;
+            left: 0;
+            bottom: 0;
+            animation: leftMove 300ms ease-in-out;
+        }
+        .navItem.active.rightMove::after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 2px;
+            background-color: blue;
+            left: 0;
+            bottom: 0;
+            animation: rightMove 300ms ease-in-out;
+        }
+        @keyframes leftMove {
+            from {
+                left: -100%;
+            }
+        }
+        @keyframes rightMove {
+            from {
+                left: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="nav">
+        <div class="navItem"
+            :class="getActiveClass(item.key)"
+            v-for="item of sliderList"
+            :key="item.key"
+            @click="changeItem(item)">{{item.name}}</div>
+    </div>
+</div>
+<script>
+    new Vue({
+        data: {
+            sliderList: [
+                {
+                    key: 1,
+                    name: '选项一'
+                },
+                {
+                    key: 2,
+                    name: '选项二'
+                },
+                {
+                    key: 3,
+                    name: '选项三'
+                }
+            ],
+            currentKey: 1,
+            lastKey: 1
+        },
+        methods: {
+            changeItem (item) {
+                this.lastKey = this.currentKey
+                this.currentKey = item.key
+            },
+            getActiveClass (key) {
+                if (this.currentKey !== key) {
+                    return ''
+                }
+                if (this.currentKey < this.lastKey) {
+                    return ['active', 'rightMove']
+                } else {
+                    return ['active']
+                }
+            }
+        }
+    }).$mount("#app")
+</script>
+</body>
+</html>
