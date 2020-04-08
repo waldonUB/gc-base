@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../resource/mint-ui.css">
+    <script src="../resource/vue.js"></script>
+    <script src="../resource/mint-ui.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-size: 50px;
+        }
+        ul {
+            list-style: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="app" style="height: 300px; overflow: auto">
+    <mt-loadmore bottomLoadingText="加载大声道" :auto-fill="false" :top-method="loadTop" :bottom-method="loadBottom" ref="loadmore">
+        <div class="clue">
+            <ul>
+                <li v-for="(item, index) in 50" :key="index">{{ index }}</li>
+            </ul>
+        </div>
+    </mt-loadmore>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            allLoaded: false
+        },
+        methods: {
+            loadTop (state) {
+                debugger
+                setTimeout(() => {
+                    this.$refs.loadmore.onTopLoaded()
+                }, 2000)
+            },
+            loadBottom (state) {
+                debugger
+                
+            }
+        }
+    })
+</script>
+</body>
+</html>

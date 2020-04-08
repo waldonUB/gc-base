@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./js/vue.js"></script>
+    <style>
+        .parent {
+            width: 500px;
+            height: 500px;
+            background-color: red;
+        }
+        .grandParent .parent{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="app" :class="init ? 'grandParent' : ''" v-cloak>
+    <div class="parent"></div>
+</div>
+<script>
+    var init = true
+</script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            init: init
+        }
+    })
+</script>
+</body>
+</html>
