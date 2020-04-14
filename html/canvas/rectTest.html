@@ -5,7 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-
 </body>
 <script>
     (function () {
@@ -28,6 +27,49 @@
             ctx.stroke();
             document.body.appendChild(canvas)
         }
+        
+        
+        
+        let image = new Image()
+        // 外链图片的时候设置
+        // image.setAttribute('crossorigin', 'anonymous')
+        // image.crossOrigin = ''
+        // image.src = 'http://ww1.sinaimg.cn/large/00760Iw1ly1g713oepqa2j304g05i3ye.jpg' // 图片服务器要设置可跨域的头部
+        // image.src = 'https://avatars3.githubusercontent.com/u/496048?s=120&v=4'
+        image.src = '../../image/新垣结衣.jpg'
+        image.onload = () => {
+            const w = 200
+            const h = 200
+            // const scale = w / h
+            const canvas = document.createElement('canvas')
+            const ctx = canvas.getContext('2d')
+            ctx.fillStyle = 'rgba(255,255,255,0)'
+            canvas.width = w
+            canvas.height = h
+            ctx.drawImage(image, 0, 0, w, h)
+            const base64 = canvas.toDataURL('image/png')
+            let base64Img = document.createElement('img')
+            base64Img.src = base64
+            document.body.appendChild(base64Img)
+        }
+        
+        
+        
+        
+        // var canvas = document.createElement('canvas');
+        // var context = canvas.getContext('2d');
+        //
+        // var img = new Image();
+        // img.crossOrigin = '';
+        // img.onload = function () {
+        //     context.drawImage(img, 0, 0);
+        //     const base64 = canvas.toDataURL('image/png')
+        //     let base64Img = document.createElement('img')
+        //     base64Img.src = base64
+        //     document.body.appendChild(base64Img)
+        //     // context.getImageData(0, 0, this.width, this.height);
+        // };
+        // img.src = 'https://avatars3.githubusercontent.com/u/496048?s=120&v=4';
     })()
 </script>
 </html>
