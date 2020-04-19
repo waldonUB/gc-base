@@ -140,6 +140,53 @@
 
         window.requestAnimationFrame(clock);
     })()
+
+    // getCanvasQr () {
+    //     let image1 = new Image()
+    //     let image2 = new Image()
+    //     // image1.crossOrigin = '';
+    //     // image2.crossOrigin = '';
+    //     image1.src = this.qrTouchImg
+    //     image2.src = this.realMpQr
+    //     let promise1 = new Promise(resolve => {
+    //         image1.onload = () => {
+    //             resolve(image1)
+    //         }
+    //     })
+    //     let promise2 = new Promise(resolve => {
+    //         if (image2) {
+    //             image2.onload = () => {
+    //                 resolve(image2)
+    //             }
+    //         } else {
+    //             this.$messagebox('提示', '获取二维码失败')
+    //         }
+    //     })
+    //     Promise.all([promise1, promise2]).then(res => {
+    //         let canvas  = document.createElement('canvas')
+    //         let bgWidth = Math.floor(res[0].width)
+    //         let bgHeight = Math.floor(res[0].height)
+    //         let cpWidth = 440
+    //         let cpHeight = 440
+    //         canvas.width = bgWidth
+    //         canvas.height = bgHeight
+    //         let drawX =  Math.floor(bgWidth/2 - cpWidth/2)
+    //         let drawY =  Math.floor(bgHeight/3 - cpHeight/2)
+    //         const ctx = canvas.getContext('2d')
+    //         ctx.fillStyle = 'rgba(255,255,255,0)'
+    //         // ctx.drawImage(res[0], 0, 0, bgWidth, bgHeight)
+    //         ctx.drawImage(res[1], drawX, drawY, cpWidth, cpHeight)
+    //         try {
+    //             const base64 = canvas.toDataURL('image/png')
+    //             let bgWithQr = document.getElementById('qrBg')
+    //             bgWithQr.src = base64
+    //         } catch (error) {
+    //             console.error(`toDataURL`,error)
+    //         }
+    //
+    //
+    //     })
+    // }
 </script>
 </body>
 </html>
