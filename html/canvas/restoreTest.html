@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    ctx.save(); // save the default state
+
+    ctx.fillStyle = "green";
+    ctx.fillRect(10, 10, 100, 100);
+
+    ctx.restore(); // restore to the default state
+    ctx.restore(); // restore to the default state
+    ctx.restore(); // restore to the default state
+    ctx.restore(); // restore to the default state
+    ctx.fillRect(150, 75, 100, 100);
+</script>
+</body>
+</html>
