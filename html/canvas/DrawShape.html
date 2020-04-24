@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图形一步步绘制</title>
+    <style>
+        .drawWrapper {
+            width: 500px;
+            height: 500px;
+            margin: 20px auto;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .operateBox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .operateBox button{
+            margin-right: 20px;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="drawWrapper">
+        <canvas id="triangle"></canvas>
+    </div>
+    <div class="operateBox">
+        <button @click="reset">撤销</button>
+        <button @click="nextStep">下一步</button>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: `#app`,
+        data: {
+            canvas: null,
+            stepIndex: 0,
+            currentCxt: null,
+        },
+        methods: {
+            reset () {
+                let lastStep = this.stepIndex - 1
+                this.stepIndex = 0
+                this.currentCxt.clearRect(0, 0, this.canvas.width, this.canvas.height)
+                for (let i = 0; i < lastStep; i++) {
+                    this.nextStep()
+                }
+            },
+            nextStep () {
+                if (!this.currentCxt) {
+                    this.canvas = document.getElementById('triangle')
+                    this.currentCxt = this.canvas.getContext('2d')
+                }
+                this.stepIndex++
+                this.currentCxt.beginPath()
+                switch (this.stepIndex) {
+                    case 1:
+                        this.currentCxt.moveTo(25, 25)
+                        this.currentCxt.lineTo(300, 25)
+                        this.currentCxt.strokeStyle = 'green'
+                        this.currentCxt.stroke()
+                        break
+                    case 2:
+                        this.currentCxt.moveTo(300, 25)
+                        this.currentCxt.lineTo(25, 150)
+                        this.currentCxt.strokeStyle = 'red'
+                        this.currentCxt.stroke()
+                        break
+                    case 3:
+                        this.currentCxt.moveTo(25, 150)
+                        this.currentCxt.lineTo(25, 25)
+                        this.currentCxt.strokeStyle = 'blue'
+                        this.currentCxt.stroke()
+                        break
+                    case 4:
+                        this.currentCxt.moveTo(25, 25)
+                        this.currentCxt.lineTo(300, 25)
+                        this.currentCxt.lineTo(25, 150)
+                        this.currentCxt.lineTo(25, 25)
+                        this.currentCxt.fill()
+                }
+            },
+        },
+        mounted () {
+            
+        }
+    })
+</script>
+</body>
+</html>
