@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>刮刮卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
+        }
+        #app {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .drawWrapper {
+            width: fit-content;
+            /*margin: 0 auto;*/
+            position: relative;
+        }
+        .scratch {
+            position: absolute;
+            z-index: 11;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <div id="drawWrapper" class="drawWrapper">
+        <canvas class="scratch" id="scratch" 
+                @mousedown="getMouseState($event, 'down')"
+                @mouseup="getMouseState($event, 'up')"
+                @mousemove="clipArea"></canvas>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: `#app`,
+        data: {
+            canvas: null,
+            stepIndex: 0,
+            currentctx: null,
+            drag: false
+        },
+        methods: {
+            clipArea (e) {
+                if (this.drag) {
+                    this.currentctx.save()
+                    this.currentctx.beginPath()
+                    let x = e.offsetX
+                    let y = e.offsetY
+                    this.currentctx.arc(x, y, 20, 0, 2 * Math.PI);
+                    // this.currentctx.stroke();
+                    this.currentctx.clip()
+                    this.currentctx.clearRect(0, 0, 300, 300)
+                    this.currentctx.restore()
+                }
+            },
+            getMouseState (e, state) {
+                console.log(e)
+                this.drag = state === 'down'
+            },
+            initData () {
+                let scratch = document.getElementById('scratch')
+                let drawWrapper = document.getElementById('drawWrapper')
+                this.currentctx = scratch.getContext('2d')
+                this.currentctx.save()
+                this.currentctx.fillStyle = 'red'
+                this.currentctx.fillRect(0, 0, 100, 60);
+                this.currentctx.restore()
+                this.currentctx.fillRect(180, 60, 100, 60);
+
+                this.currentctx.save()
+                this.currentctx.fillStyle = 'gray'
+                this.currentctx.fillRect(0, 0, 300, 150);
+
+                let img = document.createElement('img')
+                img.src='./image/新垣结衣.jpg'
+                img.width = 300
+                img.height = 150
+                drawWrapper.appendChild(img)
+            },
+        },
+        mounted () {
+            this.initData()
+        }
+    })
+</script>
+</body>
+</html>
