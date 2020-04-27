@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>刮刮卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
+            overflow: hidden;
+        }
+        #app {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+</div>
+<script src="../js/three.js"></script>
+<script>
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
+
+    var renderer = new THREE.WebGLRenderer();
+    //antialias:true增加抗锯齿效果
+    renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    var geometry = new THREE.BoxGeometry();
+    var material = new THREE.MeshBasicMaterial( { color: 0x00247AF3 } );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+
+    edges = new THREE.EdgesHelper( cube, 0x1535f7 );//设置边框，可以旋转
+    scene.add( edges );
+    camera.position.z = 5;
+
+    var animate = function () {
+        requestAnimationFrame( animate );
+
+        cube.rotation.x += 0.05;
+        edges.rotation.x += 0.05;
+        // cube.rotation.y += 0.05;
+        cube.rotation.z += 0.05;
+        edges.rotation.z += 0.05;
+
+        renderer.render( scene, camera );
+    };
+
+    animate();
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .parent {
+            width: 100px;
+            height: 100px;
+            /*background-color: red;*/
+        }
+    </style>
+</head>
+<body>
+<script>
+    let box = document.createElement('div')
+    box.classList.add('parent')
+    document.body.appendChild(box)
+    let i = 0
+    var rotate = function () {
+        // box.style.backgroundColor = 'green'
+        box.style.backgroundColor = i++ % 2 === 0 ? 'green' : 'red'
+        requestAnimationFrame(rotate)
+    }
+    rotate()
+</script>
+</body>
+</html>

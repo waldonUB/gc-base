@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #animationWrapper {
+            width: 68px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="animationWrapper"></div>
+<script>
+    let maliao = document.createElement('img')
+    maliao.src = './image/maliao.png'
+    let animationWrapper = document.getElementById('animationWrapper')
+    animationWrapper.appendChild(maliao)
+</script>
+</body>
+</html>
