@@ -52,14 +52,14 @@
                     debugger
                     // 改变当前属性(this.current)时会执行
                     this.currentTab = 'tab2'
-                    this.current = value
+                    // this.current = value
                 }
             }
         },
         methods: {
             changeTab (index) {
                 this.currentTab = 'tab' + index
-                // this.current = 6
+                this.current = 6
             }
         }
     }).$mount("#app")
