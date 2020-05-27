@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" width="800" height="800"></canvas>
+<script>
+    var img = new Image();
+    img.onload = function () {
+        var context = canvas.getContext('2d');
+        // 坐标位移
+        context.translate(150, 100);
+        // 旋转45度
+        context.rotate(45 * Math.PI / 180);
+        // 再位移回来
+        // context.translate(-150, -100);
+        // 此时绘制图片就是中心旋转了
+        context.drawImage(this, 0, 0, 300, 200);
+
+        // 坐标系还原
+        // context.setTransform(1, 0, 0, 1, 0, 0);
+    };
+    img.src = './image/新垣结衣.jpg';
+</script>
+</body>
+</html>
