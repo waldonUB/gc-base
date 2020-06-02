@@ -8,7 +8,7 @@
             width: 100px;
             height: 100px;
             position: fixed;
-            left: 50%;
+            left: 0;
             top: 50%;
             display: block;
         }
@@ -16,7 +16,7 @@
             width: 100px;
             height: 100px;  
             position: fixed;
-            left: 50%;
+            left: 0;
             top: 50%;
             z-index: 99;
         }
@@ -27,11 +27,13 @@
 </head>
 <body>
 <div class="contain">
-    <img class="personStand" src="./image/personStand.png" alt="">
+    <img id="personStand" class="personStand" src="./image/personStand.png" alt="">
     <img id="personMove" class="personMove" src="./image/personMove.png" alt="">
 </div>
 <script>
     var personMove = document.getElementById('personMove')
+    var personStand = document.getElementById('personStand')
+    let left = 0
     let start = 0
     function move() {
         let end = new Date().getTime()
@@ -41,6 +43,12 @@
         }
         start = new Date().getTime()
         if (personMove.classList.contains('hidden')) {
+            left += 10
+            if (left > 1000) {
+                left = 0
+            }
+            personMove.style.left = left + 'px'
+            personStand.style.left = left + 'px' 
             personMove.classList.remove('hidden')
         } else {
             personMove.classList.add('hidden')
