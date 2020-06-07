@@ -1,2 +1,3 @@
-console.log(new Date('2020-06-04 22:48:31'))
-console.log(new Date(1589472000000))
+let a = 1
+console.log(a.b === a.c)
+console.log(Object.keys(a.b))
