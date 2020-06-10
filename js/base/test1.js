@@ -1,3 +1,3 @@
-let a = 1
-console.log(a.b === a.c)
-console.log(Object.keys(a.b))
+let list = [1, 2]
+let check = list.findIndex(item => item === -1) === -1
+console.log(check)
