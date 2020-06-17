@@ -32,10 +32,10 @@
         var time = new Date();
         // console.log(`((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds()`,((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds())
         console.log(`旋转`, 360 * Math.PI / 180)
-        ctx.rotate( ((time.getSeconds() * 6 * Math.PI)/180)  + ((2*Math.PI)/60000)*time.getMilliseconds()); // 正常的转
-        // ctx.rotate( ((time.getSeconds() * 6 * Math.PI)/180)); // 卡秒转，相当于一秒走3度
-        console.log(`3度的毫秒`, ((time.getMilliseconds() * 6 * Math.PI)/180000)) // 1度相当于 2π/60 = π/30
-        // 毫秒就相当于1秒内走完这三度
+        // ctx.rotate( ((time.getSeconds() * 6 * Math.PI)/180)  + ((2*Math.PI)/60000)*time.getMilliseconds()); // 正常的转
+        ctx.rotate( ((time.getSeconds() * 6 * Math.PI)/180)); // 卡秒转，相当于一秒走6度
+        console.log(`6度的毫秒`, ((time.getMilliseconds() * 6 * Math.PI)/180000)) // 1度相当于 2π/60 = π/30
+        // 毫秒就相当于1秒内走完这6度
         // ctx.rotate( (time.getMilliseconds() * 36 *Math.PI)/18000); // 毫秒级别的转
         ctx.translate(105, 0); // arc画的圆半径就是105
         ctx.fillRect(0,-12,50,24); // Shadow
