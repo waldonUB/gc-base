@@ -1,3 +1,2 @@
-var a = 1660
-var b = 1660
-console.log(b / a)
+let arr = [1, 2, 4]
+console.log(arr.find(item => item !== 4))
