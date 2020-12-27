@@ -34,7 +34,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../css/reset";
     .current {
         color: blue;
         font-size: 60px;

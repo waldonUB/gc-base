@@ -80,7 +80,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../src/css/reset";
     .current {
         color: blue;
         font-size: 60px;
