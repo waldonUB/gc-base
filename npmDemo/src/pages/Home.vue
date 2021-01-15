@@ -18,9 +18,35 @@
                 <p>作用域插槽：{{scopeInfo.userName}}</p>
             </template>
         </btn>
+        <childTemp name="我是" :sex="6"></childTemp>
     </div>
 </template>
 <script>
+    let grandChildTemp = {
+        template: `
+            <div>{{attrCal}}</div>
+        `,
+        computed: {
+            attrCal () {
+                return this.$attrs
+            }
+        }
+    }
+    let childTemp = {
+        template: `
+            <div>
+                {{$attrs}}
+                <grandChildTemp v-bind="$attrs"></grandChildTemp>
+            </div>
+        `,
+        components: {grandChildTemp},
+        props: {
+            name: {
+                type: String,
+                default: ''
+            }
+        }
+    }
     import Btn from '../components/Btn.vue'
     export default {
         name: 'Home',
@@ -29,7 +55,7 @@
 
             }
         },
-        components: {Btn}
+        components: {Btn, childTemp}
     }
 </script>
 
