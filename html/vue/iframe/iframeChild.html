@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  {{msg}}
+</div>
+<script>
+  new Vue({
+    data: {
+      msg: '666'
+    },
+    created () {
+      this.msg = '7777'
+      console.log(1111)
+      // console.log(this.msgCal)
+    },
+    computed: {
+      msgCal () {
+        console.log(this.msg + 'Cal--')
+        return this.msg + 'Cal--'
+      }
+    }
+  }).$mount("#app")
+</script>
+</body>
+</html>
