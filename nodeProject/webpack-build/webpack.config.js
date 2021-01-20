@@ -11,8 +11,8 @@ readDir.forEach((item) => {
 module.exports = {
   entry,
   output: {
-    filename: "[name].min.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: "[name].src.js",
+    path: path.resolve(__dirname, "dist/wxWork"),
   },
   module: {
     rules: [
