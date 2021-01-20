@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "fs-extra": "^9.1.0",
     "vue-cli": "^2.9.6"
   }
 }
