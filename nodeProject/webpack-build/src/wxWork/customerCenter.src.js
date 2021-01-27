@@ -5,6 +5,9 @@ console.log(`devtool: 'inline-source-map',`);
 let es7Fn = async () => {
   setTimeout(() => {
     console.log("延迟0.5");
+    console.log("延迟0.5");
+    console.log("延迟0.5");
+    console.log("延迟0.5");
   }, 500);
 };
 es7Fn();

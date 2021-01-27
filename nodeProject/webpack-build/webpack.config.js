@@ -19,9 +19,17 @@ module.exports = {
       {
         test: /\.js$/,
         loader: "babel-loader",
-        exclude: /node_modules/,
+        include: [srcDir],
+        options: {
+          presets: ["@babel/preset-env"],
+          plugins: ["@babel/plugin-transform-runtime"],
+        },
       },
     ],
   },
   plugins: [new CleanWebpackPlugin()],
+  watchOptions: {
+    ignored: /^((?!wxWork).)*$/,
+  },
+  devtool: "source-map",
 };
