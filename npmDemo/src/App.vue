@@ -8,3 +8,8 @@
         name: 'App'
     }
 </script>
+<style lang="scss">
+.btn {
+
+}
+</style>
