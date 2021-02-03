@@ -1,0 +1,20 @@
+{
+  "name": "duty-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsTask": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "fs-extra": "^9.1.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "node-schedule": "^2.0.0"
+  }
+}
