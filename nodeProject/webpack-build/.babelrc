@@ -4,7 +4,7 @@
         "useBuiltIns": "usage",
         "modules": false,
         "targets": {
-          "browsers": "last 2 versions, not ie <= 9"
+          "browsers": "chrome>=52"
         }
       }]
     ],
