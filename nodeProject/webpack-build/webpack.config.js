@@ -31,5 +31,5 @@ module.exports = {
   watchOptions: {
     ignored: /^((?!wxWork).)*$/,
   },
-  devtool: "source-map",
+  devtool: "cheap-module-source-map",
 };
