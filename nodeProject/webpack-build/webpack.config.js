@@ -8,11 +8,16 @@ readDir.forEach((item) => {
   let entryName = item.split(".")[0];
   entry[entryName] = path.resolve(srcDir, item);
 });
+
+const testDir = fs.readdirSync('U:\\dev-svn\\waldon\\res\\tsportal\\test')
+console.log(`testDir`, testDir)
+
 module.exports = {
+  mode : 'development',
   entry,
   output: {
     filename: "[name].src.js",
-    path: path.resolve(__dirname, "dist/wxWork"),
+    path: 'U:\\dev-svn\\waldon\\res\\tsportal\\test',
   },
   module: {
     rules: [
@@ -31,5 +36,5 @@ module.exports = {
   watchOptions: {
     ignored: /^((?!wxWork).)*$/,
   },
-  devtool: "cheap-module-source-map",
+  devtool: 'cheap-module-source-map'
 };
