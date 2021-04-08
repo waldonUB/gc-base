@@ -4,8 +4,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const srcDir = path.resolve(__dirname, "src/wxWork");
 const readDir = fs.readdirSync(srcDir);
 let entry = {};
-readDir.forEach((item) => {
-  let entryName = item.split(".")[0];
+readDir.forEach((item, index) => {
+  let entryName = index + '/' + item.split(".")[0];
   entry[entryName] = path.resolve(srcDir, item);
 });
 
@@ -17,7 +17,7 @@ module.exports = {
   entry,
   output: {
     filename: "[name].src.js",
-    path: 'U:\\dev-svn\\waldon\\res\\tsportal\\test',
+    path: path.resolve(__dirname, "dist/js"),
   },
   module: {
     rules: [

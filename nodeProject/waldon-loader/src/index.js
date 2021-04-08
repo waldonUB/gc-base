@@ -1,1 +1,5 @@
-console.log("测试凡科");
+var obj = {
+  a: 1,
+  b: 2
+}
+console.log(Object.keys(obj).length)
