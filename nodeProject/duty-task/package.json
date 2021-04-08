@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsTask": "node index.js"
+    "tsTask": "cross-env TASK_NOW=true node index.js",
+    "tsTask_later": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "node-cron": "^3.0.0",
     "node-schedule": "^2.0.0"
   }
 }
