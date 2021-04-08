@@ -19,7 +19,7 @@ fs.readJson(dutyPath, (err, res) => {
  * @date 2021-01-24
  * @param {Object} dutyData - param
  */
-const setCurrentData = function (dutyData) {
+const setCurrentData = (dutyData) => {
   let { memberList_web, memberList_backend, hooksData } = dutyData;
   const webIndex = memberList_web.findIndex(
     (item) => item.name === hooksData.web.name
@@ -36,39 +36,24 @@ const setCurrentData = function (dutyData) {
       ? memberList_backend[0]
       : memberList_backend[backEndIndex + 1];
 };
-
-const taskSchedule = function (dutyData) {
-  let rule = new schedule.RecurrenceRule();
-  rule.hour = 9;
-  rule.minute = 0;
-  rule.second = 0;
-  // rule.second = [0, 10, 20, 30, 40, 50]; // 每隔 10 秒执行一次
-  let { hooksData } = dutyData;
-  webHooks(dutyData, hooksData);
-  if (new Date().getHours() > 9) {
-    // 超过当天临界时间的，则放入第二天的数据
-    setCurrentData(dutyData);
-  }
-  const job = schedule.scheduleJob(rule, () => {
-    webHooks(dutyData, hooksData);
-    fs.writeJson(dutyPath, dutyData, (err, res) => {
-      if (!err) {
-        setCurrentData(dutyData);
-        console.log(
-          `写入${hooksData.web.name}，${
-            hooksData.backend.name
-          }，${new Date().toLocaleDateString()}`
-        );
-      } else {
-        console.log(`写入文件失败，${new Date().toLocaleDateString()}`);
-      }
-    });
-  });
+const sendConfig = (option) => {
+  // axios({
+  //   method: "post",
+  //   url: option.url,
+  //   data: {
+  //     msgtype: "text",
+  //     text: {
+  //       content: option.sayTest,
+  //       mentioned_mobile_list: option.mobiles,
+  //     },
+  //   },
+  // });
 };
-
-const webHooks = function (dutyData, hooksData) {
+const webHooks = (dutyData) => {
+  const { hooksData } = dutyData;
   const { web, backend } = hooksData;
-  let sayTest = `今天值班前端为：${web.name}，后端为：${backend.name}`;
+  const sayTest = `今天值班前端为：${web.name}，后端为：${backend.name}`;
+  console.log(sayTest);
   dutyData.roomUrlList.forEach((item) => {
     let option = {
       url: item.url,
@@ -78,17 +63,37 @@ const webHooks = function (dutyData, hooksData) {
     sendConfig(option);
   });
 };
-
-const sendConfig = function (option) {
-  axios({
-    method: "post",
-    url: option.url,
-    data: {
-      msgtype: "text",
-      text: {
-        content: option.sayTest,
-        mentioned_mobile_list: option.mobiles,
-      },
-    },
+/**
+ * 定时任务job
+ * @author waldon
+ * @date 2021-01-24
+ * @param {Object} dutyData - param
+ */
+const cornJob = (dutyData) => {
+  const { hooksData } = dutyData;
+  webHooks(dutyData);
+  setCurrentData(dutyData);
+  fs.writeJson(dutyPath, dutyData, (err, res) => {
+    if (!err) {
+      console.log(
+        `写入${hooksData.web.name}，${
+          hooksData.backend.name
+        }，${new Date().toLocaleDateString()}`
+      );
+    } else {
+      console.log(`写入文件失败，${new Date().toLocaleDateString()}`);
+    }
+  });
+};
+const taskSchedule = (dutyData) => {
+  // const cornStr = "0 0 9 * * *";
+  const cornStr = "*/5 * * * * *";
+  console.log(`*****定时任务开启*****`);
+  if (process.env.TASK_NOW === "true") {
+    console.log(`*****执行立即写入*****`);
+    cornJob(dutyData);
+  }
+  const job = schedule.scheduleJob(cornStr, () => {
+    cornJob(dutyData);
   });
 };
