@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <div class="test-list" v-for="([item, value], index) of mapList" :key="item">
+    {{value}}
+  </div>
+  <div v-if="obj.noExit">555</div>
+</div>
+<script>
+  new Vue({
+    data: {
+      msg: '666',
+      setList: new Set(),
+      mapList: new Map(),
+      obj: {
+        a: 1
+      }
+    },
+    created () {
+      this.setList.add('1')
+      this.setList.add('2')
+      this.setList.add('3')
+      this.setList.add('4')
+
+      this.mapList.set('a', 1)
+      this.mapList.set('b', 2)
+      this.mapList.set('c', 3)
+    },
+    computed: {
+      msgCal () {
+        console.log(this.msg + 'Cal--')
+        return this.msg + 'Cal--'
+      }
+    }
+  }).$mount("#app")
+</script>
+</body>
+</html>
