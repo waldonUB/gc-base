@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
 
     <style>
-        .container1 {
-            width: 100px;
-            height: 100px;
-            background-color: red;
-        }
-        .child1 {
-            width: 50px;
-            height: 50px;
-            background-color: pink;
-        }
-        .container2 {
-            width: 100px;
-            height: 100px;
-            background-color: yellowgreen;
-        }
+      .container1 {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+      .child1 {
+        width: 50px;
+        height: 50px;
+        background-color: pink;
+      }
+      .container2 {
+        width: 100px;
+        height: 100px;
+        background-color: yellowgreen;
+      }
     </style>
-</head>
-<body>
-<div class="container1" id="container1">
-    <div class="child1" id="child1"></div>
-</div>
-<div class="container2" id="container2"></div>
-<script>
-    var container1 = document.getElementById("container1")
-    var container2 = document.getElementById("container2")
-    var child1 = document.getElementById("child1")
-    container1.addEventListener('click', function (e) {
+  </head>
+  <body>
+    <div class="container1" id="container1">
+      <div class="child1" id="child1"></div>
+    </div>
+    <div class="container2" id="container2"></div>
+    <script>
+      var container1 = document.getElementById('container1')
+      var container2 = document.getElementById('container2')
+      var child1 = document.getElementById('child1')
+      container1.addEventListener('click', function (e) {
         console.log(`container1被点击了`)
-    })
-    container2.addEventListener('click', function (e) {
+      })
+      container2.addEventListener('click', function (e) {
         console.log(`container2被点击了`)
-    })
-    child1.addEventListener('click', function (e) {
+      })
+      child1.addEventListener('click', function (e) {
         console.log(`child1被点击了`)
-    })
-</script>
-</body>
+      })
+    </script>
+  </body>
 </html>

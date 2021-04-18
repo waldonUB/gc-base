@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>child</title>
-</head>
-<body>
-<script>
-    var origin = 'http://localhost:8081/#/'
-    var popup = window.open(origin)
-    popup.postMessage('hello world', origin)
-    setTimeout(function () {
+  </head>
+  <body>
+    <script>
+      var origin = 'http://localhost:8081/#/'
+      var popup = window.open(origin)
+      popup.postMessage('hello world', origin)
+      setTimeout(function () {
         popup.postMessage('hello world6666', origin)
-    }, 3000)
-    console.log(popup)
-</script>
-</body>
+      }, 3000)
+      console.log(popup)
+    </script>
+  </body>
 </html>

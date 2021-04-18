@@ -1,7 +1,5 @@
-var F = function () {
-
-}
-var Bar = function() {}
+var F = function () {}
+var Bar = function () {}
 Bar.prototype = new F()
 
 F.prototype.sex = '男'

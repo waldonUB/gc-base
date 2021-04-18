@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="app">
-  <button @click="gotoNext">下一页</button>
-</div>
-<script>
-  new Vue({
-    data: {
-      msg: '666'
-    },
-    methods: {
-      gotoNext () {
-        location.href = './index2.html'
-      }
-    },
-    created () {
-      console.log(`进来了`)
-    }
-  }).$mount("#app")
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="gotoNext">下一页</button>
+    </div>
+    <script>
+      new Vue({
+        data: {
+          msg: '666'
+        },
+        methods: {
+          gotoNext() {
+            location.href = './index2.html'
+          }
+        },
+        created() {
+          console.log(`进来了`)
+        }
+      }).$mount('#app')
+    </script>
+  </body>
 </html>

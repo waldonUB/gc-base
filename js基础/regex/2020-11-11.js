@@ -11,12 +11,15 @@
 
 let str = ''
 for (let i = 0; i < 100000; i++) {
-    str += i
+  str += i
 }
 let start = new Date().getTime()
-str = str.replace(/1/g, 'a').replace(/2/g, 'b')
-    .replace(/3/g, 'c').replace(/4/g, 'd').
-    replace(/5/g, 'e')
+str = str
+  .replace(/1/g, 'a')
+  .replace(/2/g, 'b')
+  .replace(/3/g, 'c')
+  .replace(/4/g, 'd')
+  .replace(/5/g, 'e')
 // let regMap = {
 //     1: 'a',
 //     2: 'b',
@@ -31,4 +34,3 @@ str = str.replace(/1/g, 'a').replace(/2/g, 'b')
 
 let end = new Date().getTime()
 console.log(`时间：`, end - start)
-

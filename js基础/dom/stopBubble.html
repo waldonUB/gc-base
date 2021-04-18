@@ -1,48 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        #s1{
-            width: 200px;
-            height: 200px;
-            background-color: red;
-        }
-        #s2{
-            width: 100px;
-            height: 100px;
-            background-color: greenyellow;
-        }
-        #s3{
-            width: 50px;
-            height: 50px;
-            background-color: blue;
-        }
+      #s1 {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+      }
+      #s2 {
+        width: 100px;
+        height: 100px;
+        background-color: greenyellow;
+      }
+      #s3 {
+        width: 50px;
+        height: 50px;
+        background-color: blue;
+      }
     </style>
-</head>
-<body>
-<div id="s1">
-    <div id="s2">
+  </head>
+  <body>
+    <div id="s1">
+      <div id="s2">
         <div id="s3"></div>
+      </div>
     </div>
-</div>
-<script>
-    var s1 = document.getElementById("s1")
-    var s2 = document.getElementById("s2")
-    var s3 = document.getElementById("s3")
-    s1.addEventListener('click', function (e) {
-        // e.stopPropagation()
-        // e.stopImmediatePropagation() 除了阻止上一级的冒泡或捕获，还能阻止相同元素绑定的其他事件（事件注册顺序很重要）
-        // e.preventDefault()
-        console.log(`s1:${e.target}`)
-    }, true)
-    s2.addEventListener('click', function (e) {
-        e.stopPropagation()
-        console.log(`s2:`)
-        console.log(e.target)
-        console.log(s2)
-    }, true)
-</script>
-</body>
+    <script>
+      var s1 = document.getElementById('s1')
+      var s2 = document.getElementById('s2')
+      var s3 = document.getElementById('s3')
+      s1.addEventListener(
+        'click',
+        function (e) {
+          // e.stopPropagation()
+          // e.stopImmediatePropagation() 除了阻止上一级的冒泡或捕获，还能阻止相同元素绑定的其他事件（事件注册顺序很重要）
+          // e.preventDefault()
+          console.log(`s1:${e.target}`)
+        },
+        true
+      )
+      s2.addEventListener(
+        'click',
+        function (e) {
+          e.stopPropagation()
+          console.log(`s2:`)
+          console.log(e.target)
+          console.log(s2)
+        },
+        true
+      )
+    </script>
+  </body>
 </html>

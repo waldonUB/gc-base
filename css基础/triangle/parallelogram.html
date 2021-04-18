@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        .transform-parallelogram {
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            transform: skew(45deg);
-        }
-        .sham-parallelogram {
-            position: relative;
-            width: 200px;
-            height: 100px;
-            background-color: yellowgreen;
-        }
-        .sham-parallelogram::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100px;
-            width: 0;
-            height: 0;
-            border-bottom: 100px solid yellowgreen;
-            border-left: 100px solid transparent;
-        }
-        .sham-parallelogram::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -100px;
-            width: 0;
-            height: 0;
-            border-top: 100px solid yellowgreen;
-            border-right: 100px solid transparent;
-        }
+      .transform-parallelogram {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        transform: skew(45deg);
+      }
+      .sham-parallelogram {
+        position: relative;
+        width: 200px;
+        height: 100px;
+        background-color: yellowgreen;
+      }
+      .sham-parallelogram::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100px;
+        width: 0;
+        height: 0;
+        border-bottom: 100px solid yellowgreen;
+        border-left: 100px solid transparent;
+      }
+      .sham-parallelogram::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -100px;
+        width: 0;
+        height: 0;
+        border-top: 100px solid yellowgreen;
+        border-right: 100px solid transparent;
+      }
     </style>
-</head>
-<body>
-<div class="transform-parallelogram"></div>
-<div class="sham-parallelogram"></div>
-</body>
+  </head>
+  <body>
+    <div class="transform-parallelogram"></div>
+    <div class="sham-parallelogram"></div>
+  </body>
 </html>

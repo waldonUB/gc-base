@@ -5,7 +5,6 @@ const obj = {
 const c = 3
 const d = 4
 
-
 function showObject() {
   console.log(this.a)
   console.log(arguments)

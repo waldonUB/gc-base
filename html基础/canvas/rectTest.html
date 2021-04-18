@@ -1,75 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-</body>
-<script>
-    (function () {
-        let canvas  = document.createElement('canvas')
-        if (canvas.getContext) {
-            let ctx = canvas.getContext('2d')
-            // 填充三角形
-            ctx.beginPath();
-            ctx.moveTo(25,25);
-            ctx.lineTo(105,25);
-            ctx.lineTo(25,105);
-            ctx.fill();
+  </head>
+  <body></body>
+  <script>
+    ;(function () {
+      let canvas = document.createElement('canvas')
+      if (canvas.getContext) {
+        let ctx = canvas.getContext('2d')
+        // 填充三角形
+        ctx.beginPath()
+        ctx.moveTo(25, 25)
+        ctx.lineTo(105, 25)
+        ctx.lineTo(25, 105)
+        ctx.fill()
 
-            // 描边三角形
-            ctx.beginPath();
-            ctx.moveTo(125,125);
-            ctx.lineTo(125,45);
-            ctx.lineTo(45,125);
-            ctx.closePath();
-            ctx.stroke();
-            document.body.appendChild(canvas)
-        }
-        
-        
-        
-        let image = new Image()
-        // 外链图片的时候设置
-        // image.setAttribute('crossorigin', 'anonymous')
-        // image.crossOrigin = ''
-        // image.src = 'http://ww1.sinaimg.cn/large/00760Iw1ly1g713oepqa2j304g05i3ye.jpg' // 图片服务器要设置可跨域的头部
-        // image.src = 'https://avatars3.githubusercontent.com/u/496048?s=120&v=4'
-        image.src = '../../image/新垣结衣.jpg'
-        image.onload = () => {
-            const w = 200
-            const h = 200
-            // const scale = w / h
-            const canvas = document.createElement('canvas')
-            const ctx = canvas.getContext('2d')
-            ctx.fillStyle = 'rgba(255,255,255,0)'
-            canvas.width = w
-            canvas.height = h
-            ctx.drawImage(image, 0, 0, w, h)
-            const base64 = canvas.toDataURL('image/png')
-            let base64Img = document.createElement('img')
-            base64Img.src = base64
-            document.body.appendChild(base64Img)
-        }
-        
-        
-        
-        
-        // var canvas = document.createElement('canvas');
-        // var context = canvas.getContext('2d');
-        //
-        // var img = new Image();
-        // img.crossOrigin = '';
-        // img.onload = function () {
-        //     context.drawImage(img, 0, 0);
-        //     const base64 = canvas.toDataURL('image/png')
-        //     let base64Img = document.createElement('img')
-        //     base64Img.src = base64
-        //     document.body.appendChild(base64Img)
-        //     // context.getImageData(0, 0, this.width, this.height);
-        // };
-        // img.src = 'https://avatars3.githubusercontent.com/u/496048?s=120&v=4';
+        // 描边三角形
+        ctx.beginPath()
+        ctx.moveTo(125, 125)
+        ctx.lineTo(125, 45)
+        ctx.lineTo(45, 125)
+        ctx.closePath()
+        ctx.stroke()
+        document.body.appendChild(canvas)
+      }
+
+      let image = new Image()
+      // 外链图片的时候设置
+      // image.setAttribute('crossorigin', 'anonymous')
+      // image.crossOrigin = ''
+      // image.src = 'http://ww1.sinaimg.cn/large/00760Iw1ly1g713oepqa2j304g05i3ye.jpg' // 图片服务器要设置可跨域的头部
+      // image.src = 'https://avatars3.githubusercontent.com/u/496048?s=120&v=4'
+      image.src = '../../image/新垣结衣.jpg'
+      image.onload = () => {
+        const w = 200
+        const h = 200
+        // const scale = w / h
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        ctx.fillStyle = 'rgba(255,255,255,0)'
+        canvas.width = w
+        canvas.height = h
+        ctx.drawImage(image, 0, 0, w, h)
+        const base64 = canvas.toDataURL('image/png')
+        let base64Img = document.createElement('img')
+        base64Img.src = base64
+        document.body.appendChild(base64Img)
+      }
+
+      // var canvas = document.createElement('canvas');
+      // var context = canvas.getContext('2d');
+      //
+      // var img = new Image();
+      // img.crossOrigin = '';
+      // img.onload = function () {
+      //     context.drawImage(img, 0, 0);
+      //     const base64 = canvas.toDataURL('image/png')
+      //     let base64Img = document.createElement('img')
+      //     base64Img.src = base64
+      //     document.body.appendChild(base64Img)
+      //     // context.getImageData(0, 0, this.width, this.height);
+      // };
+      // img.src = 'https://avatars3.githubusercontent.com/u/496048?s=120&v=4';
     })()
-</script>
+  </script>
 </html>

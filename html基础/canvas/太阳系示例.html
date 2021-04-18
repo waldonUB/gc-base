@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<canvas id="canvas" width="300" height="300"></canvas>
-<script>
-    var sun = new Image();
-    var moon = new Image();
-    var earth = new Image();
-    function init(){
-        sun.src = './image/Canvas_sun.png';
-        moon.src = './image/Canvas_moon.png';
-        earth.src = './image/Canvas_earth.png';
-        window.requestAnimationFrame(draw);
-    }
+  </head>
+  <body>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <script>
+      var sun = new Image()
+      var moon = new Image()
+      var earth = new Image()
+      function init() {
+        sun.src = './image/Canvas_sun.png'
+        moon.src = './image/Canvas_moon.png'
+        earth.src = './image/Canvas_earth.png'
+        window.requestAnimationFrame(draw)
+      }
 
-    function draw() {
-        var ctx = document.getElementById('canvas').getContext('2d');
+      function draw() {
+        var ctx = document.getElementById('canvas').getContext('2d')
 
-        ctx.globalCompositeOperation = 'destination-over';
-        ctx.clearRect(0,0,300,300); // clear canvas
+        ctx.globalCompositeOperation = 'destination-over'
+        ctx.clearRect(0, 0, 300, 300) // clear canvas
 
-        ctx.fillStyle = 'rgba(0,0,0,0.4)'; // 月球阴影，晚上的情况
-        ctx.strokeStyle = 'rgba(0,153,255,0.4)';
-        ctx.save();
-        ctx.translate(150,150); // 图形大小为300,150的话到中心
+        ctx.fillStyle = 'rgba(0,0,0,0.4)' // 月球阴影，晚上的情况
+        ctx.strokeStyle = 'rgba(0,153,255,0.4)'
+        ctx.save()
+        ctx.translate(150, 150) // 图形大小为300,150的话到中心
 
         // Earth
-        var time = new Date();
+        var time = new Date()
         // console.log(`((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds()`,((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds())
-        console.log(`旋转`, 360 * Math.PI / 180)
+        console.log(`旋转`, (360 * Math.PI) / 180)
         // ctx.rotate( ((time.getSeconds() * 6 * Math.PI)/180)  + ((2*Math.PI)/60000)*time.getMilliseconds()); // 正常的转
-        ctx.rotate( ((time.getSeconds() * 6 * Math.PI)/180)); // 卡秒转，相当于一秒走6度
-        console.log(`6度的毫秒`, ((time.getMilliseconds() * 6 * Math.PI)/180000)) // 1度相当于 2π/60 = π/30
+        ctx.rotate((time.getSeconds() * 6 * Math.PI) / 180) // 卡秒转，相当于一秒走6度
+        console.log(`6度的毫秒`, (time.getMilliseconds() * 6 * Math.PI) / 180000) // 1度相当于 2π/60 = π/30
         // 毫秒就相当于1秒内走完这6度
         // ctx.rotate( (time.getMilliseconds() * 36 *Math.PI)/18000); // 毫秒级别的转
-        ctx.translate(105, 0); // arc画的圆半径就是105
-        ctx.fillRect(0,-12,50,24); // Shadow
-        ctx.drawImage(earth,-12,-12);
+        ctx.translate(105, 0) // arc画的圆半径就是105
+        ctx.fillRect(0, -12, 50, 24) // Shadow
+        ctx.drawImage(earth, -12, -12)
 
         // Moon
-        ctx.save();
-        ctx.rotate( ((2*Math.PI)/6)*time.getSeconds() + ((2*Math.PI)/6000)*time.getMilliseconds() ); // 10倍速
+        ctx.save()
+        ctx.rotate(
+          ((2 * Math.PI) / 6) * time.getSeconds() + ((2 * Math.PI) / 6000) * time.getMilliseconds()
+        ) // 10倍速
         // ctx.rotate( ((20*Math.PI)/6)*time.getSeconds() + ((20*Math.PI)/6000)*time.getMilliseconds() ); // 100倍速
-        ctx.translate(0,28.5); // 按地球的位置偏移高度
-        ctx.drawImage(moon,-3.5,-3.5);
-        ctx.restore();
+        ctx.translate(0, 28.5) // 按地球的位置偏移高度
+        ctx.drawImage(moon, -3.5, -3.5)
+        ctx.restore()
 
-        ctx.restore();
+        ctx.restore()
         //
-        ctx.beginPath();
-        ctx.arc(150,150,105,0,Math.PI*2,false); // Earth orbit
-        ctx.stroke();
-        ctx.drawImage(sun,0,0,300,300);
+        ctx.beginPath()
+        ctx.arc(150, 150, 105, 0, Math.PI * 2, false) // Earth orbit
+        ctx.stroke()
+        ctx.drawImage(sun, 0, 0, 300, 300)
 
-        window.requestAnimationFrame(draw);
-    }
+        window.requestAnimationFrame(draw)
+      }
 
-    init();
-</script>
-</body>
+      init()
+    </script>
+  </body>
 </html>

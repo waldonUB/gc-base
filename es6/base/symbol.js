@@ -66,7 +66,6 @@
 // symbol.description = 'wdq'
 // console.log(symbol.description)
 
-
 // 要实例化才能使用prototype上的属性和方法
 // var prototypeTest = function () {
 //

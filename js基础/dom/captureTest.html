@@ -1,66 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        #s1{
-            width: 200px;
-            height: 200px;
-            background-color: red;
-        }
-        #s2{
-            width: 100px;
-            height: 100px;
-            background-color: greenyellow;
-        }
-        #s3{
-            width: 50px;
-            height: 50px;
-            background-color: blue;
-        }
+      #s1 {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+      }
+      #s2 {
+        width: 100px;
+        height: 100px;
+        background-color: greenyellow;
+      }
+      #s3 {
+        width: 50px;
+        height: 50px;
+        background-color: blue;
+      }
     </style>
-</head>
-<body>
-<div id="s1">
-    <div id="s2">
+  </head>
+  <body>
+    <div id="s1">
+      <div id="s2">
         <div id="s3"></div>
+      </div>
     </div>
-</div>
-<script>
-// document 往 target节点，捕获前进，遇到注册的捕获事件立即触发执行
-// 到达target节点，触发事件（对于target节点上，是先捕获还是先冒泡则捕获事件和冒泡事件的注册顺序，先注册先执行）
-// target节点 往 document 方向，冒泡前进，遇到注册的冒泡事件立即触发
-var s1 = document.getElementById("s1")
-var s2 = document.getElementById("s2")
-var s3 = document.getElementById("s3")
-var handle1 = function (e) {
-    console.log(e.target)
-    console.log(`s1冒泡了`)
-}
-s1.addEventListener("click", handle1, false)
-// s1.addEventListener("click", handle1, false)  注册相同的事件是无效的，除非是匿名函数
-s2.addEventListener("click", function (e) {
-    console.log(e.target)
-    console.log(`s2冒泡了`)
-}, false)
-s3.addEventListener("click", function (e) {
-    console.log(e.target)
-    console.log(`s3冒泡了`)
-}, false)
-s1.addEventListener("click", function (e) {
-    console.log(e.target)
-    console.log(`s1捕获了`)
-}, true)
-s2.addEventListener("click", function (e) {
-    console.log(e.target)
-    console.log(`s2捕获了`)
-}, true)
-s3.addEventListener("click", function (e) {
-    console.log(e.target)
-    console.log(`s3捕获了`)
-}, true)
-//s1捕获 s2捕获 s3冒泡 s3捕获 s2冒泡 s1冒泡
-</script>
-</body>
+    <script>
+      // document 往 target节点，捕获前进，遇到注册的捕获事件立即触发执行
+      // 到达target节点，触发事件（对于target节点上，是先捕获还是先冒泡则捕获事件和冒泡事件的注册顺序，先注册先执行）
+      // target节点 往 document 方向，冒泡前进，遇到注册的冒泡事件立即触发
+      var s1 = document.getElementById('s1')
+      var s2 = document.getElementById('s2')
+      var s3 = document.getElementById('s3')
+      var handle1 = function (e) {
+        console.log(e.target)
+        console.log(`s1冒泡了`)
+      }
+      s1.addEventListener('click', handle1, false)
+      // s1.addEventListener("click", handle1, false)  注册相同的事件是无效的，除非是匿名函数
+      s2.addEventListener(
+        'click',
+        function (e) {
+          console.log(e.target)
+          console.log(`s2冒泡了`)
+        },
+        false
+      )
+      s3.addEventListener(
+        'click',
+        function (e) {
+          console.log(e.target)
+          console.log(`s3冒泡了`)
+        },
+        false
+      )
+      s1.addEventListener(
+        'click',
+        function (e) {
+          console.log(e.target)
+          console.log(`s1捕获了`)
+        },
+        true
+      )
+      s2.addEventListener(
+        'click',
+        function (e) {
+          console.log(e.target)
+          console.log(`s2捕获了`)
+        },
+        true
+      )
+      s3.addEventListener(
+        'click',
+        function (e) {
+          console.log(e.target)
+          console.log(`s3捕获了`)
+        },
+        true
+      )
+      //s1捕获 s2捕获 s3冒泡 s3捕获 s2冒泡 s1冒泡
+    </script>
+  </body>
 </html>

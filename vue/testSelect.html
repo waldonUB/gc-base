@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <script src="./js/vue.js"></script>
-</head>
-<body>
-<div id="app">
-  <input type="text" @click="selectTest">
-</div>
-<script>
-  new Vue({
-      el: "#app",
-      methods: {
-          selectTest (e) {
-              e.currentTarget.select()
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="./js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" @click="selectTest" />
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        methods: {
+          selectTest(e) {
+            e.currentTarget.select()
           }
-      }
-  })
-</script>
-</body>
+        }
+      })
+    </script>
+  </body>
 </html>

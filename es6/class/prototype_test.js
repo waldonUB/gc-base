@@ -1,9 +1,8 @@
 class Person {
-    // name = 'wdq'
-    constructor(age = 100) {
-        this.age = age
-    }
-
+  // name = 'wdq'
+  constructor(age = 100) {
+    this.age = age
+  }
 }
 
 var u1 = new Person()

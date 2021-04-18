@@ -2,7 +2,7 @@ let instance = {
   a: 1
 }
 
-function getGlobalObject () {
+function getGlobalObject() {
   return this
 }
 

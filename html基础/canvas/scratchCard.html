@@ -1,64 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>刮刮卡</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+      }
     </style>
     <script src="https://cdn.bootcss.com/vue/2.6.11/vue.common.dev.js"></script>
-</head>
-<body>
-<div id="app">
-    <div class="drawWrapper">
-        <canvas  id="scratch"></canvas>
+  </head>
+  <body>
+    <div id="app">
+      <div class="drawWrapper">
+        <canvas id="scratch"></canvas>
+      </div>
     </div>
-</div>
-<script>
-    new Vue({
+    <script>
+      new Vue({
         el: `#app`,
         data: {
-            canvas: null,
-            stepIndex: 0,
-            currentctx: null,
+          canvas: null,
+          stepIndex: 0,
+          currentctx: null
         },
         methods: {
-            clipArea () {
-                
-            },
-            initData () {
-                let image1 = new Image()
-                image1.onload = () => {
-                    let canvas = document.getElementById('scratch')
-                    let ctx = canvas.getContext('2d')
-                    let w = image1.width
-                    let h = image1.height
-                    canvas.width = w
-                    canvas.height = h
-                    ctx.save()
-                    ctx.drawImage(image1, 0, 0, w, h)
-                    ctx.restore()
-                    ctx.fillRect(0, 0, w, h);
-                    this.drawCircle(ctx, 0, 0, 50);
-                    ctx.clip();
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                }
-                image1.src = '../../image/新垣结衣.jpg'
-            },
-            drawCircle(context, centerX, centerY, radius) {
-                context.beginPath();
-                context.arc(centerX, centerY, radius, 0, Math.PI * 2, false);
-                context.fill();
+          clipArea() {},
+          initData() {
+            let image1 = new Image()
+            image1.onload = () => {
+              let canvas = document.getElementById('scratch')
+              let ctx = canvas.getContext('2d')
+              let w = image1.width
+              let h = image1.height
+              canvas.width = w
+              canvas.height = h
+              ctx.save()
+              ctx.drawImage(image1, 0, 0, w, h)
+              ctx.restore()
+              ctx.fillRect(0, 0, w, h)
+              this.drawCircle(ctx, 0, 0, 50)
+              ctx.clip()
+              ctx.clearRect(0, 0, canvas.width, canvas.height)
             }
+            image1.src = '../../image/新垣结衣.jpg'
+          },
+          drawCircle(context, centerX, centerY, radius) {
+            context.beginPath()
+            context.arc(centerX, centerY, radius, 0, Math.PI * 2, false)
+            context.fill()
+          }
         },
-        mounted () {
-            this.initData()
-
+        mounted() {
+          this.initData()
         }
-    })
-</script>
-</body>
+      })
+    </script>
+  </body>
 </html>

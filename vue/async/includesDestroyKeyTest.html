@@ -1,76 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>通过includes销毁所有同名的组件，包括不同的key</title>
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
-</head>
-<body>
-<div id="app">
-    <keep-alive :include="includes">
+  </head>
+  <body>
+    <div id="app">
+      <keep-alive :include="includes">
         <component :is="currentTab" :key="key"></component>
-    </keep-alive>
-    <button @click="changeTab('1', '1')">to tab1 key1</button>
-    <button @click="changeTab('1', '2')">to tab1 key2</button>
-    <button @click="changeTab('2', '8')">to tab2</button>
-    <button @click="changeTab('3', '4')">to tab3</button>
-</div>
-<script>
-    let tab1 = {
+      </keep-alive>
+      <button @click="changeTab('1', '1')">to tab1 key1</button>
+      <button @click="changeTab('1', '2')">to tab1 key2</button>
+      <button @click="changeTab('2', '8')">to tab2</button>
+      <button @click="changeTab('3', '4')">to tab3</button>
+    </div>
+    <script>
+      let tab1 = {
         template: `<div>tab1</div>`,
         destroyed() {
-            console.log(`tab1 被销毁`)
+          console.log(`tab1 被销毁`)
         }
-    }
-    let tab2 = {
+      }
+      let tab2 = {
         template: `<div>tab2</div>`,
         data() {
-            return {
-                msg: '666'
-            }
+          return {
+            msg: '666'
+          }
         },
         destroyed() {
-            console.log(`tab2 被销毁`)
+          console.log(`tab2 被销毁`)
         }
-    }
-    let tab3 = {
+      }
+      let tab3 = {
         template: `<div>tab3</div>`,
         destroyed() {
-            console.log(`tab3 被销毁`)
+          console.log(`tab3 被销毁`)
         }
-    }
-    new Vue({
-        components: {tab1, tab2, tab3},
+      }
+      new Vue({
+        components: { tab1, tab2, tab3 },
         data: {
-            currentTab: 'tab1',
-            includes: ['tab1'],
-            key: '1',
-            max: 3
+          currentTab: 'tab1',
+          includes: ['tab1'],
+          key: '1',
+          max: 3
         },
         computed: {
-            oldKey: {
-                get() {
-                    return this.key;
-                },
-                set(value) {
-
-                }
-            }
+          oldKey: {
+            get() {
+              return this.key
+            },
+            set(value) {}
+          }
         },
         methods: {
-            changeTab (index, key) {
-                if (this.oldKey === key) {
-                    return
-                }
-                this.key = key
-                this.currentTab = 'tab' + index
-                if (this.includes.length >= 3) {
-                    this.includes.shift()
-                }
-                this.includes.push(this.currentTab)
+          changeTab(index, key) {
+            if (this.oldKey === key) {
+              return
             }
+            this.key = key
+            this.currentTab = 'tab' + index
+            if (this.includes.length >= 3) {
+              this.includes.shift()
+            }
+            this.includes.push(this.currentTab)
+          }
         }
-    }).$mount("#app")
-</script>
-</body>
+      }).$mount('#app')
+    </script>
+  </body>
 </html>

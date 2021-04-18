@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-</body>
-<script>
-    (function () {
-        let image1 = new Image()
-        let image2 = new Image()
-        image1.src = '../../image/新垣结衣.jpg'
-        image2.src = 'https://avatars3.githubusercontent.com/u/496048?s=120&v=4'
-        image2.crossOrigin = ''
-        let promise1 = new Promise(resolve => {
-            image1.onload = () => {
-                resolve(image1)
-            }
-        })
-        let promise2 = new Promise(resolve => {
-            image2.onload = () => {
-                resolve(image2)
-            }
-        })
-        Promise.all([promise1, promise2]).then(res => {
-            let canvas  = document.createElement('canvas')
-            let bgWidth = 200
-            let bgHeight = 200
-            let cpWidth = 100
-            let cpHeight = 100
-            canvas.width = bgWidth
-            canvas.height = bgHeight
-            let drawX = (bgWidth/2 - cpWidth/2)
-            let drawY = (bgHeight/2 - cpHeight/2)
-            const ctx = canvas.getContext('2d')
-            ctx.fillStyle = 'rgba(255,255,255,0)'
-            ctx.drawImage(res[0], 0, 0, bgWidth, bgHeight)
-            ctx.drawImage(res[1], drawX, drawY, 100, 100)
-            const base64 = canvas.toDataURL('image/png')
-            let base64Img = document.createElement('img')
-            base64Img.src = base64
-            document.body.appendChild(base64Img)
-        })
+  </head>
+  <body></body>
+  <script>
+    ;(function () {
+      let image1 = new Image()
+      let image2 = new Image()
+      image1.src = '../../image/新垣结衣.jpg'
+      image2.src = 'https://avatars3.githubusercontent.com/u/496048?s=120&v=4'
+      image2.crossOrigin = ''
+      let promise1 = new Promise((resolve) => {
+        image1.onload = () => {
+          resolve(image1)
+        }
+      })
+      let promise2 = new Promise((resolve) => {
+        image2.onload = () => {
+          resolve(image2)
+        }
+      })
+      Promise.all([promise1, promise2]).then((res) => {
+        let canvas = document.createElement('canvas')
+        let bgWidth = 200
+        let bgHeight = 200
+        let cpWidth = 100
+        let cpHeight = 100
+        canvas.width = bgWidth
+        canvas.height = bgHeight
+        let drawX = bgWidth / 2 - cpWidth / 2
+        let drawY = bgHeight / 2 - cpHeight / 2
+        const ctx = canvas.getContext('2d')
+        ctx.fillStyle = 'rgba(255,255,255,0)'
+        ctx.drawImage(res[0], 0, 0, bgWidth, bgHeight)
+        ctx.drawImage(res[1], drawX, drawY, 100, 100)
+        const base64 = canvas.toDataURL('image/png')
+        let base64Img = document.createElement('img')
+        base64Img.src = base64
+        document.body.appendChild(base64Img)
+      })
     })()
-</script>
+  </script>
 </html>

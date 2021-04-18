@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
-  <!-- 只是测试一下v-for遍历map或set，在uni的小程序里面目前不支持 -->
-</head>
-<body>
-  <div id="app">
-    <div v-for="[key, value] of mapList" :key="key">
-      {{value}}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+    <!-- 只是测试一下v-for遍历map或set，在uni的小程序里面目前不支持 -->
+  </head>
+  <body>
+    <div id="app">
+      <div v-for="[key, value] of mapList" :key="key">{{value}}</div>
     </div>
-  </div>
-  <script>
-    new Vue({
-      el: "#app",
-      data () {
-        return {
-          mapList: new Map([
-            ["key1", "value1"],
-            ["key2", "value2"],
-            ["key3", "value3"],
-          ])
+    <script>
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            mapList: new Map([
+              ['key1', 'value1'],
+              ['key2', 'value2'],
+              ['key3', 'value3']
+            ])
+          }
         }
-      }
-    })
-  </script>
-</body>
+      })
+    </script>
+  </body>
 </html>

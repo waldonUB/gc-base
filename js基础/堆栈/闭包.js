@@ -30,11 +30,11 @@
 
 // 循环中指向异步函数
 for (var i = 0; i < 5; i++) {
-  ((j) => {
-    var k = i;
+  ;((j) => {
+    var k = i
     setTimeout(() => {
-      console.log(`j:`, j);
-      console.log(`k:`, k);
-    }, 1000);
-  })(i);
+      console.log(`j:`, j)
+      console.log(`k:`, k)
+    }, 1000)
+  })(i)
 }

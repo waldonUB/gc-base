@@ -1,21 +1,21 @@
 {
-  "name": "mock",
-  "version": "1.0.0",
-  "description": "",
-  "main": "prettier.config.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "0.21.0",
-    "node-schedule": "^2.0.0"
-  },
-  "devDependencies": {
-    "fs-extra": "^9.1.0"
-  }
+	"name": "mock",
+	"version": "1.0.0",
+	"description": "",
+	"main": "prettier.config.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "0.21.0",
+		"node-schedule": "^2.0.0"
+	},
+	"devDependencies": {
+		"fs-extra": "^9.1.0"
+	}
 }

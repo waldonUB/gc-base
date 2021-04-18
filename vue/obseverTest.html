@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <script src="./js/fkw/vue.src.js"></script>
     <style>
-        .isActive {
-            color: red;
-        }
+      .isActive {
+        color: red;
+      }
     </style>
-</head>
-<body>
-<div id="app">
-    <color-temp :arr-test="arrTest" :active-num="activeNum"></color-temp>
-</div>
-<script>
-    let colorTemp = {
+  </head>
+  <body>
+    <div id="app">
+      <color-temp :arr-test="arrTest" :active-num="activeNum"></color-temp>
+    </div>
+    <script>
+      let colorTemp = {
         name: 'colorTemp',
         template: `
         <div>
@@ -29,86 +29,86 @@
         </div>
         `,
         props: ['arrTest', 'activeNum'],
-        data () {
-            return {
-                targetArr: this.arrTest
-            }
+        data() {
+          return {
+            targetArr: this.arrTest
+          }
         },
         watch: {
-            activeNum (newVal) {
-                this.targetArr.forEach(item => {
-                    item.className = ''
-                    if (item.text === newVal) {
-                        item.className = 'isActive'
-                    } else {
-                        item.className = ''
-                    }
-                })
-            }
+          activeNum(newVal) {
+            this.targetArr.forEach((item) => {
+              item.className = ''
+              if (item.text === newVal) {
+                item.className = 'isActive'
+              } else {
+                item.className = ''
+              }
+            })
+          }
         },
         methods: {
-            changeColor (type) {
-                this.targetArr.forEach(item => {
-                    if (item.text === type) {
-                        item.className = 'isActive'
-                    } else {
-                        item.className = ''
-                    }
-                })
-            }
+          changeColor(type) {
+            this.targetArr.forEach((item) => {
+              if (item.text === type) {
+                item.className = 'isActive'
+              } else {
+                item.className = ''
+              }
+            })
+          }
         }
-    }
-    new Vue({
-        components: {colorTemp},
+      }
+      new Vue({
+        components: { colorTemp },
         data: {
-            arrTest: [
-                {
-                    text: 1,
-                    className: 'isActive'
-                },
-                {
-                    text: 2,
-                    className: ''
-                }
-            ],
-            activeNum: 0
+          arrTest: [
+            {
+              text: 1,
+              className: 'isActive'
+            },
+            {
+              text: 2,
+              className: ''
+            }
+          ],
+          activeNum: 0
         },
         methods: {
-            changeColor (type) {
-                this.arrTest.forEach(item => {
-                    if (item.text === type) {
-                        item.className = 'isActive'
-                    } else {
-                        item.className = ''
-                    }
-                })
-            }
+          changeColor(type) {
+            this.arrTest.forEach((item) => {
+              if (item.text === type) {
+                item.className = 'isActive'
+              } else {
+                item.className = ''
+              }
+            })
+          }
         },
-        created () {
-            // this.arrTest = [
-            //     {
-            //         text: 1,
-            //         className: 'isActive'
-            //     },
-            //     {
-            //         text: 2,
-            //         className: ''
-            //     }
-            // ]
-            // this.arrTest.push({
-            //     text: 1,
-            //     className: 'isActive'
-            // })
-            // this.arrTest.push({
-            //     text: 2,
-            //     className: ''
-            // })
-            setInterval(() => {
-                this.activeNum = (new Date().getSeconds() % 2) + 1
-                console.log('this.activeNum', this.activeNum)
-            }, 1000);
+        created() {
+          // this.arrTest = [
+          //     {
+          //         text: 1,
+          //         className: 'isActive'
+          //     },
+          //     {
+          //         text: 2,
+          //         className: ''
+          //     }
+          // ]
+          // this.arrTest.push({
+          //     text: 1,
+          //     className: 'isActive'
+          // })
+          // this.arrTest.push({
+          //     text: 2,
+          //     className: ''
+          // })
+          setInterval(() => {
+            this.activeNum = (new Date().getSeconds() % 2) + 1
+            console.log('this.activeNum', this.activeNum)
+          }, 1000)
         }
-    }).$mount("#app")
-</script>
-</body>
+      }).$mount('#app')
+    </script>
+  </body>
 </html>

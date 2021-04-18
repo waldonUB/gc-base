@@ -1,7 +1,7 @@
 function currying(a) {
-    return function (b) {
-        return a * b
-    }
+  return function (b) {
+    return a * b
+  }
 }
 
 let x2 = currying(2)

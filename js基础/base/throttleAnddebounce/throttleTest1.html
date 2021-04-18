@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<button id="btn1">click1</button>
-<button id="btn2">click2</button>
-<script>
-    let btn1 = document.getElementById("btn1")
-    let btn2 = document.getElementById("btn2")
-    btn1.addEventListener('click', throttle1(btnFn1, 2000))
-    btn2.addEventListener('click', throttle2(btnFn2, 2000))
-    function throttle1(fn, interval) {
-      let timeStart = 0
-      return function () {
-        let timeEnd = new Date().getTime()
-        if ((Number(timeEnd) - Number(timeStart)) > interval) {
-          fn.apply(this, arguments)
-          timeStart = timeEnd
+  </head>
+  <body>
+    <button id="btn1">click1</button>
+    <button id="btn2">click2</button>
+    <script>
+      let btn1 = document.getElementById('btn1')
+      let btn2 = document.getElementById('btn2')
+      btn1.addEventListener('click', throttle1(btnFn1, 2000))
+      btn2.addEventListener('click', throttle2(btnFn2, 2000))
+      function throttle1(fn, interval) {
+        let timeStart = 0
+        return function () {
+          let timeEnd = new Date().getTime()
+          if (Number(timeEnd) - Number(timeStart) > interval) {
+            fn.apply(this, arguments)
+            timeStart = timeEnd
+          }
         }
       }
-    }
-    function throttle2(fn, interval) {
-      let flag = false
-      return function () {
-        const that = this
-        if (!flag) {
-          setTimeout(function () {
-            fn.apply(that, arguments)
-            flag = false
-          }, interval)
+      function throttle2(fn, interval) {
+        let flag = false
+        return function () {
+          const that = this
+          if (!flag) {
+            setTimeout(function () {
+              fn.apply(that, arguments)
+              flag = false
+            }, interval)
+          }
+          flag = true
         }
-        flag = true
       }
-    }
-    function btnFn1() {
-      console.log('我是 btn 1')
-    }
-    function btnFn2() {
-      console.log('我是 btn 2')
-    }
-</script>
-</body>
+      function btnFn1() {
+        console.log('我是 btn 1')
+      }
+      function btnFn2() {
+        console.log('我是 btn 2')
+      }
+    </script>
+  </body>
 </html>

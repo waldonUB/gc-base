@@ -1,4 +1,4 @@
 function f() {
-    console.log(isnull)
+  console.log(isnull)
 }
 f()

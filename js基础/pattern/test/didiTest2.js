@@ -1,11 +1,5 @@
-class Park {
+class Park {}
 
-}
+class Floor {}
 
-class Floor {
-
-}
-
-class Place {
-
-}
+class Place {}

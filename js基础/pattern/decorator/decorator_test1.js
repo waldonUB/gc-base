@@ -25,22 +25,22 @@
  * 在原有的对象上装饰更多行为，并保持原有对象不变
  * */
 let picture = {
-    shape: function () {
-        console.log(`我有形状了`)
-    }
+  shape: function () {
+    console.log(`我有形状了`)
+  }
 }
 function drawColor(picture) {
-    console.log(`我可以上颜色了`)
+  console.log(`我可以上颜色了`)
 }
 function drawIcon(picture) {
-    console.log(`我有图标了`)
+  console.log(`我有图标了`)
 }
 function decorator(sourceObj, decorateFn) {
-    sourceObj[decorateFn.name] = decorateFn
+  sourceObj[decorateFn.name] = decorateFn
 }
 
-(function f() {
-    picture.shape()
-    decorator(picture, drawColor)
-    picture.drawColor()
-}())
+;(function f() {
+  picture.shape()
+  decorator(picture, drawColor)
+  picture.drawColor()
+})()

@@ -9,8 +9,8 @@ export default {
 		return {}
 	},
 	methods: {
-		readFile() {}
-	}
+		readFile() {},
+	},
 }
 </script>
 <style lang=""></style>

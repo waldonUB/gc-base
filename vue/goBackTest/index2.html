@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <script src="../js/vue.js"></script>
-</head>
-<body>
-<div id="app">
-  {{msg}}
-</div>
-<script>
-  new Vue({
-    data: {
-      msg: '666'
-    },
-    created () {
-      console.log(`进来了2`)
-    }
-  }).$mount("#app")
-</script>
-<script src="http://172.17.10.208:8080/target/target-script-min.js#anonymous"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">{{msg}}</div>
+    <script>
+      new Vue({
+        data: {
+          msg: '666'
+        },
+        created() {
+          console.log(`进来了2`)
+        }
+      }).$mount('#app')
+    </script>
+    <script src="http://172.17.10.208:8080/target/target-script-min.js#anonymous"></script>
+  </body>
 </html>

@@ -98,28 +98,25 @@
 // })
 let src = 'http://seopic.699pic.com/photo/50035/0520.jpg_wh1200.jpg'
 function loadImg(src) {
-    return new Promise((resolve, reject) => {
-        var img = document.createElement('img')
-        img.onload = function () {
-            resolve(img)
-        }
-        img.onerror = function () {
-            reject(`图片加载失败`)
-        }
-        img.src = src
-    })
+  return new Promise((resolve, reject) => {
+    var img = document.createElement('img')
+    img.onload = function () {
+      resolve(img)
+    }
+    img.onerror = function () {
+      reject(`图片加载失败`)
+    }
+    img.src = src
+  })
 }
 
 var promise = loadImg(src)
-promise.then(function (result) {
+promise
+  .then(function (result) {
     console.log(result)
     return result
-}).catch(function (e) {
+  })
+  .catch(function (e) {
     console.log(e)
-}).then(null, function () {
-
-})
-
-
-
-
+  })
+  .then(null, function () {})

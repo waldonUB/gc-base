@@ -1,66 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        .personStand {
-            width: 100px;
-            height: 100px;
-            position: fixed;
-            left: 0;
-            top: 50%;
-            display: block;
-        }
-        .personMove {
-            width: 100px;
-            height: 100px;  
-            position: fixed;
-            left: 0;
-            top: 50%;
-            z-index: 99;
-        }
-        .hidden {
-            opacity: 0;
-        }
+      .personStand {
+        width: 100px;
+        height: 100px;
+        position: fixed;
+        left: 0;
+        top: 50%;
+        display: block;
+      }
+      .personMove {
+        width: 100px;
+        height: 100px;
+        position: fixed;
+        left: 0;
+        top: 50%;
+        z-index: 99;
+      }
+      .hidden {
+        opacity: 0;
+      }
     </style>
-</head>
-<body>
-<div class="contain">
-    <img id="personStand" class="personStand" src="./image/personStand.png" alt="">
-    <img id="personMove" class="personMove" src="./image/personMove.png" alt="">
-</div>
-<script>
-    var personMove = document.getElementById('personMove')
-    var personStand = document.getElementById('personStand')
-    let left = 0
-    let start = 0
-    function move() {
+  </head>
+  <body>
+    <div class="contain">
+      <img id="personStand" class="personStand" src="./image/personStand.png" alt="" />
+      <img id="personMove" class="personMove" src="./image/personMove.png" alt="" />
+    </div>
+    <script>
+      var personMove = document.getElementById('personMove')
+      var personStand = document.getElementById('personStand')
+      let left = 0
+      let start = 0
+      function move() {
         let end = new Date().getTime()
-        if ((end - start) < 150) {
-            window.requestAnimationFrame(move)
-            return
+        if (end - start < 150) {
+          window.requestAnimationFrame(move)
+          return
         }
         start = new Date().getTime()
         if (personMove.classList.contains('hidden')) {
-            left += 10
-            if (left > 1000) {
-                left = 0
-            }
-            personMove.style.left = left + 'px'
-            personStand.style.left = left + 'px' 
-            personMove.classList.remove('hidden')
+          left += 10
+          if (left > 1000) {
+            left = 0
+          }
+          personMove.style.left = left + 'px'
+          personStand.style.left = left + 'px'
+          personMove.classList.remove('hidden')
         } else {
-            personMove.classList.add('hidden')
+          personMove.classList.add('hidden')
         }
         // personMove.style.opacity = personMove.style.opacity == 1 ? 1 : 0
         window.requestAnimationFrame(move)
-    }
-    move()
-    
-    // setInterval(function () {
-    //     personMove.style.display = personMove.style.display === 'none' ? 'block' : 'none'
-    // }, 16)
-</script>
-</body>
+      }
+      move()
+
+      // setInterval(function () {
+      //     personMove.style.display = personMove.style.display === 'none' ? 'block' : 'none'
+      // }, 16)
+    </script>
+  </body>
 </html>

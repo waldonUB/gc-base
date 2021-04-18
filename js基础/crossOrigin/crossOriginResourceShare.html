@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<script>
-    // 如果发现是跨域的简单请求，ajax会自动加上origin字段，
-    // 该字段包括协议，域名，端口，后端根据这个origin来判断是否正常返回数据
+  </head>
+  <body>
+    <script>
+      // 如果发现是跨域的简单请求，ajax会自动加上origin字段，
+      // 该字段包括协议，域名，端口，后端根据这个origin来判断是否正常返回数据
 
-    // 如果要发送cookies，客户端要加上xhr.withCredentials = true;
-    // 服务端要加上Access-Control-Allow-Credentials: true
-    let xhr = new XMLHttpRequest()
-    xhr.open('POST', 'http://localhost:8080/gc/crossPostTest', true)
-    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-    // xhr.setRequestHeader('Myself-Type', 'application/x-www-form-urlencoded')
-    // xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8')
-    var data = {name: 'wdq'}
-    xhr.onreadystatechange = function() {
+      // 如果要发送cookies，客户端要加上xhr.withCredentials = true;
+      // 服务端要加上Access-Control-Allow-Credentials: true
+      let xhr = new XMLHttpRequest()
+      xhr.open('POST', 'http://localhost:8080/gc/crossPostTest', true)
+      // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+      // xhr.setRequestHeader('Myself-Type', 'application/x-www-form-urlencoded')
+      // xhr.setRequestHeader('Content-Type', 'application/json;charset=utf-8')
+      var data = { name: 'wdq' }
+      xhr.onreadystatechange = function () {
         console.log(xhr.responseText)
         console.log(xhr.readyState)
         console.log(xhr.status)
-    }
-    xhr.send()
-</script>
-</body>
+      }
+      xhr.send()
+    </script>
+  </body>
 </html>

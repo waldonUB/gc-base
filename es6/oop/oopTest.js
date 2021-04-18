@@ -3,11 +3,11 @@
  * 缺点：不能继承父类原型内的属性，只能继承父类构造函数内的属性
  * */
 function Parent() {
-    this.name = 'parent'
+  this.name = 'parent'
 }
 function Child() {
-    // 指向了子类的实例
-    Parent.call(this)
+  // 指向了子类的实例
+  Parent.call(this)
 }
 console.log(new Child())
 console.log(new Child() instanceof Parent) // false
@@ -18,12 +18,10 @@ console.log(new Child() instanceof Parent) // false
  * 没有达到各个实例属性分开的要求
  * */
 function Parent2() {
-    this.name = 'wdq'
-    this.userInfo = [1, 2]
+  this.name = 'wdq'
+  this.userInfo = [1, 2]
 }
-function Child2() {
-
-}
+function Child2() {}
 Child2.prototype = new Parent2()
 var child1 = new Child2()
 var child2 = new Child2()
@@ -35,18 +33,17 @@ child1.userInfo.push(3)
 console.log(child1.userInfo) // [ 1, 2, 3 ]
 console.log(child2.userInfo) // [ 1, 2, 3 ]
 
-
 /**
  * 组合继承
  * 缺点：父类的构造函数执行了两次
  * */
 function Parent3() {
-    this.name = 'wdq'
-    this.userInfo = [1, 2]
+  this.name = 'wdq'
+  this.userInfo = [1, 2]
 }
 function Child3() {
-    Parent3.call(this)
-    this.age = 16
+  Parent3.call(this)
+  this.age = 16
 }
 // Child3.prototype = new Parent3()
 

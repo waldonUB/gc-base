@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        .container {
-            width: 300px;
-            height: 300px;
-            background-color: red;
-        }
-        .child {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background-color: yellowgreen;
-        }
+      .container {
+        width: 300px;
+        height: 300px;
+        background-color: red;
+      }
+      .child {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: yellowgreen;
+      }
     </style>
+  </head>
+  <body>
+    <div class="container" id="container"></div>
+    <div class="child" id="child"></div>
 
-</head>
-<body>
-<div class="container" id="container">
-</div>
-<div class="child" id="child"></div>
-
-<script>
-    let container = document.getElementById("container")
-    let child = document.getElementById("child")
-    let selectNode
-    child.addEventListener('mousedown', function (e) {
+    <script>
+      let container = document.getElementById('container')
+      let child = document.getElementById('child')
+      let selectNode
+      child.addEventListener('mousedown', function (e) {
         e.preventDefault()
         selectNode = child
-    })
-    // document.body.addEventListener('mouseup', function () {
-    //     selectNode = null
-    // })
-    container.addEventListener('mouseup', function () {
+      })
+      // document.body.addEventListener('mouseup', function () {
+      //     selectNode = null
+      // })
+      container.addEventListener('mouseup', function () {
         selectNode = null
-    })
-    document.body.addEventListener('mousemove', function (e) {
+      })
+      document.body.addEventListener('mousemove', function (e) {
         selectNode.style.left = e.clientX - 50 + 'px'
         selectNode.style.top = e.clientY - 50 + 'px'
-    })
-</script>
-</body>
+      })
+    </script>
+  </body>
 </html>

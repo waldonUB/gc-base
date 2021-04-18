@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        .test-query {
-            width: 100px;
-            height: 100px;
-            background-color: red;
-        }
-        .test-query-change{
-            width: 100px;
-            height: 100px;
-            background-color: yellowgreen;
-        }
-        .test-get {
-            width: 100px;
-            height: 100px;
-            background-color: blanchedalmond;
-        }
+      .test-query {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+      }
+      .test-query-change {
+        width: 100px;
+        height: 100px;
+        background-color: yellowgreen;
+      }
+      .test-get {
+        width: 100px;
+        height: 100px;
+        background-color: blanchedalmond;
+      }
     </style>
-</head>
-<body>
-<div class="test-query test-double"></div>
-<p class="test-get"></p>
-<script>
-    // querySelector和getElement本质上获取的东西是一样的，兼容性方面querySelector更好点
-    // 区别：
-    // 1.兼容性
-    // 2.获取节点的动态性
-    // 3.灵活性
-    // 4.效率
-    var testDiv = document.querySelectorAll(".test-query") // 获取的是一个快照，静态的元素
-    var testP = document.getElementsByClassName("test-get") // 动态获取，后面增加元素还会获取到
-    var p2 = document.createElement("p")
-    p2.setAttribute("class", "test-get")
-    document.body.appendChild(p2)
-    // 改变获取的快照元素
-    // testDiv[0].setAttribute("class", "test-query-change")  // setAttribute的时候用class
-    // testDiv[0].className = "test-query-change" // .的时候用className
-    // 覆盖掉之前的属性
-    // testDiv[0].style = "width: 200px; height: 200px; background-color: blanchedalmond;"
-    // testDiv[0].setAttribute("style", "width: 200px; height: 200px; background-color: blanchedalmond;")
-    // 只改变某个元素
-    // testDiv[0].style.width = "200px"
-    // 增加或移除类
-    // testDiv[0].classList.add("test1", "test2")
-    // testDiv[0].classList.remove("test1", "test2")
-</script>
-</body>
+  </head>
+  <body>
+    <div class="test-query test-double"></div>
+    <p class="test-get"></p>
+    <script>
+      // querySelector和getElement本质上获取的东西是一样的，兼容性方面querySelector更好点
+      // 区别：
+      // 1.兼容性
+      // 2.获取节点的动态性
+      // 3.灵活性
+      // 4.效率
+      var testDiv = document.querySelectorAll('.test-query') // 获取的是一个快照，静态的元素
+      var testP = document.getElementsByClassName('test-get') // 动态获取，后面增加元素还会获取到
+      var p2 = document.createElement('p')
+      p2.setAttribute('class', 'test-get')
+      document.body.appendChild(p2)
+      // 改变获取的快照元素
+      // testDiv[0].setAttribute("class", "test-query-change")  // setAttribute的时候用class
+      // testDiv[0].className = "test-query-change" // .的时候用className
+      // 覆盖掉之前的属性
+      // testDiv[0].style = "width: 200px; height: 200px; background-color: blanchedalmond;"
+      // testDiv[0].setAttribute("style", "width: 200px; height: 200px; background-color: blanchedalmond;")
+      // 只改变某个元素
+      // testDiv[0].style.width = "200px"
+      // 增加或移除类
+      // testDiv[0].classList.add("test1", "test2")
+      // testDiv[0].classList.remove("test1", "test2")
+    </script>
+  </body>
 </html>

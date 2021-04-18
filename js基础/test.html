@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<div id="app">
-    <input type="text">
-</div>
-<script>
-    function f() {
-      const el = document.getElementById("app")
-      const childNodes = el.childNodes
-      childNodes.forEach(item => {
-        console.log(item)
-      })
-      debugger
-      console.log(childNodes instanceof Array)
-      const list = Array.prototype.slice.call(childNodes)
-      console.log(list instanceof Array)
-    }
-    f()
-</script>
-</body>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" />
+    </div>
+    <script>
+      function f() {
+        const el = document.getElementById('app')
+        const childNodes = el.childNodes
+        childNodes.forEach((item) => {
+          console.log(item)
+        })
+        debugger
+        console.log(childNodes instanceof Array)
+        const list = Array.prototype.slice.call(childNodes)
+        console.log(list instanceof Array)
+      }
+      f()
+    </script>
+  </body>
 </html>

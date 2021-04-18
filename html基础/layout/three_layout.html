@@ -1,204 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        html * {
-            padding: 0;
-            margin: 0;
-        }
-        .layout {
-            margin-top: 20px;
-        }
-        /*两栏布局，三栏布局的上下高度固定，中间自适应？*/
-        /*article和section是什么元素？ 语义化这一块*/
-        /*绝对定位为什么会挡住后面的？  从当前文档流脱离了，如果父元素没有指定高度，就会和后面的重叠*/
-        /*五种解决方案的优缺点？*/
-        /*高度不是已知的情况？ flex布局和表格布局还能用，要理解为啥能用和不能用*/
-        /*去掉高度之后，哪些方案还能生效，业务中常用的是哪种？哪种兼容性好？*/
-        /*1.浮动定位：清除浮动，难处理，但兼容性较好*/
-        /*2.绝对定位：布局脱离文档流，要底下的元素也要脱离文档流，有效性较差；但比较便捷*/
-        /*3.flex布局：比较完美；缺点是不兼容ie8*/
-        /*4.表格布局：兼容性好，当flex解决不了的时候，比如说ie8不兼容flex；缺点是高度不能独立*/
-        /*5.网格布局：可以实现很多效果，而且代码量较少*/
+      html * {
+        padding: 0;
+        margin: 0;
+      }
+      .layout {
+        margin-top: 20px;
+      }
+      /*两栏布局，三栏布局的上下高度固定，中间自适应？*/
+      /*article和section是什么元素？ 语义化这一块*/
+      /*绝对定位为什么会挡住后面的？  从当前文档流脱离了，如果父元素没有指定高度，就会和后面的重叠*/
+      /*五种解决方案的优缺点？*/
+      /*高度不是已知的情况？ flex布局和表格布局还能用，要理解为啥能用和不能用*/
+      /*去掉高度之后，哪些方案还能生效，业务中常用的是哪种？哪种兼容性好？*/
+      /*1.浮动定位：清除浮动，难处理，但兼容性较好*/
+      /*2.绝对定位：布局脱离文档流，要底下的元素也要脱离文档流，有效性较差；但比较便捷*/
+      /*3.flex布局：比较完美；缺点是不兼容ie8*/
+      /*4.表格布局：兼容性好，当flex解决不了的时候，比如说ie8不兼容flex；缺点是高度不能独立*/
+      /*5.网格布局：可以实现很多效果，而且代码量较少*/
     </style>
-</head>
-<body>
-<!--<div class="layout">-->
+  </head>
+  <body>
+    <!--<div class="layout">-->
     <!--<style>-->
-        <!--.container {-->
-            <!--/*父类为min-height时，子类为inherit，100%，auto都不生效*/-->
-            <!--/*min-height: 100px;*/-->
-            <!--height: 100px;-->
-            <!--background-color: rgba(255, 6, 233, 0.5);-->
-        <!--}-->
-        <!--.left {-->
-            <!--background-color: red;-->
-            <!--float: left;-->
-            <!--width: 300px;-->
-            <!--height: 100%;-->
-            <!--/*height: auto;*/-->
-        <!--}-->
-        <!--.right {-->
-            <!--background-color: red;-->
-            <!--float: right;-->
-            <!--width: 300px;-->
-            <!--height: 100%;-->
-        <!--}-->
-        <!--.center {-->
-            <!--background-color: yellow;-->
-            <!--height: inherit;-->
-        <!--}-->
+    <!--.container {-->
+    <!--/*父类为min-height时，子类为inherit，100%，auto都不生效*/-->
+    <!--/*min-height: 100px;*/-->
+    <!--height: 100px;-->
+    <!--background-color: rgba(255, 6, 233, 0.5);-->
+    <!--}-->
+    <!--.left {-->
+    <!--background-color: red;-->
+    <!--float: left;-->
+    <!--width: 300px;-->
+    <!--height: 100%;-->
+    <!--/*height: auto;*/-->
+    <!--}-->
+    <!--.right {-->
+    <!--background-color: red;-->
+    <!--float: right;-->
+    <!--width: 300px;-->
+    <!--height: 100%;-->
+    <!--}-->
+    <!--.center {-->
+    <!--background-color: yellow;-->
+    <!--height: inherit;-->
+    <!--}-->
     <!--</style>-->
     <!--<div class="container">-->
-        <!--<div class="left"></div>-->
-        <!--<div class="right"></div>-->
-        <!--<div class="center"></div>-->
+    <!--<div class="left"></div>-->
+    <!--<div class="right"></div>-->
+    <!--<div class="center"></div>-->
     <!--</div>-->
-<!--</div>-->
-<!--<div>-->
+    <!--</div>-->
+    <!--<div>-->
     <!--<style>-->
-        <!--.container {-->
-            <!--/*会覆盖掉前面的属性，不能重名*/-->
-            <!--height: 300px;-->
-        <!--}-->
+    <!--.container {-->
+    <!--/*会覆盖掉前面的属性，不能重名*/-->
+    <!--height: 300px;-->
+    <!--}-->
     <!--</style>-->
-<!--</div>-->
-<div class="layout">
-    <style>
-        .container>div {
-            /*父类为min-height时，子类为inherit，100%，auto都不生效*/
-            /*min-height: 100px;*/
-            height: 100px;
-            /*background-color: rgba(255, 6, 233, 0.2);*/
-            /*绝对定位，不指定宽度，就一定要指定左右距离？*/
-            position: absolute;
+    <!--</div>-->
+    <div class="layout">
+      <style>
+        .container > div {
+          /*父类为min-height时，子类为inherit，100%，auto都不生效*/
+          /*min-height: 100px;*/
+          height: 100px;
+          /*background-color: rgba(255, 6, 233, 0.2);*/
+          /*绝对定位，不指定宽度，就一定要指定左右距离？*/
+          position: absolute;
         }
         .left {
-            background-color: red;
-            left: 0;
-            width: 300px;
-            /*height: auto;*/
+          background-color: red;
+          left: 0;
+          width: 300px;
+          /*height: auto;*/
         }
         .right {
-            background-color: red;
-            right: 0;
-            width: 300px;
+          background-color: red;
+          right: 0;
+          width: 300px;
         }
         .center {
-            background-color: yellow;
-            /*height: inherit;*/
-            left: 300px;
-            right: 300px;
+          background-color: yellow;
+          /*height: inherit;*/
+          left: 300px;
+          right: 300px;
         }
-    </style>
-    <div class="container">
+      </style>
+      <div class="container">
         <div class="left"></div>
         <!--哪个位置都可以-->
         <!--<div class="center"></div>-->
         <div class="right"></div>
         <div class="center"></div>
+      </div>
     </div>
-</div>
-<div class="layout">
-    <style>
+    <div class="layout">
+      <style>
         .container {
-            display: flex;
-            flex-wrap: nowrap;
-            flex-direction: row;
-            /*justify-content: space-around;*/
+          display: flex;
+          flex-wrap: nowrap;
+          flex-direction: row;
+          /*justify-content: space-around;*/
         }
         .container > div {
-            height: 100px;
+          height: 100px;
         }
         .left {
-            background-color: red;
-            width: 300px;
-            /*height: auto;*/
+          background-color: red;
+          width: 300px;
+          /*height: auto;*/
         }
         .right {
-            background-color: red;
-            width: 300px;
+          background-color: red;
+          width: 300px;
         }
         .center {
-            background-color: yellow;
-            flex: 1;
-            /*flex: auto 和 flex: 1的区别？*/
+          background-color: yellow;
+          flex: 1;
+          /*flex: auto 和 flex: 1的区别？*/
 
-            /*flex: auto;*/
-            /*height: inherit;*/
+          /*flex: auto;*/
+          /*height: inherit;*/
         }
-    </style>
-    <div class="container">
+      </style>
+      <div class="container">
         <div class="left"></div>
         看看自动填充可以不可以把center位置变一下？
         <div class="center"></div>
         <div class="right"></div>
+      </div>
     </div>
-</div>
-<!--<div class="layout">-->
+    <!--<div class="layout">-->
     <!--<style>-->
-        <!--.container {-->
-            <!--/*这个一定要指定*/-->
-            <!--width: 100%;-->
-            <!--display: table;-->
-        <!--}-->
-        <!--.container > div {-->
-            <!--height: 100px;-->
-            <!--display: table-cell;-->
-        <!--}-->
-        <!--.left {-->
-            <!--background-color: red;-->
-            <!--width: 300px;-->
-            <!--/*height: auto;*/-->
-        <!--}-->
-        <!--.right {-->
-            <!--background-color: red;-->
-            <!--width: 300px;-->
-        <!--}-->
-        <!--.center {-->
-            <!--background-color: yellow;-->
-            <!--/*flex: 1;*/-->
-            <!--/*flex: auto 和 flex: 1的区别？*/-->
-            <!--/*flex: auto;*/-->
-            <!--/*height: inherit;*/-->
-        <!--}-->
+    <!--.container {-->
+    <!--/*这个一定要指定*/-->
+    <!--width: 100%;-->
+    <!--display: table;-->
+    <!--}-->
+    <!--.container > div {-->
+    <!--height: 100px;-->
+    <!--display: table-cell;-->
+    <!--}-->
+    <!--.left {-->
+    <!--background-color: red;-->
+    <!--width: 300px;-->
+    <!--/*height: auto;*/-->
+    <!--}-->
+    <!--.right {-->
+    <!--background-color: red;-->
+    <!--width: 300px;-->
+    <!--}-->
+    <!--.center {-->
+    <!--background-color: yellow;-->
+    <!--/*flex: 1;*/-->
+    <!--/*flex: auto 和 flex: 1的区别？*/-->
+    <!--/*flex: auto;*/-->
+    <!--/*height: inherit;*/-->
+    <!--}-->
     <!--</style>-->
     <!--<div class="container">-->
-        <!--<div class="left"></div>-->
-        <!--<div class="center"></div>-->
-        <!--<div class="right"></div>-->
+    <!--<div class="left"></div>-->
+    <!--<div class="center"></div>-->
+    <!--<div class="right"></div>-->
     <!--</div>-->
-<!--</div>-->
-<!--<div class="layout">-->
+    <!--</div>-->
+    <!--<div class="layout">-->
     <!--<style>-->
-        <!--.container {-->
-            <!--width: 100%;-->
-            <!--display: grid;-->
-            <!--grid-template-rows: 100px;-->
-            <!--grid-template-columns: 300px auto 300px;-->
-        <!--}-->
-        <!--.left {-->
-            <!--background-color: red;-->
-            <!--/*height: auto;*/-->
-        <!--}-->
-        <!--.right {-->
-            <!--background-color: red;-->
-        <!--}-->
-        <!--.center {-->
-            <!--background-color: yellow;-->
-            <!--/*flex: 1;*/-->
-            <!--/*flex: auto 和 flex: 1的区别？*/-->
-            <!--/*flex: auto;*/-->
-            <!--/*height: inherit;*/-->
-        <!--}-->
+    <!--.container {-->
+    <!--width: 100%;-->
+    <!--display: grid;-->
+    <!--grid-template-rows: 100px;-->
+    <!--grid-template-columns: 300px auto 300px;-->
+    <!--}-->
+    <!--.left {-->
+    <!--background-color: red;-->
+    <!--/*height: auto;*/-->
+    <!--}-->
+    <!--.right {-->
+    <!--background-color: red;-->
+    <!--}-->
+    <!--.center {-->
+    <!--background-color: yellow;-->
+    <!--/*flex: 1;*/-->
+    <!--/*flex: auto 和 flex: 1的区别？*/-->
+    <!--/*flex: auto;*/-->
+    <!--/*height: inherit;*/-->
+    <!--}-->
     <!--</style>-->
     <!--<div class="container">-->
-        <!--<div class="left"></div>-->
-        <!--<div class="center"></div>-->
-        <!--<div class="right"></div>-->
+    <!--<div class="left"></div>-->
+    <!--<div class="center"></div>-->
+    <!--<div class="right"></div>-->
     <!--</div>-->
-<!--</div>-->
-</body>
+    <!--</div>-->
+  </body>
 </html>

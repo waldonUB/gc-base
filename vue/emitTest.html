@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>测试事件对象</title>
     <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
-</head>
-<body>
-<div id="app">
-    <tab1 :father-val="fatherVal" @update="getFatherVal"></tab1>
-    <button @click="testClick()">测试click</button>
-</div>
-<script>
-    let tab1 = {
+  </head>
+  <body>
+    <div id="app">
+      <tab1 :father-val="fatherVal" @update="getFatherVal"></tab1>
+      <button @click="testClick()">测试click</button>
+    </div>
+    <script>
+      let tab1 = {
         name: 'tab1',
         template: `
             <div>
@@ -20,30 +20,30 @@
             </div>`,
         props: ['fatherVal'],
         methods: {
-            inputMsg(e) {
-                this.$emit('update', e.target.value)
-            }
+          inputMsg(e) {
+            this.$emit('update', e.target.value)
+          }
         },
-        mounted () {
-            console.log(this.fatherVal)
+        mounted() {
+          console.log(this.fatherVal)
         }
-    }
-    new Vue({
-        components: {tab1},
+      }
+      new Vue({
+        components: { tab1 },
         data: {
-            fatherVal: 1
+          fatherVal: 1
         },
         methods: {
-            getFatherVal ($event) {
-                debugger
-                console.log($event)
-            },
-            testClick (e, value) {
-                debugger
-                console.log(e)
-            }
+          getFatherVal($event) {
+            debugger
+            console.log($event)
+          },
+          testClick(e, value) {
+            debugger
+            console.log(e)
+          }
         }
-    }).$mount("#app")
-</script>
-</body>
+      }).$mount('#app')
+    </script>
+  </body>
 </html>

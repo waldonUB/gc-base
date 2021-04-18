@@ -28,12 +28,10 @@
 // 使用严格模式，如果只有get属性，赋值时会报TypeERROR的错误，obj.name为只读
 'use strict'
 let obj = {
-    get age() {
-        return '666?'
-    },
-    set age(val) {
-
-    }
+  get age() {
+    return '666?'
+  },
+  set age(val) {}
 }
 obj.age = 'waldon'
 console.log(obj.age)

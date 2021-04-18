@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        .container {
-            width: 800px;
-            height: 800px;
-            border: 1px solid black;
-        }
-        .container > div {
-            float: left;
-            height: 100%;
-        }
-        .middle {
-            width: 100%;
-            background-color: red;
-        }
-        .middle > .inner {
-            /*padding和margin都可以*/
-            /*margin: 0 200px;*/
-            padding: 0 200px;
-            height: 100%;
-        }
-        .left {
-            width: 200px;
-            margin-left: -100%;
-            background-color: green;
-        }
-        .right {
-            width: 200px;
-            margin-left: -200px;
-            background-color: yellowgreen;
-        }
+      .container {
+        width: 800px;
+        height: 800px;
+        border: 1px solid black;
+      }
+      .container > div {
+        float: left;
+        height: 100%;
+      }
+      .middle {
+        width: 100%;
+        background-color: red;
+      }
+      .middle > .inner {
+        /*padding和margin都可以*/
+        /*margin: 0 200px;*/
+        padding: 0 200px;
+        height: 100%;
+      }
+      .left {
+        width: 200px;
+        margin-left: -100%;
+        background-color: green;
+      }
+      .right {
+        width: 200px;
+        margin-left: -200px;
+        background-color: yellowgreen;
+      }
     </style>
-</head>
-<body>
-<div class="container">
-    <div class="middle">
+  </head>
+  <body>
+    <div class="container">
+      <div class="middle">
         <div class="inner">main</div>
+      </div>
+      <div class="left"></div>
+      <div class="right"></div>
     </div>
-    <div class="left"></div>
-    <div class="right"></div>
-</div>
-</body>
+  </body>
 </html>

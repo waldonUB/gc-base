@@ -1,39 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<script>
-    // 后台jsonp返回的数据格式其实是前端传回去的function的执行，
-    // 比如说前端传回的是init方法，后端就返回init()，里面的参数就和function中的一样
-    // 缺点：只能实现get一种请求
-    window._init = function(resData) {
+  </head>
+  <body>
+    <script>
+      // 后台jsonp返回的数据格式其实是前端传回去的function的执行，
+      // 比如说前端传回的是init方法，后端就返回init()，里面的参数就和function中的一样
+      // 缺点：只能实现get一种请求
+      window._init = function (resData) {
         console.log(`我是回调`)
-    }
-    window.callbackNameTest = function (resData) {
+      }
+      window.callbackNameTest = function (resData) {
         // 即使不传callback参数都行，只要后台返回对应的function名的执行
         // 个人猜想：script脚本获取response的内容后就加载，
         // 因为callback的function是在window里面的，所以会自动执行
         console.log(`我是后台返回的对应的方法名`)
-    }
-    var script = document.createElement('script')
-    script.type = "text/javascript";
-    script.src = "http://localhost:8080/gc/entityParam";
-    document.head.appendChild(script)
-    document.head.removeChild(script)
+      }
+      var script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = 'http://localhost:8080/gc/entityParam'
+      document.head.appendChild(script)
+      document.head.removeChild(script)
 
-
-    // 能进入跨域的请求，但是无法返回合适的数据格式
-    // window.onload = function () {
-    //     // var img = document.createElement("img")
-    //     // img.src = "http://localhost:8080/gc/entityParam?callback=_init";
-    //     // document.body.appendChild(img)
-    //     // var link = document.createElement("link")
-    //     // link.href = "http://localhost:8080/gc/entityParam?callback=_init";
-    //     // document.body.appendChild(link)
-    // }
-</script>
-</body>
+      // 能进入跨域的请求，但是无法返回合适的数据格式
+      // window.onload = function () {
+      //     // var img = document.createElement("img")
+      //     // img.src = "http://localhost:8080/gc/entityParam?callback=_init";
+      //     // document.body.appendChild(img)
+      //     // var link = document.createElement("link")
+      //     // link.href = "http://localhost:8080/gc/entityParam?callback=_init";
+      //     // document.body.appendChild(link)
+      // }
+    </script>
+  </body>
 </html>

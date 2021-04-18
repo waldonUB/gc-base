@@ -1,14 +1,14 @@
 var fn1 = function (userName) {
-    this.name = userName
-    console.log(`name is :` + this.name)
+  this.name = userName
+  console.log(`name is :` + this.name)
 }
 
 var fn2 = function (userName) {
-    var user = {
-        name: userName
-    }
-    user.getName = fn1
-    return user
+  var user = {
+    name: userName
+  }
+  user.getName = fn1
+  return user
 }
 
 var u1 = fn2('wdq')

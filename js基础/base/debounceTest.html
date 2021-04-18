@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<button onclick="debounceTest()">防抖</button>
-<script>
-    let valusss = null
-    console.log(valusss)
-    let debounceTest = (function () {
+  </head>
+  <body>
+    <button onclick="debounceTest()">防抖</button>
+    <script>
+      let valusss = null
+      console.log(valusss)
+      let debounceTest = (function () {
         let flag = false
         let time
         return function (fn, interval) {
-            if (!flag) {
-                clearTimeout(time)
-            }
-            flag = false
-            time = setTimeout(function () {
-                fn()
-                flag = true
-            }, interval)
+          if (!flag) {
+            clearTimeout(time)
+          }
+          flag = false
+          time = setTimeout(function () {
+            fn()
+            flag = true
+          }, interval)
         }
-    }())
-    function fn() {
-
-    }
-</script>
-</body>
+      })()
+      function fn() {}
+    </script>
+  </body>
 </html>

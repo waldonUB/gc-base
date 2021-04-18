@@ -22,6 +22,6 @@ let obj = {
 let obj2 = {
   c: '997'
 }
-let obj1 = {...obj, ...obj2}
+let obj1 = { ...obj, ...obj2 }
 obj1.a = '99'
 console.log(obj1)

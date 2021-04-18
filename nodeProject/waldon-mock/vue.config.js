@@ -1,6 +1,6 @@
 module.exports = {
 	devServer: {
-		overlay: {}
+		overlay: {},
 	},
-	lintOnSave: false //关闭eslint检查
+	lintOnSave: false, //关闭eslint检查
 }

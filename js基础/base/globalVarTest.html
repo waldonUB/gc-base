@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<script>
-    var allVar = (function () {
+  </head>
+  <body>
+    <script>
+      var allVar = (function () {
         var testVar = []
         var testObj = {
-            a: 1,
-            b: 2
+          a: 1,
+          b: 2
         }
         var index = 0
         setInterval(() => {
-            index ++
-            if (index > 1000) {
-                return
-            }
-            testVar.push({...testVar})
+          index++
+          if (index > 1000) {
+            return
+          }
+          testVar.push({ ...testVar })
         }, 10)
         return testObj
-    }())
-
-</script>
-</body>
+      })()
+    </script>
+  </body>
 </html>

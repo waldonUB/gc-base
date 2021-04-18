@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<p>&gt;</p>
-<input type="text" id="xssInput">
-<button id="getInputBtn">提交input</button>
-<div id="showInputText"></div>
-<script>
-    const xssInput = document.getElementById('xssInput')
-    const getInputBtn = document.getElementById('getInputBtn')
-    const showInputText = document.getElementById('showInputText')
-    getInputBtn.addEventListener('click', function () {
-        showInputText.innerHTML =  xssInput.value
-    })
-
-</script>
-</body>
+  </head>
+  <body>
+    <p>&gt;</p>
+    <input type="text" id="xssInput" />
+    <button id="getInputBtn">提交input</button>
+    <div id="showInputText"></div>
+    <script>
+      const xssInput = document.getElementById('xssInput')
+      const getInputBtn = document.getElementById('getInputBtn')
+      const showInputText = document.getElementById('showInputText')
+      getInputBtn.addEventListener('click', function () {
+        showInputText.innerHTML = xssInput.value
+      })
+    </script>
+  </body>
 </html>

@@ -17,7 +17,6 @@
 //
 // var user = new f(12)
 
-
 // function Person() {
 //     this.age = 0;
 //     var closure = "123"
@@ -45,5 +44,7 @@
 //    console.log(args)
 // }
 // f(1, 'w', {name: 'wdq'})
-var a = ((i = 0) => {return (() => ++i)})()
+var a = ((i = 0) => {
+  return () => ++i
+})()
 console.log(a())

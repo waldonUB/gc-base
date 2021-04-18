@@ -1,54 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        .box1 {
-            width: 100%;
-            height: 1700px;
-            border: 1px solid black;
-        }
-        .fixedArea {
-            width: 100px;
-            height: 100px;
-            background-color: aquamarine;
-        }
-        .flag {
-            width: 100%;
-            height: 1px;
-            background-color: red;
-        }
+      .box1 {
+        width: 100%;
+        height: 1700px;
+        border: 1px solid black;
+      }
+      .fixedArea {
+        width: 100px;
+        height: 100px;
+        background-color: aquamarine;
+      }
+      .flag {
+        width: 100%;
+        height: 1px;
+        background-color: red;
+      }
     </style>
-</head>
-<body>
-<div class="box1">
-    <div id="flag" class="flag"></div>
-    <div id="fixedArea" class="fixedArea">
+  </head>
+  <body>
+    <div class="box1">
+      <div id="flag" class="flag"></div>
+      <div id="fixedArea" class="fixedArea">
         <div class="child1">
-            <div class="child2">66</div>
+          <div class="child2">66</div>
         </div>
+      </div>
     </div>
-</div>
-<script>
-    var fixedArea = document.getElementById('fixedArea')
-    var cloneNode = fixedArea.cloneNode(true)
-    cloneNode.style.position = 'fixed'
-    cloneNode.style.top = '0'
-    cloneNode.style.left = '0'
-    cloneNode.style.display = 'none'
-    fixedArea.parentNode.appendChild(cloneNode)
-    var observer = new IntersectionObserver (function (changes) {
+    <script>
+      var fixedArea = document.getElementById('fixedArea')
+      var cloneNode = fixedArea.cloneNode(true)
+      cloneNode.style.position = 'fixed'
+      cloneNode.style.top = '0'
+      cloneNode.style.left = '0'
+      cloneNode.style.display = 'none'
+      fixedArea.parentNode.appendChild(cloneNode)
+      var observer = new IntersectionObserver(function (changes) {
         if (!changes[0].isIntersecting) {
-            fixedArea.style.opacity = '0'
-            cloneNode.style.display = 'block'
+          fixedArea.style.opacity = '0'
+          cloneNode.style.display = 'block'
         } else {
-            fixedArea.style.opacity = '1'
-            cloneNode.style.display = 'none'
+          fixedArea.style.opacity = '1'
+          cloneNode.style.display = 'none'
         }
-    })
-    observer.observe(document.getElementById('flag'))
-
-</script>
-</body>
+      })
+      observer.observe(document.getElementById('flag'))
+    </script>
+  </body>
 </html>

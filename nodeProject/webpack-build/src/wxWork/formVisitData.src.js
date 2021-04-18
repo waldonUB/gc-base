@@ -1,11 +1,11 @@
-(function () {
-    let mtHeader = mtComponents.mtHeader
-    let mtTag = mtComponents.mtTag
-    let mtFold = mtComponents.mtFold
-    let mtNothing = mtComponents.mtNothing
-    Mt_Util.router.formVisitData = Vue.extend({
-        name: "formVisitData",
-        template: `
+;(function () {
+  let mtHeader = mtComponents.mtHeader
+  let mtTag = mtComponents.mtTag
+  let mtFold = mtComponents.mtFold
+  let mtNothing = mtComponents.mtNothing
+  Mt_Util.router.formVisitData = Vue.extend({
+    name: 'formVisitData',
+    template: `
         <div class="formData">
             <mt-header :title="title"></mt-header>
             <div class="dataInfoBox">
@@ -49,127 +49,123 @@
             <mt-nothing v-else emptyTips="表单数据空空如也~"></mt-nothing>
         </div>
     `,
-        data() {
-            return {
-                formDataList: [],
-                otherCheckOption: {
-                    pageNow: 1,
-                    limit: 10,
-                    maxPage: 2
-                },
-                templateId:0,//表单id
-                statusName:'',//状态名（已发布，未发布）
-                status:0,
-                title:'',
-                commitTotal:0,
-                isMoreLoading:false
-            }
+    data() {
+      return {
+        formDataList: [],
+        otherCheckOption: {
+          pageNow: 1,
+          limit: 10,
+          maxPage: 2
         },
-        components: {
-            mtHeader,
-            mtTag, 
-            mtFold,
-            mtNothing
-        },
-        created(){
-            document.body.scrollTop = 0
-            this.templateId = this.$route.query.id;
-            this.getTsFormDataList().then(list=>{
-                this.formDataList = [].concat(list)
+        templateId: 0, //表单id
+        statusName: '', //状态名（已发布，未发布）
+        status: 0,
+        title: '',
+        commitTotal: 0,
+        isMoreLoading: false
+      }
+    },
+    components: {
+      mtHeader,
+      mtTag,
+      mtFold,
+      mtNothing
+    },
+    created() {
+      document.body.scrollTop = 0
+      this.templateId = this.$route.query.id
+      this.getTsFormDataList().then((list) => {
+        this.formDataList = [].concat(list)
+      })
+    },
+    methods: {
+      /**
+       * 上拉加载
+       * @author guoyijie
+       * @date 2020/8/13
+       */
+      loadBottom() {
+        if (this.otherCheckOption.maxPage <= this.otherCheckOption.pageNow) {
+          return
+        }
+        this.isMoreLoading = true
+        this.otherCheckOption.pageNow++
+        this.getTsFormDataList().then((list) => {
+          this.isMoreLoading = false
+          this.formDataList = this.formDataList.concat(list)
+        })
+      },
+      /**
+       * 查看填写明细
+       * @author guoyijie
+       * @date 2020/8/13
+       * @param {Object} item 一条数据对象
+       */
+      showTable(item) {
+        item.isMore = !item.isMore
+        if (item.formData.length === 0) {
+          this.getTsFormDataDetail(item).then((formData) => {
+            let index = this.formDataList.findIndex((formItem) => {
+              item.id == formItem.id
             })
-        },
-        methods: {  
-            /**
-            * 上拉加载
-            * @author guoyijie
-            * @date 2020/8/13
-            */
-            loadBottom(){
-                if (this.otherCheckOption.maxPage <= this.otherCheckOption.pageNow) {
-                    return
-                }
-                this.isMoreLoading = true
-                this.otherCheckOption.pageNow++
-                this.getTsFormDataList().then(list => {
-                    this.isMoreLoading=false
-                    this.formDataList = this.formDataList.concat(list)
-                })
-            },
-            /**
-             * 查看填写明细
-             * @author guoyijie
-             * @date 2020/8/13
-             * @param {Object} item 一条数据对象
-             */
-            showTable(item) {
-                item.isMore = !item.isMore;
-                if (item.formData.length === 0) {
-                    this.getTsFormDataDetail(item).then(formData => {
-                        let index = this.formDataList.findIndex(formItem => {
-                            item.id == formItem.id
-                        })
-                        item.formData = formData;
-                        this.$set(this.formDataList, index, item)
-                    })
-                }
-            },
-            /**
-             * 获取表格数据
-             * @author guoyijie
-             * @date 2020/8/13
-             * @param {Object} item 
-             */
-            getTsFormDataDetail(item) {
-                return new Promise(resolve=>{
-                    Mt_Util.post('/ajax/wxWork/form/tsForm_h.jsp?cmd=getTsFormDataDetail', item).then(res => {
-                        if (res.data && res.data.success) {
-                            resolve(res.data.data)
-                        } else {
-                            this.$messagebox('提示', res.data.msg || '网络错误，请稍候重试')
-                        }
-                    })
-                })
-            },
-            /**
-             * 获取表单访客数据
-             * @author guoyijie
-             * @date 2020/8/13
-             * @param {Object} item 
-             */
-            getTsFormDataList() {
-                return new Promise(resolve=>{
-                    let parmes = Object.assign({},
-                        this.otherCheckOption, {
-                            templateId: this.templateId
-                        }
-                    )
-                    Mt_Util.post('/ajax/wxWork/form/tsForm_h.jsp?cmd=getTsFormDataList', parmes).then(res => {
-                        if (res.data && res.data.success) {
-                            const {
-                                formList,
-                                statusName,
-                                status,
-                                title,
-                                commitTotal
-                            } = res.data.data;
-                            this.statusName = statusName;
-                            this.status = status;
-                            this.title = title;
-                            this.commitTotal = commitTotal;
-                            this.otherCheckOption.maxPage = Math.ceil(
-                                res.data.total / this.otherCheckOption.limit
-                            );
-                            formList.forEach(item => {
-                                item.isMore = false;
-                                item.formData = []
-                            })
-                            resolve(formList)
-                        } else {
-                            this.$messagebox('提示', res.data.msg || '网络错误，请稍候重试')
-                        }
-                    })
-                })
+            item.formData = formData
+            this.$set(this.formDataList, index, item)
+          })
+        }
+      },
+      /**
+       * 获取表格数据
+       * @author guoyijie
+       * @date 2020/8/13
+       * @param {Object} item
+       */
+      getTsFormDataDetail(item) {
+        return new Promise((resolve) => {
+          Mt_Util.post('/ajax/wxWork/form/tsForm_h.jsp?cmd=getTsFormDataDetail', item).then(
+            (res) => {
+              if (res.data && res.data.success) {
+                resolve(res.data.data)
+              } else {
+                this.$messagebox('提示', res.data.msg || '网络错误，请稍候重试')
+              }
             }
-        },
-    });
+          )
+        })
+      },
+      /**
+       * 获取表单访客数据
+       * @author guoyijie
+       * @date 2020/8/13
+       * @param {Object} item
+       */
+      getTsFormDataList() {
+        return new Promise((resolve) => {
+          let parmes = Object.assign({}, this.otherCheckOption, {
+            templateId: this.templateId
+          })
+          Mt_Util.post('/ajax/wxWork/form/tsForm_h.jsp?cmd=getTsFormDataList', parmes).then(
+            (res) => {
+              if (res.data && res.data.success) {
+                const { formList, statusName, status, title, commitTotal } = res.data.data
+                this.statusName = statusName
+                this.status = status
+                this.title = title
+                this.commitTotal = commitTotal
+                this.otherCheckOption.maxPage = Math.ceil(
+                  res.data.total / this.otherCheckOption.limit
+                )
+                formList.forEach((item) => {
+                  item.isMore = false
+                  item.formData = []
+                })
+                resolve(formList)
+              } else {
+                this.$messagebox('提示', res.data.msg || '网络错误，请稍候重试')
+              }
+            }
+          )
+        })
+      }
+    }
+  })
 })()

@@ -9,10 +9,10 @@ const Observer = {
     }, 0)
   },
   subscribe: function (topic, callback) {
-    observers.push({topic, callback})
+    observers.push({ topic, callback })
   },
   remove: function (topic) {
-    observers = observers.filter(item => item.topic !== topic)
+    observers = observers.filter((item) => item.topic !== topic)
   }
 }
 Observer.subscribe('hello', function () {

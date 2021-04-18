@@ -1,48 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <!-- 引入样式 -->
-  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
-</head>
-<body>
-<div id="app">
-  <el-input @input="getInput" placeholder="请输入内容"></el-input>
-</div>
-<!-- 引入组件库 -->
-<script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
-<script>
-  new Vue({
-      data: {
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <el-input @input="getInput" placeholder="请输入内容"></el-input>
+    </div>
+    <!-- 引入组件库 -->
+    <script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+    <script>
+      new Vue({
+        data: {
           value2: '',
-          options: [{
+          options: [
+            {
               value: '选项1',
               label: '黄金糕'
-          }, {
+            },
+            {
               value: '选项2',
               label: '双皮奶'
-          }, {
+            },
+            {
               value: '选项3',
               label: '蚵仔煎'
-          }, {
+            },
+            {
               value: '选项4',
               label: '龙须面'
-          }, {
+            },
+            {
               value: '选项5',
               label: '北京烤鸭'
-          }]
-      },
-    methods: {
-      removeTag () {
-        return false
-      },
-      getInput (e) {
-        console.log(`e`, e)
-      }
-    }
-  }).$mount("#app")
-</script>
-</body>
+            }
+          ]
+        },
+        methods: {
+          removeTag() {
+            return false
+          },
+          getInput(e) {
+            console.log(`e`, e)
+          }
+        }
+      }).$mount('#app')
+    </script>
+  </body>
 </html>

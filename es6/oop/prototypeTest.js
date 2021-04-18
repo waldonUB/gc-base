@@ -1,15 +1,13 @@
-var Component = function () {
-
-}
+var Component = function () {}
 Component.prototype.data = {
-    a: 1,
-    b: 2
+  a: 1,
+  b: 2
 }
 Component.prototype.newData = function () {
-    return {
-        a: 1,
-        b: 2
-    }
+  return {
+    a: 1,
+    b: 2
+  }
 }
 var c1 = new Component()
 var c2 = new Component()

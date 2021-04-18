@@ -1,1 +1,25 @@
-{"memberList_web":[{"name":"吴德钦","mobile":"13724065743","work":"web"},{"name":"陈烁峰","mobile":"13602890526","work":"web"},{"name":"廖敏铃","mobile":"13533292441","work":"web"},{"name":"郭依洁","mobile":"13660366211","work":"web"}],"memberList_backend":[{"name":"洪林生","mobile":"13632496540","work":"backend"},{"name":"谢飞龙","mobile":"13060856548","work":"backend"},{"name":"陈楚东","mobile":"15625550410","work":"backend"},{"name":"伍耀鸿","mobile":"13527614658","work":"backend"}],"hooksData":{"web":{"name":"陈烁峰","mobile":"13602890526","work":"web"},"backend":{"name":"陈楚东","mobile":"15625550410","work":"backend"}},"roomUrlList":[{"id":3,"name":"开发易销","url":"https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=429e0737-fb29-4952-a0ca-3a91a684ab24"}]}
+{
+  "memberList_web": [
+    { "name": "吴德钦", "mobile": "13724065743", "work": "web" },
+    { "name": "陈烁峰", "mobile": "13602890526", "work": "web" },
+    { "name": "廖敏铃", "mobile": "13533292441", "work": "web" },
+    { "name": "郭依洁", "mobile": "13660366211", "work": "web" }
+  ],
+  "memberList_backend": [
+    { "name": "洪林生", "mobile": "13632496540", "work": "backend" },
+    { "name": "谢飞龙", "mobile": "13060856548", "work": "backend" },
+    { "name": "陈楚东", "mobile": "15625550410", "work": "backend" },
+    { "name": "伍耀鸿", "mobile": "13527614658", "work": "backend" }
+  ],
+  "hooksData": {
+    "web": { "name": "陈烁峰", "mobile": "13602890526", "work": "web" },
+    "backend": { "name": "陈楚东", "mobile": "15625550410", "work": "backend" }
+  },
+  "roomUrlList": [
+    {
+      "id": 3,
+      "name": "开发易销",
+      "url": "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=429e0737-fb29-4952-a0ca-3a91a684ab24"
+    }
+  ]
+}

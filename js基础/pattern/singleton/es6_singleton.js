@@ -1,15 +1,15 @@
 class SingleObject {
-    login() {
-        console.log(`I am coming`);
-    }
+  login() {
+    console.log(`I am coming`)
+  }
 }
 SingleObject.getInstance = (function () {
-    let instance = null
-    return function () {
-        if (instance !== null) {
-            instance = new SingleObject()
-        }
-        return instance
+  let instance = null
+  return function () {
+    if (instance !== null) {
+      instance = new SingleObject()
     }
-}())
-console.log('SingleObject :', SingleObject);
+    return instance
+  }
+})()
+console.log('SingleObject :', SingleObject)

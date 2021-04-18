@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
-<body>
-<canvas id="canvas"></canvas>
-<script>
-    var canvas = document.getElementById("canvas");
-    var ctx = canvas.getContext("2d");
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+      var canvas = document.getElementById('canvas')
+      var ctx = canvas.getContext('2d')
 
-    ctx.save(); // save the default state
+      ctx.save() // save the default state
 
-    ctx.fillStyle = "green";
-    ctx.fillRect(10, 10, 100, 100);
-    ctx.rotate(10)
-</script>
-</body>
+      ctx.fillStyle = 'green'
+      ctx.fillRect(10, 10, 100, 100)
+      ctx.rotate(10)
+    </script>
+  </body>
 </html>

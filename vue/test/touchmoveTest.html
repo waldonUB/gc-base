@@ -1,67 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <script src="./js/vue.js"></script>
-  <style>
-    .parent {
-      width: 800px;
-      height: 800px;
-      overflow-y: auto;
-    }
-    .child1 {
-      width: 800px;
-      height: 1200px;
-      background-color: red;
-    }
-    .parent2 {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 800px;
-      height: 800px;
-      overflow-y: auto;
-      z-index: 2;
-    }
-    .child2 {
-      width: 800px;
-      height: 1200px;
-      background-color: rgba(255, 200, 1, 0.5);
-    }
-  </style>
-</head>
-<body>
-<div id="app">
-  <div class="parent">
-    <div class="child1">1111
-      <div class="parent2">
-        <div class="child2">222</div>
-      </div></div>
-    
-  </div>
-</div>
-<script>
-  new Vue({
-    data: {
-      info: {
-        // list: []
-      },
-      index: 0
-    },
-    methods: {
-      addTag () {
-        let currentList = []
-        this.index++
-        for (let i = 0; i < this.index; i++) {
-          currentList.push(i)
-        }
-        // this.info.list = currentList
-        this.$set(this.info, 'list', currentList)
-        console.log(`this.info.list`, this.info.list)
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="./js/vue.js"></script>
+    <style>
+      .parent {
+        width: 800px;
+        height: 800px;
+        overflow-y: auto;
       }
-    }
-  }).$mount("#app")
-</script>
-</body>
+      .child1 {
+        width: 800px;
+        height: 1200px;
+        background-color: red;
+      }
+      .parent2 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 800px;
+        height: 800px;
+        overflow-y: auto;
+        z-index: 2;
+      }
+      .child2 {
+        width: 800px;
+        height: 1200px;
+        background-color: rgba(255, 200, 1, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="parent">
+        <div class="child1">
+          1111
+          <div class="parent2">
+            <div class="child2">222</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      new Vue({
+        data: {
+          info: {
+            // list: []
+          },
+          index: 0
+        },
+        methods: {
+          addTag() {
+            let currentList = []
+            this.index++
+            for (let i = 0; i < this.index; i++) {
+              currentList.push(i)
+            }
+            // this.info.list = currentList
+            this.$set(this.info, 'list', currentList)
+            console.log(`this.info.list`, this.info.list)
+          }
+        }
+      }).$mount('#app')
+    </script>
+  </body>
 </html>

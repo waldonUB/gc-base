@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script>
-    // 作用域
-    // 1.全局作用域 2.函数作用域 3.块级作用域（ES6）
-    var g_a = '声明的全局变量'
-    console.log(`这个会被挂载到window上：`, window.g_a)
-    ;(function() {
-      var _a = '声明的局部变量'
-      console.log(`这个不会被挂载到window上：`, window._a) // 这个不会被挂载到window上
-    })()
-    let _a2 = 'let的方式声明局部变量'
-    console.log(`这个不会被挂载到window上：`, window._a2) // 这个不会被挂载到window上
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 作用域
+      // 1.全局作用域 2.函数作用域 3.块级作用域（ES6）
+      var g_a = '声明的全局变量'
+      console.log(`这个会被挂载到window上：`, window.g_a)
+      ;(function () {
+        var _a = '声明的局部变量'
+        console.log(`这个不会被挂载到window上：`, window._a) // 这个不会被挂载到window上
+      })()
+      let _a2 = 'let的方式声明局部变量'
+      console.log(`这个不会被挂载到window上：`, window._a2) // 这个不会被挂载到window上
+    </script>
+  </body>
 </html>

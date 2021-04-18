@@ -149,7 +149,6 @@
 //     console.log(obj.f())
 // })()
 
-
 // js中 var functionName = function() {} 和 function functionName() {} 两种函数声明的区别
 // https://www.cnblogs.com/alkq1989/p/5556771.html
 // var x = function f() {
@@ -229,7 +228,6 @@
 // }
 // console.log('sex' in person)
 
-
 // var Person = function (name) {
 //     this.name = name;
 // }
@@ -244,7 +242,6 @@
 // console.log("age" in p1);       //false
 // console.log("name" in p1);      //true
 // console.log("sayHello" in p1);  //true
-
 
 // var fn = function () {
 //     this.a = 2
@@ -981,7 +978,7 @@
 // console.log(typeof undefined) // undefined
 // console.log(typeof Symbol) // function
 
-var num1 = "22.0"
+var num1 = '22.0'
 var num2 = 22
 var num3 = 22.0
 console.log(num1 === num2)

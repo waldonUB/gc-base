@@ -40,11 +40,11 @@
 //     return d;
 // }
 // Object.defineProperty(obj, 'key', withValue('static'))
-var obj = {_name: 'waldon'}
+var obj = { _name: 'waldon' }
 Object.defineProperty(obj, 'name', {
-    get() {
-        return this._name
-    }
+  get() {
+    return this._name
+  }
 })
 obj._name = 'wdq'
 console.log(obj.name)

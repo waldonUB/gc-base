@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
     <style>
-        .container {
-            width: 100px;
-            background-color: red;
-        }
-        .container::after {
-            content: "";
-            /*要设置display属性为block才能让父元素有高度显示，伪元素默认宽高为0*/
-            /*position: absolute;*/
-            display: block;
-            padding-bottom: 100%;
-        }
-        /*或设置position为absolute，但此时父元素高度还是0*/
-        .container2 {
-            width: 100px;
-            position: relative;
-            background-color: black;
-        }
-        .container2::after {
-            content: "";
-            /*display: block;*/
-            /*width: 100%;*/
-            position: absolute;
-            padding-top: 100%;
-            background-color: yellowgreen;
-        }
+      .container {
+        width: 100px;
+        background-color: red;
+      }
+      .container::after {
+        content: '';
+        /*要设置display属性为block才能让父元素有高度显示，伪元素默认宽高为0*/
+        /*position: absolute;*/
+        display: block;
+        padding-bottom: 100%;
+      }
+      /*或设置position为absolute，但此时父元素高度还是0*/
+      .container2 {
+        width: 100px;
+        position: relative;
+        background-color: black;
+      }
+      .container2::after {
+        content: '';
+        /*display: block;*/
+        /*width: 100%;*/
+        position: absolute;
+        padding-top: 100%;
+        background-color: yellowgreen;
+      }
     </style>
-</head>
-<body>
-<div class="container"></div>
-<input type="text" style="height: 0">
-<div class="container2"></div>
-
-</body>
+  </head>
+  <body>
+    <div class="container"></div>
+    <input type="text" style="height: 0" />
+    <div class="container2"></div>
+  </body>
 </html>

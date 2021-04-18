@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
-  <style>
-    .visit-right-enter-active, .visit-right-leave-active {
-      transition: opacity 0.5s;
-    }
-    /*顺序注意一下*/
-    .visit-right-enter, .visit-right-leave-to /* .fade-leave-active below version 2.1.8 */ {
-      opacity: 1;
-    }
-  </style>
-</head>
-<body>
-<div id="app">
-  <img class="QRImg" src="//ww1.sinaimg.cn/large/00760Iw1gy1g885i70ij1j30iq0owdlg.jpg" alt="图片加载失败">
-  <transition name="visit-right">
-    <div class="context" v-show="isShow">
-      qwewqdasd
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.common.dev.js"></script>
+    <style>
+      .visit-right-enter-active,
+      .visit-right-leave-active {
+        transition: opacity 0.5s;
+      }
+      /*顺序注意一下*/
+      .visit-right-enter, .visit-right-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <img
+        class="QRImg"
+        src="//ww1.sinaimg.cn/large/00760Iw1gy1g885i70ij1j30iq0owdlg.jpg"
+        alt="图片加载失败"
+      />
+      <transition name="visit-right">
+        <div class="context" v-show="isShow">qwewqdasd</div>
+      </transition>
+      <button @click="toggle">{{msg}}</button>
     </div>
-  </transition>
-  <button @click="toggle">{{msg}}</button>
-</div>
-<script>
-  new Vue({
-      data: {
+    <script>
+      new Vue({
+        data: {
           isShow: false,
           msg: '帅啊'
-      },
-      methods: {
-          toggle () {
-              this.isShow = !this.isShow
+        },
+        methods: {
+          toggle() {
+            this.isShow = !this.isShow
           }
-      }
-  }).$mount("#app")
-</script>
-</body>
+        }
+      }).$mount('#app')
+    </script>
+  </body>
 </html>
