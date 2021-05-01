@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lodash防抖</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="inputText" @input="debounce">
+    <button @click="concatFn">concatFn</button>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
+  <script>
+    const Debounce =  _.debounce(function (newVal){
+      // console.log(`输出`, newVal)
+    }, 500, {leading: true})
+    new Vue({
+      data: {
+        inputText: '',
+      },
+      watch: {
+        inputText (newVal) {
+          Debounce(newVal)
+        }
+      },
+      methods: {
+        concatFn () {
+          const arr = [1]
+          console.log(`arr`, _.concat(arr, [2]))
+        },
+        debounce () {
+          // Debounce(1)
+        },
+        // debounce: _.debounce(() => {
+        //   console.log(`输出`)
+        // }, 500, {leading: true})
+      },
+      created () {
+      }
+    }).$mount("#app")
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自己写的防抖</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+  <input type="text" v-model="inputText">
+</div>
+<!-- <script src="./debounce_1.src.js"></script> -->
+<!-- <script src="./debounce_2.src.js"></script> -->
+<!-- <script src="./debounce_3.src.js"></script> -->
+<!-- <script src="./debounce_4.src.js"></script> -->
+<script src="./debounce_5.src.js"></script>
+<script>
+new Vue({
+  data: {
+    inputText: ''
+  },
+  watch: {
+    inputText (newVal) {
+      Debounce(() => {
+        console.log(`waldon 执行更新逻辑，值为：`, this.inputText)
+      }, 1000, true, newVal)
+    }
+  }
+}).$mount("#app")
+
+
+
+</script>
+</body>
+</html>
