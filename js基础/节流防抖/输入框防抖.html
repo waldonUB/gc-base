@@ -23,7 +23,7 @@ new Vue({
   },
   watch: {
     inputText (newVal) {
-      Debounce(() => {
+      debounce(() => {
         console.log(`waldon 执行更新逻辑，值为：`, this.inputText)
       }, 1000, true, newVal)
     }

@@ -1,4 +1,4 @@
-const Debounce = (function () {
+const debounce = (function () {
   let timer = 0
   return function (fn, delay = 300, immediate = true) {
     if (timer) {
@@ -21,4 +21,4 @@ const Debounce = (function () {
     }
   }
 })()
-window.Debounce = Debounce
+window.debounce = debounce

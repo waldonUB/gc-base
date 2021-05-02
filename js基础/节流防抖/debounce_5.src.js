@@ -4,7 +4,7 @@
  * @date 2021-05-01
  * @returns {Function} - 防抖函数
  */
-const Debounce = (function () {
+const debounce = (function () {
   let timer = 0
   let lastTimer = 0
   return function (fn, delay = 300, immediate = true) {
@@ -34,4 +34,4 @@ const Debounce = (function () {
     }
   }
 })()
-window.Debounce = Debounce
+window.debounce = debounce

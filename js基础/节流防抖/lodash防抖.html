@@ -14,7 +14,7 @@
   </div>
   <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
   <script>
-    const Debounce =  _.debounce(function (newVal){
+    const debounce =  _.debounce(function (newVal){
       // console.log(`输出`, newVal)
     }, 500, {leading: true})
     new Vue({
@@ -23,7 +23,7 @@
       },
       watch: {
         inputText (newVal) {
-          Debounce(newVal)
+          debounce(newVal)
         }
       },
       methods: {
@@ -32,7 +32,7 @@
           console.log(`arr`, _.concat(arr, [2]))
         },
         debounce () {
-          // Debounce(1)
+          // debounce(1)
         },
         // debounce: _.debounce(() => {
         //   console.log(`输出`)

@@ -1,4 +1,4 @@
-const Debounce = (function () {
+const debounce = (function () {
   let timer = 0
   let cacheKey = ''
   return function (fn, delay = 300, immediate = true, key = '') {
@@ -26,4 +26,4 @@ const Debounce = (function () {
     }
   }
 })()
-window.Debounce = Debounce
+window.debounce = debounce
