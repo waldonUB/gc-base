@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div id="btn">删除引用</div>
+  </div>
+  <script>
+    (function fn () {
+      let obj = {
+        a: []
+      }
+      for (let i = 0;i < 1000000; i++) {
+        obj.a.push(i)
+      }
+      // obj = null
+      setTimeout(() => {
+        // console.log(`obj`, obj)
+        console.log(`执行定时器`)
+        if (!obj.a) {
+          // obj.a = new Array(10000000)
+        } else {
+          // obj.a = {}
+          // obj = {}
+        }
+        // console.log(obj.a)
+        console.clear()
+        console.log(`删除了引用`)
+        // obj = null
+        obj = null
+      }, 10000);
+      const btn = document.getElementById('btn')
+      btn.addEventListener('click', () => {
+        console.log(obj)
+        console.clear()
+        console.log(`删除了引用`)
+        // obj.a = null 和 obj = null都可以清除闭包中的引用
+        // obj.a = null
+        obj = null
+      })
+    })()
+    // fn()
+  </script>
+</body>
+</html>
