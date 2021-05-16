@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>filter使用</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+  <div v-for="item of priceList" :key="item">
+    {{item | itemFormat | itemFormat_2}}
+    {{itemFormat_fn(item)}}
+  </div>
+</div>
+<script>
+new Vue({
+  data: {
+    priceList: [1, 2, 3]
+  },
+  filters: {
+    itemFormat (val) {
+      return `￥${val}`
+    },
+    itemFormat_2 (val) {
+      return `价格：${val}`
+    },
+  },
+  methods: {
+    itemFormat_fn (val) {
+      return `￥${val}_fn`
+    }
+  },
+}).$mount("#app")
+
+
+
+</script>
+</body>
+</html>
