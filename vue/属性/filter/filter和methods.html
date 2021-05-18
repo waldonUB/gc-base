@@ -1,0 +1,59 @@
+<!-- waldon:
+1. filters和computed的区别
+ - computed会缓存数据，只有可响应的对象数据发生改变时，才会重新执行计算
+ - filters在每次模板渲染或所处的节点发生改变的时候，需要重新执行计算
+ - computed用的地方比较广，基本上组件或实例内的任何一个地方都可以用
+ - filters的属性一般只用于模板渲染上，其他地方用的话要通过this._f函数来调用
+ - 个人认为最主要的一点，是computed一般都是计算局部变量和vue实例上面的可响应的属性，如果要计算v-for列表里面item数据就很费力。
+   比如一个商品列表，要给里面所有的价格加上价格的前缀符号，用computed的话，首先要写成get set的形式，显示的声明set方法，然后监听这个列表
+   的改变，然后在赋值的时候set（有点套娃的感觉，这个方式没有试过）
+ - 用filters的话，仅需要price | priceFormat显示就可以了。当然也可以用methods的方式，用法其实是和filters是一样的。但是像刚刚说的金额格式化这种，
+   可以声明全局的，在methods中的话，就要在每个组件或实例里面再写一遍。此外，filters还支持链式调用，比如我金额又要格式化成保留两位小数显示的，methods的
+   话又要改方法，但是filters只需要在原有的基础上加多一层就可以了。在可读性和拓展性上都比methods好很多。但是目前uni app在小程序端不支持filters的一些高级
+   用法 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>filter使用</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+  <div v-for="item of priceList" :key="item">
+    {{item | itemFormat | itemFormat_2 | g_format}}
+    {{itemFormat_fn(item)}}
+    {{ | valWithoutParams }}
+  </div>
+</div>
+<script>
+Vue.filter('g_format', (val) => `g_${val}`)
+new Vue({
+  data: {
+    priceList: [1, 2, 3]
+  },
+  filters: {
+    itemFormat (val) {
+      return `￥${val}`
+    },
+    itemFormat_2 (val) {
+      return `价格：${val}`
+    },
+    valWithoutParams () {
+      return `不带任何参数`
+    }
+  },
+  methods: {
+    itemFormat_fn (val) {
+      return `￥${val}_fn`
+    }
+  },
+}).$mount("#app")
+
+
+
+</script>
+</body>
+</html>
