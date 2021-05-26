@@ -1,3 +1,13 @@
+// promise内是一个参数的function，这个function有两个参数，分别是resolve和reject，这两个也是function
+// 当调用Promise的时候，会判断this指向的是不是一个对象，如果不是以new的方式创建的this会指向window；再判断传进来的executor参数是不是function，
+// 如果不符合直接抛出类型错误的异常。然后开始定义当前状态为'pending'（初始化），并定义一个用来存储then函数内onFulfilled的数组。因为可能会存在链式调
+// 用，需要存储多个then函数，所以每调用一次then的时候，就把onFulfilled的function传进callbacks数组内，并返回一个promise对象。
+// 这时候executor的function是异步执行的，执行完之后就会调用resolve函数，这里需要注意的是可能出现的情况是resolve执行在then函数之前，
+// 这样实际上是执行不了then函数的，所以把resolve执行callback的函数放在setTimeout里面，通过这种方式来把他放到js执行队列的最后。然后再resolve函数内
+// 判断callback的返回值是否是object或promise，再把返回值传递给下一个callback
+// 会定义promise内的变量，然后开始异步执行setTimeout内的方法（）
+// 当每次调用then的时候，都会把then后面的function传进callbacks数组内
+// 当setTimeout内的方法执行到resolve的时候，会把所有callbacks内的function都执行一遍
 // var promise = new Promise((resolve, reject) => {
 //     var a = 1;
 //     if (!a) {
@@ -84,14 +94,3 @@
 //         resolve('5s')
 //     })
 // }
-
-// promise内是一个参数的function，这个function有两个参数，分别是resolve和reject，这两个也是function
-// 当调用Promise的时候，会判断this指向的是不是一个对象，如果不是以new的方式创建的this会指向window；再判断传进来的executor参数是不是function，
-// 如果不符合直接抛出类型错误的异常。然后开始定义当前状态为'pending'（初始化），并定义一个用来存储then函数内onFulfilled的数组。因为可能会存在链式调
-// 用，需要存储多个then函数，所以每调用一次then的时候，就把onFulfilled的function传进callbacks数组内，并返回一个promise对象。
-// 这时候executor的function是异步执行的，执行完之后就会调用resolve函数，这里需要注意的是可能出现的情况是resolve执行在then函数之前，
-// 这样实际上是执行不了then函数的，所以把resolve执行callback的函数放在setTimeout里面，通过这种方式来把他放到js执行队列的最后。然后再resolve函数内
-// 判断callback的返回值是否是object或promise，再把返回值传递给下一个callback
-// 会定义promise内的变量，然后开始异步执行setTimeout内的方法（）
-// 当每次调用then的时候，都会把then后面的function传进callbacks数组内
-// 当setTimeout内的方法执行到resolve的时候，会把所有callbacks内的function都执行一遍

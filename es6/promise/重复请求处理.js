@@ -41,7 +41,10 @@ function requestTest(url, requestObj = {}) {
       })
       .finally(() => {
         // 无论请求结果如果，都需要把对应的请求移除掉
-        handleList = handleList.filter((item) => item.url !== url)
+        handleList = handleList.filter(
+          (item) =>
+            !(item.url === url && JSON.stringify(item.requestObj) === JSON.stringify(requestObj))
+        )
       })
   })
   handleList.push({ url, requestObj, handle })
