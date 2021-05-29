@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- waldon
+  核心思想：
+  1. 通过发布订阅模式。
+  2. vue2中使用Object.defineProperty对在data中声明的属性进行劫持。
+  3. vue3中使用proxy代替Object.defineProperty进行数据劫持。
+
+  猜想，待验证：
+  当被监听的属性发生改变时，触发Object.defineProperty的set回调，然后更改dom中对应的信息 -->
+  <div id="a"></div>
+  <div id="b"></div>
+  <button onclick="aClick()">改变a</button>
+  <script>
+    const obj = {
+      a: '响应式属性a',
+      b: '响应b'
+    }
+    for(let key in obj) {
+      Object.defineProperty(obj, key, {
+        set: (newVal) => {
+          const node = document.getElementById(key)
+          node.innerHTML = newVal
+        }
+      })
+    }
+    const aClick = function() {
+      obj.a = "改变了"
+    }
+  </script>
+</body>
+</html>
