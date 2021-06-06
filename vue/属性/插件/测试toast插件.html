@@ -10,6 +10,7 @@
    <body>
    <div id="app">
      <button @click="showToast">显示提示</button>
+     <div id="testNode"></div>
    </div>
    <script>
    const Toast = {
@@ -24,7 +25,10 @@
        }
      },
      methods: {
-       showToast({title = "提示", duration = 2000, type = "success"}) {
+       showToast({title = "提示", duration = 2000, type = "success", renderNode = null}) {
+         if (renderNode) { // 这段只是测试可以添加的父节点
+          renderNode.appendChild(this.$el)
+         }
          this.isShow = true
          setTimeout(() => {
           this.isShow = false
@@ -52,7 +56,8 @@
         this.$toast({
           message: `展示内容`,
           duration: 3000,
-          type: 'success'
+          type: 'success',
+          renderNode: document.getElementById('testNode')
         })
       },
      },
@@ -63,3 +68,4 @@
    </html>
 <!-- 参考 -->
 <!-- https://juejin.cn/post/6844904080159014920 如何实现一个全局复用的自定义组件？ -->
+<!-- https://blog.csdn.net/qq_41694291/article/details/107500396 element-ui的message组件实现机制解析 -->
