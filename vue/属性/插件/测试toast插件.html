@@ -1,0 +1,65 @@
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>只是个测试文件</title>
+     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+   </head>
+   <body>
+   <div id="app">
+     <button @click="showToast">显示提示</button>
+   </div>
+   <script>
+   const Toast = {
+     template: `
+       <div class="toast" v-if="isShow">
+        toast
+        </div>
+     `,
+     data() {
+       return {
+        isShow: false
+       }
+     },
+     methods: {
+       showToast({title = "提示", duration = 2000, type = "success"}) {
+         this.isShow = true
+         setTimeout(() => {
+          this.isShow = false
+         }, duration)
+       }
+     },
+   }
+   const toastPlugin = {
+     install: (Vue) => {
+       const Constructor = Vue.extend(Toast)
+       const toastInc = new Constructor()
+       toastInc.$mount(
+         document.createElement('div')
+       )
+       document.body.appendChild(toastInc.$el)
+       Vue.prototype.$toast = toastInc.showToast
+     }
+   }
+   Vue.use(toastPlugin)
+   new Vue({
+     data: {
+     },
+     methods: {
+      showToast() {
+        this.$toast({
+          message: `展示内容`,
+          duration: 3000,
+          type: 'success'
+        })
+      },
+     },
+   }).$mount("#app")
+
+   </script>
+   </body>
+   </html>
+<!-- 参考 -->
+<!-- https://juejin.cn/post/6844904080159014920 如何实现一个全局复用的自定义组件？ -->
