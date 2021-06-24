@@ -29,12 +29,29 @@
 // closureFn(); // 结果是3，是拿了同一个变量
 
 // 循环中指向异步函数
-for (var i = 0; i < 5; i++) {
-  ;((j) => {
-    var k = i
-    setTimeout(() => {
-      console.log(`j:`, j)
-      console.log(`k:`, k)
-    }, 1000)
-  })(i)
+// for (var i = 0; i < 5; i++) {
+//   ;((j) => {
+//     var k = i
+//     setTimeout(() => {
+//       console.log(`j:`, j)
+//       console.log(`k:`, k)
+//     }, 1000)
+//   })(i)
+// }
+
+// 循环闭包测试
+var obj = {}
+function testClosure(i) {
+  return function () {
+    console.log(`testClosure`, i)
+  }
 }
+for (var i = 0; i < 5; i++) {
+  obj = {
+    fn: testClosure(i)
+  }
+  Promise.resolve().then(() => {
+    console.log(`promise`, i) // 5次5
+  })
+}
+obj.fn() // 4
