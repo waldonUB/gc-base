@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box1 {
+      width: 300px;
+      height: 100px;
+      background-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <ul role="menu" class="box1">
+    <li role="menuitem"></li>
+    <li role="menuitem"></li>
+  </ul>
+  <ul role="menu" class="box2">
+    <li role="menuitem"></li>
+    <li role="menuitem"></li>
+  </ul>
+  <script>
+    document.getElementsByClassName('box1')[0].setAttribute("tabindex", "0")
+    document.getElementsByClassName('box2')[0].setAttribute("tabindex", "0")
+    document.getElementsByClassName('box1')[0].addEventListener('focus', () => {
+      console.log(`获取焦点`);
+    })
+    document.getElementsByClassName('box1')[0].addEventListener('blur', () => {
+      console.log(`失去焦点`);
+    })
+  </script>
+</body>
+</html>
