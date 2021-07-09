@@ -12,6 +12,11 @@
       background-color: #000;
       position: relative;
     }
+    .child1 {
+      width: 150px;
+      height: 50px;
+      background-color: red;
+    }
     .absolute {
       position: absolute;
       left: 0;
@@ -23,26 +28,21 @@
 </head>
 <body>
   <ul role="menu" class="box1">
-    <li role="menuitem"></li>
-    <li role="menuitem"></li>
-    <div class="absolute"></div>
-  </ul>
-  <ul role="menu" class="box2">
-    <li role="menuitem"></li>
-    <li role="menuitem"></li>
+    <!-- 只要child1存在tabindex，无论是否存在blur事件，都不会冒泡 -->
+    <li role="menuitem" class="child1"></li>
+    <!-- 点击其他节点时，child1的blur不生效，box1的可以正常生效 -->
+    <!-- <div class="absolute"></div> -->
   </ul>
   <script>
-    document.getElementsByClassName('box1')[0].setAttribute("tabindex", "0")
-    document.getElementsByClassName('absolute')[0].setAttribute("tabindex", "0")
-    document.getElementsByClassName('box2')[0].setAttribute("tabindex", "0")
-    document.getElementsByClassName('box1')[0].addEventListener('focus', () => {
-      console.log(`获取焦点`);
+    const box1 = document.getElementsByClassName('box1')[0]
+    const child1 = document.getElementsByClassName('child1')[0]
+    box1.setAttribute("tabindex", "0")
+    child1.setAttribute("tabindex", "0")
+    box1.addEventListener("blur", () => {
+      console.log(`box1 blur`);
     })
-    document.getElementsByClassName('box1')[0].addEventListener('blur', () => {
-      console.log(`失去焦点 box1`);
-    })
-    document.getElementsByClassName('absolute')[0].addEventListener('blur', () => {
-      console.log(`失去焦点 absolute`);
+    child1.addEventListener("blur", () => {
+      console.log(`child1 blur`);
     })
   </script>
 </body>
