@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click="changeList">改变数组</button>
+    <ul>
+      <li v-for="(item, index) of list" :key="index">
+        <div>
+          <div>
+            <div>{{ item.value }}</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <script>
+    // todo waldon这个key改变缓存节点的例子未完成
+    new Vue({
+      el: "#app",
+      data: {
+        list: [
+          {
+            key: 1,
+            value: 1
+          },
+          {
+            key: 2,
+            value: 2
+          },
+          {
+            key: 3,
+            value: 3
+          },
+        ]
+      },
+      methods: {
+        changeList () {
+          // let list = []
+          // for(let i = 1; i < 4; i++) {
+          //   list.push({
+          //     key: i,
+          //     value: i * 2
+          //   })
+          // }
+          // this.list = list
+          // console.log(`list`, this.list);
+          this.list.splice(1, 1)
+        }
+      },
+    })
+  </script>
+</body>
+</html>
