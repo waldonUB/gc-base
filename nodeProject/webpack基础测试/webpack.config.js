@@ -38,7 +38,7 @@ module.exports = {
           'file-loader',
           {
             // 基于file-loader复制的图片进行压缩
-
+            // 后续看一下应用场景，看看能不能基于目录压缩和排除不被压缩的图片
             loader: 'image-webpack-loader',
             options: {
               mozjpeg: {
