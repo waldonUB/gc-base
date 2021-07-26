@@ -33,12 +33,43 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.(png|jpg)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10240 // 10k
-        }
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            // 基于file-loader复制的图片进行压缩
+
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false
+              },
+              pngquant: {
+                quality: [0.65, 0.9],
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false
+              },
+              // the webp option will enable WEBP
+              webp: {
+                quality: 75
+              }
+            }
+          }
+        ]
       }
+      // {
+      //   test: /\.(png|jpg)$/,
+      //   loader: 'url-loader',
+      //   options: {
+      //     limit: 10240 // 10k
+      //   }
+      // },
       // { // webpack5替代方案
       //   test: /\.(png|jpg)$/,
       //   type: 'asset',
