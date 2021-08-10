@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div>
+      这里是cookie：{{cookieData}}
+    </div>
+    <input type="text" v-model="currentCookie">
+    <button @click="addCookie">新增cookie</button>
+  </div>
+  <script>
+    // 在不设置max-age和expire的情况下，默认为session，session表示关掉浏览器就失效，
+    // 但是在部分浏览器下开启了会话恢复会长久保存，比如谷歌
+
+    // 不启服务的时候，浏览器一般不给在客户端存储cookie，因为没有domain
+
+    // 不同浏览器不能共享cookie
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          cookieData: "",
+          currentCookie: ""
+        }
+      },
+      methods: {
+        addCookie() {
+          document.cookie = `key_${this.currentCookie}=${this.currentCookie}`
+          this.cookieData = document.cookie
+        }
+      },
+      created() {
+        this.cookieData = document.cookie
+      },
+    })
+  </script>
+</body>
+</html>
