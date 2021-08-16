@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div>
+      这里是storage：{{storageData}}
+    </div>
+    <div>
+      这里是sessionStorage：{{sessionStorageData}}
+    </div>
+    <input type="text" v-model="currentStorage">
+    <button @click="addStorage('local')">新增storage</button>
+    <button @click="addStorage('session')">新增sessionStorage</button>
+  </div>
+  <script>
+    // sessionStorage关闭当前页面就会消失
+    // localStorage同一个域名下都可以用，不删就不会消失
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          storageData: "",
+          currentStorage: "",
+          sessionStorageData: ""
+        }
+      },
+      methods: {
+        /**
+         * description
+         * @author waldon
+         * @date 2021-08-11
+         * @param {*} type - param
+         */
+        addStorage(type) {
+          if (type === 'local') {
+            localStorage.setItem(`key_${this.currentStorage}`, this.currentStorage)
+          } else {
+            sessionStorage.setItem(`key_${this.currentStorage}`, this.currentStorage)
+          }
+        }
+      },
+      created() {
+        if (localStorage && typeof localStorage === 'object') {
+          this.storageData = JSON.stringify(localStorage)
+        }
+        if (sessionStorage && typeof sessionStorage === 'object') {
+          this.sessionStorageData = JSON.stringify(sessionStorage)
+        }
+      },
+    })
+  </script>
+</body>
+</html>
