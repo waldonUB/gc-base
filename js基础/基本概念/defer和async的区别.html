@@ -1,0 +1,26 @@
+<!-- waldon:
+
+1. 这两个属性的共同点都是用于异步下载js，在下载的这段时间，不阻塞html的解析，减少首屏白屏的时间。
+2. 适用场景：（穿插特性）
+  - defer适用于那些带有关联的外部js，比如你用了一个vue.js声明了defer，然后在内联的js中使用了vue相关的方法，肯定是会报undefined的。因为这个脚本可能没有下载完，内联的js就执行了。
+    正确的做法应该是把这段内联的js也抽到一个外部的js中，并在vue.js后面声明defer属性。
+  - async适用于那些独立的js。在用户不进行一些UI交互的时候，就不会用到他。比如说，刚刚的vue.js声明了async，那无论抽不抽外部的js，一般都是会报undefined的，因为两个js都下载完之后，
+    会出现被依赖的js后执行的情况 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>只是个测试文件</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js" defer></script>
+  <script src="./resource/newVue.js" defer></script>
+</head>
+<body>
+<div id="app">
+  <button @click="showToast">显示提示</button>
+  <div id="testNode"></div>
+</div>
+</body>
+</html>
