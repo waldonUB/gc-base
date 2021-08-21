@@ -31,17 +31,17 @@ const setCurrentData = (dutyData) => {
       : memberList_backend[backEndIndex + 1]
 }
 const sendConfig = (option) => {
-  // axios({
-  //   method: "post",
-  //   url: option.url,
-  //   data: {
-  //     msgtype: "text",
-  //     text: {
-  //       content: option.sayTest,
-  //       mentioned_mobile_list: option.mobiles,
-  //     },
-  //   },
-  // });
+  axios({
+    method: 'post',
+    url: option.url,
+    data: {
+      msgtype: 'text',
+      text: {
+        content: option.sayTest,
+        mentioned_mobile_list: option.mobiles
+      }
+    }
+  })
 }
 const webHooks = (dutyData) => {
   const { hooksData } = dutyData
@@ -78,8 +78,8 @@ const cornJob = (dutyData) => {
   })
 }
 const taskSchedule = (dutyData) => {
-  // const cornStr = "0 0 9 * * *";
-  const cornStr = '*/5 * * * * *'
+  const cornStr = '0 0 9 * * *'
+  // const cornStr = "*/5 * * * * *";
   console.log(`*****定时任务开启*****`)
   if (process.env.TASK_NOW === 'true') {
     console.log(`*****执行立即写入*****`)
