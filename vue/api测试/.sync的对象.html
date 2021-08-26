@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+  <parent-temp :test-obj.sync="testObj"></parent-temp>
+</div>
+<script>
+const temp = {
+  name: 'Temp',
+  template: `
+    <div>
+      {{testObj.num}}
+      <button @click="addNum">自增</button>
+    </div>
+  `,
+  data() {
+    return {
+      num: 0
+    }
+  },
+  props: {
+    testObj: {
+      type: Object,
+      default: () => {
+        return {
+        }
+      }
+    }
+  },
+  methods: {
+    addNum() {
+      this.$emit('update:test-obj', {
+        ...this.testObj,
+        num: this.num++
+      })
+    }
+  },
+}
+
+const otherTemp = {
+  name: 'OtherTemp',
+  template: `
+    <div>
+      <p>我是其他模板</p>
+      <slot></slot>
+    </div>
+  `,
+}
+
+const parentTemp = {
+  name: 'ParentTemp',
+  template: `
+    <div>
+      <other-temp v-bind="$attrs"
+        v-on="$listeners">
+        {{testObj.num}}
+        <button @click="addNum">自增</button>
+      </other-temp>
+    </div>
+  `,
+  components: {otherTemp},
+  data() {
+    return {
+      num: 0
+    }
+  },
+  props: {
+    testObj: {
+      type: Object,
+      default: () => {
+        return {
+          num: 0
+        }
+      }
+    }
+  },
+  methods: {
+    addNum() {
+      this.$emit('update:test-obj', {
+        ...this.testObj,
+        num: this.num++
+      })
+    }
+  },
+}
+
+
+new Vue({
+  data: {
+    testObj: {
+      num: 0
+    },
+  },
+  components: {parentTemp},
+  methods: {
+
+  },
+}).$mount("#app")
+</script>
+</body>
+</html>
