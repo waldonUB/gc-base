@@ -1,6 +1,7 @@
 var promise = new Promise(function (resolve, reject) {
   if (1) {
     resolve(1)
+    console.log(`我是resolve后的`)
   } else {
     reject(0)
   }
