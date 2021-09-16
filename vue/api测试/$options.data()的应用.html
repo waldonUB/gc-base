@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+  <temp1 props1="测试值"></temp1>
+</div>
+<script>
+const temp1 = {
+  template: `
+    <div>
+      <button @click="resetData">重置</button>
+      <button @click="changeData">改变值</button>
+    </div>
+  `,
+  props: {
+    props1: {
+      type: String,
+      default: ""
+    }
+  },
+  data() {
+    return {
+      propsCur: this.props1
+    }
+  },
+  watch: {
+    propsCur(newVal) {
+      console.log(`propsCur`, newVal);
+    }
+  },
+  methods: {
+    resetData() {
+      const {propsCur} = this.$options.data.call(this)
+      this.propsCur = propsCur
+    },
+    changeData() {
+      console.log(`changeData`, this.propsCur);
+      this.propsCur = "改变值"
+    }
+  },
+}
+new Vue({
+  components: {temp1},
+  data: {
+  },
+}).$mount("#app")
+</script>
+</body>
+</html>
