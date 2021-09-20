@@ -1,0 +1,31 @@
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+   </head>
+   <body>
+   <div id="app">
+   </div>
+   <script>
+   new Vue({
+     data: {
+     },
+     methods: {
+     },
+     created() {
+      this.$once('test1', (res1, res2) => {
+         console.log(`res1`, res1);
+         console.log(`res2`, res2);
+       })
+       setTimeout(() => {
+         this.$emit('test1', 's1', 's2')
+       }, 1000)
+     },
+   }).$mount("#app")
+   </script>
+   </body>
+   </html>

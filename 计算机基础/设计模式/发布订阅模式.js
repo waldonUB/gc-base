@@ -15,3 +15,64 @@
 // 这个页面跳转过去的时候订阅一个一次性的事件，然后在返回的时候发布，就可以在返回的时候额外做一些操作。
 // 个人觉得最明显的一个区别是体现在一次性订阅消息上，这也是发布订阅模式比较灵活的地方。像用户的指引这种只需要显示一次的，还有微信小程序的一次性订阅消息。
 // https://img2018.cnblogs.com/blog/849589/201904/849589-20190424122505055-2083728728.png 图解
+/**
+ * 自己实现的发布订阅模式
+ * 这种一个key只能存一个事件，如果要标准的实现就用那种this.events[key].push()
+ * @author waldon
+ * @date 2021-09-20
+ */
+class PubSub {
+  constructor() {
+    this.callbacks = []
+  }
+  on(key, fn) {
+    this.callbacks.push({
+      key,
+      fn,
+      isOnce: false
+    })
+  }
+  emit(key, ...args) {
+    const executeFn = this.callbacks.find((item) => item.key === key)
+    if (executeFn && typeof executeFn.fn === 'function') {
+      executeFn.fn(...args)
+      if (executeFn.isOnce) {
+        this.off(key)
+      }
+    }
+    return !!executeFn
+  }
+  off(key) {
+    this.callbacks = this.callbacks.filter((item) => item.key !== key)
+  }
+  once(key, fn) {
+    this.callbacks.push({
+      key,
+      fn,
+      isOnce: true
+    })
+  }
+}
+
+/**
+ * 使用
+ * @author waldon
+ * @date 2021-09-20
+ */
+const myPubSUb = new PubSub()
+myPubSUb.once('getTest', (res1, res2) => {
+  console.log(`res1`, res1)
+  console.log(`res2`, res2)
+})
+myPubSUb.on('getTest2', (res1, res2) => {
+  console.log(`res1`, res1)
+  console.log(`res2`, res2)
+})
+setTimeout(() => {
+  myPubSUb.emit('getTest', 's1', 's2')
+  myPubSUb.emit('getTest', 's1', 's2')
+
+  setTimeout(() => {
+    myPubSUb.emit('getTest2', 's1', 's2')
+  }, 1000)
+}, 1000)
