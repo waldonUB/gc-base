@@ -1,18 +1,18 @@
-let _instance
-const _getInstance = function (params) {
-  return {
-    ...params,
-    key: 'myInstance'
+const Singleton = (function () {
+  let _instance
+  function _getInstance(params) {
+    return {
+      ...params,
+      key: 'myInstance'
+    }
   }
-}
-class Singleton {
-  constructor(params) {
+  return function (params) {
     if (!_instance) {
       _instance = _getInstance(params)
     }
     return _instance
   }
-}
+})()
 
 const params1 = {
   name: 'num1'
