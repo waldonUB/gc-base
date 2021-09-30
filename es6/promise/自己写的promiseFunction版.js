@@ -1,8 +1,7 @@
 // todo waldon 未完成
-function MyPromise(func) {
+function MyPromise(executor) {
   let _resolveRes = ''
-  // then里面标准其实是{onFull, onFail}，catch只是个语法糖
-  let thenArr = []
+  const thenArr = []
   // state只是用来判断是resolve还是reject，执行对应的方法
   let state = 'padding'
   const resolve = function (resolveRes) {
@@ -21,12 +20,13 @@ function MyPromise(func) {
     }
   }
 
-  func(resolve, reject)
+  executor(resolve, reject)
 
   const then = function (thenFunc) {
     thenArr.push(thenFunc)
     return this
   }
+  // 这里只实现最基本的功能，catch其实是个语法糖，就不在这里贴出了
   return {
     then
   }
