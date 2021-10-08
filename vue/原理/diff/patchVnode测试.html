@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+  <style>
+    .red-text {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <button @click="changeList">改变数组</button>
+    <!-- todo waldon 没有重现那种缓存的情况 -->
+    <ul>
+      <li class="red-text" v-for="(item, index) of list" v-if="range === 'pre' ? typeof item.value === 'string' : typeof item.value === 'number'" :key="item.key">
+        {{ item.value }}
+        <button v-if="typeof item.value === 'string'">这里</button>
+        <button v-else>那里</button>
+      </li>
+    </ul>
+  </div>
+  <script>
+    // todo waldon这个key改变缓存节点的例子未完成
+    new Vue({
+      el: "#app",
+      data: {
+        list: [
+          {
+            key: 1,
+            value: 1
+          },
+          {
+            key: 2,
+            value: 2
+          },
+          {
+            key: 3,
+            value: 3
+          },
+          {
+            key: 1,
+            value: '一'
+          },
+          {
+            key: 2,
+            value: '二'
+          },
+          {
+            key: 3,
+            value: '三'
+          },
+        ],
+        range: 'pre'
+      },
+      computed: {
+        listCal() {
+          return  this.range === 'pre' ? this.list.slice(0, 3) : this.list.slice(3, this.list.length)
+        },
+      },
+      methods: {
+        changeList () {
+          this.range = this.range === 'pre' ? 'next' : 'pre'
+        }
+      },
+    })
+  </script>
+</body>
+</html>
