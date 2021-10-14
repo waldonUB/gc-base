@@ -7,15 +7,8 @@ var promise = new Promise(function (resolve, reject) {
   }
 })
 
-promise
-  .then(
-    function (result) {
-      console.log(result)
-      return 2
-    },
-    function () {}
-  )
-  .then(function (result) {
-    console.log(result)
+setTimeout(() => {
+  promise.then((res) => {
+    console.log(`then`, res)
   })
-  .catch(function (result) {})
+}, 500)
