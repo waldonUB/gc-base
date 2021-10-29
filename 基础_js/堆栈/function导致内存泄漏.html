@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function foo () {
+      console.log('执行foo');
+      bar_var = 1 // 非严格模式下这个会到全局
+      function bar () { // 这个不会
+        console.log('执行bar');
+      }
+      bar_fn = function() { // 非严格模式下这个会到全局
+        console.log('bar_fn');
+      }
+      function doSomething() {
+        bar()
+        bar_fn()
+      }
+      doSomething()
+    }
+    foo()
+  </script>
+</body>
+</html>
