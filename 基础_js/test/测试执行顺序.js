@@ -1,17 +1,5 @@
-const fn = async function () {
-  console.log(1)
-  // await fn3()
-  await fn2()
-}
-const fn2 = async function () {
-  console.log(3)
-}
-const fn3 = function () {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve()
-    }, 500)
-  })
-}
-fn()
-console.log(2)
+// 写一个函数，满足以下的情况
+// var fn=function(a,b,c){
+//     return a+b+c;
+// }
+// todo waldon 未完成
