@@ -1,9 +1,6 @@
-function promiseTest(type) {
-  if (type) {
-    return
-  }
-  return new Promise((resolve) => {})
+const obj = {
+  a: 1
 }
-promiseTest(0).then((res) => {
-  console.log(`res`, res)
+const promise1 = new Promise((resolve) => {
+  resolve(obj)
 })
