@@ -3,7 +3,7 @@ const fs = require('fs')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
-const srcDir = path.resolve(__dirname, 'src/wxWork')
+const srcDir = path.resolve(__dirname, 'src/router/home/treeShaking_test')
 const readDir = fs.readdirSync(srcDir)
 let entry = {}
 readDir.forEach((item, index) => {
@@ -12,17 +12,18 @@ readDir.forEach((item, index) => {
 })
 
 module.exports = {
+  // mode: 'production',
   mode: 'development',
   entry,
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     index: 'index.html',
     contentBase: path.join(__dirname, 'dist'), // todo waldon 再复习一下
     hot: true,
-    port: 9000
+    port: 9000,
   },
   module: {},
   plugins: [new CleanWebpackPlugin()],
@@ -32,8 +33,10 @@ module.exports = {
     minimizer: [
       new TerserPlugin({
         test: /\.js(\?.*)?$/i,
-        parallel: true
-      })
-    ]
-  }
+        parallel: true,
+      }),
+    ],
+    sideEffects: true,
+    usedExports: true,
+  },
 }
