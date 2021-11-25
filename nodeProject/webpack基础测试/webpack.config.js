@@ -2,7 +2,6 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-// todo waldon @babel/runtime @babel/runtime-corejs3 这两个是什么区别
 
 // file-loader的官方解析是在import和require的时候解析为url，并且将文件发送到output的文件夹
 
@@ -14,23 +13,27 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
   mode: 'development',
   entry: {
-    main: path.resolve(__dirname, 'src/router/main.js')
+    main: path.resolve(__dirname, 'src/router/main.js'),
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    environment: {
+      arrowFunction: false, // 支持es6的箭头
+    },
   },
   devServer: {
     index: 'index.html',
     contentBase: path.join(__dirname, 'dist'),
     hot: true,
-    port: 9000
+    port: 9000,
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
@@ -42,27 +45,27 @@ module.exports = {
             loader: 'image-webpack-loader',
             options: {
               mozjpeg: {
-                progressive: true
+                progressive: true,
               },
               // optipng.enabled: false will disable optipng
               optipng: {
-                enabled: false
+                enabled: false,
               },
               pngquant: {
                 quality: [0.65, 0.9],
-                speed: 4
+                speed: 4,
               },
               gifsicle: {
-                interlaced: false
+                interlaced: false,
               },
               // the webp option will enable WEBP
               webp: {
-                quality: 75
-              }
-            }
-          }
-        ]
-      }
+                quality: 75,
+              },
+            },
+          },
+        ],
+      },
       // {
       //   test: /\.(png|jpg)$/,
       //   loader: 'url-loader',
@@ -79,7 +82,7 @@ module.exports = {
       //     }
       //   }
       // },
-    ]
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -88,10 +91,10 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(__dirname, 'src/index.html'),
-          to: path.resolve(__dirname, 'dist')
-        }
-      ]
-    })
+          to: path.resolve(__dirname, 'dist'),
+        },
+      ],
+    }),
   ],
-  devtool: 'cheap-module-source-map'
+  // devtool: 'cheap-module-source-map',
 }
