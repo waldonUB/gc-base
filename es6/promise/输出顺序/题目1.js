@@ -14,3 +14,5 @@ setTimeout(() => {
 }, 0)
 console.log(3)
 a.then((result) => console.log(result))
+
+// promise的大部分题目 https://juejin.cn/post/6844904077537574919

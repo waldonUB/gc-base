@@ -19,7 +19,7 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     environment: {
-      arrowFunction: false, // 支持es6的箭头
+      arrowFunction: false, // 转换es6箭头函数为普通function
     },
   },
   devServer: {
