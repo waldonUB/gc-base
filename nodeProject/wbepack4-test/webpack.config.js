@@ -22,7 +22,8 @@ module.exports = {
     main: path.resolve(__dirname, 'src/router/home/splitChunk_test/module_home.js'),
   },
   output: {
-    filename: '[name].[contenthash:8].js',
+    // filename: '[name].[contenthash:8].js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
@@ -49,7 +50,7 @@ module.exports = {
     //     parallel: true,
     //   }),
     // ],
-    sideEffects: true, // 放在package.json "sideEffects": false。sideEffects为true的时候意思是全部有副作用，不可treeShaking
+    // sideEffects: true, // 放在package.json "sideEffects": false。sideEffects为true的时候意思是全部有副作用，不可treeShaking
     // usedExports: true,
     splitChunks: {
       chunks: 'initial',
