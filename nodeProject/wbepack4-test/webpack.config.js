@@ -3,6 +3,7 @@ const fs = require('fs')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // 分析包内容
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // , new BundleAnalyzerPlugin()
@@ -22,8 +23,8 @@ module.exports = {
     main: path.resolve(__dirname, 'src/router/home/splitChunk_test/module_home.js'),
   },
   output: {
-    // filename: '[name].[contenthash:8].js',
-    filename: '[name].js',
+    filename: '[name].[chunkHash:8].js',
+    // filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
@@ -36,11 +37,18 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        // use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
-  plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[chunkHash:8].css',
+    }),
+  ],
   devtool: 'cheap-module-source-map',
   optimization: {
     // minimize: true,

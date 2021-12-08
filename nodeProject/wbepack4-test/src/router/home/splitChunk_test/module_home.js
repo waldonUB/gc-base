@@ -13,5 +13,6 @@ console.log(foo('测试foo'))
     divElement.className = 'base2'
     divElement.innerText = 1
     document.body.appendChild(divElement)
+    console.log(1)
   }, 3000)
 })()
