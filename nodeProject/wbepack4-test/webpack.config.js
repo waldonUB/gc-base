@@ -4,6 +4,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin') // webpack5更推荐这个
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // 分析包内容
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // , new BundleAnalyzerPlugin()
@@ -48,6 +50,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].[chunkHash:8].css',
     }),
+    // new CssMinimizerPlugin(),
+    new OptimizeCssAssetsPlugin(),
   ],
   devtool: 'cheap-module-source-map',
   optimization: {
