@@ -9,6 +9,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // 分析包内容
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // , new BundleAnalyzerPlugin()
+const { merge } = require('webpack-merge')
 
 const srcDir = path.resolve(__dirname, 'src/router/home/splitChunk_test')
 const readDir = fs.readdirSync(srcDir)
@@ -17,29 +18,22 @@ readDir.forEach((item, index) => {
   let entryName = '/' + item.split('.')[0]
   entry[entryName] = path.resolve(srcDir, item)
 })
-
-module.exports = {
-  mode: 'production',
-  // mode: 'development',
+const commonConfig = {
   entry: {
     main: path.resolve(__dirname, 'src/router/home/splitChunk_test/module_home.js'),
   },
+}
+
+const productionConfig = {
+  mode: 'production',
   output: {
     filename: '[name].[chunkHash:8].js',
-    // filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-  },
-  devServer: {
-    index: 'index.html',
-    contentBase: path.join(__dirname, 'dist'),
-    hot: true,
-    port: 9000,
   },
   module: {
     rules: [
       {
         test: /\.css$/i,
-        // use: ['style-loader', 'css-loader'],
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
@@ -53,7 +47,7 @@ module.exports = {
     // new CssMinimizerPlugin(),
     new OptimizeCssAssetsPlugin(),
   ],
-  devtool: 'cheap-module-source-map',
+  devtool: 'none',
   optimization: {
     // minimize: true,
     // minimizer: [
@@ -77,4 +71,39 @@ module.exports = {
       },
     },
   },
+}
+
+const developmentConfig = {
+  mode: 'development',
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  devServer: {
+    index: 'index.html',
+    contentBase: path.join(__dirname, 'dist'),
+    hot: true,
+    port: 9000,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+  plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin()],
+  devtool: 'cheap-module-source-map',
+}
+
+module.exports = (env, args) => {
+  console.log('env', env)
+  console.log('args', args)
+  switch (args.mode) {
+    case 'development':
+      return merge(commonConfig, developmentConfig)
+    case 'production':
+      return merge(commonConfig, productionConfig)
+  }
 }
