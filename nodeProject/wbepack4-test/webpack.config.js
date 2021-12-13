@@ -29,6 +29,7 @@ const productionConfig = {
   output: {
     filename: '[name].[chunkHash:8].js',
     path: path.resolve(__dirname, 'dist'),
+    // publicPath: 'http://st.aaadns.com/ver2/js/',
   },
   module: {
     rules: [
@@ -73,15 +74,17 @@ const productionConfig = {
   },
 }
 
+const publicPath = '/dist/'
 const developmentConfig = {
   mode: 'development',
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath,
   },
   devServer: {
-    index: 'index.html',
-    contentBase: path.join(__dirname, 'dist'),
+    index: `index.html`,
+    contentBase: path.join(__dirname, 'dist/dist'),
     hot: true,
     port: 9000,
   },
