@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const InjectBodyPlugin = require('inject-body-webpack-plugin').default
 const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin') // webpack5更推荐这个
@@ -42,6 +43,17 @@ const productionConfig = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin(),
+    new InjectBodyPlugin({
+      content: `<script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d3accca0e4161799ebc55fa9a7b8d8da";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      </script>`,
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].[chunkHash:8].css',
     }),
