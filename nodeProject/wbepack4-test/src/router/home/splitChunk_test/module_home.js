@@ -5,6 +5,7 @@ import { bar } from './module_b.js'
 import styles from '../../../res/css/module_home.css'
 
 console.log(foo('测试foo'))
+console.log('waldon_test主页')
 // console.log(`测试hash值`)
 // console.log(bar())
 ;(function () {

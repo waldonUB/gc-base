@@ -38,6 +38,10 @@ const productionConfig = {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
+      {
+        test: /\.js$/i,
+        use: ['./src/loaders/translateText_loader.js'],
+      },
     ],
   },
   plugins: [
