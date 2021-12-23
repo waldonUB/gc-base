@@ -1,6 +1,9 @@
 const target = {
   a: 1,
-  b: 2
+  b: 2,
+  d: {
+    child_d: 'child_d',
+  },
 }
 const handler = {
   get(target, prop) {
@@ -11,10 +14,13 @@ const handler = {
     } else {
       return '我是默认值'
     }
-  }
+  },
 }
 const proxy = new Proxy(target, handler)
 console.log(`proxy`, proxy.a) // 输出1
 console.log(`proxy`, proxy.c) // 输出 "默认值"
 Object.assign(target, { c: 3 })
-console.log(`proxy`, proxy.c) // 输出 "默认值"
+console.log(`proxy`, proxy.c) // 输出 3
+console.log('proxy', proxy.d.child_d) // 输出child
+const _d = proxy.d
+console.log('proxy', _d.child_d) // 输出child
