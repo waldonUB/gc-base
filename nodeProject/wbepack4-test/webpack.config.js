@@ -7,6 +7,9 @@ const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin') // webpack5更推荐这个
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+// 速度分析
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const smp = new SpeedMeasurePlugin()
 // 分析包内容
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // , new BundleAnalyzerPlugin()
@@ -110,6 +113,47 @@ const developmentConfig = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.js$/i,
+        use: [
+          {
+            loader: 'thread-loader',
+            // loaders with equal options will share worker pools
+            options: {
+              // the number of spawned workers, defaults to (number of cpus - 1) or
+              // fallback to 1 when require('os').cpus() is undefined
+              workers: 2,
+
+              // number of jobs a worker processes in parallel
+              // defaults to 20
+              workerParallelJobs: 50,
+
+              // additional node.js arguments
+              workerNodeArgs: ['--max-old-space-size=1024'],
+
+              // Allow to respawn a dead worker pool
+              // respawning slows down the entire compilation
+              // and should be set to false for development
+              poolRespawn: false,
+
+              // timeout for killing the worker processes when idle
+              // defaults to 500 (ms)
+              // can be set to Infinity for watching builds to keep workers alive
+              poolTimeout: 2000,
+
+              // number of jobs the poll distributes to the workers
+              // defaults to 200
+              // decrease of less efficient but more fair distribution
+              poolParallelJobs: 50,
+
+              // name of the pool
+              // can be used to create different pools with elsewise identical options
+              name: 'my-pool',
+            },
+          },
+          'babel-loader',
+        ],
+      },
     ],
   },
   plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin()],
@@ -121,8 +165,8 @@ module.exports = (env, args) => {
   console.log('args', args)
   switch (args.mode) {
     case 'development':
-      return merge(commonConfig, developmentConfig)
+      return smp.wrap(merge(commonConfig, developmentConfig))
     case 'production':
-      return merge(commonConfig, productionConfig)
+      return smp.wrap(merge(commonConfig, productionConfig))
   }
 }
