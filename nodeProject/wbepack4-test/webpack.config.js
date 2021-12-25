@@ -38,8 +38,14 @@ const productionConfig = {
   module: {
     rules: [
       {
+        test: /\.js$/i,
+        use: ['thread-loader', 'babel-loader'],
+        exclude: [/node_modules/],
+      },
+      {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        exclude: [/node_modules/],
       },
       {
         test: /\.js$/i,
@@ -69,13 +75,13 @@ const productionConfig = {
   ],
   devtool: 'none',
   optimization: {
-    // minimize: true,
-    // minimizer: [
-    //   new TerserPlugin({
-    //     test: /\.js(\?.*)?$/i,
-    //     parallel: true,
-    //   }),
-    // ],
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+        parallel: true,
+      }),
+    ],
     // sideEffects: true, // 放在package.json "sideEffects": false。sideEffects为true的时候意思是全部有副作用，不可treeShaking
     // usedExports: true,
     splitChunks: {
