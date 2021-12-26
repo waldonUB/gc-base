@@ -14,6 +14,8 @@ const smp = new SpeedMeasurePlugin()
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // , new BundleAnalyzerPlugin()
 const { merge } = require('webpack-merge')
+// 引用
+const DllReferencePlugin = require('webpack/lib/DllReferencePlugin')
 
 const srcDir = path.resolve(__dirname, 'src/router/home/splitChunk_test')
 const readDir = fs.readdirSync(srcDir)
@@ -99,7 +101,8 @@ const productionConfig = {
   },
 }
 
-const publicPath = '/dist/'
+const publicPath = ''
+// const publicPath = '/dist/'
 const developmentConfig = {
   mode: 'development',
   output: {
@@ -109,7 +112,7 @@ const developmentConfig = {
   },
   devServer: {
     index: `index.html`,
-    contentBase: path.join(__dirname, 'dist/dist'),
+    contentBase: path.join(__dirname, 'dist'),
     hot: true,
     port: 9000,
   },
@@ -119,13 +122,26 @@ const developmentConfig = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-      {
-        test: /\.js$/i,
-        use: ['thread-loader', 'babel-loader'],
-      },
+      // {
+      //   test: /\.js$/i,
+      //   use: ['thread-loader', 'babel-loader'],
+      // },
     ],
   },
-  plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin()],
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['**/*', '!dll', '!dll/**'], //不删除dll目录
+    }),
+    new HtmlWebpackPlugin(),
+    new DllReferencePlugin({
+      // 描述动态链接库的文件内容
+      manifest: require('./dist/dll/vueAll.manifest.json'),
+    }),
+    // todo waldon 在开发环境没有生效
+    new InjectBodyPlugin({
+      content: `<script src="dll/vueALl.dll.js"></script>`,
+    }),
+  ],
   devtool: 'cheap-module-source-map',
 }
 

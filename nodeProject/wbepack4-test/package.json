@@ -5,6 +5,7 @@
   "scripts": {
     "build:pro": "webpack --mode production",
     "build:dev": "webpack --mode development",
+    "build:dll": "webpack --config webpack_dll.config.js",
     "dev": "webpack-dev-server --mode development"
   },
   "keywords": [],
