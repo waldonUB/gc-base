@@ -122,25 +122,23 @@ const developmentConfig = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-      // {
-      //   test: /\.js$/i,
-      //   use: ['thread-loader', 'babel-loader'],
-      // },
+      {
+        test: /\.js$/i,
+        use: ['thread-loader', 'babel-loader'],
+      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['**/*', '!dll', '!dll/**'], //不删除dll目录
     }),
-    new HtmlWebpackPlugin(),
-    new DllReferencePlugin({
-      // 描述动态链接库的文件内容
-      manifest: require('./dist/dll/vueAll.manifest.json'),
+    new HtmlWebpackPlugin({
+      template: path.resolve('', 'index.html'),
     }),
-    // todo waldon 在开发环境没有生效
-    new InjectBodyPlugin({
-      content: `<script src="dll/vueALl.dll.js"></script>`,
-    }),
+    // new DllReferencePlugin({
+    //   // 描述动态链接库的文件内容
+    //   manifest: require('./dist/dll/vueAll.manifest.json'),
+    // }),
   ],
   devtool: 'cheap-module-source-map',
 }
