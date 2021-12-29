@@ -16,6 +16,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const { merge } = require('webpack-merge')
 // 引用
 const DllReferencePlugin = require('webpack/lib/DllReferencePlugin')
+// 缓存
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 const srcDir = path.resolve(__dirname, 'src/router/home/splitChunk_test')
 const readDir = fs.readdirSync(srcDir)
@@ -125,6 +127,7 @@ const developmentConfig = {
       {
         test: /\.js$/i,
         use: ['thread-loader', 'babel-loader'],
+        exclude: [/node_modules/],
       },
     ],
   },
@@ -139,6 +142,7 @@ const developmentConfig = {
     //   // 描述动态链接库的文件内容
     //   manifest: require('./dist/dll/vueAll.manifest.json'),
     // }),
+    new HardSourceWebpackPlugin(),
   ],
   devtool: 'cheap-module-source-map',
 }
@@ -148,7 +152,8 @@ module.exports = (env, args) => {
   console.log('args', args)
   switch (args.mode) {
     case 'development':
-      return smp.wrap(merge(commonConfig, developmentConfig))
+      // return smp.wrap(merge(commonConfig, developmentConfig))
+      return merge(commonConfig, developmentConfig)
     case 'production':
       return smp.wrap(merge(commonConfig, productionConfig))
   }

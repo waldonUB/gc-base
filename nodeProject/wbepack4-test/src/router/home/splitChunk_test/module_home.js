@@ -14,8 +14,8 @@ console.log(foo('测试foo'))
   setTimeout(() => {
     const divElement = document.createElement('div')
     divElement.className = 'base2'
-    divElement.innerText = 1
+    divElement.innerText = 123
     document.body.appendChild(divElement)
-    console.log(1)
+    console.log(111122)
   }, 3000)
 })()
