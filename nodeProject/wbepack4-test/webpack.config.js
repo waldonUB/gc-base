@@ -18,6 +18,8 @@ const { merge } = require('webpack-merge')
 const DllReferencePlugin = require('webpack/lib/DllReferencePlugin')
 // 缓存
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
+// 缓存
+const AutoDllPlugin = require('autodll-webpack-plugin')
 
 const srcDir = path.resolve(__dirname, 'src/router/home/splitChunk_test')
 const readDir = fs.readdirSync(srcDir)
@@ -105,6 +107,12 @@ const productionConfig = {
 
 const publicPath = ''
 // const publicPath = '/dist/'
+const _moduleList = []
+
+for (let _i = 1; _i <= 4; _i++) {
+  _moduleList.push(path.resolve(__dirname, `src/router/home/splitChunk_test/module_c${_i}.js`))
+}
+
 const developmentConfig = {
   mode: 'development',
   output: {
@@ -136,11 +144,21 @@ const developmentConfig = {
       cleanOnceBeforeBuildPatterns: ['**/*', '!dll', '!dll/**'], //不删除dll目录
     }),
     new HtmlWebpackPlugin({
+      inject: true,
       template: path.resolve('', 'index.html'),
     }),
     // new DllReferencePlugin({
     //   // 描述动态链接库的文件内容
     //   manifest: require('./dist/dll/vueAll.manifest.json'),
+    // }),
+    // new AutoDllPlugin({
+    //   inject: true, // 自动插入到 index.html
+    //   debug: true,
+    //   filename: '[name].js',
+    //   entry: {
+    //     auto_vendor: ['vue', 'vuex'],
+    //     auto_common: _moduleList,
+    //   },
     // }),
     new HardSourceWebpackPlugin(),
   ],
@@ -152,8 +170,8 @@ module.exports = (env, args) => {
   console.log('args', args)
   switch (args.mode) {
     case 'development':
-      // return smp.wrap(merge(commonConfig, developmentConfig))
-      return merge(commonConfig, developmentConfig)
+      return smp.wrap(merge(commonConfig, developmentConfig))
+    // return merge(commonConfig, developmentConfig)
     case 'production':
       return smp.wrap(merge(commonConfig, productionConfig))
   }

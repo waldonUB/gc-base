@@ -9,7 +9,7 @@ module.exports = {
     // vueRouter: ['vue-router'],
   },
   output: {
-    // 输出的动态链接库的文件名称，[name] 代表当前动态链接库的名称，也就是 entry 中配置的 react 和 polyfill
+    // 输出的动态链接库的文件名称，[name] 代表当前动态链接库的名称
     filename: '[name].dll.js',
     // 输出的文件都放到 dist 目录下
     path: path.resolve(__dirname, 'dist/dll'),
