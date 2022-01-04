@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-model在vuex中使用</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.common.dev.js"></script>
+  <style>
+    .wrapper{
+      border: 1px solid #eeeeee;
+      box-sizing: border-box;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="wrapper">
+      使用代理：
+      <p>
+        名字：
+        <input type="text" v-model="stateProxy.name">
+      </p>
+      <p>
+        年龄：
+        <input type="text" v-model="stateProxy.age">
+      </p>
+      <p>
+        其他字段（主要是测试未定义的字段也可以被监听的特性）：
+        <input type="text" v-model="stateProxy.otherFiled">
+      </p>
+    </div>
+    <div class="wrapper">
+      使用vuex原本的字段（在严格模式下报错）：
+      <p>
+        名字：
+        <input type="text" v-model="$store.state.userInfo.name">
+      </p>
+    </div>
+    <div class="wrapper">
+      结果展示：
+      <p>
+        名字：{{ $store.state.userInfo.name }}
+      </p>
+      <p>
+        年龄：{{ $store.state.userInfo.age }}
+      </p>
+      <p>
+        未定义的字段：{{ $store.state.userInfo.otherFiled }}
+      </p>
+    </div>
+  </div>
+  <script src="https://unpkg.com/vuex@3.6.2/dist/vuex.js"></script>
+  <script src="./src/main.js" type="module"></script>
+</body>
+</html>

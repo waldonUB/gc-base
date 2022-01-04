@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // const image = new Image()
+    // image.onload = function() {
+    //   console.log(`加载成功`);
+    // }
+    // image.onerror = function() {
+    //   console.log(`加载失败`);
+    // }
+    // image.src = 'http://st.ppp.top/rest/manage/wxwork/getWxWorkConfInfo?_TOKEN=882d1cf67f4bfc1147865af2c571393c&_LOGIN_SIGN=6a5e07135d9647b3c1c75735e7ac83d4'
+    const _imgDom = document.createElement('img')
+    _imgDom.onload = function() {
+      console.log(`加载成功`);
+    }
+    _imgDom.onerror = function() {
+      console.log(`加载失败`);
+    }
+    _imgDom.src = 'http://st.ppp.top/rest/manage/wxwork/getWxWorkConfInfo?_TOKEN=882d1cf67f4bfc1147865af2c571393c&_LOGIN_SIGN=6a5e07135d9647b3c1c75735e7ac83d4'
+  </script>
+</body>
+</html>
