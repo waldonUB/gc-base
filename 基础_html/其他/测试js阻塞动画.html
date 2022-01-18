@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: blanchedalmond;
+      /* animation: box-rotate 300ms ease-in-out; */
+      /* animation: box-width 300ms ease-in-out; */
+      animation: box-move 300ms ease-in-out;
+      animation-iteration-count: infinite;
+    }
+    /* js会阻塞html的渲染，会阻塞重排，不会阻塞重绘 */
+    @keyframes box-rotate {
+      from {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(180deg);
+      }
+    }
+    @keyframes box-width {
+      from {
+        width: 100px;
+      }
+      to {
+        width: 300px;
+      }
+    }
+    @keyframes box-move {
+      from {
+        left: 0;
+      }
+      to {
+        left: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="box"></div>
+  </div>
+  <script>
+    setTimeout(function() {
+      for(let i = 0; i < 1000000; i++) {
+        console.log(`box-move`);
+      }
+    }, 5000)
+  </script>
+</body>
+</html>
