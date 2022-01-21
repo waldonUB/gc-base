@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var funs = [];
+    function fun0(){
+        funs.push(getVar());    //外部变量持有闭包的引用
+        if (funs.length > 20) {
+          funs = []
+        }
+    }
+    setInterval(fun0, 1000);
+    function getVar(){
+      var arr = new Array(1000000);
+      return function(){
+        console.log(arr);
+      }
+    }
+  </script>
+</body>
+</html>

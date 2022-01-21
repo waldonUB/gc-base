@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // waldon:在浏览器里面的Closure还是看到的内部函数用的变量，有点疑惑
+    const test = function() {
+      const _a = 5
+      const _b = 6
+      const _innerFn = function() {
+        debugger
+        // let _a = 6
+        console.log(`输出a`, _a);
+        console.trace()
+      }
+      _innerFn()
+    }
+    test()
+  </script>
+</body>
+</html>
