@@ -1,8 +1,15 @@
 const express = require('express')
 const path = require('path')
+const fs = require('fs-extra')
+const https = require('https')
+const spdy = require('spdy')
+
 const indexRouter = require('./router/index')
 const testRouter = require('./router/test/index')
+const privateKey = fs.readFileSync('./crt_resource/private.pem', 'utf8')
+const certificate = fs.readFileSync('./crt_resource/file.crt', 'utf8')
 
+const credentials = { key: privateKey, cert: certificate }
 const port = 3001
 const app = express()
 
@@ -34,6 +41,16 @@ app.use((req, res, next) => {
 app.use('/', indexRouter)
 app.use('/test', testRouter)
 
-app.listen(port, () => {
-  console.log(`server running...`)
+// app.listen(port, () => {
+//   console.log(`server running...`)
+// })
+
+// const httpsServer = https.createServer(credentials, app)
+
+// httpsServer.listen(port, () => {
+//   console.log(`httpsServer running...`)
+// })
+
+spdy.createServer(credentials, app).listen(port, () => {
+  console.log(`http2 running...`)
 })
