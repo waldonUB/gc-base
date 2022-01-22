@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>反射性xss</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" :value="xssValue">
+    <button>搜索</button>
+    <div>
+      您搜索的关键词是：{{xssValue}}
+    </div>
+  </div>
+  <script>
+    new Vue({
+      data: {
+        xssValue: ''
+      },
+      mounted() {
+        const params  = new URLSearchParams(window.location.search)
+        const result = params.get('xssValue')
+        this.xssValue = result
+      },
+    }).$mount('#app')
+  </script>
+
+</body>
+</html>
