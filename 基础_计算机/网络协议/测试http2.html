@@ -19,7 +19,7 @@
   <button id="send">发送请求</button>
   <img id="testImg" class="test-img" src="" alt="">
   <script>
-    for(let i = 0; i < 6; i++) {
+    for(let i = 0; i < 20; i++) {
         fetch('https://localhost:3001/test/cache-test').then(res => {
           console.log(`res`, res);
         }).catch(err => {
