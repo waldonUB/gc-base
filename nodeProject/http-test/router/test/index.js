@@ -28,22 +28,22 @@ router.post('/form-post', async (req, res) => {
 
 /**
  * 测试存储型xss
+ * 两种解决方案：
+ * 1. 给前端渲染
+ * 2. 给可能造成xss的东西做充分转义。比如说encodeHtml（本质上也是replace了一些关键符号），也会有一些库专门的处理这一方面
  * @author waldon
  * @date 2022-01-21
  */
-router.post('/stored-xss', async (req, res) => {
-  res.json({
-    data: {
-      content: `
-        <div>
-          我是存储型xss的留言板<script>console.log('xss success')</script>
-        </div>
-      `,
-    },
-    rt: 0,
-    success: true,
-    msg: '请求成功',
-  })
+router.get('/stored-xss', async (req, res) => {
+  const content = `
+    <div>
+      我是存储型xss的留言板<script>console.log('xss success')</script>
+    </div>
+    <div>
+      测试转义后的xss &lt;script&gt;console.log(&#39;xss success&#39;)&lt;/script&gt;
+    </div>
+  `
+  res.send(content)
 })
 
 module.exports = router
