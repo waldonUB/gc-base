@@ -1,0 +1,63 @@
+<!-- HTML 5 中指定不执行由 innerHTML 插入的 <script> 标签  mdn -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dom型xss</title>
+  <style>
+    .xss-content{
+      width: 500px;
+      height: 300px;
+      border: 1px red solid;
+    }
+  </style>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="xssValue">
+    <button>搜索</button>
+    <div>
+      您搜索的关键词是：<div class="xss-content" v-html="xssValueCal"></div>
+    </div>
+    <p>会执行的xss：</p>
+    <div v-html="xssUrlValue"></div>
+    <div class="" id="setHtml">112</div>
+    <!-- <img src="212" @error="xssFn"> -->
+    <!-- 这种方式还是会生效 -->
+    <!-- <img src='x' onerror='alert(1)'> -->
+  </div>
+  <script>
+    // 原生 JavaScript 转义 html 标签
+    function encodeHTML(text) {
+      return text.replace(/&/g, '&amp').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    new Vue({
+      data() {
+        return {
+          xssValue: '',
+          xssUrlValue: ''
+        }
+      },
+      computed: {
+        xssValueCal() {
+          return ''
+        }
+      },
+      methods: {
+        xssFn() {
+          console.log('图片xss success');
+        }
+      },
+      mounted() {
+        const params  = new URLSearchParams(window.location.search)
+        this.xssUrlValue = params.get('xssUrlValue')
+        // waldon 不encode的话会出现xss
+        document.getElementById('setHtml').innerHTML = encodeHTML(this.xssUrlValue)
+      },
+    }).$mount('#app')
+  </script>
+</body>
+</html>
