@@ -1,10 +1,17 @@
 <template>
-  <a-button type="primary" @click="toSubPage">跳转子路由</a-button>
+  <div class="content-wrapper">
+    <BaseMenu />
+    <div class="right-part">
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <script>
+import BaseMenu from '@/components/base/BaseMenu.vue'
 export default {
   name: 'AppHome',
+  components: { BaseMenu },
   setup(props) {
     console.log(props)
     const toSubPage = () => {
@@ -17,3 +24,13 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.content-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  .right-part {
+    flex: 1;
+  }
+}
+</style>
