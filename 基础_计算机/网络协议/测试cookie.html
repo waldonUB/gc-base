@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试cookie</title>
+  <link rel="stylesheet" href="http://localhost:3001/css/style.css">
+  <link rel="stylesheet" href="http://localhost:3001/font/iconfont.woff2">
+  <style>
+  </style>
+</head>
+<body>
+  <button id="send">发送请求</button>
+  <button onclick="sendOtherReq()">发送其他请求</button>
+  <script>
+    document.cookie = "user_name=waldon";
+    document.domain = '127.0.0.1'
+    const sendBtn = document.getElementById("send")
+    const otherOriginRequest = function() {
+      fetch('http://localhost:3001/test/cookie-limit', {
+          method: 'post',
+          credentials: 'include',
+        }).then(res => {
+          console.log(`res`, res);
+        }).catch(err => {
+          console.log(`err`, err);
+        })
+    }
+    sendBtn.addEventListener('click', otherOriginRequest)
+
+    const sendOtherReq = function() {
+      fetch('http://localhost:3001/test/form-post', {
+        method: 'post',
+        credentials: 'include',
+      }).then(res => {
+        console.log(`res`, res);
+      }).catch(err => {
+        console.log(`err`, err);
+      })
+      fetch('http://localhost:3001/test/cache-test').then(res => {
+        console.log(`res`, res);
+      }).catch(err => {
+        console.log(`err`, err);
+      })
+    }
+  </script>
+</body>
+</html>

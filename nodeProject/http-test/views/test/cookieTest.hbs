@@ -1,0 +1,15 @@
+<p>同源的cookie测试</p>
+<button onclick="otherOriginRequest()">发送带cookie的</button>
+<script>
+  // 客户端设置HttpOnly;Secure没用
+  document.cookie = "user_name=sameOrigin_name;HttpOnly;Secure"
+  const otherOriginRequest = function() {
+    fetch('http://localhost:3001/test/cookie-limit', {
+        method: 'post',
+      }).then(res => {
+        console.log(`res`, res);
+      }).catch(err => {
+        console.log(`err`, err);
+      })
+  }
+</script>

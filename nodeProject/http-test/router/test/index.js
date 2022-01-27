@@ -3,7 +3,7 @@ const router = express.Router()
 
 router.get('/cache-test', async (req, res) => {
   // res.setHeader('Cache-Control', 'max-age=86400')
-  console.log(`进来了`)
+  console.log('cache-test请求头信息', req.headers)
   await new Promise((resolve) => {
     setTimeout(() => {
       resolve()
@@ -44,6 +44,31 @@ router.get('/stored-xss', async (req, res) => {
     </div>
   `
   res.send(content)
+})
+
+/**
+ * 服务端渲染的cookie测试页面
+ * @author waldon
+ * @date 2022-01-27
+ */
+router.get('/get_cookieTestPage', async (req, res) => {
+  console.log('get_cookieTestPage请求头信息', req.headers)
+  res.render('test/cookieTest')
+})
+
+/**
+ * 测试cookie的限制
+ * @author waldon
+ * @date 2022-01-21
+ */
+router.post('/cookie-limit', async (req, res) => {
+  console.log('请求头信息', req.headers.cookie)
+  res.setHeader('Set-Cookie', ['back_userName=waldon;HttpOnly;Secure', 'back_language=javascript'])
+  res.json({
+    rt: 0,
+    success: true,
+    msg: '表单请求成功',
+  })
 })
 
 module.exports = router
