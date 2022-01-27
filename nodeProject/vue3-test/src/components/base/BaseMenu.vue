@@ -1,25 +1,14 @@
 <template>
-  <a-menu
-    id="dddddd"
-    v-model:openKeys="openKeys"
-    v-model:selectedKeys="selectedKeys"
-    style="width: 256px"
-    mode="inline"
-    @click="handleClick"
-  >
-    <a-sub-menu v-for="item in menuList" :key="item.id" @titleClick="titleClick(item)">
-      <template #icon>
-        <MailOutlined />
-      </template>
-      <template #title>{{ item.name }}</template>
-    </a-sub-menu>
+  <a-menu style="width: 256px" mode="inline">
+    <SubMenu :menu-list="menuList" />
   </a-menu>
 </template>
 
 <script>
 import { defineComponent, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { MailOutlined, QqOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons-vue'
+// components
+import SubMenu from './SubMenu.vue'
 
 /**
  * 公共变量定义
@@ -48,6 +37,11 @@ const operateMenu = () => {
               icon: '',
               name: 'setupScript',
             },
+            {
+              id: 'setupNormal',
+              icon: '',
+              name: 'setupNormal',
+            },
           ],
         },
       ],
@@ -60,20 +54,20 @@ const operateMenu = () => {
    * @param {Object} - rowData
    */
   const titleClick = (rowData) => {
-    // const _pushSubRouter = (_rowData) => {
-    //   if (_rowData.children?.length) {
-    //     _pushSubRouter(_rowData.children[0])
-    //   } else {
-    //     baseData.router.push({
-    //       name: _rowData.id,
-    //     })
-    //   }
-    // }
-    // _pushSubRouter(rowData)
+    const _pushSubRouter = (_rowData) => {
+      if (_rowData.children?.length) {
+        _pushSubRouter(_rowData.children[0])
+      } else {
+        baseData.router.push({
+          name: _rowData.id,
+        })
+      }
+    }
+    _pushSubRouter(rowData)
 
-    baseData.router.push({
-      path: '/apiTest/setupScript',
-    })
+    // baseData.router.push({
+    //   path: '/apiTest/setupScript',
+    // })
   }
   return {
     menuList,
@@ -83,9 +77,8 @@ const operateMenu = () => {
 
 export default {
   name: 'BaseMenu',
-  components: {
-    MailOutlined,
-  },
+  components: { SubMenu },
+  emits: ['titleClick'],
   setup(props) {
     baseData.router = useRouter()
     const { menuList, titleClick } = operateMenu()
