@@ -7,12 +7,24 @@
   <title>Document</title>
 </head>
 <body>
+  <button onclick="_changeA()">changeA</button>
+  <button onclick="showA()">showA</button>
   <script type="module">
-    import {a, fn} from './script/moduleTest.mjs'
+    import {a, changeA}  from './script/moduleTest.mjs'
+    import * as moduleTest  from './script/moduleTest.mjs'
+    import moduleExportDefault  from './script/moduleExportDefault.js'
+    // a = 5 // 报错
 
-    console.log(`a`, a);
-    fn()
+    moduleExportDefault.default_a = 'bar'
+    console.log(`moduleExportDefault`, moduleExportDefault);
 
+    moduleTest.a = 5
+
+    window._changeA = changeA
+    window.showA = function() {
+      console.log('showA:', a);
+      console.log('moduleTest.a:', moduleTest.a);
+    }
   </script>
 </body>
 </html>

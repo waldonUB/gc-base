@@ -1,5 +1,9 @@
-export const a = 6
+let a = 6
 
-export const fn = () => {
+const fn = () => {
   console.log(`只是fn`)
 }
+const changeA = () => {
+  a++
+}
+export { a, fn, changeA }
