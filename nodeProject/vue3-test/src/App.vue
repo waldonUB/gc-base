@@ -7,3 +7,10 @@ export default {
   name: 'App',
 }
 </script>
+
+<style>
+#app,
+.content-wrapper {
+  height: 100%;
+}
+</style>

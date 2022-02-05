@@ -21,6 +21,7 @@ import { MailOutlined, PieChartOutlined } from '@ant-design/icons-vue'
 import { toRefs } from 'vue'
 export default {
   name: 'SubMenu',
+  inheritAttrs: false,
   components: {
     MailOutlined,
     PieChartOutlined,
