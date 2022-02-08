@@ -13,7 +13,12 @@ router.get('/cache-test', async (req, res) => {
   res.render('test/cache')
 })
 
+router.get('/request-test', async (req, res) => {
+  res.render('test/requestTest')
+})
+
 router.post('/form-post', async (req, res) => {
+  console.log(req)
   await new Promise((resolve) => {
     setTimeout(() => {
       resolve()
