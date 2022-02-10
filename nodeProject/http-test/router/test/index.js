@@ -76,4 +76,25 @@ router.post('/cookie-limit', async (req, res) => {
   })
 })
 
+/**
+ * 测试cookie的限制
+ * @author waldon
+ * @date 2022-01-21
+ */
+router.get('/jsonp-test', async (req, res) => {
+  console.log('请求url', req.url)
+  // 前端默认为callback时，res.jsonp会自动读取参数的回调
+  // let callback = ''
+  // if (!req.url.split('?')[1]) {
+  //   console.log('无参数')
+  //   return
+  // }
+  // if (!req.url.split('?')[1].split('=')[1]) {
+  //   console.log('无回调')
+  //   return
+  // }
+  // callback = req.url.split('?')[1].split('=')[1]
+  res.jsonp('测试回调数据')
+})
+
 module.exports = router
