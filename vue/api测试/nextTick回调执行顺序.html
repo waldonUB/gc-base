@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+  <button @click="changeValue">变更</button>
+  <div ref="text">{{ text }}</div>
+</div>
+<script>
+
+new Vue({
+  data: {
+    text: 0
+  },
+  methods: {
+    changeValue() {
+      // this.$nextTick(() => {
+      //   console.log('text: ', this.$refs.text.textContent)
+      // })
+      // Promise.resolve().then(() => {
+      //   console.log('text: ', this.$refs.text.textContent) // 和nextTick的结果一致
+      // })
+
+      // setTimeout(() => {
+      //   console.log('text: ', this.$refs.text.textContent)
+      // }, 0)
+
+      this.text = 2
+    }
+  },
+  mounted() {
+    // this.text = 2
+    this.$nextTick(() => {
+      console.log('text: ', this.$refs.text.textContent)
+    })
+    this.text = 1
+  },
+}).$mount("#app")
+</script>
+</body>
+</html>

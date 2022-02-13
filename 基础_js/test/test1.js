@@ -1,8 +1,5 @@
-var foo = function () {
-  console.log('函数表达式')
+'use strict'
+const fn = function () {
+  console.log('this', this)
 }
-function foo() {
-  console.log(`函数声明`)
-}
-
-foo()
+fn()
