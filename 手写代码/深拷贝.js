@@ -10,6 +10,9 @@ const obj = {
   c: function () {
     console.log('c')
   },
+  d: '',
+  e: new Set(),
+  f: new Map(),
 }
 
 const getType = function (target) {
@@ -24,25 +27,45 @@ const getType = function (target) {
  */
 const deepClone = function (target = {}, map = new Map()) {
   const type = getType(target)
-  if (type === 'Object' || type === 'Array') {
-    const newTarget = type === 'Object' ? {} : []
-    if (map.has(target)) {
+  const deepType = ['Object', 'Array', 'Map', 'Set']
+  if (deepType.includes(type)) {
+    if (['Object', 'Array'].includes(type)) {
+      const newTarget = type === 'Object' ? {} : []
+      if (map.has(target)) {
+        return map.get(target)
+      }
+      map.set(target, newTarget)
+      for (const item in target) {
+        const subType = getType(target[item])
+        newTarget[item] = deepType.includes(subType) ? deepClone(target[item], map) : target[item]
+      }
+      return newTarget
+    } else if (['Map', 'Set'].includes(type)) {
+      const newTarget = type === 'Map' ? new Map() : new Set()
+      for (const item of target) {
+        const subType = getType(target[item])
+        if (deepType.includes(subType)) {
+          if (type === 'Map') {
+            newTarget.set(item, deepClone(target[item], map))
+          } else {
+            newTarget.add(deepClone(target[item]))
+          }
+        } else {
+          if (type === 'Map') {
+            newTarget.set(item, target[item])
+          } else {
+            newTarget.add(target[item])
+          }
+        }
+      }
       return newTarget
     }
-    map.set(target, newTarget)
-    for (const item in target) {
-      const subType = getType(item)
-      newTarget[item] =
-        subType === 'Object' || subType === 'Array' ? deepClone(target[item]) : target[item]
-      return newTarget
-    }
-  } else if (type === 'Map') {
   } else {
     return target
   }
 }
 
 obj.d = obj
-// todo waldon 结果不对
+obj.f.set('f1', { f2: { f3: 'f' } })
 
 console.log(deepClone(obj))

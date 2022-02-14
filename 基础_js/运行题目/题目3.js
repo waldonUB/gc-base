@@ -7,5 +7,3 @@ let b = a()
 b.push(4, 5)
 let c = a()
 console.log(b, c)
-
-// [1,2,3,4,5] [1,2,3]

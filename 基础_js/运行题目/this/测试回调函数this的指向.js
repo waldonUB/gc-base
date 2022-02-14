@@ -1,6 +1,6 @@
 const obj = {
   a: 10,
-  foo: function ({ obj }) {
+  foo: function (obj) {
     console.log(`foo`, this.a)
     obj.bar()
   },

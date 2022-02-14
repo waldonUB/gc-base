@@ -2,7 +2,7 @@ function Foo() {
   getName = function () {
     console.log(1)
   }
-  console.log(`this的指向`, this)
+  // console.log(`this的指向`, this)
   return this
 }
 Foo.getName = function () {
@@ -27,5 +27,4 @@ new Foo.getName() // new (Foo.getName())
 new Foo().getName() // (new Foo()).getName()
 new new Foo().getName() // new (new Foo().getName())
 
-// waldon
-// 2 4 1 1 2 3 3
+// todo waldon 2022年2月20日再连练一下

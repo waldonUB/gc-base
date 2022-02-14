@@ -5,8 +5,8 @@ var obj = {
     num: 6,
     print: function () {
       console.log(this.num)
-    }
-  }
+    },
+  },
 }
 num = 888
 obj.inner.print()

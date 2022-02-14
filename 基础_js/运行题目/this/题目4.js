@@ -1,3 +1,4 @@
+var foo = 'windowVal'
 var myObject = {
   foo: 'bar',
   func: function () {
@@ -8,7 +9,7 @@ var myObject = {
       console.log('inner func:  this.foo = ' + this.foo)
       console.log('inner func:  self.foo = ' + self.foo)
     })()
-  }
+  },
 }
 myObject.func()
 // bar

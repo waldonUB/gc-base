@@ -11,7 +11,7 @@ var object = {
     return function () {
       console.log(that.name)
     }
-  }
+  },
 }
 console.log(object.getFn()())
 console.log(object.getName()())

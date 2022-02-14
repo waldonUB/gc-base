@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <button onclick="deleteNode()">删除节点</button>
+  <button onclick="showWm()">显示WeakMap</button>
+  <script>
+    const obj1 = {a1: 1}
+    const obj2 = {a2: 2}
+    let appNode = document.getElementById('app')
+    const wm = new WeakMap()
+    // const wm = new Map()
+    wm.set(obj1, "value1")
+    wm.set(obj2, "value2")
+    wm.set(appNode, "appNode_value")
+
+    const deleteNode = function() {
+      document.body.removeChild(appNode)
+      appNode = null
+    }
+
+    const showWm = function() {
+      console.log('wm', wm);
+    }
+  </script>
+</body>
+</html>
