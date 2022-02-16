@@ -1,5 +1,13 @@
-const values = []
-console.log(values.__proto__)
-console.log(Array.prototype)
-console.log(Array.prototype === values.__proto__)
-console.log(Array.prototype.__proto__.__proto__)
+const promise = new Promise((resolve, reject) => {
+  // console.log(1)
+  // resolve(20)
+  // console.log(3)
+})
+// promise.then((res) => {
+//   console.log(res)
+// })
+console.log(promise.__proto__ === Promise.prototype)
+console.log(Promise.prototype.__proto__ === Object.prototype)
+console.log(Object.prototype.__proto__ === null)
+
+Object.create(null)
