@@ -24,3 +24,20 @@ console.log(person2.__proto__)
 console.log(person2.__proto__ === Person.prototype)
 
 // todo waldon Object.create的指向再看看
+
+const obj = {
+  a: 1,
+}
+
+const obj1 = Object.create(obj)
+const obj2 = {}
+Object.setPrototypeOf(obj2, obj)
+
+console.log(obj1.__proto__ === obj)
+console.log(obj2.__proto__ === obj)
+console.log(obj.__proto__ === Object.prototype)
+console.log(Object.prototype.__proto__)
+
+const Fn = function () {}
+
+console.log(Fn.prototype.__proto__)
