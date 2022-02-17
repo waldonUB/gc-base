@@ -1,13 +1,33 @@
-const promise = new Promise((resolve, reject) => {
-  // console.log(1)
-  // resolve(20)
-  // console.log(3)
-})
-// promise.then((res) => {
-//   console.log(res)
+// const promise = new Promise((resolve, reject) => {
+//   console.log(1)
+//   throw Error('我是error')
+//   resolve(20)
+//   console.log(3)
 // })
-console.log(promise.__proto__ === Promise.prototype)
-console.log(Promise.prototype.__proto__ === Object.prototype)
-console.log(Object.prototype.__proto__ === null)
+// promise
+//   .then((res) => {
+//     console.log(res)
+//   })
+//   .catch((err) => {
+//     console.log('err', err)
+//   })
 
-Object.create(null)
+const foo = async function () {
+  try {
+    Promise.reject()
+      .then(
+        () => {
+          throw Error('wo err')
+        },
+        (err) => {
+          console.log('second', err)
+        },
+      )
+      .catch((err) => {
+        console.log('promise', err)
+      })
+  } catch (err) {
+    console.log('try catch', err)
+  }
+}
+foo()
