@@ -4978,6 +4978,7 @@
     const boxNodes = document.getElementsByClassName('box')
     function addHeight() {
       Promise.resolve().then(() => {
+        // 因为读取了引起回流的属性，测试结果不准
         console.log('promise boxNode height', boxNodes[0].clientHeight);
       })
       setTimeout(() => {
