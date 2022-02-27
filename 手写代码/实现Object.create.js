@@ -8,11 +8,27 @@ const MyCreate = function (target, props) {
   return new Fn() // 会用到new
 }
 
+/**
+ * 不用new的版本
+ * @author waldon
+ * @date 2022-02-15
+ * @param {*} target - param
+ * @param {*} props - param
+ */
+const MyCreateWithoutNew = function (target, props) {
+  const obj = {}
+  obj.__proto__ = target
+  if (typeof props === 'object' && props !== null) {
+    Object.defineProperties(obj, props)
+  }
+  return obj
+}
+
 // 测试用例
 const obj = {
   a: 1,
 }
-const child = MyCreate(obj, {
+const child = MyCreateWithoutNew(obj, {
   b: {
     value: 3,
   },

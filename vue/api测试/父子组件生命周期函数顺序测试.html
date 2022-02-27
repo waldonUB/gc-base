@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>父子组件生命周期函数顺序测试</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+  <temp2></temp2>
+</div>
+<script>
+const temp1 = {
+  template: '<div></div>',
+  created() {
+    console.log('执行子组件created')
+  },
+  mounted() {
+    console.log('执行子组件mounted')
+  },
+}
+const temp2 = {
+  template: '<div><temp1></temp1></div>',
+  components: { temp1 },
+  created() {
+    console.log('执行父组件created')
+  },
+  mounted() {
+    console.log('执行父组件mounted')
+  },
+}
+new Vue({
+  components: { temp2 },
+  data: {
+  },
+  methods: {
+  },
+  created() {
+    console.log('执行vue实例created')
+  },
+  mounted() {
+    console.log('执行vue实例mounted')
+  },
+}).$mount("#app")
+</script>
+</body>
+</html>

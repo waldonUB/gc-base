@@ -1,16 +1,23 @@
-// waldon：new的本质是返回一个对象，如果没有指定返回值的话就返回一个this?
-// todo waldon 试一下String、Error这种的原型指向
-const MyNew = function (Fn) {
-  const resObj = Object.create(Fn.prototype)
-  console.log(`resObj`, resObj)
-  // 这一步很关键，因为把resObj当做this传了进去，
-  // 所以resObj.a带有了值，最后返回的时候resObj才不是空对象
-  // waldon: 所以new的this指向实例，其实也是显示绑定的结果
-  const instance = Fn.call(resObj)
-  if (typeof instance === 'object') {
-    return instance
+/**
+ * 按部就班版的new
+ * 1. 创建一个新对象
+ * 2. 将新对象的原型设置为构造函数的 prototype 属性
+ * 3. 执行构造函数，将 this 指向该原型对象
+ * 4. 返回这个新对象
+ * @author waldon
+ * @date 2022-02-15
+ * @param {*} param - param
+ * @param {*} param - param
+ */
+const MyNew_1 = function (Fn, ...args) {
+  const obj = {}
+  obj.__proto__ = Fn.prototype // 优化：Object.setPrototypeOf(obj, Fn.prototype)
+  const res = Fn.apply(obj, args)
+  // 优化：type：function && res !== null
+  if (typeof res === 'object') {
+    return res
   }
-  return resObj
+  return obj
 }
 
 function newOperator(ctor) {
@@ -51,9 +58,6 @@ Foo.prototype.b = 2
 // console.log(`foo1`, foo1)
 // console.log(`foo1.b`, foo1.b)
 // console.log(`foo1.c`, foo1.c)
-
-const foo2 = MyNew(Foo)
-console.log(`foo2`, foo2)
 
 // const foo3 = newOperator(Foo)
 // console.log(`foo3`, foo3)
