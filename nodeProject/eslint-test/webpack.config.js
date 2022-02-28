@@ -2,7 +2,6 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-// todo waldon @babel/runtime @babel/runtime-corejs3 这两个是什么区别
 
 // file-loader的官方解析是在import和require的时候解析为url，并且将文件发送到output的文件夹
 
