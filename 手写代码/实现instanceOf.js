@@ -1,5 +1,3 @@
-// todo waldon
-
 /**
  * 主要是看他在不在构造函数的原型链上
  * @author waldon
@@ -12,7 +10,7 @@ const myInstanceof = function (instance, constructor) {
   let flag = false
   while (instance && !flag) {
     if (instance['__proto__'] === constructor.prototype) {
-      flag = true
+      return true
     }
     instance = instance['__proto__']
   }
