@@ -77,6 +77,25 @@ router.post('/cookie-limit', async (req, res) => {
 })
 
 /**
+ * 测试get请求的cookie的限制
+ * @author waldon
+ * @date 2022-01-21
+ */
+router.get('/cookie-limit-get', async (req, res) => {
+  console.log('请求头信息', req.headers.cookie)
+  res.setHeader('Set-Cookie', [
+    'back_userName=waldon;HttpOnly;Secure',
+    'back_language=javascript',
+    'SameSite=Strict',
+  ])
+  res.json({
+    rt: 0,
+    success: true,
+    msg: '表单请求成功',
+  })
+})
+
+/**
  * 测试cookie的限制
  * @author waldon
  * @date 2022-01-21

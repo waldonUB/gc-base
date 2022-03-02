@@ -41,9 +41,9 @@ app.use((req, res, next) => {
 app.use('/', indexRouter)
 app.use('/test', testRouter)
 
-// app.listen(port, () => {
-//   console.log(`server running...`)
-// })
+app.listen(port, () => {
+  console.log(`server running...`)
+})
 
 // const httpsServer = https.createServer(credentials, app)
 
@@ -51,6 +51,6 @@ app.use('/test', testRouter)
 //   console.log(`httpsServer running...`)
 // })
 
-spdy.createServer(credentials, app).listen(port, () => {
-  console.log(`http2 running...`)
-})
+// spdy.createServer(credentials, app).listen(port, () => {
+//   console.log(`http2 running...`)
+// })
