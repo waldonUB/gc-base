@@ -12,9 +12,15 @@
 </head>
 <body>
   <button id="send">发送请求</button>
+  <button onclick="formSend()">测试form表单post提交跨域</button>
+  <button onclick="formSendGet()">测试form表单get提交跨域</button>
+  <button onclick="imgSendGet()">测试图片get提交跨域</button>
   <button onclick="sendOtherReq()">发送其他请求</button>
+
+  <form id="formSend" action="http://localhost:3001/test/cookie-limit" method="post"></form>
+  <form id="formSendGet" action="http://localhost:3001/test/cookie-limit-get" method="get"></form>
   <script>
-    document.cookie = "user_name=waldon";
+    document.cookie = "user_name=waldon;SameSite=Strict";
     document.domain = '127.0.0.1'
     const sendBtn = document.getElementById("send")
     const otherOriginRequest = function() {
@@ -43,6 +49,28 @@
       }).catch(err => {
         console.log(`err`, err);
       })
+    }
+
+    const formSend = function() {
+      const formSend = document.getElementById("formSend")
+      formSend.submit()
+    }
+
+    /**
+     * 目前的测试结果是，新版浏览器只有在get的表单请求中才会发送cookie
+     * @author waldon
+     * @date 2022-03-02
+     */
+    const formSendGet = function() {
+      const formSendGet = document.getElementById("formSendGet")
+      formSendGet.submit()
+    }
+
+    const imgSendGet = function() {
+      const img = new Image()
+      img.src = 'http://localhost:3001/test/cookie-limit-get'
+      img.width = '100'
+      img.height = '100'
     }
   </script>
 </body>
