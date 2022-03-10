@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圆环渐变色</title>
+  <style>
+    .circle {
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      position: relative;
+      transition: clip-path .2s;
+      -webkit-mask: radial-gradient(transparent, transparent 200px, #000 200px);
+      mask: radial-gradient(transparent 200px, #000 200px);
+      overflow: hidden;
+    }
+    .circle-left {
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(1,66,178, 0.2), rgba(0,255,229,1));
+      box-shadow: 0 0 20px rgba(0, 255, 229, 0.5);
+      float: left;
+    }
+    .circle-right {
+      width: 50%;
+      height: 100%;
+      float: right;
+
+    }
+    .circle-bottom {
+      position: absolute;
+      height: 40px; width: 30px;
+      bottom: 3px; left: 0; right: 0;
+      margin: auto;
+      background: linear-gradient(to right, #DB3FA3, #C443A3);
+      filter: blur(5px);
+    }
+  </style>
+</head>
+<body>
+  <div id="circle" class="circle">
+    <div class="circle-left"></div>
+    <div class="circle-right"></div>
+    <!-- <div class="circle-bottom"></div> -->
+  </div>
+</body>
+</html>

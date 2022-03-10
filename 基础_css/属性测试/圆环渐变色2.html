@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圆环渐变色</title>
+  <style>
+    .circle-wrapper {
+      width: 550px;
+      height: 550px;
+      position: relative;
+      background-color: rgb(1, 25, 73);
+      padding: 20px;
+      margin: 0 auto;
+    }
+    .circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      -webkit-mask: radial-gradient(transparent, transparent 200px, #000 201px);
+      mask: radial-gradient(transparent 200px, #000 201px);
+      overflow: hidden;
+    }
+    .circle-left {
+      width: 50%;
+      height: 50%;
+      background: linear-gradient(to right, rgba(1,66,178, 0.2),rgba(0,255,229,1));
+    }
+    .circle-right {
+      width: 50%;
+      height: 50%;
+      background: rgb(18, 39, 82, 0.8);
+    }
+    .number-box {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-100%);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+    }
+    .text {
+      font-size: 50px;
+      color: rgba(57, 193, 91, 1);
+      margin-right: 8px;
+    }
+    .triangle {
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-bottom: 20px solid rgba(57, 193, 91, 1);
+      transform: translateY(-10px);
+    }
+  </style>
+</head>
+<body>
+  <div class="circle-wrapper">
+    <div class="circle">
+      <div class="circle-left"></div>
+      <div class="circle-right"></div>
+    </div>
+    <div class="number-box">
+      <div class="text">50%</div>
+      <div class="text triangle"></div>
+    </div>
+  </div>
+</body>
+</html>
