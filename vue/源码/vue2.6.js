@@ -381,7 +381,7 @@
     'activated',
     'deactivated',
     'errorCaptured',
-    'serverPrefetch'
+    'serverPrefetch',
   ]
 
   /*  */
@@ -477,7 +477,7 @@
     /**
      * Exposed for legacy reasons
      */
-    _lifecycleHooks: LIFECYCLE_HOOKS
+    _lifecycleHooks: LIFECYCLE_HOOKS,
   }
 
   /*  */
@@ -487,7 +487,8 @@
    * using https://www.w3.org/TR/html53/semantics-scripting.html#potentialcustomelementname
    * skipping \u10000-\uEFFFF due to it freezing up PhantomJS
    */
-  var unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/
+  var unicodeRegExp =
+    /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/
 
   /**
    * Check if a string starts with $ or _
@@ -505,7 +506,7 @@
       value: val,
       enumerable: !!enumerable,
       writable: true,
-      configurable: true
+      configurable: true,
     })
   }
 
@@ -559,7 +560,7 @@
         get: function get() {
           /* istanbul ignore next */
           supportsPassive = true
-        }
+        },
       }) // https://github.com/facebook/flow/issues/285
       window.addEventListener('test-passive', null, opts)
     } catch (e) {}
@@ -799,7 +800,7 @@
     elm,
     context,
     componentOptions,
-    asyncFactory
+    asyncFactory,
   ) {
     this.tag = tag
     this.data = data
@@ -865,7 +866,7 @@
       vnode.elm,
       vnode.context,
       vnode.componentOptions,
-      vnode.asyncFactory
+      vnode.asyncFactory,
     )
     cloned.ns = vnode.ns
     cloned.isStatic = vnode.isStatic
@@ -1086,7 +1087,7 @@
         }
         childOb = !shallow && observe(newVal)
         dep.notify()
-      }
+      },
     })
   }
 
@@ -1112,7 +1113,7 @@
     if (target._isVue || (ob && ob.vmCount)) {
       warn(
         'Avoid adding reactive properties to a Vue instance or its root $data ' +
-          'at runtime - declare it upfront in the data option.'
+          'at runtime - declare it upfront in the data option.',
       )
       return val
     }
@@ -1139,7 +1140,7 @@
     var ob = target.__ob__
     if (target._isVue || (ob && ob.vmCount)) {
       warn(
-        'Avoid deleting properties on a Vue instance or its root $data ' + '- just set it to null.'
+        'Avoid deleting properties on a Vue instance or its root $data ' + '- just set it to null.',
       )
       return
     }
@@ -1186,7 +1187,7 @@
           'option "' +
             key +
             '" can only be used during instance ' +
-            'creation with the `new` keyword.'
+            'creation with the `new` keyword.',
         )
       }
       return defaultStrat(parent, child)
@@ -1241,7 +1242,7 @@
       return function mergedDataFn() {
         return mergeData(
           typeof childVal === 'function' ? childVal.call(this, this) : childVal,
-          typeof parentVal === 'function' ? parentVal.call(this, this) : parentVal
+          typeof parentVal === 'function' ? parentVal.call(this, this) : parentVal,
         )
       }
     } else {
@@ -1265,7 +1266,7 @@
           'The "data" option should be a function ' +
             'that returns a per-instance value in component ' +
             'definitions.',
-          vm
+          vm,
         )
 
         return parentVal
@@ -1365,25 +1366,24 @@
   /**
    * Other object hashes.
    */
-  strats.props = strats.methods = strats.inject = strats.computed = function (
-    parentVal,
-    childVal,
-    vm,
-    key
-  ) {
-    if (childVal && 'development' !== 'production') {
-      assertObjectType(key, childVal, vm)
-    }
-    if (!parentVal) {
-      return childVal
-    }
-    var ret = Object.create(null)
-    extend(ret, parentVal)
-    if (childVal) {
-      extend(ret, childVal)
-    }
-    return ret
-  }
+  strats.props =
+    strats.methods =
+    strats.inject =
+    strats.computed =
+      function (parentVal, childVal, vm, key) {
+        if (childVal && 'development' !== 'production') {
+          assertObjectType(key, childVal, vm)
+        }
+        if (!parentVal) {
+          return childVal
+        }
+        var ret = Object.create(null)
+        extend(ret, parentVal)
+        if (childVal) {
+          extend(ret, childVal)
+        }
+        return ret
+      }
   strats.provide = mergeDataOrFn
 
   /**
@@ -1408,7 +1408,7 @@
         'Invalid component name: "' +
           name +
           '". Component names ' +
-          'should conform to valid custom element name in html5 specification.'
+          'should conform to valid custom element name in html5 specification.',
       )
     }
     if (isBuiltInTag(name) || config.isReservedTag(name)) {
@@ -1450,7 +1450,7 @@
           'but got ' +
           toRawType(props) +
           '.',
-        vm
+        vm,
       )
     }
     options.props = res
@@ -1480,7 +1480,7 @@
           'but got ' +
           toRawType(inject) +
           '.',
-        vm
+        vm,
       )
     }
   }
@@ -1509,7 +1509,7 @@
           'but got ' +
           toRawType(value) +
           '.',
-        vm
+        vm,
       )
     }
   }
@@ -1647,7 +1647,7 @@
           '": ' +
           'Props with type Object/Array must use a factory function ' +
           'to return the default value.',
-        vm
+        vm,
       )
     }
     // the raw prop value was also undefined from previous render,
@@ -1723,7 +1723,7 @@
     }
     return {
       valid: valid,
-      expectedType: expectedType
+      expectedType: expectedType,
     }
   }
 
@@ -1947,7 +1947,7 @@
     var observer = new MutationObserver(flushCallbacks)
     var textNode = document.createTextNode(String(counter))
     observer.observe(textNode, {
-      characterData: true
+      characterData: true,
     })
     timerFunc = function () {
       counter = (counter + 1) % 2
@@ -2023,7 +2023,7 @@
       'Infinity,undefined,NaN,isFinite,isNaN,' +
         'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' +
         'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,' +
-        'require' // for Webpack/Browserify
+        'require', // for Webpack/Browserify
     )
 
     var warnNonPresent = function (target, key) {
@@ -2035,7 +2035,7 @@
           'either in the data option, or for class-based components, by ' +
           'initializing the property. ' +
           'See: https://vuejs.org/v2/guide/reactivity.html#Declaring-Reactive-Properties.',
-        target
+        target,
       )
     }
 
@@ -2049,7 +2049,7 @@
           'properties starting with "$" or "_" are not proxied in the Vue instance to ' +
           'prevent conflicts with Vue internals' +
           'See: https://vuejs.org/v2/api/#data',
-        target
+        target,
       )
     }
 
@@ -2066,7 +2066,7 @@
             target[key] = value
             return true
           }
-        }
+        },
       })
     }
 
@@ -2084,7 +2084,7 @@
           }
         }
         return has || !isAllowed
-      }
+      },
     }
 
     var getHandler = {
@@ -2097,7 +2097,7 @@
           }
         }
         return target[key]
-      }
+      },
     }
 
     initProxy = function initProxy(vm) {
@@ -2166,7 +2166,7 @@
       name: name,
       once: once$$1,
       capture: capture,
-      passive: passive
+      passive: passive,
     }
   })
 
@@ -2287,7 +2287,7 @@
                 altKey +
                 '" instead of "' +
                 key +
-                '".'
+                '".',
             )
           }
         }
@@ -2425,7 +2425,7 @@
                 'injection being mutated: "' +
                 key +
                 '"',
-              vm
+              vm,
             )
           })
         }
@@ -2568,8 +2568,7 @@
         res && typeof res === 'object' && !Array.isArray(res)
           ? [res] // single vnode
           : normalizeChildren(res)
-      return res &&
-        (res.length === 0 || (res.length === 1 && res[0].isComment)) // #9658
+      return res && (res.length === 0 || (res.length === 1 && res[0].isComment)) // #9658
         ? undefined
         : res
     }
@@ -2580,7 +2579,7 @@
       Object.defineProperty(normalSlots, key, {
         get: normalized,
         enumerable: true,
-        configurable: true
+        configurable: true,
       })
     }
     return normalized
@@ -2760,7 +2759,7 @@
     tree = cached[index] = this.$options.staticRenderFns[index].call(
       this._renderProxy,
       null,
-      this // for render fns generated for functional component templates
+      this, // for render fns generated for functional component templates
     )
     markStatic(tree, '__static__' + index, false)
     return tree
@@ -2818,7 +2817,7 @@
     res,
     // the following are added in 2.6
     hasDynamicKeys,
-    contentHashKey
+    contentHashKey,
   ) {
     res = res || { $stable: !hasDynamicKeys }
     for (var i = 0; i < fns.length; i++) {
@@ -2924,7 +2923,7 @@
       enumerable: true,
       get: function get() {
         return normalizeScopedSlots(data.scopedSlots, this.slots())
-      }
+      },
     })
 
     // support for compiled functional template
@@ -2986,7 +2985,7 @@
           data,
           renderContext.parent,
           options,
-          renderContext
+          renderContext,
         )
       }
       return res
@@ -3037,7 +3036,7 @@
       } else {
         var child = (vnode.componentInstance = createComponentInstanceForVnode(
           vnode,
-          activeInstance
+          activeInstance,
         ))
         child.$mount(hydrating ? vnode.elm : undefined, hydrating)
       }
@@ -3051,7 +3050,7 @@
         options.propsData, // updated props
         options.listeners, // updated listeners
         vnode, // new parent vnode
-        options.children // new children
+        options.children, // new children
       )
     },
 
@@ -3085,7 +3084,7 @@
           deactivateChildComponent(componentInstance, true /* direct */)
         }
       }
-    }
+    },
   }
 
   var hooksToMerge = Object.keys(componentVNodeHooks)
@@ -3175,7 +3174,7 @@
       undefined,
       context,
       { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children },
-      asyncFactory
+      asyncFactory,
     )
 
     return vnode
@@ -3183,12 +3182,12 @@
 
   function createComponentInstanceForVnode(
     vnode, // we know it's MountedComponentVNode but flow doesn't
-    parent // activeInstance in lifecycle state
+    parent, // activeInstance in lifecycle state
   ) {
     var options = {
       _isComponent: true,
       _parentVnode: vnode,
-      parent: parent
+      parent: parent,
     }
     // check inline-template render functions
     var inlineTemplate = vnode.data.inlineTemplate
@@ -3265,7 +3264,7 @@
           JSON.stringify(data) +
           '\n' +
           'Always create fresh vnode data objects in each render!',
-        context
+        context,
       )
       return createEmptyVNode()
     }
@@ -3282,7 +3281,7 @@
       {
         warn(
           'Avoid using non-primitive value as key, ' + 'use string/number value instead.',
-          context
+          context,
         )
       }
     }
@@ -3309,7 +3308,7 @@
           children,
           undefined,
           undefined,
-          context
+          context,
         )
       } else if (
         (!data || !data.pre) &&
@@ -3407,7 +3406,7 @@
         function () {
           !isUpdatingChildComponent && warn('$attrs is readonly.', vm)
         },
-        true
+        true,
       )
       defineReactive$$1(
         vm,
@@ -3416,7 +3415,7 @@
         function () {
           !isUpdatingChildComponent && warn('$listeners is readonly.', vm)
         },
-        true
+        true,
       )
     }
   }
@@ -3441,7 +3440,7 @@
         vm.$scopedSlots = normalizeScopedSlots(
           _parentVnode.data.scopedSlots,
           vm.$slots,
-          vm.$scopedSlots
+          vm.$scopedSlots,
         )
       }
 
@@ -3484,7 +3483,7 @@
           warn(
             'Multiple root nodes returned from render function. Render function ' +
               'should return a single root node.',
-            vm
+            vm,
           )
         }
         vnode = createEmptyVNode()
@@ -3574,7 +3573,7 @@
         warn(
           'Failed to resolve async component: ' +
             String(factory) +
-            (reason ? '\nReason: ' + reason : '')
+            (reason ? '\nReason: ' + reason : ''),
         )
         if (isDef(factory.errorComp)) {
           factory.error = true
@@ -3773,7 +3772,7 @@
               hyphenate(event) +
               '" instead of "' +
               event +
-              '".'
+              '".',
           )
         }
       }
@@ -3927,7 +3926,7 @@
             'You are using the runtime-only build of Vue where the template ' +
               'compiler is not available. Either pre-compile the templates into ' +
               'render functions, or use the compiler-included build.',
-            vm
+            vm,
           )
         } else {
           warn('Failed to mount component: template or render function not defined.', vm)
@@ -3973,9 +3972,9 @@
           if (vm._isMounted && !vm._isDestroyed) {
             callHook(vm, 'beforeUpdate')
           }
-        }
+        },
       },
-      true /* isRenderWatcher */
+      true /* isRenderWatcher */,
     )
     hydrating = false
 
@@ -4218,7 +4217,7 @@
               (watcher.user
                 ? 'in watcher with expression "' + watcher.expression + '"'
                 : 'in a component render function.'),
-            watcher.vm
+            watcher.vm,
           )
           break
         }
@@ -4351,7 +4350,7 @@
             '" ' +
             'Watcher only accepts simple dot-delimited paths. ' +
             'For full control, use a function instead.',
-          vm
+          vm,
         )
       }
     }
@@ -4510,7 +4509,7 @@
     enumerable: true,
     configurable: true,
     get: noop,
-    set: noop
+    set: noop,
   }
 
   function proxy(target, sourceKey, key) {
@@ -4565,7 +4564,7 @@
         if (isReservedAttribute(hyphenatedKey) || config.isReservedAttr(hyphenatedKey)) {
           warn(
             '"' + hyphenatedKey + '" is a reserved attribute and cannot be used as component prop.',
-            vm
+            vm,
           )
         }
         defineReactive$$1(props, key, value, function () {
@@ -4577,7 +4576,7 @@
                 'value. Prop being mutated: "' +
                 key +
                 '"',
-              vm
+              vm,
             )
           }
         })
@@ -4602,7 +4601,7 @@
       warn(
         'data functions should return an object:\n' +
           'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function',
-        vm
+        vm,
       )
     }
     // proxy data on instance
@@ -4623,7 +4622,7 @@
             key +
             '" is already declared as a prop. ' +
             'Use prop default value instead.',
-          vm
+          vm,
         )
       } else if (!isReserved(key)) {
         proxy(vm, '_data', key)
@@ -4737,7 +4736,7 @@
               typeof methods[key] +
               '" in the component definition. ' +
               'Did you reference the function correctly?',
-            vm
+            vm,
           )
         }
         if (props && hasOwn(props, key)) {
@@ -4748,7 +4747,7 @@
             'Method "' +
               key +
               '" conflicts with an existing Vue instance method. ' +
-              'Avoid defining component methods that start with _ or $.'
+              'Avoid defining component methods that start with _ or $.',
           )
         }
       }
@@ -5155,7 +5154,7 @@
     props: {
       include: patternTypes,
       exclude: patternTypes,
-      max: [String, Number]
+      max: [String, Number],
     },
 
     created: function created() {
@@ -5229,11 +5228,11 @@
         vnode.data.keepAlive = true
       }
       return vnode || (slot && slot[0])
-    }
+    },
   }
 
   var builtInComponents = {
-    KeepAlive: KeepAlive
+    KeepAlive: KeepAlive,
   }
 
   /*  */
@@ -5258,7 +5257,7 @@
       warn: warn,
       extend: extend,
       mergeOptions: mergeOptions,
-      defineReactive: defineReactive$$1
+      defineReactive: defineReactive$$1,
     }
 
     Vue.set = set
@@ -5291,19 +5290,19 @@
   initGlobalAPI(Vue)
 
   Object.defineProperty(Vue.prototype, '$isServer', {
-    get: isServerRendering
+    get: isServerRendering,
   })
 
   Object.defineProperty(Vue.prototype, '$ssrContext', {
     get: function get() {
       /* istanbul ignore next */
       return this.$vnode && this.$vnode.ssrContext
-    }
+    },
   })
 
   // expose FunctionalRenderContext for ssr runtime helper installation
   Object.defineProperty(Vue, 'FunctionalRenderContext', {
-    value: FunctionalRenderContext
+    value: FunctionalRenderContext,
   })
 
   Vue.version = '2.6.10'
@@ -5344,7 +5343,7 @@
       'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' +
       'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' +
       'required,reversed,scoped,seamless,selected,sortable,translate,' +
-      'truespeed,typemustmatch,visible'
+      'truespeed,typemustmatch,visible',
   )
 
   var xlinkNS = 'http://www.w3.org/1999/xlink'
@@ -5384,7 +5383,7 @@
   function mergeClassData(child, parent) {
     return {
       staticClass: concat(child.staticClass, parent.staticClass),
-      class: isDef(child.class) ? [child.class, parent.class] : parent.class
+      class: isDef(child.class) ? [child.class, parent.class] : parent.class,
     }
   }
 
@@ -5445,7 +5444,7 @@
 
   var namespaceMap = {
     svg: 'http://www.w3.org/2000/svg',
-    math: 'http://www.w3.org/1998/Math/MathML'
+    math: 'http://www.w3.org/1998/Math/MathML',
   }
 
   var isHTMLTag = makeMap(
@@ -5459,7 +5458,7 @@
       'button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,' +
       'output,progress,select,textarea,' +
       'details,dialog,menu,menuitem,summary,' +
-      'content,element,shadow,template,blockquote,iframe,tfoot'
+      'content,element,shadow,template,blockquote,iframe,tfoot',
   )
 
   // this map is intentionally selective, only covering SVG elements that may
@@ -5468,7 +5467,7 @@
     'svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' +
       'foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
       'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view',
-    true
+    true,
   )
 
   var isPreTag = function (tag) {
@@ -5604,7 +5603,7 @@
     nextSibling: nextSibling,
     tagName: tagName,
     setTextContent: setTextContent,
-    setStyleScope: setStyleScope
+    setStyleScope: setStyleScope,
   })
 
   /*  */
@@ -5621,7 +5620,7 @@
     },
     destroy: function destroy(vnode) {
       registerRef(vnode, true)
-    }
+    },
   }
 
   function registerRef(vnode, isRemoval) {
@@ -5788,7 +5787,7 @@
                 '> - did you ' +
                 'register the component correctly? For recursive components, ' +
                 'make sure to provide the "name" option.',
-              vnode.context
+              vnode.context,
             )
           }
         }
@@ -6085,7 +6084,7 @@
               oldStartVnode.elm,
               false,
               newCh,
-              newStartIdx
+              newStartIdx,
             )
           } else {
             vnodeToMove = oldCh[idxInOld]
@@ -6102,7 +6101,7 @@
                 oldStartVnode.elm,
                 false,
                 newCh,
-                newStartIdx
+                newStartIdx,
               )
             }
           }
@@ -6126,7 +6125,7 @@
           if (seenKeys[key]) {
             warn(
               "Duplicate keys detected: '" + key + "'. This may cause an update error.",
-              vnode.context
+              vnode.context,
             )
           } else {
             seenKeys[key] = true
@@ -6197,6 +6196,7 @@
       }
       if (isUndef(vnode.text)) {
         if (isDef(oldCh) && isDef(ch)) {
+          // 新旧子节点不一样的时候，再去递归children的内容
           if (oldCh !== ch) {
             updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)
           }
@@ -6385,7 +6385,7 @@
                     'server-rendered content. This is likely caused by incorrect ' +
                     'HTML markup, for example nesting block-level elements inside ' +
                     '<p>, or missing <tbody>. Bailing hydration and performing ' +
-                    'full client-side render.'
+                    'full client-side render.',
                 )
               }
             }
@@ -6406,7 +6406,7 @@
             // leaving transition. Only happens when combining transition +
             // keep-alive + HOCs. (#4590)
             oldElm._leaveCb ? null : parentElm,
-            nodeOps.nextSibling(oldElm)
+            nodeOps.nextSibling(oldElm),
           )
 
           // update parent placeholder node element, recursively
@@ -6460,7 +6460,7 @@
     update: updateDirectives,
     destroy: function unbindDirectives(vnode) {
       updateDirectives(vnode, emptyNode)
-    }
+    },
   }
 
   function updateDirectives(oldVnode, vnode) {
@@ -6669,7 +6669,7 @@
 
   var attrs = {
     create: updateAttrs,
-    update: updateAttrs
+    update: updateAttrs,
   }
 
   /*  */
@@ -6703,7 +6703,7 @@
 
   var klass = {
     create: updateClass,
-    update: updateClass
+    update: updateClass,
   }
 
   /*  */
@@ -6857,7 +6857,7 @@
 
   function addProp(el, name, value, range, dynamic) {
     ;(el.props || (el.props = [])).push(
-      rangeSetItem({ name: name, value: value, dynamic: dynamic }, range)
+      rangeSetItem({ name: name, value: value, dynamic: dynamic }, range),
     )
     el.plain = false
   }
@@ -6883,10 +6883,10 @@
           value: value,
           arg: arg,
           isDynamicArg: isDynamicArg,
-          modifiers: modifiers
+          modifiers: modifiers,
         },
-        range
-      )
+        range,
+      ),
     )
     el.plain = false
   }
@@ -6903,7 +6903,7 @@
       warn(
         "passive and prevent can't be used together. " +
           "Passive handler can't prevent default event.",
-        range
+        range,
       )
     }
 
@@ -7058,7 +7058,7 @@
     el.model = {
       value: '(' + value + ')',
       expression: JSON.stringify(value),
-      callback: 'function (' + baseValueExpression + ') {' + assignment + '}'
+      callback: 'function (' + baseValueExpression + ') {' + assignment + '}',
     }
   }
 
@@ -7102,12 +7102,12 @@
       if (index$1 > -1) {
         return {
           exp: val.slice(0, index$1),
-          key: '"' + val.slice(index$1 + 1) + '"'
+          key: '"' + val.slice(index$1 + 1) + '"',
         }
       } else {
         return {
           exp: val,
-          key: null
+          key: null,
         }
       }
     }
@@ -7127,7 +7127,7 @@
 
     return {
       exp: val.slice(0, expressionPos),
-      key: val.slice(expressionPos + 1, expressionEndPos)
+      key: val.slice(expressionPos + 1, expressionEndPos),
     }
   }
 
@@ -7202,7 +7202,7 @@
             value +
             '" type="file">:\n' +
             'File inputs are read only. Use a v-on:change listener instead.',
-          el.rawAttrsMap['v-model']
+          el.rawAttrsMap['v-model'],
         )
       }
     }
@@ -7233,7 +7233,7 @@
           'v-model is not supported on this element type. ' +
           "If you are working with contenteditable, it's recommended to " +
           'wrap a library dedicated for that purpose inside a custom component.',
-        el.rawAttrsMap['v-model']
+        el.rawAttrsMap['v-model'],
       )
     }
 
@@ -7259,7 +7259,7 @@
         ')>-1' +
         (trueValueBinding === 'true'
           ? ':(' + value + ')'
-          : ':_q(' + value + ',' + trueValueBinding + ')')
+          : ':_q(' + value + ',' + trueValueBinding + ')'),
     )
     addHandler(
       el,
@@ -7288,7 +7288,7 @@
         genAssignmentCode(value, '$$c') +
         '}',
       null,
-      true
+      true,
     )
   }
 
@@ -7332,7 +7332,7 @@
             value$1 +
             '" conflicts with v-model on the same element ' +
             'because the latter already expands to a value binding internally',
-          el.rawAttrsMap[binding]
+          el.rawAttrsMap[binding],
         )
       }
     }
@@ -7438,7 +7438,7 @@
     target$1.addEventListener(
       name,
       handler,
-      supportsPassive ? { capture: capture, passive: passive } : capture
+      supportsPassive ? { capture: capture, passive: passive } : capture,
     )
   }
 
@@ -7460,7 +7460,7 @@
 
   var events = {
     create: updateDOMListeners,
-    update: updateDOMListeners
+    update: updateDOMListeners,
   }
 
   /*  */
@@ -7580,7 +7580,7 @@
 
   var domProps = {
     create: updateDOMProps,
-    update: updateDOMProps
+    update: updateDOMProps,
   }
 
   /*  */
@@ -7737,7 +7737,7 @@
 
   var style = {
     create: updateStyle,
-    update: updateStyle
+    update: updateStyle,
   }
 
   /*  */
@@ -7834,7 +7834,7 @@
       enterActiveClass: name + '-enter-active',
       leaveClass: name + '-leave',
       leaveToClass: name + '-leave-to',
-      leaveActiveClass: name + '-leave-active'
+      leaveActiveClass: name + '-leave-active',
     }
   })
 
@@ -7960,7 +7960,7 @@
       type: type,
       timeout: timeout,
       propCount: propCount,
-      hasTransform: hasTransform
+      hasTransform: hasTransform,
     }
   }
 
@@ -7974,7 +7974,7 @@
       null,
       durations.map(function (d, i) {
         return toMs(d) + toMs(delays[i])
-      })
+      }),
     )
   }
 
@@ -8228,7 +8228,7 @@
           'got ' +
           JSON.stringify(val) +
           '.',
-        vnode.context
+        vnode.context,
       )
     } else if (isNaN(val)) {
       warn(
@@ -8236,7 +8236,7 @@
           name +
           ' duration is NaN - ' +
           'the duration expression might be incorrect.',
-        vnode.context
+        vnode.context,
       )
     }
   }
@@ -8281,7 +8281,7 @@
           } else {
             rm()
           }
-        }
+        },
       }
     : {}
 
@@ -8367,7 +8367,7 @@
           }
         }
       }
-    }
+    },
   }
 
   function setSelected(el, binding, vm) {
@@ -8390,7 +8390,7 @@
           '"> ' +
           'expects an Array value for its binding, but got ' +
           Object.prototype.toString.call(value).slice(8, -1),
-        vm
+        vm,
       )
       return
     }
@@ -8502,12 +8502,12 @@
       if (!isDestroy) {
         el.style.display = el.__vOriginalDisplay
       }
-    }
+    },
   }
 
   var platformDirectives = {
     model: directive,
-    show: show
+    show: show,
   }
 
   /*  */
@@ -8527,7 +8527,7 @@
     appearClass: String,
     appearActiveClass: String,
     appearToClass: String,
-    duration: [Number, String, Object]
+    duration: [Number, String, Object],
   }
 
   // in case the child is also an abstract component, e.g. <keep-alive>
@@ -8560,7 +8560,7 @@
   function placeholder(h, rawChild) {
     if (/\d-keep-alive$/.test(rawChild.tag)) {
       return h('keep-alive', {
-        props: rawChild.componentOptions.propsData
+        props: rawChild.componentOptions.propsData,
       })
     }
   }
@@ -8610,7 +8610,7 @@
         warn(
           '<transition> can only be used on a single element. Use ' +
             '<transition-group> for lists.',
-          this.$parent
+          this.$parent,
         )
       }
 
@@ -8703,7 +8703,7 @@
       }
 
       return rawChild
-    }
+    },
   }
 
   /*  */
@@ -8711,9 +8711,9 @@
   var props = extend(
     {
       tag: String,
-      moveClass: String
+      moveClass: String,
     },
-    transitionProps
+    transitionProps,
   )
 
   delete props.mode
@@ -8732,7 +8732,7 @@
           this$1._vnode,
           this$1.kept,
           false, // hydrating
-          true // removeOnly (!important, avoids unnecessary moves)
+          true, // removeOnly (!important, avoids unnecessary moves)
         )
         this$1._vnode = this$1.kept
         restoreActiveInstance()
@@ -8818,7 +8818,7 @@
                 el._moveCb = null
                 removeTransitionClass(el, moveClass)
               }
-            })
+            }),
           )
         }
       })
@@ -8851,8 +8851,8 @@
         var info = getTransitionInfo(clone)
         this.$el.removeChild(clone)
         return (this._hasMove = info.hasTransform)
-      }
-    }
+      },
+    },
   }
 
   function callPendingCbs(c) {
@@ -8885,7 +8885,7 @@
 
   var platformComponents = {
     Transition: Transition,
-    TransitionGroup: TransitionGroup
+    TransitionGroup: TransitionGroup,
   }
 
   /*  */
@@ -8920,7 +8920,7 @@
         } else {
           console[console.info ? 'info' : 'log'](
             'Download the Vue Devtools extension for a better development experience:\n' +
-              'https://github.com/vuejs/vue-devtools'
+              'https://github.com/vuejs/vue-devtools',
           )
         }
       }
@@ -8928,7 +8928,7 @@
         console[console.info ? 'info' : 'log'](
           'You are running Vue in development mode.\n' +
             'Make sure to turn on production mode when deploying for production.\n' +
-            'See more tips at https://vuejs.org/guide/deployment.html'
+            'See more tips at https://vuejs.org/guide/deployment.html',
         )
       }
     }, 0)
@@ -8973,7 +8973,7 @@
     }
     return {
       expression: tokens.join('+'),
-      tokens: rawTokens
+      tokens: rawTokens,
     }
   }
 
@@ -8992,7 +8992,7 @@
             'Interpolation inside attributes has been removed. ' +
             'Use v-bind or the colon shorthand instead. For example, ' +
             'instead of <div class="{{ val }}">, use <div :class="val">.',
-          el.rawAttrsMap['class']
+          el.rawAttrsMap['class'],
         )
       }
     }
@@ -9019,7 +9019,7 @@
   var klass$1 = {
     staticKeys: ['staticClass'],
     transformNode: transformNode,
-    genData: genData
+    genData: genData,
   }
 
   /*  */
@@ -9039,7 +9039,7 @@
               'Interpolation inside attributes has been removed. ' +
               'Use v-bind or the colon shorthand instead. For example, ' +
               'instead of <div style="{{ val }}">, use <div :style="val">.',
-            el.rawAttrsMap['style']
+            el.rawAttrsMap['style'],
           )
         }
       }
@@ -9066,7 +9066,7 @@
   var style$1 = {
     staticKeys: ['staticStyle'],
     transformNode: transformNode$1,
-    genData: genData$1
+    genData: genData$1,
   }
 
   /*  */
@@ -9078,13 +9078,14 @@
       decoder = decoder || document.createElement('div')
       decoder.innerHTML = html
       return decoder.textContent
-    }
+    },
   }
 
   /*  */
 
   var isUnaryTag = makeMap(
-    'area,base,br,col,embed,frame,hr,img,input,isindex,keygen,' + 'link,meta,param,source,track,wbr'
+    'area,base,br,col,embed,frame,hr,img,input,isindex,keygen,' +
+      'link,meta,param,source,track,wbr',
   )
 
   // Elements that you can, intentionally, leave open
@@ -9098,7 +9099,7 @@
       'details,dialog,div,dl,dt,fieldset,figcaption,figure,footer,form,' +
       'h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,legend,li,menuitem,meta,' +
       'optgroup,option,param,rp,rt,source,style,summary,tbody,td,tfoot,th,thead,' +
-      'title,tr,track'
+      'title,tr,track',
   )
 
   /**
@@ -9107,7 +9108,8 @@
 
   // Regular Expressions for parsing tags and attributes
   var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
-  var dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
+  var dynamicArgAttribute =
+    /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
   var ncname = '[a-zA-Z_][\\-\\.0-9_a-zA-Z' + unicodeRegExp.source + ']*'
   var qnameCapture = '((?:' + ncname + '\\:)?' + ncname + ')'
   var startTagOpen = new RegExp('^<' + qnameCapture)
@@ -9129,7 +9131,7 @@
     '&amp;': '&',
     '&#10;': '\n',
     '&#9;': '\t',
-    '&#39;': "'"
+    '&#39;': "'",
   }
   var encodedAttr = /&(?:lt|gt|quot|amp|#39);/g
   var encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#39|#10|#9);/g
@@ -9273,7 +9275,7 @@
         options.chars && options.chars(html)
         if (!stack.length && options.warn) {
           options.warn('Mal-formatted tag at end of template: "' + html + '"', {
-            start: index + html.length
+            start: index + html.length,
           })
         }
         break
@@ -9294,7 +9296,7 @@
         var match = {
           tagName: start[1],
           attrs: [],
-          start: index
+          start: index,
         }
         advance(start[0].length)
         var end, attr
@@ -9342,7 +9344,7 @@
             : options.shouldDecodeNewlines
         attrs[i] = {
           name: args[1],
-          value: decodeAttr(value, shouldDecodeNewlines)
+          value: decodeAttr(value, shouldDecodeNewlines),
         }
         if (options.outputSourceRange) {
           attrs[i].start = args.start + args[0].match(/^\s*/).length
@@ -9356,7 +9358,7 @@
           lowerCasedTag: tagName.toLowerCase(),
           attrs: attrs,
           start: match.start,
-          end: match.end
+          end: match.end,
         })
         lastTag = tagName
       }
@@ -9394,7 +9396,7 @@
           if (i > pos || (!tagName && options.warn)) {
             options.warn('tag <' + stack[i].tag + '> has no matching end tag.', {
               start: stack[i].start,
-              end: stack[i].end
+              end: stack[i].end,
             })
           }
           if (options.end) {
@@ -9463,7 +9465,7 @@
       attrsMap: makeAttrsMap(attrs),
       rawAttrsMap: {},
       parent: parent,
-      children: []
+      children: [],
     }
   }
 
@@ -9517,14 +9519,14 @@
           }
           addIfCondition(root, {
             exp: element.elseif,
-            block: element
+            block: element,
           })
         } else {
           warnOnce(
             'Component template should contain exactly one root element. ' +
               'If you are using v-if on multiple elements, ' +
               'use v-else-if to chain them instead.',
-            { start: element.start }
+            { start: element.start },
           )
         }
       }
@@ -9586,14 +9588,14 @@
             el.tag +
             '> as component root element because it may ' +
             'contain multiple nodes.',
-          { start: el.start }
+          { start: el.start },
         )
       }
       if (el.attrsMap.hasOwnProperty('v-for')) {
         warnOnce(
           'Cannot use v-for on stateful component root element because ' +
             'it renders multiple elements.',
-          el.rawAttrsMap['v-for']
+          el.rawAttrsMap['v-for'],
         )
       }
     }
@@ -9639,8 +9641,8 @@
                   'spaces, quotes, <, >, / or =.',
                 {
                   start: attr.start + attr.name.indexOf('['),
-                  end: attr.start + attr.name.length
-                }
+                  end: attr.start + attr.name.length,
+                },
               )
             }
           })
@@ -9655,7 +9657,7 @@
               tag +
               '>' +
               ', as they will not be parsed.',
-            { start: element.start }
+            { start: element.start },
           )
         }
 
@@ -9713,11 +9715,11 @@
           {
             if (text === template) {
               warnOnce('Component template requires a root element, rather than just text.', {
-                start: start
+                start: start,
               })
             } else if ((text = text.trim())) {
               warnOnce('text "' + text + '" outside root element will be ignored.', {
-                start: start
+                start: start,
               })
             }
           }
@@ -9761,7 +9763,7 @@
               type: 2,
               expression: res.expression,
               tokens: res.tokens,
-              text: text
+              text: text,
             }
           } else if (
             text !== ' ' ||
@@ -9770,7 +9772,7 @@
           ) {
             child = {
               type: 3,
-              text: text
+              text: text,
             }
           }
           if (child) {
@@ -9789,7 +9791,7 @@
           var child = {
             type: 3,
             text: text,
-            isComment: true
+            isComment: true,
           }
           if (options.outputSourceRange) {
             child.start = start
@@ -9797,7 +9799,7 @@
           }
           currentParent.children.push(child)
         }
-      }
+      },
     })
     return root
   }
@@ -9816,7 +9818,7 @@
       for (var i = 0; i < len; i++) {
         attrs[i] = {
           name: list[i].name,
-          value: JSON.stringify(list[i].value)
+          value: JSON.stringify(list[i].value),
         }
         if (list[i].start != null) {
           attrs[i].start = list[i].start
@@ -9854,7 +9856,7 @@
         if (el.tag === 'template') {
           warn$2(
             '<template> cannot be keyed. Place the key on real elements instead.',
-            getRawBindingAttr(el, 'key')
+            getRawBindingAttr(el, 'key'),
           )
         }
         if (el.for) {
@@ -9865,7 +9867,7 @@
               'Do not use v-for index as key on <transition-group> children, ' +
                 'this is the same as not using keys.',
               getRawBindingAttr(el, 'key'),
-              true /* tip */
+              true /* tip */,
             )
           }
         }
@@ -9921,7 +9923,7 @@
       el.if = exp
       addIfCondition(el, {
         exp: exp,
-        block: el
+        block: el,
       })
     } else {
       if (getAndRemoveAttr(el, 'v-else') != null) {
@@ -9939,7 +9941,7 @@
     if (prev && prev.if) {
       addIfCondition(prev, {
         exp: el.elseif,
-        block: el
+        block: el,
       })
     } else {
       warn$2(
@@ -9949,7 +9951,7 @@
           'used on element <' +
           el.tag +
           '> without corresponding v-if.',
-        el.rawAttrsMap[el.elseif ? 'v-else-if' : 'v-else']
+        el.rawAttrsMap[el.elseif ? 'v-else-if' : 'v-else'],
       )
     }
   }
@@ -9966,7 +9968,7 @@
               children[i].text.trim() +
               '" between v-if and v-else(-if) ' +
               'will be ignored.',
-            children[i]
+            children[i],
           )
         }
         children.pop()
@@ -10002,7 +10004,7 @@
             'can also be used on plain elements in addition to <template> to ' +
             'denote scoped slots.',
           el.rawAttrsMap['scope'],
-          true
+          true,
         )
       }
       el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope')
@@ -10016,7 +10018,7 @@
             '(v-for takes higher priority). Use a wrapper <template> for the ' +
             'scoped slot to make it clearer.',
           el.rawAttrsMap['slot-scope'],
-          true
+          true,
         )
       }
       el.slotScope = slotScope
@@ -10048,7 +10050,7 @@
               warn$2(
                 '<template v-slot> can only appear at the root level inside ' +
                   'the receiving the component',
-                el
+                el,
               )
             }
           }
@@ -10074,7 +10076,7 @@
               warn$2(
                 'To avoid scope ambiguity, the default slot should also use ' +
                   '<template> syntax when there are other named slots.',
-                slotBinding$1
+                slotBinding$1,
               )
             }
           }
@@ -10127,7 +10129,7 @@
           '`key` does not work on <slot> because slots are abstract outlets ' +
             'and can possibly expand into multiple elements. ' +
             'Use the key on a wrapping element instead.',
-          getRawBindingAttr(el, 'key')
+          getRawBindingAttr(el, 'key'),
         )
       }
     }
@@ -10168,7 +10170,7 @@
           }
           if (value.trim().length === 0) {
             warn$2(
-              'The value for a v-bind expression cannot be empty. Found in "v-bind:' + name + '"'
+              'The value for a v-bind expression cannot be empty. Found in "v-bind:' + name + '"',
             )
           }
           if (modifiers) {
@@ -10198,7 +10200,7 @@
                   false,
                   warn$2,
                   list[i],
-                  true // dynamic
+                  true, // dynamic
                 )
               }
             }
@@ -10251,7 +10253,7 @@
                 'Interpolation inside attributes has been removed. ' +
                 'Use v-bind or the colon shorthand instead. For example, ' +
                 'instead of <div id="{{ val }}">, use <div :id="val">.',
-              list[i]
+              list[i],
             )
           }
         }
@@ -10344,7 +10346,7 @@
             'This will not be able to modify the v-for source array because ' +
             'writing to the alias is like modifying a function local variable. ' +
             'Consider using an array of objects and use v-model on an object property instead.',
-          el.rawAttrsMap['v-model']
+          el.rawAttrsMap['v-model'],
         )
       }
       _el = _el.parent
@@ -10383,7 +10385,7 @@
         branch0.if = '(' + typeBinding + ")==='checkbox'" + ifConditionExtra
         addIfCondition(branch0, {
           exp: branch0.if,
-          block: branch0
+          block: branch0,
         })
         // 2. add radio else-if condition
         var branch1 = cloneASTElement(el)
@@ -10392,7 +10394,7 @@
         processElement(branch1, options)
         addIfCondition(branch0, {
           exp: '(' + typeBinding + ")==='radio'" + ifConditionExtra,
-          block: branch1
+          block: branch1,
         })
         // 3. other
         var branch2 = cloneASTElement(el)
@@ -10401,7 +10403,7 @@
         processElement(branch2, options)
         addIfCondition(branch0, {
           exp: ifCondition,
-          block: branch2
+          block: branch2,
         })
 
         if (hasElse) {
@@ -10420,7 +10422,7 @@
   }
 
   var model$1 = {
-    preTransformNode: preTransformNode
+    preTransformNode: preTransformNode,
   }
 
   var modules$1 = [klass$1, style$1, model$1]
@@ -10444,7 +10446,7 @@
   var directives$1 = {
     model: model,
     text: text,
-    html: html
+    html: html,
   }
 
   /*  */
@@ -10459,7 +10461,7 @@
     canBeLeftOpenTag: canBeLeftOpenTag,
     isReservedTag: isReservedTag,
     getTagNamespace: getTagNamespace,
-    staticKeys: genStaticKeys(modules$1)
+    staticKeys: genStaticKeys(modules$1),
   }
 
   /*  */
@@ -10495,7 +10497,7 @@
   function genStaticKeys$1(keys) {
     return makeMap(
       'type,tag,attrsList,attrsMap,plain,parent,children,attrs,start,end,rawAttrsMap' +
-        (keys ? ',' + keys : '')
+        (keys ? ',' + keys : ''),
     )
   }
 
@@ -10600,7 +10602,8 @@
 
   var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*(?:[\w$]+)?\s*\(/
   var fnInvokeRE = /\([^)]*?\);*$/
-  var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/
+  var simplePathRE =
+    /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/
 
   // KeyboardEvent.keyCode aliases
   var keyCodes = {
@@ -10612,7 +10615,7 @@
     left: 37,
     right: 39,
     down: 40,
-    delete: [8, 46]
+    delete: [8, 46],
   }
 
   // KeyboardEvent.key aliases
@@ -10629,7 +10632,7 @@
     right: ['Right', 'ArrowRight'],
     down: ['Down', 'ArrowDown'],
     // #9112: IE11 uses `Del` for Delete key name.
-    delete: ['Backspace', 'Delete', 'Del']
+    delete: ['Backspace', 'Delete', 'Del'],
   }
 
   // #4868: modifiers that prevent the execution of the listener
@@ -10649,7 +10652,7 @@
     meta: genGuard('!$event.metaKey'),
     left: genGuard("'button' in $event && $event.button !== 0"),
     middle: genGuard("'button' in $event && $event.button !== 1"),
-    right: genGuard("'button' in $event && $event.button !== 2")
+    right: genGuard("'button' in $event && $event.button !== 2"),
   }
 
   function genHandlers(events, isNative) {
@@ -10723,7 +10726,7 @@
               .map(function (keyModifier) {
                 return '$event.' + keyModifier + 'Key'
               })
-              .join('||')
+              .join('||'),
           )
         } else {
           keys.push(key)
@@ -10811,7 +10814,7 @@
   var baseDirectives = {
     on: on,
     bind: bind$1,
-    cloak: noop
+    cloak: noop,
   }
 
   /*  */
@@ -10836,7 +10839,7 @@
     var code = ast ? genElement(ast, state) : '_c("div")'
     return {
       render: 'with(this){return ' + code + '}',
-      staticRenderFns: state.staticRenderFns
+      staticRenderFns: state.staticRenderFns,
     }
   }
 
@@ -10968,7 +10971,7 @@
           'v-for should have explicit keys. ' +
           'See https://vuejs.org/guide/list.html#key for more info.',
         el.rawAttrsMap['v-for'],
-        true /* tip */
+        true /* tip */,
       )
     }
 
@@ -11122,7 +11125,7 @@
     var ast = el.children[0]
     if (el.children.length !== 1 || ast.type !== 1) {
       state.warn('Inline-template components must have exactly one child element.', {
-        start: el.start
+        start: el.start,
       })
     }
     if (ast && ast.type === 1) {
@@ -11338,9 +11341,9 @@
                 // slot props are camelized
                 name: camelize(attr.name),
                 value: attr.value,
-                dynamic: attr.dynamic
+                dynamic: attr.dynamic,
               }
-            })
+            }),
           )
         : null
     var bind$$1 = el.attrsMap['v-bind']
@@ -11402,16 +11405,17 @@
       )
         .split(',')
         .join('\\b|\\b') +
-      '\\b'
+      '\\b',
   )
 
   // these unary operators should not be used as property/method names
   var unaryOperatorsRE = new RegExp(
-    '\\b' + 'delete,typeof,void'.split(',').join('\\s*\\([^\\)]*\\)|\\b') + '\\s*\\([^\\)]*\\)'
+    '\\b' + 'delete,typeof,void'.split(',').join('\\s*\\([^\\)]*\\)|\\b') + '\\s*\\([^\\)]*\\)',
   )
 
   // strip strings in expressions
-  var stripStringRE = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g
+  var stripStringRE =
+    /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g
 
   // detect problematic expressions in a template
   function detectErrors(ast, warn) {
@@ -11457,7 +11461,7 @@
           keywordMatch[0] +
           '" in expression ' +
           text.trim(),
-        range
+        range,
       )
     }
     checkExpression(exp, text, warn, range)
@@ -11492,7 +11496,7 @@
             keywordMatch[0] +
             '"\n  Raw expression: ' +
             text.trim(),
-          range
+          range,
         )
       } else {
         warn(
@@ -11505,7 +11509,7 @@
             '  Raw expression: ' +
             text.trim() +
             '\n',
-          range
+          range,
         )
       }
     }
@@ -11599,7 +11603,7 @@
                 'environment with Content Security Policy that prohibits unsafe-eval. ' +
                 'The template compiler cannot work in this environment. Consider ' +
                 'relaxing the policy to allow unsafe-eval or pre-compiling your ' +
-                'templates into render functions.'
+                'templates into render functions.',
             )
           }
         }
@@ -11624,7 +11628,7 @@
                   e.msg +
                   '\n\n' +
                   generateCodeFrame(template, e.start, e.end),
-                vm
+                vm,
               )
             })
           } else {
@@ -11638,7 +11642,7 @@
                   })
                   .join('\n') +
                 '\n',
-              vm
+              vm,
             )
           }
         }
@@ -11679,7 +11683,7 @@
                   return err.toString() + ' in\n\n' + code + '\n'
                 })
                 .join('\n'),
-            vm
+            vm,
           )
         }
       }
@@ -11727,7 +11731,7 @@
           if (options.directives) {
             finalOptions.directives = extend(
               Object.create(baseOptions.directives || null),
-              options.directives
+              options.directives,
             )
           }
           // copy other options
@@ -11751,7 +11755,7 @@
 
       return {
         compile: compile,
-        compileToFunctions: createCompileToFunctionFn(compile)
+        compileToFunctions: createCompileToFunctionFn(compile),
       }
     }
   }
@@ -11770,7 +11774,7 @@
     return {
       ast: ast,
       render: code.render,
-      staticRenderFns: code.staticRenderFns
+      staticRenderFns: code.staticRenderFns,
     }
   })
 
@@ -11849,9 +11853,9 @@
             shouldDecodeNewlines: shouldDecodeNewlines,
             shouldDecodeNewlinesForHref: shouldDecodeNewlinesForHref,
             delimiters: options.delimiters,
-            comments: options.comments
+            comments: options.comments,
           },
-          this
+          this,
         )
         var render = ref.render
         var staticRenderFns = ref.staticRenderFns
