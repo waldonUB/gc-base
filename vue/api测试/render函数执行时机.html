@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>render函数执行时机</title>
+  <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script> -->
+  <script src="../源码/vue2.6.js"></script>
+</head>
+<body>
+<div id="app">
+  <button @click="changeData">改变值</button>
+  <temp1 :props1="props1"></temp1>
+</div>
+<script>
+const temp1 = {
+  render(h) {
+    // 测试到，只要render函数中存在响应式数据，就会重新执行
+    console.log('执行render函数');
+    return h('div', this.props1)
+  },
+  props: {
+    props1: {
+      type: Number | String,
+      default: ""
+    }
+  },
+  data() {
+    return {
+      propsCur: this.props1
+    }
+  },
+  watch: {
+    propsCur(newVal) {
+      console.log(`propsCur`, newVal);
+    }
+  },
+  methods: {
+    resetData() {
+      const {propsCur} = this.$options.data.call(this)
+      this.propsCur = propsCur
+    },
+    changeData() {
+      console.log(`changeData`, this.propsCur);
+      this.propsCur = "改变值"
+    }
+  },
+}
+new Vue({
+  components: {temp1},
+  data: {
+    props1: ''
+  },
+  methods: {
+    changeData() {
+      this.props1 = Math.random()
+    }
+  }
+}).$mount("#app")
+</script>
+</body>
+</html>
