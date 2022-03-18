@@ -1,14 +1,16 @@
-var promise = new Promise(function (resolve, reject) {
-  if (1) {
-    resolve(1)
-    console.log(`我是resolve后的`)
-  } else {
-    reject(0)
-  }
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject(100)
+  }, 100)
 })
 
-setTimeout(() => {
-  promise.then((res) => {
-    console.log(`then`, res)
+promise
+  .then(
+    () => {},
+    (err) => {
+      console.log('err', err)
+    },
+  )
+  .catch((err) => {
+    console.log('catch err', err)
   })
-}, 500)

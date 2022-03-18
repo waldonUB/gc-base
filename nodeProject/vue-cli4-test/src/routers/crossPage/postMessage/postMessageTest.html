@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>postMessageTest</title>
+</head>
+<body>
+  子窗口
+  <button onclick="send()">发送</button>
+  <script>
+      function send() {
+      const parentWindow = window.parent
+      console.log('parentWindow', parentWindow)
+
+      // 如果弹出框没有被阻止且加载完成
+
+      // 这行语句没有发送信息出去，即使假设当前页面没有改变location（因为targetOrigin设置不对）
+      parentWindow.postMessage("The user is 'bob' and the password is 'secret'", '/')
+
+      // 假设当前页面没有改变location，这条语句会成功添加message到发送队列中去（targetOrigin设置对了）
+      parentWindow.postMessage('hello there!', 'http://localhost:8080/')
+      }
+  </script>
+
+</body>
+</html>

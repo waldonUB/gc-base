@@ -6,6 +6,7 @@ const spdy = require('spdy')
 
 const indexRouter = require('./router/index')
 const testRouter = require('./router/test/index')
+const fileUploadRouter = require('./router/home/fileUpload/index')
 const privateKey = fs.readFileSync('./crt_resource/private.pem', 'utf8')
 const certificate = fs.readFileSync('./crt_resource/file.crt', 'utf8')
 
@@ -28,6 +29,7 @@ app.use(function (req, res, next) {
 })
 app.use((req, res, next) => {
   // res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500')
+  // res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080')
   // res.setHeader('Access-Control-Allow-Credentials', true) //允许后端发送cookie
   res.setHeader(
     'Access-Control-Allow-Headers',
@@ -40,6 +42,7 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter)
 app.use('/test', testRouter)
+app.use('/upload', fileUploadRouter)
 
 app.listen(port, () => {
   console.log(`server running...`)
