@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root {
+      --color: #000000;
+    }
+
+    .bgc {
+      width: 100px;
+      height: 100px;
+      background-color: var(--dom-color, red);
+    }
+  </style>
+</head>
+<body>
+  <div id="domColor">
+    <div class="bgc"></div>
+  </div>
+
+  <input type="text" name="" id="" onchange="changeColor(e)">
+  <script>
+    const root = document.documentElement
+    console.log('root', root);
+
+    function changeColor(e) {
+      console.log('e', e);
+    }
+  </script>
+
+  <script>
+    const domColor = document.getElementById("domColor")
+    domColor.style.setProperty('--dom-color', 'blue')
+  </script>
+</body>
+</html>
