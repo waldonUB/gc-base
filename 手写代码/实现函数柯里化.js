@@ -9,6 +9,7 @@
 const myCurry = function (fn, ...args) {
   return function (...params) {
     args = [...args, ...params]
+    console.log('fn length: ', fn.length)
     if (args.length < fn.length) {
       return myCurry(fn, ...args)
     } else {
@@ -16,3 +17,12 @@ const myCurry = function (fn, ...args) {
     }
   }
 }
+
+const add = function (a, b, c, d) {
+  return a + b
+}
+
+const add5 = myCurry(add, 5, 4)
+
+console.log(add5(6))
+console.log(add5(7))
