@@ -1,9 +1,10 @@
 let count = 3
-function incCount() {
+export function incCount() {
+  console.log('esm this', this)
   count++
 }
 
 export default {
-  count: count,
-  incCount: incCount
+  count,
+  incCount,
 }
