@@ -8,13 +8,12 @@ import('./module_c3.js')
 import('./module_c4.js')
 
 import styles from '../../../res/css/module_home.css'
-
-console.log(foo('测试foo'))
 ;(function () {
+  console.log(foo('测试foo'))
   setTimeout(() => {
     const divElement = document.createElement('div')
     divElement.className = 'base2'
-    divElement.innerText = 123
+    divElement.innerText = '1236测试22'
     document.body.appendChild(divElement)
     console.log(111122)
   }, 3000)

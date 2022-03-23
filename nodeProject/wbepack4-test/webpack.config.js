@@ -160,7 +160,7 @@ const developmentConfig = {
     //     auto_common: _moduleList,
     //   },
     // }),
-    new HardSourceWebpackPlugin(),
+    // new HardSourceWebpackPlugin(),
   ],
   devtool: 'cheap-module-source-map',
 }
