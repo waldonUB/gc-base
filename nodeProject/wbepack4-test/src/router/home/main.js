@@ -34,7 +34,7 @@
           staffName: '',
           isWorker: true,
           id: 0, // 拿部门下的员工
-          isForGetAssistantList: true // 是否为了获取可选择的协助人列表
+          isForGetAssistantList: true, // 是否为了获取可选择的协助人列表
         },
         isShowPlaceholder: true, // 是否显示搜索框的字
         selectImgList: [], // 选择的员工头像
@@ -45,7 +45,7 @@
         isUpdateAll: false,
         selectType: 'getReceiver',
         allIdList: [], //搜索结果中所有员工sid的集合
-        isInSearch: false
+        isInSearch: false,
       }
     },
     watch: {
@@ -70,12 +70,12 @@
             console.log(this.allcheck)
           })
         }, 300)
-      }
+      },
     },
     created() {
       if (this.$route.query.id == '1') {
         this.$router.replace({
-          name: 'setAssist'
+          name: 'setAssist',
         })
         return
       }
@@ -167,7 +167,7 @@
       getDepartmentInfo(depIdList) {
         return new Promise((resolve) => {
           Mt_Util.post('/rest/manage/wxwork/getWxWorkDepInfo', {
-            depIdList: depIdList.toString()
+            depIdList: depIdList.toString(),
           }).then((res) => {
             if (res.data.success && res.data.data) {
               resolve(res.data.data)
@@ -181,8 +181,8 @@
         this.$router.push({
           name: 'editCustom',
           query: {
-            externalUserId: timeInfo.state.externalUserId
-          }
+            externalUserId: timeInfo.state.externalUserId,
+          },
         })
       },
       checkIsAll() {
@@ -224,9 +224,9 @@
               depIdList: '',
               permissions: 0,
               isWorker: true,
-              isForGetAssistantList: true
+              isForGetAssistantList: true,
             },
-            this.checkOption
+            this.checkOption,
           )
           Mt_Util.post('/rest/manage/wxwork/getWxWorkDepartmentList', data).then((res) => {
             if (res.data.success && res.data.data) {
@@ -256,17 +256,17 @@
             resolve()
           })
         })
-      }
+      },
     },
     components: {
       mtButtonWrapper,
       mtButton,
       mtSelectWorker,
-      mtSearchBox
+      mtSearchBox,
     },
     computed: {},
     beforeDestroy() {
       timeInfo.state.fromAdd = true
-    }
+    },
   })
 })()

@@ -1,6 +1,6 @@
 <template>
   <div class="single-upload">
-    <p>单文件上传</p>
+    <p>单文件上传2</p>
     <input type="file" @change="changeFile" />
     <button @click="uploadFile">开始上传</button>
   </div>

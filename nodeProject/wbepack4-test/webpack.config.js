@@ -21,6 +21,9 @@ const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 // 缓存
 const AutoDllPlugin = require('autodll-webpack-plugin')
 
+// 自定义Plugin
+const MyCopyPlugin = require('./src/plugins/CopyPlugin')
+
 const srcDir = path.resolve(__dirname, 'src/router/home/splitChunk_test')
 const readDir = fs.readdirSync(srcDir)
 let entry = {}
@@ -137,6 +140,10 @@ const developmentConfig = {
         use: ['thread-loader', 'babel-loader'],
         exclude: [/node_modules/],
       },
+      {
+        test: /\.js$/i,
+        use: ['./src/loaders/translateText_loader.js'],
+      },
     ],
   },
   plugins: [
@@ -161,6 +168,7 @@ const developmentConfig = {
     //   },
     // }),
     // new HardSourceWebpackPlugin(),
+    new MyCopyPlugin(),
   ],
   devtool: 'cheap-module-source-map',
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="multipart-upload">
-    <p>多文件上传</p>
+    <p>多文件上传1</p>
     <input type="file" @change="changeFile" multiple />
     <button @click="uploadFile">开始上传</button>
     <button @click="testGet">测试get请求</button>
