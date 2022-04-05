@@ -1,21 +1,9 @@
-const fn = function () {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log(111)
-      resolve()
-    }, 2000)
-  })
+const fn = function* () {
+  const a = yield
+  console.log(a)
 }
 
-const callbacks = []
-callbacks.push(fn)
-callbacks.push(fn)
-callbacks.push(fn)
-callbacks.push(fn)
+const fnInstance = fn()
 
-async function show() {
-  for (const fn of callbacks) {
-    await fn()
-  }
-}
-show()
+console.log(fnInstance.next())
+console.log(fnInstance.next())

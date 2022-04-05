@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试计算属性缓存</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{ msgCal }}
+    <button @click="changeVal">changeVal</button>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          msg: ''
+        }
+      },
+      computed: {
+        // todo waldon 计算属性function的形式
+        msgCal: {
+          get() {
+            return function() {
+          //   data => {
+          //   let i = 0
+          //   while(i > 100000000) {
+          //     i++
+          //   }
+          //   return this.msg + i
+          // }
+          }
+          }
+        }
+      },
+      methods: {
+        changeVal() {
+          this.msg = Math.random()
+        }
+      },
+    })
+  </script>
+</body>
+</html>
