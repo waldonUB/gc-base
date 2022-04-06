@@ -7,3 +7,20 @@
 // > 问：原来那堆牌的顺序，用函数实现。
 
 // 解析：[第 126 题](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/245)
+
+// 和题意不一致，暂时不理
+function pick(arr) {
+  const res = []
+  let i = 1
+  while (arr.length) {
+    if (i % 2) {
+      res.push(arr.pop())
+    } else {
+      res.push(arr.shift())
+    }
+    i++
+  }
+  return res
+}
+
+console.log(pick([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]))

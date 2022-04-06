@@ -16,4 +16,3 @@ Foo.a()
 let obj = new Foo()
 obj.a()
 Foo.a()
-// todo waldon
