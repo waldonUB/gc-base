@@ -2,7 +2,6 @@ const data = {
   memberList_web: [
     { name: '陈烁峰', mobile: '13602890526', work: 'web' },
     { name: '廖敏铃', mobile: '13533292441', work: 'web' },
-    { name: '郭依洁', mobile: '13660366211', work: 'web' },
     { name: '吴德钦', mobile: '13724065743', work: 'web' },
   ],
   memberList_backend: [

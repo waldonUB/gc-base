@@ -22,3 +22,16 @@
 // 公司：头条
 
 // 解析：[第 101 题](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/158)
+// 暂时还不理解
+function print(n) {
+  setTimeout(
+    (() => {
+      console.log(n)
+      return () => {}
+    }).call(n, []),
+    Math.floor(Math.random() * 1000),
+  )
+}
+for (var i = 0; i < 100; i++) {
+  print(i)
+}
