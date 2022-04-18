@@ -18,6 +18,7 @@ export default {
   },
   methods: {
     changeFile(e) {
+      throw new Error('change file error')
       this.file = e.target.files[0]
     },
     async uploadFile() {
