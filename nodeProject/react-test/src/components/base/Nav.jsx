@@ -16,22 +16,22 @@ function Nav() {
     {
       key: '1',
       icon: <PieChartOutlined />,
-      title: 'Option 1',
+      title: '对话框',
     },
     {
       key: '2',
       icon: <DesktopOutlined />,
-      title: 'Option 2',
+      title: '文件上传',
     },
     {
       key: '3',
       icon: <ContainerOutlined />,
-      title: 'Option 3',
+      title: '树形控件',
     },
     {
       key: 'sub1',
       icon: <MailOutlined />,
-      title: 'Navigation One',
+      title: 'API测试',
       children: [
         {
           key: '5',
@@ -82,35 +82,41 @@ function Nav() {
       ],
     },
   ]
+
+  const dfsDom = function(rowData) {
+    const { children } = rowData
+    const elements = []
+    for(const item of children) {
+      if (item.children && item.children.length) {
+        elements.push(dfsDom(item))
+      } else {
+        elements.push(
+          <Menu.Item key={item.key}>{item.title}</Menu.Item>
+        )
+      }
+    }
+    return (
+      <SubMenu key={rowData.key} icon={rowData.icon} title={rowData.title}>
+        { elements }
+      </SubMenu>
+    )
+  }
+  // todo waldon findDOMNode is deprecated in StrictMode
+
   return (
     <div style={{ width: 256 }}>
-      <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline" theme="dark">
-        {routeConfig.map((item) => (
-          <Menu.Item key="{item.key}" icon={item.icon}>
-            {item.title}
-          </Menu.Item>
-        ))}
-
-        {/* <Menu.Item key="2" icon={<DesktopOutlined />}>
-          Option 2
-        </Menu.Item>
-        <Menu.Item key="3" icon={<ContainerOutlined />}>
-          Option 3
-        </Menu.Item>
-        <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-          <Menu.Item key="5">Option 5</Menu.Item>
-          <Menu.Item key="6">Option 6</Menu.Item>
-          <Menu.Item key="7">Option 7</Menu.Item>
-          <Menu.Item key="8">Option 8</Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-          <Menu.Item key="9">Option 9</Menu.Item>
-          <Menu.Item key="10">Option 10</Menu.Item>
-          <SubMenu key="sub3" title="Submenu">
-            <Menu.Item key="11">Option 11</Menu.Item>
-            <Menu.Item key="12">Option 12</Menu.Item>
-          </SubMenu>
-        </SubMenu> */}
+      <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1', 'sub2']} mode="inline" theme="dark">
+        {routeConfig.map((item) => {
+          if (item.children && item.children.length) {
+            return dfsDom(item)
+          } else {
+            return (
+              <Menu.Item key={item.key} icon={item.icon}>
+                {item.title}
+              </Menu.Item>
+            )
+          }
+        })}
       </Menu>
     </div>
   )
