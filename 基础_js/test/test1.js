@@ -1,11 +1,47 @@
-let i = 0
-let arr = new Array(100).fill(i++)
+let _AI = function () {
+  this.callback = []
+  this.next = function () {
+    const fn = this.callback.shift()
+    fn && fn()
+  }
+}
 
-let newArr1 = []
+const AI = new _AI()
 
-console.time()
-// for (const item of arr) {
-//   newArr1.push(item)
-// }
-let newArr2 = arr.slice(0)
-console.timeEnd()
+AI.talk = function (str) {
+  if (!this.callbacks) {
+    this.callbacks = []
+  }
+  this.callbacks.push({
+    next: () => {
+      console.log(str)
+    },
+  })
+  setTimeout(() => {
+    const { next } = this.callbacks.shift()
+    next()
+  })
+  return this
+}
+
+_AI.prototype.cancel = function () {
+  this.callbacks.pop()
+}
+
+_AI.prototype.sleep = function (delay) {
+  if (!this.callbacks) {
+    this.callbacks = []
+  }
+  this.callbacks.push({
+    next: () => {
+      console.log(str)
+    },
+  })
+  setTimeout(() => {
+    const { next } = this.callbacks.shift()
+    next()
+  })
+  return this
+}
+
+AI.sleep(3000).cancel().talk('ss').sleep(2000).talk('111')
