@@ -1,23 +1,25 @@
 // 实现AI.talk('sss').sleep(3000).talk('aaa').sleep(1000).cancel().talk('555')
 
-// todo waldon sleep有点bug
 const _AI = function () {
   this.callbacks = []
   this.next = function () {
     const fn = this.callbacks.shift()
     fn && fn()
   }
+  setTimeout(() => {
+    this.next()
+  })
 }
 
 _AI.prototype.talk = function (str) {
   const _this = this
   const fn = function () {
     console.log(str)
+    setTimeout(() => {
+      _this.next()
+    })
   }
   this.callbacks.push(fn)
-  setTimeout(() => {
-    _this.next()
-  })
   return this
 }
 

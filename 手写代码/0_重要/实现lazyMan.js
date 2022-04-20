@@ -1,29 +1,25 @@
-let _AI = function () {
-  this.callback = []
+// 实现AI.talk('sss').sleep(3000).talk('aaa').sleep(1000).cancel().talk('555')
+
+const _AI = function () {
+  this.callbacks = []
   this.next = function () {
-    const fn = this.callback.shift()
+    const fn = this.callbacks.shift()
     fn && fn()
   }
-}
-
-const AI = new _AI()
-
-AI.talk = function (str) {
-  const fn = function () {
-    console.log(str)
-  }
-
-  this.callback.push(fn)
   setTimeout(() => {
     this.next()
-  }, 0)
-  return this
+  })
 }
 
-_AI.prototype.cancel = function () {
-  if (this.callback.length) {
-    this.callback.shift()
+_AI.prototype.talk = function (str) {
+  const _this = this
+  const fn = function () {
+    console.log(str)
+    setTimeout(() => {
+      _this.next()
+    })
   }
+  this.callbacks.push(fn)
   return this
 }
 
@@ -34,9 +30,19 @@ _AI.prototype.sleep = function (delay) {
       _this.next()
     }, delay)
   }
-  this.callback.push(fn)
-
+  this.callbacks.push(fn)
   return this
 }
 
-AI.sleep(3000).cancel().talk('ss').sleep(2000).talk('111')
+_AI.prototype.cancel = function () {
+  if (this.callbacks.length) {
+    this.callbacks.pop()
+  }
+  return this
+}
+
+const AI = new _AI()
+
+// AI.talk('sss').sleep(3000).talk('aaa').sleep(1000).cancel().talk('555')
+AI.talk('sss').sleep(3000).talk('aaa').sleep(1000).talk('555')
+// AI.talk('sss').sleep(3000).talk('aaa')
