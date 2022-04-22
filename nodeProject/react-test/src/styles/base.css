@@ -16,3 +16,7 @@
   justify-content: space-between;
 }
 /* top end */
+
+.flex-wrapper {
+  display: flex;
+}
