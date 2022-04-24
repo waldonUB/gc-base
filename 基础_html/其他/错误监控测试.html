@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // window.onerror = function(e, a, b) {
+    //   console.log('error: ', e);
+    //   console.log('a: ', a);
+    //   console.log('b: ', b);
+    // }
+
+    window.addEventListener('error', function(e, a, b) {
+      // 过滤js error
+      let target = event.target || event.srcElement;
+      let isElementTarget = target instanceof HTMLScriptElement || target instanceof HTMLLinkElement || target instanceof HTMLImageElement;
+      if (!isElementTarget) return false;
+      // 上报资源地址
+      let url = target.src || target.href;
+      console.log(url);
+      console.log('target :', target);
+    } ,true)
+
+    window.addEventListener('unhandledrejection', function(e, a, b) {
+      console.log('addEventListener error: ', e);
+      console.log('addEventListener a: ', a);
+      console.log('addEventListener b: ', b);
+    })
+    // console.log(a);
+    // throw new Error('11')
+
+    // Promise.resolve().then(() => {
+    //   console.log(aaa);
+    // })
+
+  </script>
+  <script src="https://st.faisys.com/ver2/js/chunk-vendor.5f30b7de000.js"></script>
+</body>
+</html>

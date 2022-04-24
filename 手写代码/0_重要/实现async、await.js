@@ -1,3 +1,5 @@
+// https://mp.weixin.qq.com/s/FfDe9mpEvJF17lW8eqMLLQ 不错的实现，有co的核心原理
+
 /**
  * 基于前面的测试用例实现一个简单版的
  * 本质上是generator + promise
