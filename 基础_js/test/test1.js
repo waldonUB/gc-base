@@ -7,3 +7,4 @@ const obj = {
   },
 }
 obj.b()
+//
