@@ -10,3 +10,4 @@
 // 解析：[第 84 题](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/134)
 
 // todo waldon 这里重写toString函数做啥？
+// console.log默认输出toString的
