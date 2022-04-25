@@ -11,4 +11,20 @@ const quickSort = function (arr) {
 
 const arr = [5, 5, 5, 5, 518, 9, 5, 6, 7, 5, 5, 5, 5]
 
-console.log(quickSort(arr))
+/**
+ * 复习一下
+ * @author waldon
+ * @date 2022-04-25
+ * @param {*} arr - param
+ */
+function quickSort2(arr) {
+  if (!arr.length) {
+    return arr
+  }
+  const cur = arr.shift()
+  const leftArr = arr.filter((item) => item <= cur)
+  const rightArr = arr.filter((item) => item > cur)
+  return [...quickSort2(leftArr), cur, ...quickSort2(rightArr)]
+}
+
+console.log(quickSort2(arr))
