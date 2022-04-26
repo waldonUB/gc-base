@@ -67,4 +67,30 @@ const translateName = function (arr) {
   return nameArr
 }
 
-console.log(JSON.stringify(getTree(g_arr)))
+/**
+ * 复习一下
+ * @author waldon
+ * @date 2022-04-26
+ * @param {*} arr - param
+ */
+function convertNameArr2(arr) {
+  const res = []
+  function getChildren(_arr) {
+    const subArr = []
+    for (const item of _arr) {
+      res.push(item.name)
+      const children = arr.filter((subItem) => subItem.parentId === item.id)
+      if (children) {
+        subArr.push(...children)
+      }
+    }
+    if (subArr.length) {
+      getChildren(subArr)
+    }
+  }
+  getChildren(arr.filter((item) => item.parentId === 0))
+  return res
+}
+
+// console.log(JSON.stringify(getTree(g_arr)))
+console.log(JSON.stringify(convertNameArr2(g_arr)))
