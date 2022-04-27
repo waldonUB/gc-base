@@ -103,4 +103,30 @@ const getTree_dp = function (arr) {
 
 deepGetChildren(g_arr, treeArr[0]) // 暂时默认为只有一个节点
 
-console.log(`深度遍历扁平数组转树：${JSON.stringify(treeArr)}`)
+/**
+ * 层序遍历转树
+ * @author waldon
+ * @date 2022-04-26
+ */
+function convertBfs(arr) {
+  const res = arr.filter((item) => item.parentId === 0)
+  function getChildren(_arr) {
+    const subRes = []
+    for (const item of _arr) {
+      const children = arr.filter((subItem) => item.id === subItem.parentId)
+      if (children && children.length) {
+        item.children = children
+        subRes.push(...children)
+      }
+    }
+    if (subRes.length) {
+      getChildren(subRes)
+    }
+  }
+  getChildren(res)
+
+  return res
+}
+
+// console.log(`深度遍历扁平数组转树：${JSON.stringify(treeArr)}`)
+console.log(`bfs转树：${JSON.stringify(convertBfs(g_arr))}`)

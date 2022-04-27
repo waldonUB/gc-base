@@ -1,7 +1,15 @@
-async function testS () {
-  const a = await Promise.resolve(1)
-  console.log(a)
-}
-console.log(2)
-testS()
-console.log(`3`, 3);
+Promise.resolve()
+  .then(() => {
+    if (1 + 1 === 2) {
+      console.log('1 + 1')
+      return 3
+    }
+    return 1
+  })
+  .finally(() => {
+    console.log('final')
+    return
+  })
+  .then((res) => {
+    console.log(res)
+  })
