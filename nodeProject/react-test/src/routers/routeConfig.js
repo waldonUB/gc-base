@@ -2,6 +2,7 @@ import App from '../App'
 import Dashboard from '../components/base/Dashboard'
 import BaseDialog from '../components/function/dialog/BaseDialog'
 import SingleUpload from '../components/function/upload/SingleUpload'
+import TodoList from '../components/function/todoList/index'
 
 import {
   AppstoreOutlined,
@@ -37,6 +38,13 @@ const routeConfig = [
     key: '3',
     icon: <ContainerOutlined />,
     title: '树形控件',
+  },
+  {
+    key: 'TodoList',
+    icon: <PieChartOutlined />,
+    path: '/TodoList',
+    element: <TodoList />,
+    title: 'TodoList',
   },
   {
     key: 'sub1',
