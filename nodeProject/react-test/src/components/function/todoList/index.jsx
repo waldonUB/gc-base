@@ -8,6 +8,10 @@ const data = [
   'Los Angeles battles huge wildfires.',
 ]
 
+function testClick(rowData) {
+  console.log('click: ', rowData)
+}
+
 function TodoList() {
   return (
     <div className="todoList">
@@ -18,7 +22,7 @@ function TodoList() {
         bordered
         dataSource={data}
         renderItem={(item) => (
-          <List.Item>
+          <List.Item onClick={testClick.bind(this, item)}>
             <Typography.Text mark>[ITEM]</Typography.Text> {item}
           </List.Item>
         )}
