@@ -15,7 +15,8 @@
     "fs-extra": "^9.1.0"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "@fk/faiupload": "1.3.4",
+    "axios": "^0.27.2",
     "node-cron": "^3.0.0",
     "node-schedule": "^2.0.0"
   }
