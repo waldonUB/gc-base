@@ -22,6 +22,36 @@ const tree = {
   },
 }
 
+/*
+          1
+      2      5
+    3   4  6   7
+
+*/
+
+/**
+ * 第二次实现
+ * @author waldon
+ * @date 2022-05-10
+ * @param {*} tree - param
+ */
+function dfsTree(tree) {
+  if (!tree) {
+    return []
+  }
+  const res = []
+  function getChildren(subTree) {
+    if (!subTree) {
+      return
+    }
+    getChildren(subTree.left)
+    res.push(subTree.val)
+    getChildren(subTree.right)
+  }
+  getChildren(tree)
+  return res
+}
+
 const preOrderFn = (tree) => {
   const res = []
   const subOrderFn = (root) => {
@@ -36,4 +66,4 @@ const preOrderFn = (tree) => {
   return res
 }
 
-console.log(`中序输出`, preOrderFn(tree))
+console.log(`中序输出`, dfsTree(tree))
