@@ -20,8 +20,6 @@ function getType(target) {
   return Object.prototype.toString.call(target).slice(0, 8)
 }
 
-// todo waldon 层序遍历
-
 function getType(target) {
   return Object.prototype.toString.call(target).slice(8, -1)
 }
@@ -45,68 +43,53 @@ function deepClone(target, map = new Map()) {
   }
 }
 
+const getType = function (target) {
+  return Object.prototype.toString.call(target).slice(8, -1)
+}
+
+const getCloneObj = function (target) {
+  const type = getType(target)
+  switch (type) {
+    case 'Object':
+      return {}
+    case 'Array':
+      return []
+    default:
+      return target
+  }
+}
+
+const isNeedClone = function (target) {
+  return ['Array', 'Object'].includes(getType(target))
+}
+
 /**
- * 广度优先拷贝
+ * 广度遍历深拷贝(自己实现的最简单的版本)
  * @author waldon
- * @date 2022-04-29
+ * @date 2022-05-11
  * @param {*} target - param
- * @param {*} map - param
  */
-function bfsDeepClone(target, map = new Map()) {
-  if (['Array', 'Object'].includes(getType(target))) {
-    const subArr = []
-    const isPlanObject = getType(target) === 'Object'
-    let cloneTarget = isPlanObject ? {} : []
-    if (map.has(target)) {
-      return map.get(target)
-    }
-    map.set(target, cloneTarget)
-    for (const key in target) {
-      if (['Array', 'Object'].includes(getType(target[key]))) {
-        subArr.push(target[key])
-      } else {
-        cloneTarget[key] = target[key]
+const bfsDeepClone = function (target) {
+  const cloneTarget = getCloneObj(target)
+  const map = new Map()
+  if (isNeedClone(target)) {
+    const queue = [[target, cloneTarget]]
+    while (queue.length) {
+      const [tar, clone] = queue.shift()
+      for (const item in tar) {
+        if (map.has(tar[item])) {
+          clone[item] = map.get(tar[item])
+          continue
+        }
+        clone[item] = getCloneObj(tar[item])
+        if (isNeedClone(tar[item])) {
+          queue.push([tar[item], clone[item]])
+        }
+        map.set(tar[item], clone[item])
       }
     }
-    return cloneTarget
-  } else {
-    return target
   }
+  return cloneTarget
 }
 
-/**
- * // todo waldon 已经理解了思想，待自己实现
- * 广度遍历实现深拷贝
- * @author waldon
- * @date 2022-04-29
- * @param {*} origin - param
- */
-function deepCopyBFS(origin) {
-  let queue = []
-  let map = new Map() // 记录出现过的对象，用于处理环
-
-  let target = getEmpty(origin)
-  if (target !== origin) {
-    queue.push([origin, target])
-    map.set(origin, target)
-  }
-
-  while (queue.length) {
-    let [ori, tar] = queue.shift()
-    for (let key in ori) {
-      // 处理环状
-      if (map.get(ori[key])) {
-        tar[key] = map.get(ori[key])
-        continue
-      }
-
-      tar[key] = getEmpty(ori[key])
-      if (tar[key] !== ori[key]) {
-        queue.push([ori[key], tar[key]])
-        map.set(ori[key], tar[key])
-      }
-    }
-  }
-
-  return target
-}
+console.log(bfsDeepClone(obj))
