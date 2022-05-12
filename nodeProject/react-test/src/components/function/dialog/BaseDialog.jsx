@@ -1,6 +1,7 @@
 import { Button, Modal, Input } from 'antd'
 import { useState } from 'react'
 import dialogStore from '@/stores/dialog/index.js'
+import { changeTextAsync } from '@/stores/dialog/actions.js'
 
 function BaseDialog() {
   /* 同步测试逻辑 start */
@@ -33,16 +34,9 @@ function BaseDialog() {
   /* 异步测试逻辑 start */
   const [asyncText, setAsyncText] = useState(0)
 
-  const changeText = () => {
-    setTimeout(() => {
-      // todo waldon 拆分reducer
-      // todo waldon 还没有看看redux-thunk怎么用
-      dialogStore.dispatch({
-        type: 'CHANGE_TEXT',
-        text: Math.random(),
-      })
-      setAsyncText(dialogStore.getState())
-    }, 1000)
+  const changeText = async () => {
+    await dialogStore.dispatch(changeTextAsync)
+    setAsyncText(dialogStore.getState())
   }
 
   /* 异步测试逻辑 end */
