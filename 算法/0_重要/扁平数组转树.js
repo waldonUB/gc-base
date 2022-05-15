@@ -24,40 +24,6 @@ const g_arr = [
     parentId: 1,
   },
 ]
-const getRoot = (arr) => {
-  return arr.filter((item) => item.parentId === 0)
-}
-
-let treeArr = getRoot(g_arr)
-
-/**
- * 层序遍历
- * @author waldon
- * @date 2021-10-19
- * @param {*} arr - param
- * @param {*} treeArr - param
- */
-const wideGetChildren = (arr, treeArr) => {
-  let _childArr = []
-  for (const item of arr) {
-    const child = treeArr.find((subItem) => subItem.id === item.parentId)
-    if (child) {
-      _childArr.push(item)
-      if (!child.children) {
-        child.children = []
-      }
-      child.children.push(item)
-    }
-  }
-  if (!_childArr.length) {
-    return
-  }
-  getChildren(arr, _childArr)
-}
-
-// wideGetChildren(g_arr, treeArr)
-
-// console.log(`层序遍历扁平数组转树：${JSON.stringify(treeArr)}`)
 
 /**
  * 深度遍历

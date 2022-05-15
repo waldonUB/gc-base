@@ -1,4 +1,29 @@
 const arr = [5, 1, 3, 2, 6, 8, 7]
+
+/**
+ * 第二次复习
+ * 这个方式相当于拿出来插到另一副牌
+ * @author waldon
+ * @date 2022-05-10
+ * @param {*} arr - param
+ */
+function insertSort(arr) {
+  const res = [arr[0]]
+  for (let i = 1, len = arr.length; i < len; i++) {
+    for (let j = i - 1; j >= 0; j--) {
+      if (arr[i] > res[j]) {
+        res.splice(j + 1, 0, arr[i])
+        break
+      } else if (j === 0) {
+        res.splice(0, 0, arr[i])
+      }
+    }
+  }
+  return res
+}
+
+console.log(insertSort(arr))
+
 /**
  * 就像打牌一样
  * 我从第二张牌开始跟左边的牌比较，如果比他大，就插在他前面，否则就在后面
@@ -27,4 +52,4 @@ function insertSort2(arr) {
   return _arr
 }
 
-console.log(`insertSort`, insertSort2(arr))
+// console.log(`insertSort`, insertSort2(arr))

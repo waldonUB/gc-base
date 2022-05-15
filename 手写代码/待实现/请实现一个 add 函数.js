@@ -11,3 +11,15 @@
 
 // todo waldon 这里重写toString函数做啥？
 // console.log默认输出toString的
+
+function add(a) {
+  function sum(b) {
+    a = a + b
+    return sum
+  }
+  sum.toString = function () {
+    return a
+  }
+  return sum
+}
+console.log(Number(add(1)(2)(3)))

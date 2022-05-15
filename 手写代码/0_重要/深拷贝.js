@@ -28,6 +28,7 @@ const getType = function (target) {
 const deepClone = function (target = {}, map = new Map()) {
   const type = getType(target)
   const deepType = ['Object', 'Array', 'Map', 'Set']
+  // 如果是处理Symbol为key的情况，需要判断Object.getOwnPropertySymbols()
   if (deepType.includes(type)) {
     if (['Object', 'Array'].includes(type)) {
       const newTarget = type === 'Object' ? {} : []

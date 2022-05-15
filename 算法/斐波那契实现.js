@@ -45,9 +45,10 @@ const getAllRes = function (n) {
  * @param {*} n - param
  */
 const feibo_for1 = function (n) {
+  const MOD = 1000000007 // int范围内需要取模
   let res = [0, 1]
   for (let i = 2; i <= n; i++) {
-    res[i] = res[i - 1] + res[i - 2]
+    res[i] = (res[i - 1] + res[i - 2]) % MOD
   }
   return res[n]
 }
