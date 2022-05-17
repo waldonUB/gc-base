@@ -29,3 +29,19 @@ Object.prototype.myCreate = function (source) {
 // console.log(curryAdd(1))
 // console.log(curryAdd(1))
 // console.log(curryAdd(1))
+
+const nums = [-1, 0, 3, 5, 9, 12]
+const target = 9
+
+function getTarget(nums, target) {
+  const index = Math.floor(nums.length / 2)
+  const cur = nums[index]
+  if (cur === target) {
+    return index
+  } else if (cur > target) {
+    getTarget(nums.slice(index), target)
+  } else {
+    getTarget(nums.slice(0, index), target)
+  }
+}
+console.log(getTarget(nums, target))
