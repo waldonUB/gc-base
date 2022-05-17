@@ -3,6 +3,7 @@ import Dashboard from '../components/base/Dashboard'
 import BaseDialog from '../components/function/dialog/BaseDialog'
 import SingleUpload from '../components/function/upload/SingleUpload'
 import TodoList from '../components/function/todoList/index'
+import CustomerList from '../components/function/customer-list/index'
 
 import {
   AppstoreOutlined,
@@ -28,6 +29,13 @@ const routeConfig = [
     path: '/dialog/BaseDialog',
     element: <BaseDialog />,
     title: '对话框',
+  },
+  {
+    key: 'CustomerList',
+    icon: <PieChartOutlined />,
+    path: '/CustomerList',
+    element: <MenuFoldOutlined />,
+    title: '客户列表',
   },
   {
     key: '2',

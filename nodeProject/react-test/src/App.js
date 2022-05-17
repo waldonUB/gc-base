@@ -6,6 +6,8 @@ import Top from './components/base/Top.jsx'
 import Dashboard from './components/base/Dashboard.jsx'
 import BaseDialog from './components/function/dialog/BaseDialog.jsx'
 import TodoList from '@/components/function/todoList/index.jsx'
+import CustomerList from '@/components/function/customer-list/index.jsx'
+import CustomerDetail from '@/components/function/customer-detail/index.jsx'
 import SingleUpload from './components/function/upload/SingleUpload.jsx'
 import BaseTest from './components/test/BaseTest.jsx'
 import Father from './components/test/eventWays/Father.jsx'
@@ -30,6 +32,8 @@ function App() {
             <Route path="/test/BaseTest" element={<BaseTest />}></Route>
             <Route path="/test/eventWays" element={<Father />}></Route>
             <Route path="/TodoList" element={<TodoList />}></Route>
+            <Route path="/CustomerList" element={<CustomerList />}></Route>
+            <Route path="/CustomerDetail" element={<CustomerDetail />}></Route>
           </Routes>
         </BrowserRouter>
       </div>
