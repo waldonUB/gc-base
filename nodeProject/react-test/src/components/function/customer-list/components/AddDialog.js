@@ -1,7 +1,9 @@
-import { Form, Input, InputNumber, Button } from 'antd'
-import './index.scss'
+import { Form, Input, InputNumber, Button, Modal } from 'antd'
 import store from '@/stores/index'
 import { addCustomer } from '@/stores/customer/index'
+import { useState } from 'react'
+
+// 测试一下不用jsx的方式
 
 const layout = {
   labelCol: { span: 8 },
@@ -19,7 +21,16 @@ const validateMessages = {
   },
 }
 
-function CustomerDetail() {
+const AddDialog = function (props) {
+  const { isShowReduxDialog, setIsShowReduxDialog } = props
+
+  const handleOk = () => {
+    setIsShowReduxDialog(false)
+  }
+  const handleCancel = () => {
+    setIsShowReduxDialog(false)
+  }
+
   const [form] = Form.useForm()
   /**
    * 保存用户
@@ -27,16 +38,11 @@ function CustomerDetail() {
    * @date 2022-05-18
    */
   const saveCustomer = () => {
-    store.dispatch(addCustomer(form.getFieldValue()))
+    store.dispatch(addCustomer({ ...form.getFieldValue(), id: `id-${Math.random()}` }))
   }
   return (
-    <div className="customer-detail">
-      <div className="page-header">
-        <div className="left-part">
-          <div className="page-title">录入客户</div>
-        </div>
-      </div>
-      <div className="content-wrapper">
+    <Modal title="Basic Modal" visible={isShowReduxDialog} onOk={handleOk} onCancel={handleCancel}>
+      <div className="add-dialog">
         <div className="info-part">
           <div className="left-wrapper">
             <div className="left-title">个人信息</div>
@@ -56,7 +62,7 @@ function CustomerDetail() {
           </div>
         </div>
       </div>
-    </div>
+    </Modal>
   )
 }
-export default CustomerDetail
+export default AddDialog

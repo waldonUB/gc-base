@@ -2,7 +2,8 @@ import './index.scss'
 import { Button, Tabs, Input } from 'antd'
 import PageTab from './components/Tabs'
 import PageTable from './components/Table'
-import { useEffect, useState } from 'react'
+import AddDialog from './components/AddDialog'
+import { useEffect, useState, useCallback } from 'react'
 import { service } from '@/config/http'
 import { useNavigate } from 'react-router-dom'
 
@@ -26,6 +27,7 @@ let initPage = false
 function CustomerList(props) {
   const [curTab, setCurTab] = useState('all')
   let [tableList, setTableList] = useState([])
+  const [isShowReduxDialog, setIsShowReduxDialog] = useState(false)
   useEffect(() => {
     if (!initPage) {
       service.get('http://127.0.0.1:4523/mock/909743/getCustomerList').then((res) => {
@@ -37,6 +39,7 @@ function CustomerList(props) {
       // 需要在 componentWillUnmount 执行的内容
     }
   }, [curTab])
+
   const changeInput = (e) => {
     console.log('changeInput: ', e.target.value)
   }
@@ -47,7 +50,6 @@ function CustomerList(props) {
    * @param {*} key - param
    */
   const changeTab = (key) => {
-    console.log('changeTab: ', key)
     setCurTab(key)
   }
 
@@ -85,7 +87,13 @@ function CustomerList(props) {
             <Button type="primary" className="btn" onClick={gotoDetail}>
               录入客户
             </Button>
-            <Button type="primary" className="btn">
+            <Button
+              type="primary"
+              className="btn"
+              onClick={() => {
+                setIsShowReduxDialog(true)
+              }}
+            >
               批量导入
             </Button>
             <Button type="primary" className="btn">
@@ -111,6 +119,10 @@ function CustomerList(props) {
           <PageTable tableList={tableList} delRow={delRow} />
         </div>
       </div>
+      <AddDialog
+        isShowReduxDialog={isShowReduxDialog}
+        setIsShowReduxDialog={setIsShowReduxDialog}
+      />
     </div>
   )
 }
