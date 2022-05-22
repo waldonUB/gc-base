@@ -34,7 +34,7 @@ const routeConfig = [
     key: 'CustomerList',
     icon: <PieChartOutlined />,
     path: '/CustomerList',
-    element: <MenuFoldOutlined />,
+    element: <CustomerList />,
     title: '客户列表',
   },
   {

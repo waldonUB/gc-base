@@ -25,6 +25,7 @@ const tabList = [
 let initPage = false
 
 function CustomerList(props) {
+  console.log('CustomerList')
   const [curTab, setCurTab] = useState('all')
   let [tableList, setTableList] = useState([])
   const [isShowReduxDialog, setIsShowReduxDialog] = useState(false)

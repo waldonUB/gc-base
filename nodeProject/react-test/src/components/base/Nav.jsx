@@ -5,8 +5,11 @@ import { useNavigate } from 'react-router-dom'
 const { SubMenu } = Menu
 
 function Nav() {
+  const navigate = useNavigate()
   const handleClick = function ({ key }) {
-    console.log('key: ', key)
+    const route = routeConfig.find((item) => item.key === key)
+    const { path } = route
+    navigate(path)
   }
 
   const dfsDom = function (rowData) {
