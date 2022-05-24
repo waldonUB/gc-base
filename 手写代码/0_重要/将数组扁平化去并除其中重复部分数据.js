@@ -6,18 +6,21 @@
 // 公司：携程
 // 解析：[第 11 题](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/8)
 
+var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10]
 function getArr(arr) {
-  const res = []
+  const set = new Set()
   function getChildren(_arr) {
     for (const item of _arr) {
       if (Array.isArray(item)) {
-        getChildren(item)
-      } else if (!res.includes(item)) {
-        res.push(item)
+        if (item.length) {
+          getChildren(item)
+        }
+      } else {
+        set.add(item)
       }
     }
   }
   getChildren(arr)
-  return res.sort((a, b) => a - b)
+  return [...set].sort((a, b) => a - b)
 }
-console.log(getArr([[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10]))
+console.log(`getArr(arr)`, getArr(arr))
