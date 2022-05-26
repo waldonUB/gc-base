@@ -16,7 +16,6 @@ export const service = Axios.create({
       'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
     },
     post: {
-      // todo waldon 这里统一设置请求头会影响到文件的上传？axios是否能自动识别上传的类型，然后自动添加请求头
       // 'content-type': 'application/json;charset=utf-8',
     },
   },

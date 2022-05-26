@@ -9,7 +9,6 @@ class BaseTest extends React.Component {
     }
   }
   render() {
-    // todo waldon 测试setState是否会重新执行这个；还有函数组件里面的
     const baseNode = document.getElementsByClassName('base-root')
     console.log('测试没渲染的时候', baseNode)
     function changeInput(value) {

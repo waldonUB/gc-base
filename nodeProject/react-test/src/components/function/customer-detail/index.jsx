@@ -43,18 +43,25 @@ function CustomerDetail() {
           </div>
           <div className="right-wrapper">
             <Form form={form} {...layout} name="nest-messages" validateMessages={validateMessages}>
-              <Form.Item name="contacts" label="姓名" rules={[{ required: true }]}>
+              <Form.Item
+                className="input-width-340"
+                name="contacts"
+                label="姓名"
+                rules={[{ required: true }]}
+              >
                 <Input />
               </Form.Item>
-              <Form.Item name="dataSourceName" label="来源">
+              <Form.Item className="input-width-340" name="dataSourceName" label="来源">
                 <Input />
               </Form.Item>
             </Form>
-            <Button type="primary" onClick={saveCustomer}>
-              保存
-            </Button>
           </div>
         </div>
+      </div>
+      <div className="bottom-wrapper">
+        <Button className="save-btn" size="large" type="primary" onClick={saveCustomer}>
+          保存
+        </Button>
       </div>
     </div>
   )

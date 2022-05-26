@@ -1,13 +1,15 @@
 import { Menu, Button } from 'antd'
-import routeConfig from '../../routers/routeConfig.js'
+import { routeConfig, convertTree } from '../../routers/routeConfig.js'
 import { useNavigate } from 'react-router-dom'
 
 const { SubMenu } = Menu
 
+const routeArr = convertTree(routeConfig)
+
 function Nav() {
   const navigate = useNavigate()
   const handleClick = function ({ key }) {
-    const route = routeConfig.find((item) => item.key === key)
+    const route = routeArr.find((item) => item.key === key)
     const { path } = route
     navigate(path)
   }
@@ -19,6 +21,9 @@ function Nav() {
       if (item.children && item.children.length) {
         elements.push(dfsDom(item))
       } else {
+        if (item.hide) {
+          continue
+        }
         elements.push(
           <Menu.Item key={item.key} onClick={handleClick}>
             {item.title}
@@ -42,17 +47,19 @@ function Nav() {
         mode="inline"
         theme="dark"
       >
-        {routeConfig.map((item) => {
-          if (item.children && item.children.length) {
-            return dfsDom(item)
-          } else {
-            return (
-              <Menu.Item key={item.key} icon={item.icon} onClick={handleClick}>
-                {item.title}
-              </Menu.Item>
-            )
-          }
-        })}
+        {routeConfig
+          .filter((item) => !item.hide)
+          .map((item) => {
+            if (item.children && item.children.length) {
+              return dfsDom(item)
+            } else {
+              return (
+                <Menu.Item key={item.key} icon={item.icon} onClick={handleClick}>
+                  {item.title}
+                </Menu.Item>
+              )
+            }
+          })}
       </Menu>
     </div>
   )

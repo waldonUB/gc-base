@@ -2,6 +2,7 @@
   flex: 1;
   padding: 0 20px;
   box-sizing: border-box;
+  position: relative;
   .page-header {
     height: 74px;
     display: flex;
@@ -54,8 +55,22 @@
         }
       }
       .right-wrapper {
-
+        flex: 1;
       }
+    }
+  }
+  .bottom-wrapper {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #eeeeee;
+    .save-btn {
+      width: 200px;
     }
   }
 }

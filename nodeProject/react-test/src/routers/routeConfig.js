@@ -1,9 +1,12 @@
 import App from '../App'
-import Dashboard from '../components/base/Dashboard'
-import BaseDialog from '../components/function/dialog/BaseDialog'
-import SingleUpload from '../components/function/upload/SingleUpload'
-import TodoList from '../components/function/todoList/index'
-import CustomerList from '../components/function/customer-list/index'
+import Dashboard from '@/components/base/Dashboard'
+import BaseDialog from '@/components/function/dialog/BaseDialog'
+import SingleUpload from '@/components/function/upload/SingleUpload'
+import TodoList from '@/components/function/todoList/index'
+import CustomerList from '@/components/function/customer-list/index'
+import CustomerDetail from '@/components/function/customer-detail/index'
+import SetStateTest from '@/components/test/setStateTest/index'
+import Editor from '@/components/function/editor/index'
 
 import {
   AppstoreOutlined,
@@ -38,14 +41,24 @@ const routeConfig = [
     title: '客户列表',
   },
   {
-    key: '2',
-    icon: <DesktopOutlined />,
-    title: '文件上传',
+    key: 'CustomerDetail',
+    icon: <PieChartOutlined />,
+    path: '/CustomerDetail',
+    element: <CustomerDetail />,
+    title: '客户详情',
+    hide: true,
   },
+  // {
+  //   key: '2',
+  //   icon: <DesktopOutlined />,
+  //   title: '文件上传',
+  // },
   {
-    key: '3',
+    key: 'Editor',
     icon: <ContainerOutlined />,
-    title: '树形控件',
+    path: '/Editor',
+    element: <Editor />,
+    title: '富文本编辑器',
   },
   {
     key: 'TodoList',
@@ -60,8 +73,11 @@ const routeConfig = [
     title: 'API测试',
     children: [
       {
-        key: '5',
-        title: 'Option 5',
+        key: 'SetStateTest',
+        icon: <PieChartOutlined />,
+        path: '/SetStateTest',
+        element: <SetStateTest />,
+        title: 'SetState测试',
       },
       {
         key: '6',
@@ -109,4 +125,20 @@ const routeConfig = [
   },
 ]
 
-export default routeConfig
+const convertTree = function (routes) {
+  const children = []
+  const res = []
+  if (!routes.length) {
+    return []
+  }
+  for (const item of routes) {
+    res.push(item)
+    if (item.children && item.children.length) {
+      children.push(...item.children)
+    }
+  }
+  res.push(...convertTree(children))
+  return res
+}
+
+export { routeConfig, convertTree }
