@@ -27,4 +27,21 @@ function getArr(arr, k) {
   return res
 }
 
+/**
+ * 解法2
+ * @author waldon
+ * @date 2022-05-26
+ * @param {*} arr - param
+ * @param {*} k - param
+ */
+function rotateArr(arr, k) {
+  // k大于arr的长度时应取模
+  while (k > 0) {
+    const item = arr.pop()
+    arr.unshift(item)
+    k--
+  }
+  return arr
+}
+
 console.log(getArr([1, 2, 3, 4, 5, 6, 7], 3))
