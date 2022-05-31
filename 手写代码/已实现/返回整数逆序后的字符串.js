@@ -4,6 +4,19 @@
 
 // 解析：[第 99 题](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/153)
 
+/**
+ * 这个解法更简洁
+ * 切割对应的字符串相加
+ * @author waldon
+ * @date 2022-05-30
+ */
+// function convert2Str(num: number): string {
+//   let str: string = num.toString()
+//   return str.length > 1
+//     ? convert2Str(Number(str.substring(0, str.length - 1))) + str.substring(str.length - 1)
+//     : str
+// }
+
 function revert(num) {
   // 伪代码：判断是否数字
 
