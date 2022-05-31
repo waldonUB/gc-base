@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+import { FaTrashAlt } from 'react-icons/fa'
 import { Table, Button } from 'antd'
 
 const PageTable = function (props) {
@@ -24,7 +26,7 @@ const PageTable = function (props) {
       render: (rowData) => (
         <div className="operate-box">
           <Button type="link" onClick={delRow.bind(this, rowData)}>
-            删除
+            删除 <FaTrashAlt />
           </Button>
         </div>
       ),
@@ -35,6 +37,10 @@ const PageTable = function (props) {
       <Table rowKey="id" columns={columns} dataSource={tableList} />
     </div>
   )
+}
+
+PageTable.defaultProps = {
+  tableList: [],
 }
 
 export default PageTable

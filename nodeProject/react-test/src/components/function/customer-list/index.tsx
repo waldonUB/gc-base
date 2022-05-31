@@ -3,6 +3,7 @@ import { Button, Tabs, Input } from 'antd'
 import PageTab from './components/Tabs'
 import PageTable from './components/Table'
 import AddDialog from './components/AddDialog'
+import GlButton from '@/components/base/GlButton'
 import { useEffect, useState, useCallback, Fragment } from 'react'
 import { service } from '@/config/http'
 import { useNavigate } from 'react-router-dom'
@@ -130,9 +131,7 @@ function CustomerList() {
               placeholder="输入内容"
               onChange={changeInput}
             />
-            <Button type="primary" className="btn">
-              搜索
-            </Button>
+            <GlButton type="primary">搜索</GlButton>
           </div>
           <div className="table-wrapper">
             <PageTable tableList={tableList} delRow={delRow} />

@@ -1,12 +1,13 @@
 import App from '../App'
 import Dashboard from '@/components/base/Dashboard'
 import BaseDialog from '@/components/function/dialog/BaseDialog'
-import SingleUpload from '@/components/function/upload/SingleUpload'
 import TodoList from '@/components/function/todoList/index'
+import VirtualScroll from '@/components/function/virtual-scroll/index'
 import CustomerList from '@/components/function/customer-list/index'
 import CustomerDetail from '@/components/function/customer-detail/index'
 import SetStateTest from '@/components/test/setStateTest/index'
 import Editor from '@/components/function/editor/index'
+import Upload from '@/components/function/upload/index'
 
 import {
   AppstoreOutlined,
@@ -34,6 +35,13 @@ const routeConfig = [
     title: '对话框',
   },
   {
+    key: 'VirtualScroll',
+    icon: <PieChartOutlined />,
+    path: '/VirtualScroll',
+    element: <VirtualScroll />,
+    title: '虚拟滚动',
+  },
+  {
     key: 'CustomerList',
     icon: <PieChartOutlined />,
     path: '/CustomerList',
@@ -48,11 +56,13 @@ const routeConfig = [
     title: '客户详情',
     hide: true,
   },
-  // {
-  //   key: '2',
-  //   icon: <DesktopOutlined />,
-  //   title: '文件上传',
-  // },
+  {
+    key: 'Upload',
+    icon: <DesktopOutlined />,
+    path: '/Upload',
+    element: <Upload />,
+    title: '文件上传',
+  },
   {
     key: 'Editor',
     icon: <ContainerOutlined />,

@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* 基础样式 start */
 .ant-form {
   .ant-form-item-label {
     flex: 0 0 auto;
@@ -18,6 +19,9 @@ body {
     }
   }
 }
+/* 基础样式 end */
+
+
 
 
 /* 业务页面样式 start */
@@ -26,6 +30,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 20px;
   .left-part {
     display: -webkit-box;
     display: -ms-flexbox;
