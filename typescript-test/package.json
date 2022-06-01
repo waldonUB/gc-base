@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test": "npx tsc"
+    "test": "npx tsc",
+    "start": "npx tsc --watch"
   },
   "devDependencies": {
     "typescript": "^4.6.4"
