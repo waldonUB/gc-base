@@ -9,17 +9,25 @@
 // > ```
 // 解析：[第 84 题](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/134)
 
-// todo waldon 这里重写toString函数做啥？
-// console.log默认输出toString的
-
-function add(a) {
-  function sum(b) {
-    a = a + b
-    return sum
+function add() {
+  const args = [...arguments]
+  const fn = function () {
+    let fn_args = [...arguments]
+    return add.apply(null, [...args, ...fn_args])
   }
-  sum.toString = function () {
-    return a
+  fn.toString = function () {
+    let res = 0
+    for (const item of args) {
+      res += item
+    }
+    return res
   }
-  return sum
+  return fn
 }
-console.log(Number(add(1)(2)(3)))
+console.log(add(1)(2, 5))
+
+/*
+1. 因为会缓存参数，所以是把上一个function的参数缓存起来
+2. fn会作为一个闭包，执行add，把汇总的参数再次合并起来再返回
+
+*/
