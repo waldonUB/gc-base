@@ -1,4 +1,14 @@
 // https://github.com/mqyqingfeng/Blog/issues/42
+/*
+1. 一个具有部分求值功能的函数
+2. 满足几个条件，通过闭包缓存入参，延迟函数的执行
+
+应用场景：
+1. add的求和函数
+2. Object.prototype.toString.call(*).slice()的求类型函数
+3. 正则去校验身份证或邮箱
+
+*/
 
 /**
  * 函数柯里化
