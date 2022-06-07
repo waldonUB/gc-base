@@ -29,3 +29,44 @@ const arr = [
 ]
 
 console.log(convertTree(arr))
+
+/*
+1. 去重常用的哈希表的方式
+2. 判断存在相同的id就跳过
+
+ts写法
+
+interface arrItemDef {
+  id: number
+  pId?: number
+  children?: Array<any>
+}
+interface initDef {
+  id: number
+  pId?: number
+  children?: Array<any>
+}
+
+function convertTree(arr: initDef[]) {
+  const map = new Map()
+  const res = []
+  for (const item of arr) {
+    if (map.has(item.id)) {
+      continue
+    }
+    map.set(item.id, item)
+  }
+  for (const [ket, item] of map) {
+    // 这里连空和零一起判断
+    if (map.get(item.pId)) {
+      const cur = map.get(item.pId)
+      cur.children = cur.children || []
+      cur.children.push(item)
+    } else {
+      res.push(item)
+    }
+  }
+  return res
+}
+
+*/
