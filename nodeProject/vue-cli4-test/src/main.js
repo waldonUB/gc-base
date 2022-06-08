@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import { router } from './config/routerConfig'
+import directives from '@/directives/index'
+console.log('directives', directives)
 
 Vue.config.productionTip = false
 
@@ -28,6 +30,9 @@ Vue.config.errorHandler = function (err, vm, info) {
 //   console.log('addEventListener error vm: ', vm)
 //   console.log('addEventListener error info: ', info)
 // })
+for (const key in directives) {
+  Vue.directive(key, directives[key])
+}
 
 new Vue({
   render: (h) => h(App),

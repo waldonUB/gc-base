@@ -10,10 +10,18 @@ import MultipartUpload from '@/routers/upload/multipart/index.vue'
 import CrossPage from '@/routers/crossPage/index.vue'
 import PostMessage from '@/routers/crossPage/postMessage/index.vue'
 
+// lazyLoad
+import LazyLoad from '@/routers/lazyLoad/index.vue'
+
 const routerList = [
   {
     path: '/',
-    redirect: '/upload',
+    redirect: '/',
+  },
+  {
+    name: 'lazyLoad',
+    path: '/lazyLoad',
+    component: LazyLoad,
   },
   {
     name: 'upload',

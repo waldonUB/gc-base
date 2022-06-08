@@ -1,5 +1,9 @@
 // 可以YouTube搜索virtual-scroll看看有没有更好的解决方案
-// todo waldon 写一个不定高的聊天记录的虚拟滚动列表
+/*
+1. 除去padding，一屏的高度是600px
+2. 设每块的初始高度是50px
+3. margin-bottom是10px
+*/
 import './index.scss'
 import { useEffect, useState, useCallback, Fragment } from 'react'
 import { service } from '@/config/http'
@@ -12,25 +16,39 @@ interface chatDef {
   isShow: boolean
 }
 
+/**
+ * description
+ * @author waldon
+ * @date 2022-06-02
+ * @param {*} param - param
+ */
+const handlerScroll = function (e: any) {
+  console.log('监听滚动', e.target.scrollTop)
+}
+
 const VirtualScroll = function () {
   const [chatList, setChatList] = useState<chatDef[]>([])
   useEffect(() => {
     service.get('http://127.0.0.1:4523/mock/909743/getChatList').then((res) => {
-      setChatList(res.data.data)
-
-      const observer = new IntersectionObserver(function (changes) {
-        if (!changes[0].isIntersecting) {
-          console.log('相交')
+      const list = res.data.data.map((item: chatDef, index: number) => {
+        let isShow
+        if (index < 20) {
+          isShow = true
         } else {
-          console.log('离开')
+          isShow = false
+        }
+        return {
+          ...item,
+          isShow,
         }
       })
-      const element: any = document.getElementById('virtual-scroll')
-      console.log('element: ', element)
-
-      observer.observe(element)
+      setChatList(list)
     })
+    const scrollBox = document.getElementById('scroll-box')
+    scrollBox?.addEventListener('scroll', handlerScroll)
     return function () {
+      const scrollBox = document.getElementById('scroll-box')
+      scrollBox?.removeEventListener('scroll', handlerScroll)
       // 需要在 componentWillUnmount 执行的内容
     }
   }, [])
@@ -45,8 +63,7 @@ const VirtualScroll = function () {
         </div>
       </div>
       <div className="content-wrapper">
-        <div className="scroll-box">
-          {/* // todo waldon 头像左右的问题 */}
+        <div id="scroll-box" className="scroll-box">
           {chatList.map((item) => {
             let _class: string = ''
             if (item.type === 'send') {
