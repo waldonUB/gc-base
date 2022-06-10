@@ -3,37 +3,54 @@ const arr1 = [1, 5, 1, 2, 3, 8, 9, 8, 4]
 
 console.log(`简单去重：${[...new Set(arr1)]}`)
 
+// 哈希表去重
+
+const calArrByHash = function (arr) {
+  const map = new Map()
+  const res = []
+  for (let i = 0, len = arr.length; i < len; i++) {
+    if (map.has(arr[i])) {
+      continue
+    }
+    map.set(arr[i], i)
+    res.push(arr[i])
+  }
+  return res
+}
+
+console.log(`哈希去重：${calArrByHash(arr1)}`)
+
 // 对象类型的去重
 
 const arr2 = [
   {
     id: 1,
-    name: ''
+    name: '',
   },
   {
     id: 3,
-    name: ''
+    name: '',
   },
   {
     id: 1,
-    name: ''
+    name: '',
   },
   {
     id: 5,
-    name: ''
+    name: '',
   },
   {
     id: 8,
-    name: ''
+    name: '',
   },
   {
     id: 3,
-    name: ''
+    name: '',
   },
   {
     id: 7,
-    name: ''
-  }
+    name: '',
+  },
 ]
 
 const calArr2 = arr2.reduce((pre, cur) => {
