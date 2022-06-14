@@ -1,4 +1,11 @@
-// todo waldon 看一下setTimeout里面的this是不是始终指向全局
+/*
+setTimeout的指向都是window，因为setTimeout是在window上调用的，所以this指向window。
+可以通过三种方式来改变this的指向：
+1. 闭包
+2. bind
+3. setTimeout传参
+
+*/
 const obj = {
   a: 1,
   b: () => {
