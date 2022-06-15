@@ -30,14 +30,3 @@ new Promise(function (resolve) {
 })
 
 console.log('all end')
-
-// start
-// async1 start
-// async2 start
-// async3 start
-// Promise1
-// all end
-// console.log("async2 end");
-// console.log("Promise2");
-// console.log("async1 end");
-// console.log('setTimeout0');

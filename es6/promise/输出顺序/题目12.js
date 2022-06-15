@@ -27,8 +27,6 @@ new Promise(function (resolve) {
   console.log('8')
 })
 
-// 输出结果：247536 async2 的结果 1
-
 // 作者：Big shark@LX
 // 链接：https://juejin.cn/post/7004638318843412493
 // 来源：稀土掘金

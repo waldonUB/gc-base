@@ -35,8 +35,6 @@ new Promise(function (resolve) {
 })
 console.log('console') //
 
-// promise for promise2 console resolve1 resolve3 resolve2 setTimeout1 promise0 settimeout promise resolveed setTimeout2
-
 // 作者：夜剑剑
 // 链接：https://juejin.cn/post/7025439075473571853
 // 来源：稀土掘金

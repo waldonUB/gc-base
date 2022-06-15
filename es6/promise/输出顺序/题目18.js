@@ -22,10 +22,5 @@ new Promise((resolve, reject) => {
     console.log(6)
   })
 /*
-1
-3
-2
-4
-6
-5
+
 */

@@ -13,4 +13,3 @@ Promise.resolve()
   .then(() => {
     console.log(4)
   })
-// 1 3 2 4

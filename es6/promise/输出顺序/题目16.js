@@ -31,13 +31,5 @@ promiseFn.then((val) => console.log(val))
 console.log('===END===')
 
 /*
-test start...
-testSomething
-promise START...
-===END===
-return testSomething
-testAsync
-promise RESOLVE
-hello async
-test end...
+
 */
