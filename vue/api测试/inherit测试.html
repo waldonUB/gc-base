@@ -1,0 +1,58 @@
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+   </head>
+   <body>
+   <div id="app">
+      <temp a="1" b="2" />
+   </div>
+   <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.26.0/axios.js"></script>
+   <script>
+    const temp2 = {
+      template: `
+        <div class="child2">
+          {{b}}
+        </div>
+      `,
+      // inheritAttrs: false,
+      props: {
+        b: {
+          type: String,
+          default: '2'
+        },
+      }
+    }
+    const temp = {
+      template: `
+        <div class="child">
+          11
+          <temp2 v-bind="$attrs"/>
+        </div>
+      `,
+      inheritAttrs: false,
+      components: {temp2},
+      props: {
+        a: {
+          type: String,
+          default: '1'
+        },
+      }
+    }
+
+   new Vue({
+     components: {
+       temp
+     },
+     data: {
+     },
+     methods: {
+     },
+   }).$mount("#app")
+   </script>
+   </body>
+   </html>
