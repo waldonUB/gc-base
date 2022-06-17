@@ -22,7 +22,7 @@ async1().then((data) => {
 })
 new Promise(function (resolve) {
   console.log('7')
-  //   resolve()
+  // resolve()
 }).then(function () {
   console.log('8')
 })

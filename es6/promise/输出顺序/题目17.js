@@ -29,4 +29,8 @@ new Promise((resolve, reject) => {
   console.log('8')
 })
 
+/*
+
+*/
+
 // 连续.then不是多个微任务添加的，而是先执行完里面的代码
