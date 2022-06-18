@@ -11,6 +11,7 @@
 
 /**
  * 和网上的实现有点不太一样，但是能满足核心功能
+ * 可以多个入参
  * @author waldon
  * @date 2022-06-06
  */
@@ -39,3 +40,38 @@ const multiple = function (a, b) {
 }
 const fn = compose(add, multiple)
 console.log(fn(2, 5))
+
+// /**
+//  * 单个入参的
+//  * @author waldon
+//  * @date 2022-06-18
+//  * @param {*} param - param
+//  */
+// const compose_1 = function () {
+//   const fns = [...arguments]
+//   let isFirst = true
+//   return function () {
+//     let params = [...arguments]
+//     while (fns.length) {
+//       console.log(`params`, params)
+//       const fn = fns.pop()
+//       if (isFirst) {
+//         params = fn.apply(this, params)
+//         isFirst = false
+//       } else {
+//         params = fn(params)
+//       }
+//     }
+//     return params
+//   }
+// }
+
+// const add = function (a, b) {
+//   return a + 1
+// }
+
+// const multiple = function (a, b) {
+//   return a * b
+// }
+// const fn = compose(add, multiple)
+// console.log(fn(2, 5))
