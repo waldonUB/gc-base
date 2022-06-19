@@ -6,9 +6,9 @@
 
 // 测试：
 function User() {}
-User.prototype.getUserName = function () {
-  console.log(`getUserName 执行`)
-}
 
 const user = new User()
-user.getUserName()
+
+console.log(user.__proto__ === User.prototype)
+console.log(User.prototype.__proto__ === Object.prototype)
+console.log(Object.prototype.__proto__ === null)
