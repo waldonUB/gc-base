@@ -12,26 +12,50 @@ import SubMenu from './SubMenu.vue'
 
 const menuList = [
   {
+    id: 'home',
+    icon: '',
+    name: '首页',
+    children: [],
+  },
+  {
     id: 'newAttrs',
     icon: '',
     name: 'Vue3新特性',
     children: [
       {
-        id: 'apiTest',
+        id: 'compositionApi',
         icon: '',
-        name: 'api测试',
-        children: [
-          {
-            id: 'setupScript',
-            icon: '',
-            name: 'setupScript',
-          },
-          {
-            id: 'setupNormal',
-            icon: '',
-            name: 'setupNormal',
-          },
-        ],
+        name: '组合式API',
+      },
+      {
+        id: 'teleport',
+        icon: '',
+        name: 'Teleport',
+      },
+      {
+        id: 'fragment',
+        icon: '',
+        name: '片段',
+      },
+      {
+        id: 'emitOptions',
+        icon: '',
+        name: '触发组件选项',
+      },
+      {
+        id: 'cssVBind',
+        icon: '',
+        name: 'CSS中的v-bind',
+      },
+      {
+        id: 'lifeCycle',
+        icon: '',
+        name: '组件生命周期',
+      },
+      {
+        id: 'hooksTest',
+        icon: '',
+        name: 'Hooks测试',
       },
     ],
   },
@@ -39,13 +63,30 @@ const menuList = [
     id: 'globalApi ',
     icon: '',
     name: '全局Api',
-    children: [],
+    children: [
+      {
+        id: 'globalInstanceApi',
+        icon: '',
+        name: '全局API改为应用实例',
+      },
+    ],
   },
   {
     id: 'templateDirective',
     icon: '',
     name: '模板指令',
-    children: [],
+    children: [
+      {
+        id: 'vModelChange',
+        icon: '',
+        name: 'v-model用法更改',
+      },
+      {
+        id: 'vForAndVIf',
+        icon: '',
+        name: 'v-for和v-if用法',
+      },
+    ],
   },
   {
     id: 'component ',
@@ -84,6 +125,18 @@ export default {
       },
     }
   },
+  computed: {
+    openMenuIdsCal() {
+      const res = []
+      this.menuList.forEach((item) => {
+        if (item?.children.length) {
+          res.push(item.children[0].id)
+        }
+      })
+      console.log('res: ', res)
+      return res
+    },
+  },
   methods: {
     /**
      * 点击路由
@@ -115,7 +168,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .menu-wrapper {
   width: 300px;
   height: 100%;
