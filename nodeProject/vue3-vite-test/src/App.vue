@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import BaseMenu from '@/layouts/BaseMenu.vue'
 </script>
 
@@ -35,8 +33,7 @@ import BaseMenu from '@/layouts/BaseMenu.vue'
 .flex-wrapper {
   display: flex;
   .right-wrapper {
-    box-sizing: border-box;
-    padding: 20px;
+    width: 100%;
   }
 }
 /* top end */
