@@ -24,7 +24,7 @@ export default {
     const { emit } = context
     const { menuList } = toRefs(props)
     const router = useRouter()
-    console.log('menuList', menuList)
+    // console.log('menuList', menuList)
     const titleClick = (rowData: any) => {
       let { path, children } = rowData
       if (children?.length) {

@@ -1,14 +1,15 @@
 <script lang="ts">
+// todo waldon 这个还没有完善，现在跳不到这里
 export default {
   components: {},
   setup(props: any, context: any) {},
 }
 </script>
 <template>
-  <div class="compositionApi">
+  <div class="vModelChange">
     <div className="page-header">
       <div className="left-part">
-        <div className="page-title">首页</div>
+        <div className="page-title">v-model用法更改</div>
       </div>
       <div className="right-part">
         <div className="button-operate">
@@ -21,6 +22,6 @@ export default {
   </div>
 </template>
 <style lang="less" scoped>
-.dashboard {
+.vModelChange {
 }
 </style>
