@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 
 // components
 import SubMenu from './SubMenu.vue'
 
 // utils
-import { routes as menuList } from '@/routers/index.ts'
+import { routes as menuList } from '@/routers/index'
 
 export default {
   name: 'BaseMenu',
@@ -20,8 +20,8 @@ export default {
   },
   computed: {
     openMenuIdsCal() {
-      const res = []
-      this.menuList.forEach((item) => {
+      const res: any = []
+      menuList.forEach((item: any) => {
         if (item?.children.length) {
           res.push(item.children[0].id)
         }
@@ -37,7 +37,7 @@ export default {
      * @date 2022-01-29
      * @param {*} rowData - param
      */
-    titleClick(rowData) {
+    titleClick() {
       console.log('parent component success')
       return
       // if (!baseData.router) {

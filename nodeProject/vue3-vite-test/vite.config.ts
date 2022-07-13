@@ -20,4 +20,25 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    cssCodeSplit: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vue: ['vue', 'vue-router'],
+          antdv: ['ant-design-vue'],
+        },
+        chunkFileNames: (chunkInfo) => {
+          if (chunkInfo.facadeModuleId?.includes('/views/')) {
+            const nameArr = chunkInfo.facadeModuleId.split('/')
+            const name = nameArr[nameArr.length - 2]
+            console.log('name.[hash]: ', name)
+            console.log('chunkInfo.name: ', chunkInfo)
+            // return `assets/${name}.js`
+          }
+          return 'assets/v1_[name].[hash].js'
+        },
+      },
+    },
+  },
 })

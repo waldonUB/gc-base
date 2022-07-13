@@ -41,6 +41,7 @@ export default {
     </div>
     <div class="container-wrapper">
       <div class="page-wrapper">
+        111
         <p class="title">父组件显示：</p>
         <p>父组件接收子组件的事件：{{ randomVal }}</p>
       </div>
