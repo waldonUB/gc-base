@@ -3,6 +3,21 @@ import { resolve, join } from 'path'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
+const customPlugin = function () {
+  const load = function (params) {
+    console.log('load: ', params)
+  }
+  const transformBundle = function (code) {
+    return code.replace('_lazy.js', '_lazy.js?v=123456')
+  }
+
+  return {
+    name: 'rollup-plugin-add-version',
+    // load,
+    transformBundle,
+  }
+}
+
 export default defineConfig({
   resolve: {
     alias: {
@@ -29,16 +44,19 @@ export default defineConfig({
           antdv: ['ant-design-vue'],
         },
         chunkFileNames: (chunkInfo) => {
+          console.log('chunkInfo: ', chunkInfo.name)
+
           if (chunkInfo.facadeModuleId?.includes('/views/')) {
             const nameArr = chunkInfo.facadeModuleId.split('/')
             const name = nameArr[nameArr.length - 2]
-            console.log('name.[hash]: ', name)
-            console.log('chunkInfo.name: ', chunkInfo)
-            // return `assets/${name}.js`
+            // console.log('name.[hash]: ', name)
+            // console.log('chunkInfo.name: ', chunkInfo)
+            return `assets/${name}_lazy.js`
           }
-          return 'assets/v1_[name].[hash].js'
+          return 'assets/[name].[hash].js'
         },
       },
+      plugins: [customPlugin()],
     },
   },
 })
