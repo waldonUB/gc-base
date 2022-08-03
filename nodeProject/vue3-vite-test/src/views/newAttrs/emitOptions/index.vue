@@ -1,30 +1,7 @@
-<script lang="ts">
+<script setup lang="ts">
 // 这里顺便写穿透样式的用例
 import Child from './components/Child.vue'
-
-// api
-import { toRefs, ref } from 'vue'
-export default {
-  components: {
-    Child,
-  },
-  setup(props: any, context: any) {
-    let randomVal = ref('')
-    const getRandomValue = function (val: string) {
-      randomVal.value = val
-    }
-    // emits: ['randomValue', 'click'] 因为在子组件声明了click，
-    // 所以会覆盖掉在组件上直接写的@click，并且不会触发两次
-    const clickChild = function (val: any) {
-      console.log('clickChild: ', val)
-    }
-    return {
-      randomVal,
-      getRandomValue,
-      clickChild,
-    }
-  },
-}
+import { randomVal, getRandomValue, clickChild } from './config/index'
 </script>
 <template>
   <div class="compositionApi">

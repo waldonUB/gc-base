@@ -6,7 +6,9 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "addVersion": "node ./script/addVersion.js"
+    "addVersion": "node ./script/addVersion.js",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
@@ -23,15 +25,18 @@
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^10.0.0",
     "babel-eslint": "^10.1.0",
+    "c8": "^7.12.0",
     "eslint": "^8.12.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.6.0",
     "fs-extra": "^10.1.0",
+    "happy-dom": "^6.0.4",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "typescript": "^4.7.4",
     "vite": "^2.9.9",
+    "vitest": "^0.20.2",
     "vue-tsc": "^0.34.7"
   }
 }
