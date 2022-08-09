@@ -4,6 +4,7 @@ import {
   getRandomValue,
   clickChild,
 } from '../../src/views/newAttrs/emitOptions/config/index'
+import { Window } from 'happy-dom'
 
 test('should work as expected', () => {
   expect(Math.sqrt(4)).toBe(2)
@@ -23,4 +24,12 @@ test('测试点击后的值', () => {
   it.concurrent('concurrent test 2', async () => {
     expect(randomVal.value).toBe('str')
   })
+})
+
+test('测试', () => {
+  const window = new Window()
+  const document = window.document
+  window.location.href = 'http://localhost:3000/'
+
+  console.log(document)
 })

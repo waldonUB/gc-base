@@ -59,7 +59,8 @@ export default defineConfig({
       plugins: [customPlugin()],
     },
   },
-  test: {
-    environment: 'happy-dom', // or 'jsdom', 'node'
+  server: {
+    host: true,
+    port: 8010,
   },
 })
