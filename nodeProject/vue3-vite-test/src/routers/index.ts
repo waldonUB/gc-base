@@ -24,6 +24,13 @@ const routes = [
         name: '组合式API',
       },
       {
+        id: 'formResolve',
+        path: '/newAttrs/formResolve',
+        component: () => import('@/views/newAttrs/formResolve/index.vue'),
+        icon: '',
+        name: 'form表单组件传值',
+      },
+      {
         id: 'teleport',
         path: '/newAttrs/teleport',
         component: () => import('@/views/newAttrs/teleport/index.vue'),

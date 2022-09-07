@@ -1,6 +1,6 @@
 <script lang="ts">
 import { MailOutlined, PieChartOutlined } from '@ant-design/icons-vue'
-
+import SVGA from 'svgaplayerweb'
 // api
 import { onBeforeMount, onMounted, onBeforeUnmount, onUnmounted } from 'vue'
 import { useRouter, createRouter } from 'vue-router'
@@ -15,6 +15,12 @@ export default {
     })
     onMounted(() => {
       console.log('onMounted')
+      var player = new SVGA.Player('#demoCanvas')
+      var parser = new SVGA.Parser() // 如果你需要支持 IE6+，那么必须把同样的选择器传给 Parser。
+      parser.load('./rose_2.0.0.svga', function (videoItem) {
+        player.setVideoItem(videoItem)
+        player.startAnimation()
+      })
     })
     onBeforeUnmount(() => {
       console.log('onBeforeUnmount')
@@ -35,6 +41,7 @@ export default {
         <div className="button-operate"></div>
       </div>
     </div>
+    <div id="demoCanvas" style="width: 200px; height: 200px"></div>
   </div>
 </template>
 <style lang="less" scoped></style>

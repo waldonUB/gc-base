@@ -59,4 +59,8 @@ export default defineConfig({
       plugins: [customPlugin()],
     },
   },
+  server: {
+    host: true,
+    port: 8010,
+  },
 })
