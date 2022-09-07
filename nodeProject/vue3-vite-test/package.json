@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "addVersion": "node ./script/addVersion.js"
+    "addVersion": "node ./script/addVersion.js",
+    "test": "vitest"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
@@ -32,6 +33,7 @@
     "less-loader": "^10.2.0",
     "typescript": "^4.7.4",
     "vite": "^2.9.9",
+    "vitest": "^0.23.1",
     "vue-tsc": "^0.34.7"
   }
 }
