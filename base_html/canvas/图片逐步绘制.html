@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="480" height="321"></canvas>
+    <script>
+      var img = new Image()
+      function init() {
+        let ctx
+        img.onload = function () {
+          ctx = document.getElementById('canvas').getContext('2d')
+          beginDraw()
+        }
+        let step = 1
+        let x = 0
+        let y = 0
+        let width = 100
+        let height = 100
+        const speed = 5
+        const beginDraw = function() {
+          switch(step) {
+            case 1:
+              x += speed
+              if (x >= img.width) {
+                x -= 100
+                step = 2
+              }
+              break
+            case 2:
+              y += speed
+              if (y >= img.height) {
+                y -= 100
+                step = 3
+              }
+              break
+            case 3:
+              x -= speed
+              if (x <= 0) {
+                step = 4
+              }
+              break
+            case 4:
+              y -= speed
+              if (y <= 0) {
+                step = 5
+              }
+              break
+          }
+          console.log({
+            x,y
+          });
+          ctx.drawImage(img, 0, y, width, height, x ,y, width, height)
+          requestAnimationFrame(beginDraw)
+        }
+        img.src = './image/新垣结衣.jpg'
+      }
+      init()
+    </script>
+  </body>
+</html>
