@@ -3,15 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
+    <style>
+      .wrapper {
+        width: 300px;
+      }
+    </style>
   </head>
   <body>
-    <canvas id="canvas" width="480" height="321"></canvas>
+    <div id="wrapper" class="wrapper">
+      <canvas id="canvas"></canvas>
+    </div>
     <script>
       var img = new Image()
       function init() {
         let ctx
+        let rate
         img.onload = function () {
-          ctx = document.getElementById('canvas').getContext('2d')
+          const canvas = document.getElementById('canvas')
+          const wrapperInfo = document.getElementById('wrapper')
+          const { clientWidth, clientHeight } = wrapperInfo;
+          console.log({clientWidth});
+          console.log({clientHeight});
+          canvas.width = clientWidth
+          canvas.height = clientHeight
+          ctx = canvas.getContext('2d')
+          rate = clientWidth / img.width
+          console.log({rate});
           beginDraw()
         }
         let step = 1
@@ -52,7 +69,7 @@
           console.log({
             x,y
           });
-          ctx.drawImage(img, 0, y, width, height, x ,y, width, height)
+          ctx.drawImage(img, x, y, width, height, x * rate,y * rate, width * rate, height* rate )
           requestAnimationFrame(beginDraw)
         }
         img.src = './image/新垣结衣.jpg'

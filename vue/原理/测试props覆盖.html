@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+</head>
+<body>
+  <div id="app">
+    <my-component test-data="waldon456"></my-component>
+  </div>
+  <script>
+    const myComponent = {
+      template: `
+      <div>
+      {{testData}}
+      </div>
+      `,
+      props: {
+        testData: {
+          type: String,
+          default: 'waldon'
+        }
+      },
+      data () {
+        return {
+          testData: 'waldon123'
+        }
+      },
+      mounted() {
+        console.log(this.testData)
+      },
+
+    }
+    new Vue({
+      el: '#app',
+      data: {
+
+      },
+      components: {
+        myComponent
+      }
+    })
+  </script>
+</body>
+</html>

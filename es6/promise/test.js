@@ -1,19 +1,3 @@
-Promise.resolve().then(() => {
-  console.time()
-  let i = 0
-  while (i < 10000000000) {
-    const arr = new Array(10)
-    i++
-  }
-  console.timeEnd()
-})
-Promise.resolve().then(() => {
-  console.time()
-  let i = 0
-  while (i < 10000000000) {
-    const arr = new Array(10)
-    i++
-  }
-  console.timeEnd()
-  console.log('第二个微任务')
-})
+const num = 35288004767548150
+const num1 = num + 2
+console.log(num1)
