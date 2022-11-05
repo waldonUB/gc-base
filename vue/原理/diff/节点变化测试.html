@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.common.dev.js"></script>
+  <style>
+    .red-text {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <button @click="changeList">改变数组</button>
+    <ul>
+      <li class="red-text" v-for="(item, index) of list" :key="item.key">
+        {{ item.value }}
+      </li>
+    </ul>
+  </div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        list: [
+          {
+            key: 1,
+            value: 1
+          },
+          {
+            key: 2,
+            value: 2
+          },
+          {
+            key: 3,
+            value: 3
+          },
+        ],
+      },
+      computed: {
+      },
+      methods: {
+        changeList () {
+          const item = this.list.pop()
+          this.list.unshift(item)
+        }
+      },
+    })
+  </script>
+</body>
+</html>
