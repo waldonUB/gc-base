@@ -1,3 +1,4 @@
+import '@/assets/styles/index.css'
 import 'ant-design-vue/dist/antd.variable.less'
 import '@/assets/styles/base.less'
 import {
@@ -45,7 +46,7 @@ import {
   Badge,
 } from 'ant-design-vue'
 import { createApp } from 'vue'
-import { router } from './routers'
+import { router } from './routers/index'
 import App from './App.vue'
 
 const app = createApp(App)

@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="container-wrapper">
+    <div class="container-wrapper flex justify-center space-x-12">
       <div class="child">
         <p>style随机颜色</p>
         <div class="box" :style="randomColorCal">
@@ -56,14 +56,11 @@ export default {
 <style lang="less" scoped>
 .cssVBind {
   .container-wrapper {
-    display: flex;
-    justify-content: center;
     .child {
       .box {
         width: 200px;
         height: 200px;
         border: 1px solid #eeeeee;
-        margin-right: 16px;
         &.v-bind {
           background-color: v-bind(randomColorVBindCal);
         }
