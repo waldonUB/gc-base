@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+// 这里的id应该是name，name应该是title，目前的字段定义不符合规范
 const routes = [
   {
     id: 'home',
@@ -151,6 +152,22 @@ const routes = [
     icon: '',
     name: '被移除的API',
     children: [],
+  },
+  {
+    id: 'ts-study',
+    path: '/ts-study',
+    component: () => import('@/layouts/SubRouterView.vue'),
+    icon: '',
+    name: 'TS学习',
+    children: [
+      {
+        id: 'base',
+        path: '/ts-study/base',
+        component: () => import('@/views/ts-study/base/index.vue'),
+        icon: '',
+        name: '基础特性',
+      },
+    ],
   },
 ]
 
