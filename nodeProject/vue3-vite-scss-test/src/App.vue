@@ -12,7 +12,7 @@ import BaseMenu from '@/layouts/BaseMenu.vue'
   </div>
 </template>
 
-<!-- <style lang="less">
+<style lang="scss">
 /* top start */
 .top-wrapper {
   position: relative;
@@ -37,4 +37,4 @@ import BaseMenu from '@/layouts/BaseMenu.vue'
   }
 }
 /* top end */
-</style> -->
+</style>
