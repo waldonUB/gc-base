@@ -38,9 +38,9 @@ define-properties@^1.1.3:
     object-keys "^1.0.12"
 
 follow-redirects@^1.10.0:
-  version "1.13.3"
-  resolved "https://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.13.3.tgz#e5598ad50174c1bc4e872301e82ac2cd97f90267"
-  integrity sha1-5VmK1QF0wbxOhyMB6CrCzZf5Amc=
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.0.tgz#06441868281c86d0dda4ad8bdaead2d02dca89d4"
+  integrity sha512-aExlJShTV4qOUOL7yF1U5tvLCB0xQuudbf6toyYA0E/acBNw71mvjFTnLaRp50aQaYocMR0a/RMMBIHeZnGyjQ==
 
 fs-extra@^9.1.0:
   version "9.1.0"
