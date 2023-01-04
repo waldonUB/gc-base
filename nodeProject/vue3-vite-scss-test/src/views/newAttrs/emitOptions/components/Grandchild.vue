@@ -1,14 +1,12 @@
-<!-- 孙子组件 -->
 <template>
-  <div class="grandchild">
-    <p>组父组件的v-bind="$attrs"：{{ hobby }}</p>
-    <p class="flex-wrapper deep-class">
-      <span>孙子组件中的getRandomValue：{{ randomValue }}</span>
-      <a-button type="primary" size="small" class="list-btn" @click="getRandomValue">
-        获取随机值
-      </a-button>
-    </p>
-  </div>
+  <!-- 渲染根组件 -->
+  <router-view>
+    <!-- 渲染子组件 -->
+    <router-view>
+      <!-- 渲染孙子组件 -->
+      <router-view> </router-view>
+    </router-view>
+  </router-view>
 </template>
 <script lang="ts">
 import { ref } from 'vue'
