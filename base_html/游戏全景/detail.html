@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>游戏全景</title>
+  <link href="http://admin.static.37wan.com/adminfront/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .g6-tooltip {
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+      align-items: center;
+      border: 1px solid #e2e2e2;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #545454;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px 15px;
+      box-shadow: rgb(174 174 174) 0px 0px 10px;
+    }
+    .game-detail .part-info {
+      border-top: 1px dashed #b2b2b2;
+      box-sizing: border-box;
+      padding: 20px 0;
+    }
+    .game-detail .part-info:first-child {
+      border-top: none;
+    }
+    .game-detail .game {
+      color: #272727;
+      font-weight: bold;
+      font-size: 22px;
+    }
+    .game-detail .desc {
+      color: #797979;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .game-detail .text {
+      margin-left: 4px;
+    }
+    .game-detail .diy-ibox .diy-status-red {
+      color: #FA541C;
+      border: 1px solid rgb(255, 187, 150);
+      background: rgb(255, 242, 232);
+      margin-left: 6px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-detail">
+    <div class="col-md-4 col-lg-4">
+      <div class="part-info">
+        <div class="diy-ibox">
+          <span class="game">荣耀大天使</span>
+          <span class="diy-status-red">运营中</span>
+        </div>
+        <div class="desc">
+          <span class="fa fa-group"></span>
+          <span class="text">37网游-麒麟项目组</span>
+        </div>
+        <div class="desc">
+          <span class="fa fa-user"></span>
+          <span class="text">项目负责人：郑邓星</span>
+        </div>
+        <div class="desc">
+          <span class="fa fa-tags"></span>
+          <span class="text">游戏题材：西方魔幻</span>
+        </div>
+        <div class="desc">
+          <span class="fa fa-list-ul"></span>
+          <span class="text">合作模式：自研</span>
+        </div>
+      </div>
+      <div class="part-info">
+        <div>子游戏</div>
+      </div>
+      <div class="part-info">
+        <div>报审、封控、投诉</div>
+      </div>
+    </div>
+    <div class="col-md-8 col-lg-8">
+      <div id="container"></div>
+    </div>
+  </div>
+  <script src="http://admin.static.37wan.com/adminfront/js/jquery.min.js"></script>
+  <script src="http://admin.static.37wan.com/adminfront/js/bootstrap.min.js"></script>
+  <script src="https://gw.alipayobjects.com/os/lib/antv/g6/4.8.0/dist/g6.min.js"></script>
+  <script src="./mock/game.js"></script>
+  <script>
+  const data = game.val
+
+  const translateTree = (tree) => {
+    tree.size = 80
+  }
+
+  translateTree(data)
+
+  /**
+   * 组织架构label换行
+   * @author waldon
+   * @date 2023-01-10
+   */
+   const getDetailLabel = (node) => {
+    const { name, val } = node
+    let str = name
+    if (val || val === 0) {
+      return `${name}\n${val}`
+    }
+    return str
+  }
+
+  G6.registerNode(
+  'customCircle',
+  {
+    // 绘制节点
+    draw: function draw(cfg, group) {
+      var shape = this.drawShape(cfg, group);
+      if (cfg.label && cfg.label.length) {
+        this.drawLabel(cfg, group);
+      }
+      return shape;
+    },
+
+    // 绘制label
+    drawLabel: function drawLabel(cfg, group) {
+      var size = this.getSize(cfg);
+      var width = size[0];
+      console.log(`cfg`, cfg);
+      var { name, val } = cfg;
+      const hasVal = val || val === 0
+      // 绘制第一个label
+      group.addShape("text", {
+        attrs: {
+          text: name || "",
+          x: 0,
+          y: 0,
+          fill: "#333333",
+          textAlign: "center",
+          textBaseline: 'center',
+          fontWeight: "bold"
+        }
+      });
+      if (hasVal) {
+        // 绘制第二个label
+        group.addShape("text", {
+          attrs: {
+            text: val,
+            x: 0,
+            y: 16,
+            fill: "#333333",
+            textAlign: "center",
+            textBaseline: 'center',
+          }
+        });
+      }
+    }
+  },
+  // 继承内置节点类型的名字，例如基类 'single-node'，或 'circle', 'rect' 等
+  // 当不指定该参数则代表不继承任何内置节点类型
+  'circle',
+);
+
+  const tooltip = new G6.Tooltip({
+    offsetX: 10,
+    offsetY: 10,
+    className: 'g6-tooltip',
+    getContent(e) {
+      const outDiv = document.createElement('div');
+      outDiv.innerHTML = `<div>${e.item.getModel().label}</div>`
+      return outDiv
+    },
+    itemTypes: ['node'],
+    fixToNode: [0.5, 0.5]
+  });
+
+  setTimeout(() => {
+    const container = document.getElementById('container');
+    const width = container.scrollWidth;
+    const height = container.scrollHeight || 700;
+    const graph = new G6.TreeGraph({
+      container: 'container',
+      width,
+      height,
+      linkCenter: true,
+      plugins: [tooltip], // 配置 Grid 插件和 Minimap 插件
+      modes: {
+        default: [
+          {
+            type: 'collapse-expand',
+            onChange: function onChange(item, collapsed) {
+              const data = item.get('model');
+              data.collapsed = collapsed;
+              return true;
+            },
+          },
+          'drag-canvas',
+          'zoom-canvas',
+        ],
+      },
+      defaultNode: {
+        type: 'customCircle',
+        style: {
+          cursor: 'pointer'
+        },
+        preRect: {
+          // 设置为 false，则不显示
+          show: false,
+          fill: '#f759ab',
+          width: 8,
+        },
+        logoIcon: {
+          // 是否显示 icon，值为 false 则不渲染 icon
+          show: false,
+          x: 0,
+          y: 0,
+          // icon 的地址，字符串类型
+          img: 'https://gw.alipayobjects.com/zos/basement_prod/4f81893c-1806-4de4-aff3-9a6b266bc8a2.svg',
+          width: 16,
+          height: 16,
+          // 用于调整图标的左右位置
+          offset: 0
+        },
+        // 节点中表示状态的 icon 配置
+        stateIcon: {
+          // 是否显示 icon，值为 false 则不渲染 icon
+          show: false,
+          x: 0,
+          y: 0,
+          // icon 的地址，字符串类型
+          img: 'https://gw.alipayobjects.com/zos/basement_prod/300a2523-67e0-4cbf-9d4a-67c077b40395.svg',
+          width: 16,
+          height: 16,
+          // 用于调整图标的左右位置
+          offset: -5
+        }
+      },
+      layout: {
+        type: 'dendrogram',
+        direction: 'LR',
+        nodeSep: 20,
+        rankSep: 180,
+        radial: true,
+      },
+    });
+
+    graph.node(function (node) {
+      const { type, name, size } = node
+      const nodeStyle = {}
+      let label = name
+      let nodeType = 'customCircle'
+      if (type === 1) {
+        nodeStyle.fill = '#ff9925'
+        nodeStyle.stroke = '#ff9925'
+      } else {
+        // nodeType = 'modelRect'
+        label = getDetailLabel(node)
+      }
+      return {
+        label,
+        labelCfg: {
+          style: {
+            cursor: 'pointer',
+            lineHeight: '20',
+            // fontWeight: 'bold'
+          },
+        },
+        style: nodeStyle,
+        size: size || 60,
+        type: nodeType,
+      };
+    });
+
+    graph.on('node:click', (ev) => {
+      const shape = ev.target;
+      const node = ev.item;
+      console.log(`shape`, shape);
+      console.log(`node`, node);
+    });
+
+    graph.data(data);
+    graph.render();
+    graph.fitView();
+
+    if (typeof window !== 'undefined')
+    window.onresize = () => {
+      if (!graph || graph.get('destroyed')) return;
+      if (!container || !container.scrollWidth || !container.scrollHeight) return;
+      graph.changeSize(container.scrollWidth, container.scrollHeight);
+    };
+  }, 0)
+  </script>
+</body>
+</html>
