@@ -1,0 +1,937 @@
+{{extends file="layouts/list.htm"}}
+
+{{block name="breadcrumb"}}
+  <li><a href="index.php?c={{$s.c}}&a=list">游戏管理</a></li>
+  <li class="active">游戏全景</li>
+{{/block}}
+
+{{block name="content"}}
+<style type="text/css">
+  [v-cloak] {
+    display: none;
+  }
+  #app .g6-tooltip {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: center;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #545454;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 15px;
+    box-shadow: rgb(174 174 174) 0px 0px 10px;
+  }
+  #app .container {
+    height: calc(100vh - 120px);
+  }
+  .index-component .btn,
+  .game-detail .btn {
+    outline: none;
+    height: 27px;
+    line-height: 1;
+  }
+  .game-detail .group-wrapper {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    z-index: 1;
+  }
+  .index-component .group-wrapper .btn-default,
+  .game-detail .group-wrapper .btn-default {
+    background-color: transparent;
+  }
+  .index-component .operator-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @media (min-width: 1200px) {
+    .index-component .col-lg-3 {
+      width: 24%;
+    }
+    .index-component .operator-group.col-lg-3 {
+      width: 28%;
+    }
+  }
+  .index-component .operator-wrapper {
+  }
+  .game-detail .part-info {
+    border-top: 1px dashed #b2b2b2;
+    box-sizing: border-box;
+    padding: 20px 0;
+  }
+  .game-detail .checkbox-group-wrapper,
+  .game-detail .checkbox-group {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+  .game-detail .checkbox-group {
+    margin-right: 12px;
+  }
+  .game-detail .checkbox-group .checkbox {
+    width: 16px;
+    height: 16px;
+    margin: 0 8px 0 0;
+    cursor: pointer;
+  }
+  .game-detail .part-info:first-child {
+    border-top: none;
+  }
+  .game-detail .game {
+    color: #272727;
+    font-weight: bold;
+    font-size: 22px;
+  }
+  .game-detail .desc {
+    color: #797979;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .game-detail .text {
+    margin-left: 4px;
+  }
+  .game-detail .diy-ibox .diy-status-red {
+    color: #FA541C;
+    border: 1px solid rgb(255, 187, 150);
+    background: rgb(255, 242, 232);
+    margin-left: 6px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .game-detail .right-part {
+    position: relative;
+  }
+  .game-detail .btn-wrapper {
+    display: flex;
+    align-items: center;
+    color: #169BD5;
+    margin-bottom: 30px;
+    cursor: pointer;
+  }
+  .game-detail .btn-wrapper .icon {
+    margin-right: 8px;
+    font-size: 20px;
+  }
+  .game-detail .part-card {
+    margin-top: 30px;
+  }
+  .game-detail .part-title-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    border-bottom: 1px solid #eeeeee;
+    box-sizing: border-box;
+    padding-bottom: 15px;
+  }
+  .game-detail .part-title-wrapper .part-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 30px;
+  }
+  .game-detail .part-title-wrapper .btn-wrapper {
+    margin-bottom: 0;
+  }
+  .game-detail .card-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+  }
+  .game-detail .card-wrapper .card-content {
+    margin: 10px 20px 20px 0;
+    flex: 0 0 auto;
+    width: calc(20% - 20px);
+    height: 100px;
+    border-color: rgba(233, 233, 233, 1);
+    border-radius: 5px;
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.149019607843137);
+    -webkit-box-shadow: 0px 0px 8px rgb(0 0 0 / 15%);
+    box-shadow: 0px 0px 8px rgb(0 0 0 / 15%);
+    font-size: 14px;
+    color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 5px;
+  }
+  .game-detail .card-wrapper .card-content .card-name {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+</style>
+<script src="http://adminedition.37wan.com/static/js/vue3.min.js"></script>
+<div id="app">
+  <keep-alive>
+    <component :is="componentName" v-bind="componentOption" @get-component-name="getComponentName"></component>
+  </keep-alive>
+</div>
+
+<script src="http://adminedition.37wan.com/static/js/g6.min.js"></script>
+<script type="text/javascript">
+
+const NODE_TYPE = {
+  ORG: 1,
+  GAME: 2, // 跳转到对应的游戏
+}
+
+/**
+ * 配置对应的树形数据
+ * @author waldon
+ * @date 2023-01-17
+ */
+const getTranslateTree = (tree, size = 60) => {
+  let level = 0
+  const SIZE_DECREASE = 5
+  const getChildren = (tree, level, size) => {
+    if (tree.id || tree.id === 0) {
+      tree.id = tree.id + '' // 处理id为数字的问题
+    }
+    if (tree.type && !isNaN(Number(tree.type))) {
+      // 避免type字段冲突
+      tree._type = tree.type
+    }
+    if (level <= 1 ) {
+      tree.fontSize = 15
+      tree.fontWeight = 'bold'
+    }
+    if (tree.name === '三七互娱') {
+      tree.fontSize = 18
+    }
+    tree.size = size
+    level++
+    size -= SIZE_DECREASE
+    if (Array.isArray(tree.children)) {
+      for (const item of tree.children) {
+        getChildren(item, level, size)
+      }
+    }
+  }
+  getChildren(tree, level, size)
+}
+
+/**
+ * 首次渲染的组件
+ * @author waldon
+ * @date 2023-01-12
+ */
+const IndexComponent = {
+  template: `
+    <div class="index-component">
+      <div class="form-horizontal search-form">
+        <div class="ibox float-e-margins search-panel">
+          <div class="ibox-title">
+            <h5><i class="fa fa-search fa-fw"></i>查询<small class="m-l-sm"></small></h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+            </div>
+          </div>
+          <div class="ibox-content">
+            <div class="row">
+              <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                <label class="col-md-4 control-label">游戏：</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" placeholder="游戏" name="game_name" v-model="requestParams.game_name" />
+                </div>
+              </div>
+              <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                <label class="col-md-4 control-label">合作模式：</label>
+                <div class="col-md-8">
+                  <select ref="is_single_ref" name="is_single" class="chosen-select form-control" v-model="requestParams.is_single"
+                      data-toggle="chosen-select" data-placeholder="请选择合作模式">
+                      <option value="0">全部</option>
+                      <option value="1">独代</option>
+                      <option value="3">自研</option>
+                      <option value="4">投资公司独代</option>
+                      <option value="2">联运</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                <label class="col-md-4 control-label">项目组：</label>
+                <div class="col-md-8">
+                  <select ref="project_id_ref" name="project_id" class="chosen-select" data-toggle="chosen-game-selector" v-model="requestParams.project_id">
+                    <option value="0">全部</option>
+                    <option value="1">貔貅项目组</option>
+                    <option value="2">麒麟项目组</option>
+                    <option value="3">页游组</option>
+                    <option value="51">奇迹项目组</option>
+                    <option value="52">传奇项目组</option>
+                    <option value="53">天将项目组</option>
+                    <option value="54">星辰项目组</option>
+                    <option value="55">皓月项目组</option>
+                    <option value="56">逍遥项目组</option>
+                    <option value="57">斗罗项目组</option>
+                    <option value="58">纵横项目组</option>
+                    <option value="59">非大陆业务组</option>
+                    <option value="60">常青组</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group operator-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                <div class="btn-group group-wrapper" role="group">
+                  <button 
+                    v-for="item of departmentArr"
+                    type="button" 
+                    class="btn" 
+                    :class="requestParams.department === item.value ? 'btn-primary' : 'btn-default'"
+                    @click="changeDepartment(item)">
+                    [[item.label]]
+                  </button>
+                </div>
+                <div class="operator-wrapper">
+                  <button class="btn btn-primary btn-querys" data-action="get-game-map" @click="search">查询</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+    <div id="indexContainer" class="container"></div>
+  </div>
+  `,
+  emits: ['getComponentName'],
+  setup(props, context) {
+    const { reactive, ref } = Vue
+    const { emit } = context
+    const requestParams = reactive({
+      game_name: '',
+      is_single: undefined,
+      project_id: undefined,
+      department: 0, // 部门：0/全部，1/3网，2/3手，3/37游戏
+    })
+    const departmentArr = [
+      {
+        value: 0,
+        label: '全部'
+      },
+      {
+        value: 1,
+        label: '37网游'
+      },
+      {
+        value: 2,
+        label: '37手游'
+      },
+      {
+        value: 3,
+        label: '37游戏'
+      },
+    ]
+    /**
+     * 改变查询条件的部门
+     * @author waldon
+     * @date 2023-01-17
+     */
+     const changeDepartment = (item) => { 
+      requestParams.department = item.value
+    }
+    const is_single_ref = ref(null)
+    const project_id_ref = ref(null)
+    let graph = null
+    let isInitMap = false
+    const search = () => {
+      const params = {
+        ...requestParams
+      }
+      if (is_single_ref.value?.value || is_single_ref.value?.value === 0) {
+        // 组件被转化了，v-model不生效，通过其他方式获取改变的值
+        params.is_single = is_single_ref.value.value
+      }
+      if (project_id_ref.value?.value || project_id_ref.value?.value === 0) {
+        // 组件被转化了，v-model不生效，通过其他方式获取改变的值
+        params.project_id = project_id_ref.value.value
+      }
+      $.getJSON("index.php?c=base-GameMap&a=game_list", params, res => {
+        const data = res.val
+        getTranslateTree(data, 60)
+        if (!isInitMap) {
+          initMap(data)
+        } else {
+          graph.changeData(data)
+          graph.fitCenter()
+        }
+      })
+    }
+    search()
+
+
+    /* 图表 start */
+    const initMap = (data) => {
+      isInitMap = true
+      /**
+       * 组织架构label换行
+       * @author waldon
+       * @date 2023-01-10
+       */
+      const getOrgLabel = (str) => {
+        const NODE_LENGTH = 3
+        if (str?.length > NODE_LENGTH) {
+          const ORG_LENGTH = 2 // 组织架构的默认长度
+          const strArr = str.split('')
+          strArr.splice(ORG_LENGTH, 0, '\n')
+          return strArr.join('')
+        }
+        return str
+      }
+
+      const tooltip = new G6.Tooltip({
+        offsetX: 10,
+        offsetY: 10,
+        className: 'g6-tooltip',
+        getContent(e) {
+          const outDiv = document.createElement('div');
+          outDiv.innerHTML = `<div>${e.item.getModel().label}</div>`
+          return outDiv
+        },
+        itemTypes: ['node'],
+        fixToNode: [0.5, 0.5]
+      });
+      const container = document.getElementById('indexContainer');
+      console.log(`container`, container);
+      const width = container.scrollWidth;
+      const height = container.scrollHeight;
+      graph = new G6.TreeGraph({
+        container: 'indexContainer',
+        width,
+        height,
+        linkCenter: true,
+        plugins: [], // 配置 Grid 插件和 Minimap 插件
+        modes: {
+          default: [
+            {
+              type: 'collapse-expand',
+              onChange: function onChange(item, collapsed) {
+                const data = item.get('model');
+                data.collapsed = collapsed;
+                return true;
+              },
+            },
+            'drag-canvas',
+            'zoom-canvas',
+          ],
+        },
+        defaultNode: {
+          style: {
+            cursor: 'pointer'
+          },
+        },
+        layout: {
+          type: 'dendrogram',
+          direction: 'RL',
+          nodeSep: 20,
+          rankSep: 120,
+          radial: true,
+        },
+      });
+
+      graph.node(function (node) {
+        const { type, name, size, fontWeight, fontSize } = node
+        const nodeStyle = {}
+        let label = name
+        if (type === NODE_TYPE.ORG) {
+          nodeStyle.fill = '#ff9925'
+          nodeStyle.stroke = '#ff9925'
+          label = getOrgLabel(name)
+        }
+        return {
+          size,
+          label,
+          labelCfg: {
+            style: {
+              cursor: 'pointer',
+              fontWeight: fontWeight || 'normal',
+              fontSize: fontSize || 14,
+            },
+          },
+          style: nodeStyle,
+        };
+      });
+
+      graph.on('node:click', (ev) => {
+        const shape = ev.target;
+        const node = ev.item;
+        const { _cfg } = node
+        const { model } = _cfg
+        const { type, id } = model
+        if (type === NODE_TYPE.GAME) {
+          emit('getComponentName', 'GameComponent', {
+            id
+          })
+        }
+      });
+
+      graph.data(data);
+      graph.render();
+      graph.fitCenter()
+      if (typeof window !== 'undefined') {
+        window.onresize = () => {
+          if (!graph || graph.get('destroyed')) return;
+          if (!container || !container.scrollWidth || !container.scrollHeight) return;
+          graph.changeSize(container.scrollWidth, container.scrollHeight);
+        };
+      }
+    }
+    /* 图表 end */
+
+    return {
+      requestParams,
+      search,
+      is_single_ref,
+      project_id_ref,
+      departmentArr,
+      changeDepartment,
+    }
+  },
+}
+
+/**
+ * 游戏组件
+ * @author waldon
+ * @date 2023-01-12
+ */
+ const GameComponent = {
+  template: `
+  <div class="game-detail">
+    <div class="col-md-3 col-lg-3">
+      <div class="part-info">
+        <div class="btn-wrapper" @click="backToIndex">
+          <span class="icon fa fa-angle-double-left"></span>
+          <span class="text">返回</span>
+        </div>
+        <div class="diy-ibox">
+          <span class="game">[[formState.name]]</span>
+          <span class="diy-status-red">[[formState.state]]</span>
+        </div>
+        <div class="desc">
+          <span class="fa fa-group"></span>
+          <span class="text">[[formState.department_name]]-[[formState.project_name]]</span>
+        </div>
+        <div class="desc">
+          <span class="fa fa-user"></span>
+          <span class="text">项目负责人：[[formState.project_manager || '无']]</span>
+        </div>
+        <div class="desc">
+          <span class="fa fa-tags"></span>
+          <span class="text">游戏题材：[[formState.theme || '无']]</span>
+        </div>
+        <div class="desc">
+          <span class="fa fa-list-ul"></span>
+          <span class="text">合作模式：[[formState.single || '无']]</span>
+        </div>
+      </div>
+      <div class="part-info">
+        <div class="checkbox-group-wrapper">
+          <div class="checkbox-group" v-for="item of dataStateArr" :key="item.value">
+            <input class="checkbox" type="checkbox" v-model="item.isChecked" />
+            <div class="check-label">[[item.label]]</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 col-lg-9 right-part">
+      <div v-show="activeType === 'map'" id="gameContainer" class="container"></div>
+      <div v-show="activeType === 'table'">
+        <div class="part-card" v-for="item of dataListCal" :key="item.name">
+          <div class="part-title-wrapper">
+            <div class="part-title">
+              [[item.name]]
+            </div>
+            <div class="btn-wrapper" @click="gotoDetail(item)">
+              查看详情
+            </div>
+          </div>
+          <div class="card-wrapper">
+            <div class="card-content" v-for="subItem of item.children" :key="item.name">
+              <div class="card-name">[[subItem.name]]</div>
+              <div class="">[[subItem.val]]</div>
+              <div v-if="subItem.name === '防沉迷'">[[subItem.name2]]：[[subItem.count]]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group group-wrapper" role="group">
+        <button type="button" class="btn" :class="activeType === 'map' ? 'btn-primary' : 'btn-default'" @click="changeType('map')">图</button>
+        <button type="button" class="btn" :class="activeType === 'table' ? 'btn-primary' : 'btn-default'" @click="changeType('table')">表</button>
+      </div>
+    </div>
+  </div>
+  `,
+  props: {
+    id: {
+      type: [Number, String],
+      default: 0
+    }
+  },
+  emits: ['getComponentName'],
+  setup(props, context) {
+    const { reactive, ref, computed, watch, onActivated } = Vue
+    const { emit } = context
+    const requestParams = reactive({
+      id: undefined,
+    })
+    let graph = null
+    let isInitMap = false
+    const getFormState = () => {
+      return {
+        department_name: '', // 部门名
+        name: '', // 游戏名
+        project_manager: '', // 负责人
+        project_name: '', // 项目名
+        state: '', // 游戏状态
+        single: '', // 合作模式
+        theme: '', // 游戏题材
+        is_wenzheng: true, // 是否文政
+        children: [],
+        type: undefined, // 节点类型
+      }
+    }
+    const getDataStateArr = () => {
+      return [
+        {
+          label: '报审',
+          value: 'trial',
+          isChecked: true,
+        },
+        {
+          label: '风控',
+          value: 'riskControl',
+          isChecked: true,
+        },
+        {
+          label: '投诉',
+          value: 'complaint',
+          isChecked: true,
+        }
+      ]
+    }
+    const formState = reactive(getFormState())
+    const dataStateArr = reactive(getDataStateArr())
+    const search = () => {
+      $.getJSON("index.php?c=base-GameMap&a=game_info", requestParams, res => {
+        const data = res.val
+        getTranslateTree(data, 70)
+        if (!isInitMap) {
+          initMap(data)
+        } else {
+          graph.changeData(data)
+          graph.fitCenter();
+        }
+        Object.assign(formState, data)
+      })
+    }
+
+    const dataListCal = computed(() => {
+      if (!formState.children) {
+        return []
+      }
+      return formState.children.filter(item => {
+        const cur = dataStateArr.find(subItem => item.name === subItem.label)
+        if (cur) {
+          const { isChecked } = cur
+          return isChecked
+        }
+        return true
+      })
+    })
+
+    const mapInfoCal = computed(() => {
+      return {
+        ...formState,
+        children: dataListCal.value
+      }
+    })
+
+    watch(mapInfoCal, newVal => {
+      if (graph) {
+        graph.changeData(newVal)
+        graph.fitCenter()
+      }
+    })
+
+    /* 图表 start */
+    const initMap = (data) => {
+      isInitMap = true
+      /**
+       * 组织架构label换行
+       * @author waldon
+       * @date 2023-01-10
+       */
+      const getDetailLabel = (node) => {
+        const { name, val } = node
+        let str = name
+        if (val || val === 0) {
+          return `${name}\n${val}`
+        }
+        return str
+      }
+
+      G6.registerNode(
+      'customCircle',
+      {
+        // 绘制节点
+        draw: function draw(cfg, group) {
+          var shape = this.drawShape(cfg, group);
+          if (cfg.label && cfg.label.length) {
+            this.drawLabel(cfg, group);
+          }
+          return shape;
+        },
+
+        // 绘制label
+        drawLabel: function drawLabel(cfg, group) {
+          var size = this.getSize(cfg);
+          var width = size[0];
+          var { name, val } = cfg;
+          const hasVal = val || val === 0
+          // 绘制第一个label
+          group.addShape("text", {
+            attrs: {
+              text: name || "",
+              x: 0,
+              y: 0,
+              fill: "#333333",
+              textAlign: "center",
+              textBaseline: 'center',
+              fontWeight: "bold"
+            }
+          });
+          if (hasVal) {
+            // 绘制第二个label
+            group.addShape("text", {
+              attrs: {
+                text: val,
+                x: 0,
+                y: 16,
+                fill: "#444444",
+                textAlign: "center",
+                textBaseline: 'center',
+              }
+            });
+          }
+        }
+      },
+      // 继承内置节点类型的名字，例如基类 'single-node'，或 'circle', 'rect' 等
+      // 当不指定该参数则代表不继承任何内置节点类型
+      'circle',
+      );
+
+      const tooltip = new G6.Tooltip({
+        offsetX: 10,
+        offsetY: 10,
+        className: 'g6-tooltip',
+        getContent(e) {
+          const outDiv = document.createElement('div');
+          outDiv.innerHTML = `<div>${e.item.getModel().label}</div>`
+          return outDiv
+        },
+        itemTypes: ['node'],
+        fixToNode: [0.5, 0.5]
+      });
+      const container = document.getElementById('gameContainer');
+      const width = container.scrollWidth;
+      const height = container.scrollHeight;
+      graph = new G6.TreeGraph({
+        container: 'gameContainer',
+        width,
+        height,
+        linkCenter: true,
+        plugins: [tooltip], // 配置 Grid 插件和 Minimap 插件
+        modes: {
+          default: [
+            {
+              type: 'collapse-expand',
+              onChange: function onChange(item, collapsed) {
+                const data = item.get('model');
+                data.collapsed = collapsed;
+                return true;
+              },
+            },
+            'drag-canvas',
+            'zoom-canvas',
+          ],
+        },
+        defaultNode: {
+          type: 'customCircle',
+          style: {
+            cursor: 'pointer'
+          },
+        },
+        layout: {
+          type: 'dendrogram',
+          direction: 'RL',
+          nodeSep: 20,
+          rankSep: 180,
+          radial: true,
+        },
+      });
+
+      graph.node(function (node) {
+        const { _type, type ,name, size, fontWeight, fontSize } = node
+        const nodeStyle = {}
+        let label = name
+        let nodeType = 'customCircle'
+        if ([_type, type].includes(NODE_TYPE.ORG)) {
+          nodeType = 'circle'
+          nodeStyle.fill = '#ff9925'
+          nodeStyle.stroke = '#ff9925'
+        } else {
+          label = getDetailLabel(node)
+        }
+        return {
+          ...node,
+          type: nodeType,
+          label,
+          labelCfg: {
+            style: {
+              cursor: 'pointer',
+              fontWeight: fontWeight || 'normal',
+              fontSize: fontSize || 14,
+            },
+          },
+          style: nodeStyle,
+          size,
+        };
+      });
+
+      graph.on('node:click', (ev) => {
+        const shape = ev.target;
+        const node = ev.item;
+      });
+
+      graph.data(data);
+      graph.render();
+      graph.fitCenter();
+      if (typeof window !== 'undefined') {
+        window.onresize = () => {
+          if (!graph || graph.get('destroyed')) return;
+          if (!container || !container.scrollWidth || !container.scrollHeight) return;
+          graph.changeSize(container.scrollWidth, container.scrollHeight);
+        };
+      }
+    }
+    /* 图表 end */
+
+
+    let activeType = ref('map')
+    /**
+     * 切换图、表
+     * @author waldon
+     * @date 2023-01-16
+     */
+    const changeType = (type) => {
+      activeType.value = type
+      switch (type) {
+        case 'map':
+
+          break
+        case 'table':
+          break
+      }
+    }
+
+    /**
+     * 回到第一个组件
+     * @author waldon
+     * @date 2023-01-16
+     */
+    const backToIndex = () => {
+      emit('getComponentName', 'IndexComponent', {})
+    }
+
+    /**
+     * 获取详情
+     * @author waldon
+     * @date 2023-01-16
+     */
+    const gotoDetail = (rowData) => {
+      const { id } = requestParams
+      const { name } = rowData
+      const { is_wenzheng, department } = formState
+      switch (name) {
+        case '报审':
+          if (is_wenzheng) {
+            // 报审（文政）：
+            location.href = `index.php?c=review-GameReviewProcess&a=edit&preview=1&game_id=${id}`
+          } else {
+            // 报审（非文政）：
+            location.href = `index.php?c=review-GameReviewProcess&a=edit_info&preview=1&game_id=${id}`
+          }
+          break
+        case '风控':
+          location.href = `index.php?c=risk-GameRisk&a=edit&preview=1&id=${id}`
+          break
+        case '投诉':
+          if (+department === 1) {
+            // 投诉（37网游）：
+            location.href = `index.php?c=complaint-ComplaintWeb&a=list&game=${id}`
+          } else {
+            // 投诉（37手游）：
+            location.href = `index.php?c=complaint-ComplaintMob&a=list&game=${id}`
+          }
+          break
+      }
+    }
+    onActivated(() => {
+      const { id } = props
+      Object.assign(formState, getFormState())
+      Object.assign(dataStateArr, getDataStateArr())
+      requestParams.id = id
+      activeType.value = 'map'
+      search()
+    })
+    return {
+      requestParams,
+      search,
+      formState,
+      activeType,
+      changeType,
+      dataListCal,
+      dataStateArr,
+      backToIndex,
+      gotoDetail,
+    }
+  },
+}
+
+
+const { createApp } = Vue
+
+const app = createApp({
+  setup () {
+    const { ref, reactive } = Vue
+    const componentOption = reactive({
+      id: undefined
+    })
+    const componentName = ref('IndexComponent')
+    const getComponentName = (name, option = {}) => {
+      componentName.value = name
+      Object.assign(componentOption, option)
+    }
+    return {
+      componentName,
+      getComponentName,
+      componentOption,
+    }
+  },
+  components: {
+    IndexComponent,
+    GameComponent,
+  }
+})
+app.config.compilerOptions.delimiters = ['[[', ']]'] // 暂时规避与smarty模板的冲突
+app.mount('#app')
+
+// todo waldon id重复
+// todo waldon 查看详情 风控等模块的
+// todo waldon 点击子节点更新图
+// todo waldon 收款公司为多个如何处理
+// todo waldon group使用
+
+</script>
+{{/block}}
