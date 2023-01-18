@@ -27,6 +27,17 @@
     height: calc(100vh - 120px);
   }
   .index-component .btn,
+  .game-detail {
+    box-sizing: border-box;
+    padding: 0 15px;
+  }
+  .game-detail .col-lg-2,
+  .game-detail .col-lg-3,
+  .game-detail .col-md-2,
+  .game-detail .col-md-3 {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .game-detail .btn {
     outline: none;
     height: 27px;
@@ -188,7 +199,7 @@ const getTranslateTree = (tree, size = 60) => {
   const SIZE_DECREASE = 5
   const getChildren = (tree, level, size) => {
     if (tree.id || tree.id === 0) {
-      tree.id = tree.id + '' // 处理id为数字的问题
+      tree.id = `${tree.id}_${tree.name}` // 处理id不唯一的问题
     }
     if (tree.type && !isNaN(Number(tree.type))) {
       // 避免type字段冲突
@@ -196,12 +207,13 @@ const getTranslateTree = (tree, size = 60) => {
     }
     if (level <= 1 ) {
       tree.fontSize = 15
-      tree.fontWeight = 'bold'
+      // tree.fontWeight = 'bold'
     }
     if (tree.name === '三七互娱') {
       tree.fontSize = 18
     }
     tree.size = size
+    tree.level = level
     level++
     size -= SIZE_DECREASE
     if (Array.isArray(tree.children)) {
@@ -242,7 +254,7 @@ const IndexComponent = {
               <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
                 <label class="col-md-4 control-label">合作模式：</label>
                 <div class="col-md-8">
-                  <select ref="is_single_ref" name="is_single" class="chosen-select form-control" v-model="requestParams.is_single"
+                  <select id="is_single" ref="is_single_ref" name="is_single" class="chosen-select form-control" v-model="requestParams.is_single"
                       data-toggle="chosen-select" data-placeholder="请选择合作模式">
                       <option value="0">全部</option>
                       <option value="1">独代</option>
@@ -275,10 +287,10 @@ const IndexComponent = {
               </div>
               <div class="form-group operator-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
                 <div class="btn-group group-wrapper" role="group">
-                  <button 
+                  <button
                     v-for="item of departmentArr"
-                    type="button" 
-                    class="btn" 
+                    type="button"
+                    class="btn"
                     :class="requestParams.department === item.value ? 'btn-primary' : 'btn-default'"
                     @click="changeDepartment(item)">
                     [[item.label]]
@@ -290,7 +302,7 @@ const IndexComponent = {
               </div>
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     <div id="indexContainer" class="container"></div>
   </div>
@@ -328,8 +340,14 @@ const IndexComponent = {
      * @author waldon
      * @date 2023-01-17
      */
-     const changeDepartment = (item) => { 
+     const changeDepartment = (item) => {
       requestParams.department = item.value
+      if (item.value === 3) {
+        // 切换到37游戏时，自动切换模式为自研
+        is_single_ref.value.value = 3
+        // 对下拉列表进行重新渲染
+        $("#is_single").trigger("chosen:updated");
+      }
     }
     const is_single_ref = ref(null)
     const project_id_ref = ref(null)
@@ -355,6 +373,7 @@ const IndexComponent = {
         } else {
           graph.changeData(data)
           graph.fitCenter()
+          graph.fitView(40);
         }
       })
     }
@@ -380,20 +399,7 @@ const IndexComponent = {
         return str
       }
 
-      const tooltip = new G6.Tooltip({
-        offsetX: 10,
-        offsetY: 10,
-        className: 'g6-tooltip',
-        getContent(e) {
-          const outDiv = document.createElement('div');
-          outDiv.innerHTML = `<div>${e.item.getModel().label}</div>`
-          return outDiv
-        },
-        itemTypes: ['node'],
-        fixToNode: [0.5, 0.5]
-      });
       const container = document.getElementById('indexContainer');
-      console.log(`container`, container);
       const width = container.scrollWidth;
       const height = container.scrollHeight;
       graph = new G6.TreeGraph({
@@ -431,11 +437,12 @@ const IndexComponent = {
       });
 
       graph.node(function (node) {
-        const { type, name, size, fontWeight, fontSize } = node
+        const { type, name, size, fontWeight, fontSize, level } = node
         const nodeStyle = {}
         let label = name
         if (type === NODE_TYPE.ORG) {
-          nodeStyle.fill = '#ff9925'
+          const _a = (10 - level * 3) / 10
+          nodeStyle.fill = `rgba(255, 153, 37, ${_a})`
           nodeStyle.stroke = '#ff9925'
           label = getOrgLabel(name)
         }
@@ -460,15 +467,19 @@ const IndexComponent = {
         const { model } = _cfg
         const { type, id } = model
         if (type === NODE_TYPE.GAME) {
-          emit('getComponentName', 'GameComponent', {
-            id
-          })
+          let _id = id + ''
+          if (_id.includes('_')) {
+            _id = _id.split('_')[0]
+          }
+          emit('getComponentName', 'GameComponent', { id: _id })
         }
       });
 
       graph.data(data);
       graph.render();
       graph.fitCenter()
+      graph.fitView(40);
+      graph.setMaxZoom(1);
       if (typeof window !== 'undefined') {
         window.onresize = () => {
           if (!graph || graph.get('destroyed')) return;
@@ -498,7 +509,7 @@ const IndexComponent = {
  const GameComponent = {
   template: `
   <div class="game-detail">
-    <div class="col-md-3 col-lg-3">
+    <div class="col-md-2 col-lg-2">
       <div class="part-info">
         <div class="btn-wrapper" @click="backToIndex">
           <span class="icon fa fa-angle-double-left"></span>
@@ -534,7 +545,7 @@ const IndexComponent = {
         </div>
       </div>
     </div>
-    <div class="col-md-9 col-lg-9 right-part">
+    <div class="col-md-10 col-lg-10 right-part">
       <div v-show="activeType === 'map'" id="gameContainer" class="container"></div>
       <div v-show="activeType === 'table'">
         <div class="part-card" v-for="item of dataListCal" :key="item.name">
@@ -549,7 +560,7 @@ const IndexComponent = {
           <div class="card-wrapper">
             <div class="card-content" v-for="subItem of item.children" :key="item.name">
               <div class="card-name">[[subItem.name]]</div>
-              <div class="">[[subItem.val]]</div>
+              <div v-html="subItem.val"></div>
               <div v-if="subItem.name === '防沉迷'">[[subItem.name2]]：[[subItem.count]]</div>
             </div>
           </div>
@@ -615,12 +626,15 @@ const IndexComponent = {
     const search = () => {
       $.getJSON("index.php?c=base-GameMap&a=game_info", requestParams, res => {
         const data = res.val
-        getTranslateTree(data, 70)
-        if (!isInitMap) {
-          initMap(data)
-        } else {
-          graph.changeData(data)
-          graph.fitCenter();
+        getTranslateTree(data, 80)
+        if (activeType.value === 'map') {
+          if (!isInitMap) {
+            initMap(data)
+          } else {
+            graph.changeData(data)
+            graph.fitCenter();
+            graph.fitView(40);
+          }
         }
         Object.assign(formState, data)
       })
@@ -651,32 +665,25 @@ const IndexComponent = {
       if (graph) {
         graph.changeData(newVal)
         graph.fitCenter()
+        graph.fitView(40);
       }
     })
 
     /* 图表 start */
     const initMap = (data) => {
       isInitMap = true
-      /**
-       * 组织架构label换行
-       * @author waldon
-       * @date 2023-01-10
-       */
-      const getDetailLabel = (node) => {
-        const { name, val } = node
-        let str = name
-        if (val || val === 0) {
-          return `${name}\n${val}`
-        }
-        return str
-      }
 
       G6.registerNode(
       'customCircle',
       {
         // 绘制节点
         draw: function draw(cfg, group) {
-          var shape = this.drawShape(cfg, group);
+          const { level } = cfg
+          const shape = this.drawShape(cfg, group);
+          console.log(`shape`, shape);
+          if (level === 1) {
+            this.drawNode(cfg, group)
+          }
           if (cfg.label && cfg.label.length) {
             this.drawLabel(cfg, group);
           }
@@ -685,10 +692,15 @@ const IndexComponent = {
 
         // 绘制label
         drawLabel: function drawLabel(cfg, group) {
-          var size = this.getSize(cfg);
-          var width = size[0];
-          var { name, val } = cfg;
-          const hasVal = val || val === 0
+          const size = this.getSize(cfg);
+          const width = size[0];
+          let { name, val, level } = cfg;
+          let fontSize;
+          if (level === 1) {
+            fontSize = 16
+          } else {
+            fontSize = 12
+          }
           // 绘制第一个label
           group.addShape("text", {
             attrs: {
@@ -698,36 +710,94 @@ const IndexComponent = {
               fill: "#333333",
               textAlign: "center",
               textBaseline: 'center',
-              fontWeight: "bold"
+              fontWeight: "bold",
+              fontSize
             }
           });
-          if (hasVal) {
-            // 绘制第二个label
-            group.addShape("text", {
-              attrs: {
-                text: val,
-                x: 0,
-                y: 16,
-                fill: "#444444",
-                textAlign: "center",
-                textBaseline: 'center',
-              }
-            });
+          // 绘制第二个label
+          let text;
+          let fill;
+          let cursor = 'default';
+          if (level === 1) {
+            text = '查看详情'
+            fill = '#169BD5',
+            cursor = 'pointer'
+          } else {
+            if (name === '收款公司') {
+              val = '...'
+            }
+            text = val
+            fill = '#444444'
           }
-        }
+          group.addShape("text", {
+            attrs: {
+              text,
+              x: 0,
+              y: 16,
+              fill,
+              textAlign: "center",
+              textBaseline: 'center',
+              cursor,
+            }
+          });
+        },
+        drawNode: function (cfg, group) {
+          const { level } = cfg
+          const _a = (10 - level * 3) / 10
+          console.log(`cfg`, cfg);
+          console.log(`group`, group);
+          group.addShape('circle', {
+            attrs: {
+              x: 0,
+              y: 0,
+              r: 35,
+              fill: `#ffbd72`,
+              stroke: '#ff9925',
+            },
+            name: 'circle-shape',
+          });
+        },
+        update(cfg, node) {
+          const { level } = cfg
+          if (level <= 1) {
+            console.log(`cfg`, cfg);
+          }
+        },
       },
       // 继承内置节点类型的名字，例如基类 'single-node'，或 'circle', 'rect' 等
       // 当不指定该参数则代表不继承任何内置节点类型
       'circle',
       );
 
+
       const tooltip = new G6.Tooltip({
         offsetX: 10,
         offsetY: 10,
         className: 'g6-tooltip',
+        shouldBegin(e) {
+          if (e?.item?._cfg?.model) {
+            const { name, val, reason } = e.item._cfg.model
+            const showArr = ['风险等级', '收款公司']
+            if (showArr.includes(name)) {
+              if (name === '风险等级') {
+                return !!reason
+              }
+              return true
+            }
+          }
+          return false
+        },
         getContent(e) {
           const outDiv = document.createElement('div');
-          outDiv.innerHTML = `<div>${e.item.getModel().label}</div>`
+          outDiv.innerHTML = ``
+          if (e?.item?._cfg?.model) {
+            const { name, val, reason } = e.item._cfg.model
+            if (name === '风险等级') {
+              outDiv.innerHTML = `<div>${ reason }</div>`
+            } else {
+              outDiv.innerHTML = `<div>${ val }</div>`
+            }
+          }
           return outDiv
         },
         itemTypes: ['node'],
@@ -751,16 +821,24 @@ const IndexComponent = {
                 data.collapsed = collapsed;
                 return true;
               },
+              shouldBegin: (ev) => {
+                // 若当前操作的节点为风控 报审 投诉的【查看详情】，则不发生 collapse-expand
+                const shape = ev.target;
+                const node = ev.item;
+                const { _cfg } = node
+                const { model } = _cfg
+                const { id, name } = model
+                const { attrs } = shape
+                const { text } = attrs
+                if (id && name && text === '查看详情') {
+                  return false;
+                }
+                return true;
+              },
             },
             'drag-canvas',
             'zoom-canvas',
           ],
-        },
-        defaultNode: {
-          type: 'customCircle',
-          style: {
-            cursor: 'pointer'
-          },
         },
         layout: {
           type: 'dendrogram',
@@ -772,16 +850,17 @@ const IndexComponent = {
       });
 
       graph.node(function (node) {
-        const { _type, type ,name, size, fontWeight, fontSize } = node
+        const { _type, type ,name, size, fontWeight, fontSize, level } = node
         const nodeStyle = {}
         let label = name
         let nodeType = 'customCircle'
-        if ([_type, type].includes(NODE_TYPE.ORG)) {
+        if (level === 0) {
           nodeType = 'circle'
           nodeStyle.fill = '#ff9925'
           nodeStyle.stroke = '#ff9925'
-        } else {
-          label = getDetailLabel(node)
+        } else if (level === 1) {
+          nodeStyle.fill = '#ff9925'
+          nodeStyle.stroke = '#ff9925'
         }
         return {
           ...node,
@@ -802,11 +881,21 @@ const IndexComponent = {
       graph.on('node:click', (ev) => {
         const shape = ev.target;
         const node = ev.item;
+        const { _cfg } = node
+        const { model } = _cfg
+        const { id, name } = model
+        const { attrs } = shape
+        const { text } = attrs
+        if (id && name && text === '查看详情') {
+          gotoDetail({ name })
+        }
       });
 
       graph.data(data);
       graph.render();
       graph.fitCenter();
+      graph.fitView(40);
+      graph.setMaxZoom(1);
       if (typeof window !== 'undefined') {
         window.onresize = () => {
           if (!graph || graph.get('destroyed')) return;
@@ -818,7 +907,7 @@ const IndexComponent = {
     /* 图表 end */
 
 
-    let activeType = ref('map')
+    let activeType = ref('')
     /**
      * 切换图、表
      * @author waldon
@@ -828,7 +917,11 @@ const IndexComponent = {
       activeType.value = type
       switch (type) {
         case 'map':
-
+          if (!isInitMap) {
+            setTimeout(() => {
+              initMap(formState)
+            }, 0)
+          }
           break
         case 'table':
           break
@@ -882,7 +975,7 @@ const IndexComponent = {
       Object.assign(formState, getFormState())
       Object.assign(dataStateArr, getDataStateArr())
       requestParams.id = id
-      activeType.value = 'map'
+      activeType.value = 'table'
       search()
     })
     return {
@@ -926,12 +1019,5 @@ const app = createApp({
 })
 app.config.compilerOptions.delimiters = ['[[', ']]'] // 暂时规避与smarty模板的冲突
 app.mount('#app')
-
-// todo waldon id重复
-// todo waldon 查看详情 风控等模块的
-// todo waldon 点击子节点更新图
-// todo waldon 收款公司为多个如何处理
-// todo waldon group使用
-
 </script>
 {{/block}}
