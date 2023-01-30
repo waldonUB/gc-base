@@ -1,7 +1,7 @@
 {{extends file="layouts/list.htm"}}
 
 {{block name="breadcrumb"}}
-  <li><a href="index.php?c={{$s.c}}&a=list">游戏管理</a></li>
+  <li><a href="javascript:;">游戏管理</a></li>
   <li class="active">游戏全景</li>
 {{/block}}
 
@@ -25,6 +25,27 @@
   }
   #app .container {
     height: calc(100vh - 120px);
+  }
+  #app button {
+    outline: none;
+  }
+  #app .btn.middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+  }
+  #app .search-panel .ibox-content label.control-label {
+    padding-top: 6px;
+  }
+  #app .input-group .form-control[name="stime"], .input-group .form-control[name="etime"], input[type="text"],
+  #app .chosen-container,
+  #app .chosen-container-single .chosen-single {
+    height: 32px;
+    line-height: 30px;
+  }
+  #app .chosen-container-single .chosen-single div {
+    top: 3px;
   }
   .index-component .btn,
   .game-detail {
@@ -73,6 +94,9 @@
     box-sizing: border-box;
     padding: 20px 0;
   }
+  .game-detail .part-info .back-btn-wrapper {
+    margin-top: 10px;
+  }
   .game-detail .checkbox-group-wrapper,
   .game-detail .checkbox-group {
     display: flex;
@@ -86,6 +110,10 @@
     width: 16px;
     height: 16px;
     margin: 0 8px 0 0;
+    cursor: pointer;
+  }
+  .game-detail .checkbox-group .check-label {
+    margin-bottom: 0;
     cursor: pointer;
   }
   .game-detail .part-info:first-child {
@@ -104,6 +132,9 @@
   .game-detail .text {
     margin-left: 4px;
   }
+  .game-detail .diy-ibox {
+    margin-bottom: 20px;
+  }
   .game-detail .diy-ibox .diy-status-red {
     color: #FA541C;
     border: 1px solid rgb(255, 187, 150);
@@ -112,6 +143,7 @@
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 12px;
+    vertical-align: text-top;
   }
   .game-detail .right-part {
     position: relative;
@@ -120,8 +152,9 @@
     display: flex;
     align-items: center;
     color: #169BD5;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     cursor: pointer;
+    height: 32px;
   }
   .game-detail .btn-wrapper .icon {
     margin-right: 8px;
@@ -139,6 +172,10 @@
     padding-bottom: 15px;
   }
   .game-detail .part-title-wrapper .part-title {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    height: 32px;
     font-size: 18px;
     font-weight: bold;
     margin-right: 30px;
@@ -182,6 +219,7 @@
 </div>
 
 <script src="http://adminedition.37wan.com/static/js/g6.min.js"></script>
+<script src="http://adminedition.37wan.com/static/js/open-tab.js"></script>
 <script type="text/javascript">
 
 const NODE_TYPE = {
@@ -194,7 +232,7 @@ const NODE_TYPE = {
  * @author waldon
  * @date 2023-01-17
  */
-const getTranslateTree = (tree, size = 60) => {
+const getTranslateTree = (tree, size = 60, option = {} ) => {
   let level = 0
   const SIZE_DECREASE = 5
   const getChildren = (tree, level, size) => {
@@ -211,6 +249,14 @@ const getTranslateTree = (tree, size = 60) => {
     }
     if (tree.name === '三七互娱') {
       tree.fontSize = 18
+    }
+    const { requestParams } = option
+    if (requestParams) {
+      const { game_name, project_id } = requestParams
+      // 如果检索带条件，则不收起游戏
+      if (game_name || (project_id && project_id !== '0')) {
+        tree.collapsed = false
+      }
     }
     tree.size = size
     tree.level = level
@@ -248,26 +294,13 @@ const IndexComponent = {
               <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
                 <label class="col-md-4 control-label">游戏：</label>
                 <div class="col-md-8">
-                  <input type="text" class="form-control" placeholder="游戏" name="game_name" v-model="requestParams.game_name" />
-                </div>
-              </div>
-              <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
-                <label class="col-md-4 control-label">合作模式：</label>
-                <div class="col-md-8">
-                  <select id="is_single" ref="is_single_ref" name="is_single" class="chosen-select form-control" v-model="requestParams.is_single"
-                      data-toggle="chosen-select" data-placeholder="请选择合作模式">
-                      <option value="0">全部</option>
-                      <option value="1">独代</option>
-                      <option value="3">自研</option>
-                      <option value="4">投资公司独代</option>
-                      <option value="2">联运</option>
-                  </select>
+                  <input type="text" class="form-control" placeholder="请输入游戏名" name="game_name" v-model="requestParams.game_name" />
                 </div>
               </div>
               <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
                 <label class="col-md-4 control-label">项目组：</label>
                 <div class="col-md-8">
-                  <select ref="project_id_ref" name="project_id" class="chosen-select" data-toggle="chosen-game-selector" v-model="requestParams.project_id">
+                  <select ref="project_id_ref" name="project_id" class="chosen-select" data-toggle="chosen-game-selector" data-placeholder="请选择项目组">
                     <option value="0">全部</option>
                     <option value="1">貔貅项目组</option>
                     <option value="2">麒麟项目组</option>
@@ -285,19 +318,32 @@ const IndexComponent = {
                   </select>
                 </div>
               </div>
+              <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                <label class="col-md-4 control-label">合作模式：</label>
+                <div class="col-md-8">
+                  <select id="is_single" ref="is_single_ref" name="is_single" class="chosen-select form-control"
+                      data-toggle="chosen-select" data-placeholder="请选择合作模式">
+                      <option value="0">全部</option>
+                      <option value="1">独代</option>
+                      <option value="3">自研</option>
+                      <option value="4">投资公司独代</option>
+                      <option value="2">联运</option>
+                  </select>
+                </div>
+              </div>
               <div class="form-group operator-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
                 <div class="btn-group group-wrapper" role="group">
                   <button
                     v-for="item of departmentArr"
                     type="button"
-                    class="btn"
+                    class="btn middle"
                     :class="requestParams.department === item.value ? 'btn-primary' : 'btn-default'"
                     @click="changeDepartment(item)">
                     [[item.label]]
                   </button>
                 </div>
                 <div class="operator-wrapper">
-                  <button class="btn btn-primary btn-querys" data-action="get-game-map" @click="search">查询</button>
+                  <button class="btn btn-primary middle" data-action="get-game-map" @click="search">查询</button>
                 </div>
               </div>
             </div>
@@ -309,7 +355,7 @@ const IndexComponent = {
   `,
   emits: ['getComponentName'],
   setup(props, context) {
-    const { reactive, ref } = Vue
+    const { reactive, ref, onActivated } = Vue
     const { emit } = context
     const requestParams = reactive({
       game_name: '',
@@ -345,6 +391,7 @@ const IndexComponent = {
       if (item.value === 3) {
         // 切换到37游戏时，自动切换模式为自研
         is_single_ref.value.value = 3
+        requestParams.is_single = 3
         // 对下拉列表进行重新渲染
         $("#is_single").trigger("chosen:updated");
       }
@@ -353,25 +400,26 @@ const IndexComponent = {
     const project_id_ref = ref(null)
     let graph = null
     let isInitMap = false
+    let treeData = null
     const search = () => {
-      const params = {
-        ...requestParams
-      }
       if (is_single_ref.value?.value || is_single_ref.value?.value === 0) {
         // 组件被转化了，v-model不生效，通过其他方式获取改变的值
-        params.is_single = is_single_ref.value.value
+        requestParams.is_single = is_single_ref.value.value
       }
       if (project_id_ref.value?.value || project_id_ref.value?.value === 0) {
         // 组件被转化了，v-model不生效，通过其他方式获取改变的值
-        params.project_id = project_id_ref.value.value
+        requestParams.project_id = project_id_ref.value.value
+      }
+      const params = {
+        ...requestParams
       }
       $.getJSON("index.php?c=base-GameMap&a=game_list", params, res => {
-        const data = res.val
-        getTranslateTree(data, 60)
+        treeData = res.val
+        getTranslateTree(treeData, 60, { requestParams: params })
         if (!isInitMap) {
-          initMap(data)
+          initMap(treeData)
         } else {
-          graph.changeData(data)
+          graph.changeData(treeData)
           graph.fitCenter()
           graph.fitView(40);
         }
@@ -400,8 +448,8 @@ const IndexComponent = {
       }
 
       const container = document.getElementById('indexContainer');
-      const width = container.scrollWidth;
-      const height = container.scrollHeight;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
       graph = new G6.TreeGraph({
         container: 'indexContainer',
         width,
@@ -441,8 +489,17 @@ const IndexComponent = {
         const nodeStyle = {}
         let label = name
         if (type === NODE_TYPE.ORG) {
-          const _a = (10 - level * 3) / 10
-          nodeStyle.fill = `rgba(255, 153, 37, ${_a})`
+          switch (level) {
+            case 0:
+              nodeStyle.fill = `#ff9925`
+              break
+            case 1:
+              nodeStyle.fill = `#ffbd72`
+              break
+            case 2:
+              nodeStyle.fill = `#ffd6a8`
+              break
+          }
           nodeStyle.stroke = '#ff9925'
           label = getOrgLabel(name)
         }
@@ -475,20 +532,41 @@ const IndexComponent = {
         }
       });
 
-      graph.data(data);
-      graph.render();
-      graph.fitCenter()
-      graph.fitView(40);
-      graph.setMaxZoom(1);
+      const initGraph = (graph, data) => {
+        graph.data(data);
+        graph.render();
+        graph.fitCenter()
+        graph.setMaxZoom(1);
+        graph.fitView(40);
+      }
+      initGraph(graph, data)
+    }
+
+    const resizeMap = () => {
       if (typeof window !== 'undefined') {
+        let timer = 0
         window.onresize = () => {
-          if (!graph || graph.get('destroyed')) return;
-          if (!container || !container.scrollWidth || !container.scrollHeight) return;
-          graph.changeSize(container.scrollWidth, container.scrollHeight);
+          const container = document.getElementById('indexContainer');
+          if (!container) {
+            return
+          }
+          if (timer) {
+            clearTimeout(timer)
+          }
+          timer = setTimeout(() => {
+            if (graph && treeData) {
+              graph.destroy()
+              initMap(treeData)
+            }
+          }, 200)
         };
       }
     }
+
     /* 图表 end */
+    onActivated(() => {
+      resizeMap()
+    })
 
     return {
       requestParams,
@@ -511,7 +589,7 @@ const IndexComponent = {
   <div class="game-detail">
     <div class="col-md-2 col-lg-2">
       <div class="part-info">
-        <div class="btn-wrapper" @click="backToIndex">
+        <div class="btn-wrapper back-btn-wrapper" @click="backToIndex">
           <span class="icon fa fa-angle-double-left"></span>
           <span class="text">返回</span>
         </div>
@@ -539,8 +617,8 @@ const IndexComponent = {
       <div class="part-info">
         <div class="checkbox-group-wrapper">
           <div class="checkbox-group" v-for="item of dataStateArr" :key="item.value">
-            <input class="checkbox" type="checkbox" v-model="item.isChecked" />
-            <div class="check-label">[[item.label]]</div>
+            <input :id="item.value" class="checkbox" type="checkbox" :disabled="getCheckState(item)" v-model="item.isChecked" />
+            <label :for="item.value" class="check-label">[[item.label]]</label>
           </div>
         </div>
       </div>
@@ -567,8 +645,8 @@ const IndexComponent = {
         </div>
       </div>
       <div class="btn-group group-wrapper" role="group">
-        <button type="button" class="btn" :class="activeType === 'map' ? 'btn-primary' : 'btn-default'" @click="changeType('map')">图</button>
-        <button type="button" class="btn" :class="activeType === 'table' ? 'btn-primary' : 'btn-default'" @click="changeType('table')">表</button>
+        <button type="button" class="btn middle" :class="activeType === 'table' ? 'btn-primary' : 'btn-default'" @click="changeType('table')">表</button>
+        <button type="button" class="btn middle" :class="activeType === 'map' ? 'btn-primary' : 'btn-default'" @click="changeType('map')">图</button>
       </div>
     </div>
   </div>
@@ -587,6 +665,7 @@ const IndexComponent = {
       id: undefined,
     })
     let graph = null
+    let treeData = null
     let isInitMap = false
     const getFormState = () => {
       return {
@@ -625,18 +704,18 @@ const IndexComponent = {
     const dataStateArr = reactive(getDataStateArr())
     const search = () => {
       $.getJSON("index.php?c=base-GameMap&a=game_info", requestParams, res => {
-        const data = res.val
-        getTranslateTree(data, 80)
+        treeData = res.val
+        getTranslateTree(treeData, 80)
         if (activeType.value === 'map') {
           if (!isInitMap) {
-            initMap(data)
+            initMap(treeData)
           } else {
-            graph.changeData(data)
+            graph.changeData(treeData)
             graph.fitCenter();
             graph.fitView(40);
           }
         }
-        Object.assign(formState, data)
+        Object.assign(formState, treeData)
       })
     }
 
@@ -723,7 +802,7 @@ const IndexComponent = {
             fill = '#169BD5',
             cursor = 'pointer'
           } else {
-            if (name === '收款公司') {
+            if (name === '收款公司' && val && val.includes('br')) {
               val = '...'
             }
             text = val
@@ -743,9 +822,6 @@ const IndexComponent = {
         },
         drawNode: function (cfg, group) {
           const { level } = cfg
-          const _a = (10 - level * 3) / 10
-          console.log(`cfg`, cfg);
-          console.log(`group`, group);
           group.addShape('circle', {
             attrs: {
               x: 0,
@@ -757,18 +833,12 @@ const IndexComponent = {
             name: 'circle-shape',
           });
         },
-        update(cfg, node) {
-          const { level } = cfg
-          if (level <= 1) {
-            console.log(`cfg`, cfg);
-          }
-        },
+        update(cfg, node) {},
       },
       // 继承内置节点类型的名字，例如基类 'single-node'，或 'circle', 'rect' 等
       // 当不指定该参数则代表不继承任何内置节点类型
       'circle',
       );
-
 
       const tooltip = new G6.Tooltip({
         offsetX: 10,
@@ -781,6 +851,9 @@ const IndexComponent = {
             if (showArr.includes(name)) {
               if (name === '风险等级') {
                 return !!reason
+              }
+              if (name === '收款公司') {
+                return val && val.includes('br')
               }
               return true
             }
@@ -804,8 +877,8 @@ const IndexComponent = {
         fixToNode: [0.5, 0.5]
       });
       const container = document.getElementById('gameContainer');
-      const width = container.scrollWidth;
-      const height = container.scrollHeight;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
       graph = new G6.TreeGraph({
         container: 'gameContainer',
         width,
@@ -861,6 +934,9 @@ const IndexComponent = {
         } else if (level === 1) {
           nodeStyle.fill = '#ff9925'
           nodeStyle.stroke = '#ff9925'
+        } else {
+          nodeStyle.fill = '#eff4ff'
+          nodeStyle.stroke = '#8bb2ff'
         }
         return {
           ...node,
@@ -868,7 +944,6 @@ const IndexComponent = {
           label,
           labelCfg: {
             style: {
-              cursor: 'pointer',
               fontWeight: fontWeight || 'normal',
               fontSize: fontSize || 14,
             },
@@ -894,15 +969,26 @@ const IndexComponent = {
       graph.data(data);
       graph.render();
       graph.fitCenter();
-      graph.fitView(40);
       graph.setMaxZoom(1);
-      if (typeof window !== 'undefined') {
-        window.onresize = () => {
-          if (!graph || graph.get('destroyed')) return;
-          if (!container || !container.scrollWidth || !container.scrollHeight) return;
-          graph.changeSize(container.scrollWidth, container.scrollHeight);
-        };
-      }
+      graph.fitView(40);
+    }
+    if (typeof window !== 'undefined') {
+      let timer = 0
+      window.onresize = () => {
+        const container = document.getElementById('gameContainer');
+        if (!container) {
+          return
+        }
+        if (timer) {
+          clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+          if (graph && treeData) {
+            graph.destroy()
+            initMap(treeData)
+          }
+        }, 200)
+      };
     }
     /* 图表 end */
 
@@ -938,6 +1024,33 @@ const IndexComponent = {
     }
 
     /**
+     *
+     * @param opt
+     * {
+     * title:选项卡名,
+     * href:窗口链接
+     * onlyOne:只出现一个
+     * index：新窗口索引
+     * }
+     * @constructor
+     */
+     function Open(opt) {
+      var menu_nav=parent.$("#side-menu");
+      var menu_item=$("<li>");
+      var data_index=opt.index||+new Date();
+      if(opt.onlyOne){
+          parent.$(".page-tabs-content a[data-index="+data_index+"] .fa-times-circle").click();
+      }
+      menu_item.append($('<a class="J_menuItem" href="'+opt.href+'" data-index="'+data_index+'">'+opt.title+'</a>'));
+      menu_nav.append(menu_item);
+      menu_nav.find("a[data-index="+data_index+"]").click();
+      menu_item.remove();
+      if(opt.onlyOne){
+          parent.$(".page-tabs-content .active").attr("data-index",data_index);
+      }
+    }
+
+    /**
      * 获取详情
      * @author waldon
      * @date 2023-01-16
@@ -946,29 +1059,42 @@ const IndexComponent = {
       const { id } = requestParams
       const { name } = rowData
       const { is_wenzheng, department } = formState
+      let url = '';
       switch (name) {
         case '报审':
           if (is_wenzheng) {
             // 报审（文政）：
-            location.href = `index.php?c=review-GameReviewProcess&a=edit&preview=1&game_id=${id}`
+            url = `index.php?c=review-GameReviewProcess&a=edit&preview=1&game_id=${id}`
           } else {
             // 报审（非文政）：
-            location.href = `index.php?c=review-GameReviewProcess&a=edit_info&preview=1&game_id=${id}`
+            url = `index.php?c=review-GameReviewProcess&a=edit_info&preview=1&game_id=${id}`
           }
           break
         case '风控':
-          location.href = `index.php?c=risk-GameRisk&a=edit&preview=1&id=${id}`
+          url = `index.php?c=risk-GameRisk&a=edit&preview=1&id=${id}`
           break
         case '投诉':
           if (+department === 1) {
             // 投诉（37网游）：
-            location.href = `index.php?c=complaint-ComplaintWeb&a=list&game=${id}`
+            url = `index.php?c=complaint-ComplaintWeb&a=list&game=${id}`
           } else {
             // 投诉（37手游）：
-            location.href = `index.php?c=complaint-ComplaintMob&a=list&game=${id}`
+            url = `index.php?c=complaint-ComplaintMob&a=list&game=${id}`
           }
           break
       }
+      const opt = {
+        title: name,
+        href: url,
+        onlyOne: true,
+        index: id + '99999'
+      };
+      Open(opt);
+    }
+
+    const getCheckState = (rowData) => {
+      const { isChecked } = rowData
+      return dataStateArr.filter(item => item.isChecked).length <= 1 && isChecked
     }
     onActivated(() => {
       const { id } = props
@@ -988,6 +1114,7 @@ const IndexComponent = {
       dataStateArr,
       backToIndex,
       gotoDetail,
+      getCheckState,
     }
   },
 }

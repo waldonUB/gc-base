@@ -20,124 +20,199 @@
       padding: 10px 15px;
       box-shadow: rgb(174 174 174) 0px 0px 10px;
     }
+    [v-cloak] {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <div id="container"></div>
+  <div id="app">
+    <div class="ibox float-e-margins search-panel">
+      <div class="ibox-title">
+        <h5><i class="fa fa-search fa-fw"></i>查询<small class="m-l-sm"></small></h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+      <div class="row">
+        <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
+          <label class="col-md-4 control-label">游戏：</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="游戏" name="game_name" v-model="requestParams.game_name" />
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
+          <label class="col-md-4 control-label">合作模式：</label>
+          <div class="col-md-8">
+            <select name="is_single" class="chosen-select form-control" v-model="requestParams.game_name"
+                data-toggle="chosen-select" data-placeholder="请选择合作模式">
+                <option value=""></option>
+                <option value="0">全部</option>
+                <option value="1">独代</option>
+                <option value="3">自研</option>
+                <option value="4">投资公司独代</option>
+                <option value="2">联运</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
+          <label class="col-md-4 control-label">项目组：</label>
+          <div class="col-md-8">
+            <select name="project_id" class="chosen-select" data-toggle="chosen-game-selector" v-model="requestParams.game_name">
+              <option value="0">请选择</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-3">
+          <label class="col-md-4 control-label visi-no">按钮：</label>
+          <div class="col-md-8">
+            <button class="btn btn-primary btn-querys" data-action="get-game-map" @click="search">查询</button>
+            <button type="button" class="btn btn-sm btn-danger">取消</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container" class="container"></div>
+    </div>
+  </div>
   <script src="http://admin.static.37wan.com/adminfront/js/jquery.min.js"></script>
   <script src="http://admin.static.37wan.com/adminfront/js/bootstrap.min.js"></script>
   <!-- <script src="https://gw.alipayobjects.com/os/lib/antv/g6/4.8.0/dist/g6.min.js"></script> -->
+  <script src="http://adminedition.37wan.com/static/js/vue3.min.js"></script>
   <script src="http://adminedition.37wan.com/static/js/g6.min.js"></script>
   <script src="./mock/org.js"></script>
   <script>
-  const data = org.val
+  const { createApp } = Vue
 
-  /**
-   * 组织架构label换行
-   * @author waldon
-   * @date 2023-01-10
-   */
-  const getOrgLabel = (str) => {
-    const NODE_LENGTH = 3
-    if (str?.length > NODE_LENGTH) {
-      const ORG_LENGTH = 2 // 组织架构的默认长度
-      const strArr = str.split('')
-      strArr.splice(ORG_LENGTH, 0, '\n')
-      return strArr.join('')
-    }
-    return str
-  }
+  const app = createApp({
+    setup(props, context) {
+      const { reactive } = Vue
+      const requestParams = reactive({
+        game_name: '',
+        is_single: undefined,
+        project_id: undefined,
+      })
+      const search = () => {
+        console.log(`requestParams`, requestParams);
+        $.getJSON("index.php?c=base-GameMap&a=game_list", requestParams, res => {
+          const data = res.val
+          /**
+           * 组织架构label换行
+           * @author waldon
+           * @date 2023-01-10
+           */
+          const getOrgLabel = (str) => {
+            const NODE_LENGTH = 3
+            if (str?.length > NODE_LENGTH) {
+              const ORG_LENGTH = 2 // 组织架构的默认长度
+              const strArr = str.split('')
+              strArr.splice(ORG_LENGTH, 0, '\n')
+              return strArr.join('')
+            }
+            return str
+          }
 
-  const tooltip = new G6.Tooltip({
-    offsetX: 10,
-    offsetY: 10,
-    className: 'g6-tooltip',
-    getContent(e) {
-      const outDiv = document.createElement('div');
-      outDiv.innerHTML = `<div>${e.item.getModel().label}</div>`
-      return outDiv
-    },
-    itemTypes: ['node'],
-    fixToNode: [0.5, 0.5]
-  });
-
-  setTimeout(() => {
-    const container = document.getElementById('container');
-    const width = container.scrollWidth;
-    const height = container.scrollHeight || 800;
-    const graph = new G6.TreeGraph({
-      container: 'container',
-      width,
-      height,
-      linkCenter: true,
-      plugins: [tooltip], // 配置 Grid 插件和 Minimap 插件
-      modes: {
-        default: [
-          {
-            type: 'collapse-expand',
-            onChange: function onChange(item, collapsed) {
-              const data = item.get('model');
-              data.collapsed = collapsed;
-              return true;
+          const tooltip = new G6.Tooltip({
+            offsetX: 10,
+            offsetY: 10,
+            className: 'g6-tooltip',
+            getContent(e) {
+              const outDiv = document.createElement('div');
+              outDiv.innerHTML = `<div>${e.item.getModel().label}</div>`
+              return outDiv
             },
-          },
-          'drag-canvas',
-          'zoom-canvas',
-        ],
-      },
-      defaultNode: {
-        size: 42,
-        style: {
-          cursor: 'pointer'
-        },
-      },
-      layout: {
-        type: 'dendrogram',
-        direction: 'LR',
-        nodeSep: 20,
-        rankSep: 120,
-        radial: true,
-      },
-    });
+            itemTypes: ['node'],
+            fixToNode: [0.5, 0.5]
+          });
+          const container = document.getElementById('container');
+          const width = container.scrollWidth;
+          const height = container.scrollHeight || 700;
+          const graph = new G6.TreeGraph({
+            container: 'container',
+            width,
+            height,
+            linkCenter: true,
+            plugins: [tooltip], // 配置 Grid 插件和 Minimap 插件
+            modes: {
+              default: [
+                {
+                  type: 'collapse-expand',
+                  onChange: function onChange(item, collapsed) {
+                    const data = item.get('model');
+                    data.collapsed = collapsed;
+                    return true;
+                  },
+                },
+                'drag-canvas',
+                'zoom-canvas',
+              ],
+            },
+            defaultNode: {
+              size: 42,
+              style: {
+                cursor: 'pointer'
+              },
+            },
+            layout: {
+              type: 'dendrogram',
+              direction: 'LR',
+              nodeSep: 20,
+              rankSep: 120,
+              radial: true,
+            },
+          });
 
-    graph.node(function (node) {
-      const { type, name } = node
-      const nodeStyle = {}
-      let label = name
-      if (type === 1) {
-        nodeStyle.fill = '#ff9925'
-        nodeStyle.stroke = '#ff9925'
-        label = getOrgLabel(name)
+          graph.node(function (node) {
+            const { type, name } = node
+            const nodeStyle = {}
+            let label = name
+            if (type === 1) {
+              nodeStyle.fill = '#ff9925'
+              nodeStyle.stroke = '#ff9925'
+              label = getOrgLabel(name)
+            }
+            return {
+              label,
+              labelCfg: {
+                style: {
+                  cursor: 'pointer',
+                },
+              },
+              style: nodeStyle,
+            };
+          });
+
+          graph.on('node:click', (ev) => {
+            const shape = ev.target;
+            const node = ev.item;
+            console.log(`shape`, shape);
+            console.log(`node`, node);
+          });
+
+          graph.data(data);
+          graph.render();
+          graph.fitView();
+
+          if (typeof window !== 'undefined')
+          window.onresize = () => {
+            if (!graph || graph.get('destroyed')) return;
+            if (!container || !container.scrollWidth || !container.scrollHeight) return;
+            graph.changeSize(container.scrollWidth, container.scrollHeight);
+          };
+        })
       }
+      search()
       return {
-        label,
-        labelCfg: {
-          style: {
-            cursor: 'pointer',
-          },
-        },
-        style: nodeStyle,
-      };
-    });
-
-    graph.on('node:click', (ev) => {
-      const shape = ev.target;
-      const node = ev.item;
-      console.log(`shape`, shape);
-      console.log(`node`, node);
-    });
-
-    graph.data(data);
-    graph.render();
-    graph.fitView();
-
-    if (typeof window !== 'undefined')
-    window.onresize = () => {
-      if (!graph || graph.get('destroyed')) return;
-      if (!container || !container.scrollWidth || !container.scrollHeight) return;
-      graph.changeSize(container.scrollWidth, container.scrollHeight);
-    };
-  }, 0)
+        requestParams,
+        search
+      }
+    },
+  })
+  app.config.compilerOptions.delimiters = ['[[', ']]'] // 暂时规避与smarty模板的冲突
+  app.mount('#app')
   </script>
 </body>
 </html>

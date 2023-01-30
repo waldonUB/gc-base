@@ -50,6 +50,46 @@
       border-radius: 4px;
       font-size: 12px;
     }
+    .game-detail .right-part {
+      position: relative;
+    }
+    .right-part .ibox-tools {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 1;
+    }
+    .right-part .ibox-tools label {
+      font-size: 14px;
+    }
+    .right-part .ibox-tools .input-group {
+      width: 240px;
+      text-align: center;
+    }
+    .right-part .input-group-addon {
+      border-radius: 2px;
+    }
+    .right-part .chosen-container-single .chosen-single {
+      border-radius: 2px;
+    }
+    .right-part .ibox-tools button.btn-outline {
+      float: left;
+      margin: 0;
+      background: none;
+      border: 1px solid #797979;
+      color: #797979;
+      border-radius: 0;
+    }
+    .right-part .ibox-tools button, .right-part .ibox-tools button:hover {
+      float: left;
+      margin: 0;
+      background: none;
+      color: #169BD5;
+      border-radius: 0;
+    }
+    .right-part .ibox-tools button {
+      border: 1px solid #169BD5;
+    }
   </style>
 </head>
 <body>
@@ -84,8 +124,14 @@
         <div>报审、封控、投诉</div>
       </div>
     </div>
-    <div class="col-md-8 col-lg-8">
+    <div class="col-md-8 col-lg-8 right-part">
       <div id="container"></div>
+      <div class="ibox-tools pull-right _reviewDepartment">
+        <button type="button" class="btn btn-primary btn-xs event-btn"
+            data-type="tabCase1" data-num="0">图</button>
+        <button type="button" class="btn btn-outline btn-primary btn-xs event-btn"
+            data-type="tabCase1" data-num="1">表</button>
+    </div>
     </div>
   </div>
   <script src="http://admin.static.37wan.com/adminfront/js/jquery.min.js"></script>
@@ -164,7 +210,7 @@
   // 继承内置节点类型的名字，例如基类 'single-node'，或 'circle', 'rect' 等
   // 当不指定该参数则代表不继承任何内置节点类型
   'circle',
-);
+  );
 
   const tooltip = new G6.Tooltip({
     offsetX: 10,
