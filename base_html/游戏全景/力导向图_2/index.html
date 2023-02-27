@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>游戏全景</title>
+  <link href="http://admin.static.37wan.com/adminfront/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .g6-tooltip {
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+      align-items: center;
+      border: 1px solid #e2e2e2;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #545454;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px 15px;
+      box-shadow: rgb(174 174 174) 0px 0px 10px;
+    }
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="container" class="container"></div>
+  </div>
+  <script src="http://admin.static.37wan.com/adminfront/js/jquery.min.js"></script>
+  <script src="http://admin.static.37wan.com/adminfront/js/bootstrap.min.js"></script>
+  <!-- <script src="https://gw.alipayobjects.com/os/lib/antv/g6/4.8.0/dist/g6.min.js"></script> -->
+  <script src="http://adminedition.37wan.com/static/js/vue3.min.js"></script>
+  <script src="http://adminedition.37wan.com/static/js/g6.min.js"></script>
+  <script>
+  const { createApp } = Vue
+  // 力导向图缺点：1、无法收起 2、拖动时，无法自定义位置
+  const app = createApp({
+    setup(props, context) {
+      setTimeout(() => {
+        const container = document.getElementById('container');
+        const width = container.scrollWidth;
+        const height = container.scrollHeight || 600;
+        const graph = new G6.Graph({
+          container: 'container',
+          width,
+          height,
+          layout: {
+            type: 'force',
+            preventOverlap: true,
+            linkDistance: (d) => {
+              if (d.source.id === '三七互娱_1') {
+                return 100;
+              }
+              return 30;
+            },
+            nodeStrength: (d) => {
+              if (d.isLeaf) {
+                return -50;
+              }
+              return -10;
+            },
+            edgeStrength: (d) => {
+              if (d.source.id === '三七互娱_1' || d.source.id === '三七互娱_1' || d.source.id === '三七互娱_1') {
+                return 0.7;
+              }
+              return 0.1;
+            },
+          },
+          defaultNode: {
+            color: '#5B8FF9',
+          },
+          modes: {
+            default: ['drag-canvas'],
+          },
+        });
+
+        const res = {"result":1,"msg":"success","val":{"name":"三七互娱","type":1,"total":135,"children":[{"name":"37网游","type":1,"children":[{"name":"页游组","type":1,"collapsed":true,"children":[{"id":"269","type":2,"name":"天空之城"},{"id":"267","type":2,"name":"传说之路"},{"id":"252","type":2,"name":"323"},{"id":"251","type":2,"name":"323"},{"id":"250","type":2,"name":"小小达人"},{"id":"249","type":2,"name":"243554"},{"id":"248","type":2,"name":"测试游戏"},{"id":"246","type":2,"name":"大航海家ol"},{"id":"245","type":2,"name":"暗黑西游记"},{"id":"244","type":2,"name":"滔天传说"},{"id":"243","type":2,"name":"神将屠龙"},{"id":"242","type":2,"name":"三国之志ii"},{"id":"241","type":2,"name":"盗墓笔记"},{"id":"240","type":2,"name":"笑傲江湖"},{"id":"239","type":2,"name":"龙将"},{"id":"238","type":2,"name":"武动苍穹"},{"id":"237","type":2,"name":"剑灵洪门崛起"},{"id":"236","type":2,"name":"神仙道"},{"id":"235","type":2,"name":"王城霸主"},{"id":"234","type":2,"name":"墨香情"},{"id":"233","type":2,"name":"天子令"},{"id":"232","type":2,"name":"神曲"},{"id":"231","type":2,"name":"百战沙城"},{"id":"230","type":2,"name":"末日沙场"},{"id":"229","type":2,"name":"攻城掠地"},{"id":"228","type":2,"name":"三国群雄传"},{"id":"227","type":2,"name":"斗罗大陆"},{"id":"226","type":2,"name":"传奇国度"},{"id":"225","type":2,"name":"山河图志"},{"id":"224","type":2,"name":"武神三国志"},{"id":"223","type":2,"name":"暗黑大天使"},{"id":"222","type":2,"name":"轩辕剑之天之痕"},{"id":"221","type":2,"name":"传神"},{"id":"220","type":2,"name":"诛天记"},{"id":"219","type":2,"name":"雄霸江湖"},{"id":"218","type":2,"name":"傲视天地"},{"id":"217","type":2,"name":"大皇帝"},{"id":"216","type":2,"name":"琅琊榜"},{"id":"215","type":2,"name":"全民仙战"},{"id":"214","type":2,"name":"五行天"},{"id":"213","type":2,"name":"七战"},{"id":"212","type":2,"name":"兵法三十七计"},{"id":"211","type":2,"name":"唯武独尊"},{"id":"210","type":2,"name":"苍之录"},{"id":"209","type":2,"name":"热血封神"},{"id":"208","type":2,"name":"神戒"},{"id":"207","type":2,"name":"裁决战歌"},{"id":"206","type":2,"name":"三国之怒"},{"id":"205","type":2,"name":"三国群英传"},{"id":"204","type":2,"name":"傲视霸主"},{"id":"203","type":2,"name":"圣魔印"},{"id":"202","type":2,"name":"蓝月传奇"},{"id":"201","type":2,"name":"雷霆之怒"},{"id":"200","type":2,"name":"大城主"},{"id":"199","type":2,"name":"传奇世界网页版"},{"id":"198","type":2,"name":"尊龙"},{"id":"197","type":2,"name":"魔域觉醒"},{"id":"196","type":2,"name":"莽荒纪ii"},{"id":"195","type":2,"name":"灭神"},{"id":"194","type":2,"name":"热血战歌"},{"id":"193","type":2,"name":"神魔传说"},{"id":"192","type":2,"name":"烈火剑圣"},{"id":"191","type":2,"name":"血饮传说"},{"id":"190","type":2,"name":"战神觉醒"},{"id":"189","type":2,"name":"传奇霸业"},{"id":"188","type":2,"name":"剑客下山"},{"id":"187","type":2,"name":"玄兵骑战"},{"id":"186","type":2,"name":"军师大时代"},{"id":"185","type":2,"name":"神座"},{"id":"184","type":2,"name":"赤焰号角"},{"id":"183","type":2,"name":"九曲封神"},{"id":"182","type":2,"name":"原始传奇"},{"id":"181","type":2,"name":"传奇霸主"},{"id":"180","type":2,"name":"武神赵子龙"},{"id":"14","type":2,"name":"3233434"},{"id":"11","type":2,"name":"测试游戏"},{"id":"9","type":2,"name":"暗黑大天使"},{"id":"7","type":2,"name":"测试游戏"},{"id":"5","type":2,"name":"小天使"},{"id":"3","type":2,"name":"荣耀测试"},{"id":"1","type":2,"name":"王城霸主"}]},{"name":"麒麟项目组","type":1,"collapsed":true,"children":[{"id":"179","type":2,"name":"屠龙破晓h5"},{"id":"178","type":2,"name":"精灵天空岛"},{"id":"177","type":2,"name":"江山：烽火连城"},{"id":"176","type":2,"name":"破日开天"},{"id":"175","type":2,"name":"斩月屠龙h5"},{"id":"174","type":2,"name":"赛尔特大陆"},{"id":"173","type":2,"name":"王城英雄"},{"id":"172","type":2,"name":"荣耀大天使"},{"id":"12","type":2,"name":"323232"}]},{"name":"貔貅项目组","type":1,"collapsed":true,"children":[{"id":"171","type":2,"name":"武圣屠龙"},{"id":"170","type":2,"name":"九州仙剑传"},{"id":"169","type":2,"name":"布阵英雄之放置奇兵"},{"id":"168","type":2,"name":"谁是首富"},{"id":"167","type":2,"name":"叫我大掌柜"},{"id":"166","type":2,"name":"英雄这边请"},{"id":"165","type":2,"name":"我的帝国h5"},{"id":"164","type":2,"name":"最强王者h5"},{"id":"163","type":2,"name":"大天使之剑h5"}]}]},{"name":"37手游","type":1,"children":[{"name":"奇迹项目组","type":1,"collapsed":true,"children":[{"id":"247","type":2,"name":"232444"},{"id":"152","type":2,"name":"鬼语迷城"},{"id":"145","type":2,"name":"永恒纪元"},{"id":"144","type":2,"name":"混沌起源"},{"id":"143","type":2,"name":"大天使之剑h5"},{"id":"137","type":2,"name":"精灵盛典：黎明"},{"id":"134","type":2,"name":"绝世仙王"},{"id":"10","type":2,"name":"大航海"},{"id":"8","type":2,"name":"cehshi"},{"id":"6","type":2,"name":"荣耀"},{"id":"4","type":2,"name":"荣耀王者"},{"id":"2","type":2,"name":"斗罗大陆"}]},{"name":"星辰项目组","type":1,"collapsed":true,"children":[{"id":"162","type":2,"name":"荣耀崛起"},{"id":"161","type":2,"name":"守望之战"},{"id":"159","type":2,"name":"q版三国"},{"id":"148","type":2,"name":"屠龙破晓"},{"id":"140","type":2,"name":"盛世江山"}]},{"name":"皓月项目组","type":1,"collapsed":true,"children":[{"id":"160","type":2,"name":"亮剑"},{"id":"153","type":2,"name":"黎明之路"},{"id":"139","type":2,"name":"谜题大陆"}]},{"name":"传奇项目组","type":1,"collapsed":true,"children":[{"id":"158","type":2,"name":"末日沙城"},{"id":"155","type":2,"name":"剑与轮回"},{"id":"154","type":2,"name":"烽火攻城2"},{"id":"149","type":2,"name":"秘境之争"},{"id":"147","type":2,"name":"烽火攻城"},{"id":"141","type":2,"name":"一刀传世"},{"id":"138","type":2,"name":"异能都市"}]},{"name":"斗罗项目组","type":1,"collapsed":true,"children":[{"id":"157","type":2,"name":"云端问仙"},{"id":"151","type":2,"name":"一千克拉女王"},{"id":"136","type":2,"name":"斗罗大陆h5"},{"id":"133","type":2,"name":"斗罗大陆：魂师对决"}]},{"name":"逍遥项目组","type":1,"collapsed":true,"children":[{"id":"150","type":2,"name":"拳魂觉醒"},{"id":"146","type":2,"name":"仙灵物语"},{"id":"142","type":2,"name":"斗罗大陆：武魂觉醒"},{"id":"135","type":2,"name":"云上城之歌"},{"id":"132","type":2,"name":"最后的原始人"}]}]}]},"list":null}
+        const initData = [
+          res.val
+        ]
+        const data = {
+          nodes: [],
+          edges: [],
+        }
+        const translateData = (tree, source) => {
+          for (const item of tree) {
+            const { children, ...node } = item
+            const { id, name, type } = item
+            if (!id) {
+              node.id = `${name}_${type}`
+            }
+            if (item?.children?.length) {
+              translateData(item.children, node.id)
+            } else {
+              node.isLeaf = true
+            }
+            data.nodes.push(node)
+            if (source) {
+              data.edges.push({
+                source,
+                target: node.id
+              })
+            }
+          }
+        }
+        translateData(initData, '')
+        console.log(`data`, data);
+        console.log(`data`, JSON.stringify(data));
+
+        // const data = {
+        //   nodes: [
+        //     { id: 'node0', size: 100 },
+        //     { id: 'node1', size: 80 },
+        //     { id: 'node2', size: 80 },
+        //     { id: 'node3', size: 80 },
+        //     { id: 'node4', size: 80, isLeaf: true },
+        //     { id: 'node5', size: 80, isLeaf: true },
+        //     { id: 'node6', size: 50, isLeaf: true },
+        //     { id: 'node7', size: 50, isLeaf: true },
+        //     { id: 'node8', size: 50, isLeaf: true },
+        //     { id: 'node9', size: 50, isLeaf: true },
+        //     { id: 'node10', size: 50, isLeaf: true },
+        //     { id: 'node11', size: 50, isLeaf: true },
+        //     { id: 'node12', size: 50, isLeaf: true },
+        //     { id: 'node13', size: 50, isLeaf: true },
+        //     { id: 'node14', size: 50, isLeaf: true },
+        //     { id: 'node15', size: 50, isLeaf: true },
+        //     { id: 'node16', size: 50, isLeaf: true },
+        //   ],
+        //   edges: [
+        //     { source: 'node0', target: 'node1' },
+        //     { source: 'node0', target: 'node2' },
+        //     { source: 'node0', target: 'node3' },
+        //     { source: 'node0', target: 'node4' },
+        //     { source: 'node0', target: 'node5' },
+        //     { source: 'node1', target: 'node6' },
+        //     { source: 'node1', target: 'node7' },
+        //     { source: 'node2', target: 'node8' },
+        //     { source: 'node2', target: 'node9' },
+        //     { source: 'node2', target: 'node10' },
+        //     { source: 'node2', target: 'node11' },
+        //     { source: 'node2', target: 'node12' },
+        //     { source: 'node2', target: 'node13' },
+        //     { source: 'node3', target: 'node14' },
+        //     { source: 'node3', target: 'node15' },
+        //     { source: 'node3', target: 'node16' },
+        //   ],
+        // };
+        const nodes = data.nodes;
+        graph.data({
+          nodes,
+          edges: data.edges.map(function (edge, i) {
+            edge.id = 'edge' + i;
+            return Object.assign({}, edge);
+          }),
+        });
+        graph.render();
+
+        graph.on('node:dragstart', function (e) {
+          graph.layout();
+          refreshDragedNodePosition(e);
+        });
+        graph.on('node:drag', function (e) {
+          refreshDragedNodePosition(e);
+        });
+        graph.on('node:dragend', function (e) {
+          e.item.get('model').fx = null;
+          e.item.get('model').fy = null;
+        });
+
+        if (typeof window !== 'undefined')
+          window.onresize = () => {
+            if (!graph || graph.get('destroyed')) return;
+            if (!container || !container.scrollWidth || !container.scrollHeight) return;
+            graph.changeSize(container.scrollWidth, container.scrollHeight);
+          };
+
+        function refreshDragedNodePosition(e) {
+          const model = e.item.get('model');
+          model.fx = e.x;
+          model.fy = e.y;
+        }
+      }, 0)
+
+    },
+  })
+  app.config.compilerOptions.delimiters = ['[[', ']]'] // 暂时规避与smarty模板的冲突
+  app.mount('#app')
+  </script>
+</body>
+</html>
