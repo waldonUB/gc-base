@@ -5,9 +5,9 @@
  */
 const getInitData = (() => {
   let instance = null
-  return async () => {
+  return () => {
     if (!instance) {
-      instance = await getInitData_api()
+      instance = getInitData_api()
     }
     return instance
   }
@@ -38,6 +38,6 @@ getInitData().then((res) => {
 setTimeout(() => {
   console.log(res1) // { a: 123 }
   console.log(res2) // { a: 123 }
-  console.log(res1 === res3) // false
+  console.log(res1 === res3) // true
   console.log(res2 === res3) // true
 }, 0)
