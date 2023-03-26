@@ -97,8 +97,9 @@
       })
       const search = () => {
         console.log(`requestParams`, requestParams);
-        $.getJSON("index.php?c=base-GameMap&a=game_list", requestParams, res => {
-          const data = res.val
+        setTimeout(() => {
+
+          const data = org.val
           /**
            * 组织架构label换行
            * @author waldon
@@ -109,7 +110,7 @@
             if (str?.length > NODE_LENGTH) {
               const ORG_LENGTH = 2 // 组织架构的默认长度
               const strArr = str.split('')
-              strArr.splice(ORG_LENGTH, 0, '\n')
+              // strArr.splice(ORG_LENGTH, 0, '\n')
               return strArr.join('')
             }
             return str
@@ -179,6 +180,10 @@
               labelCfg: {
                 style: {
                   cursor: 'pointer',
+                  position: 'relative',
+                  top: '-20px',
+                  color: '#ffffff',
+                  textAlign: 'left'
                 },
               },
               style: nodeStyle,

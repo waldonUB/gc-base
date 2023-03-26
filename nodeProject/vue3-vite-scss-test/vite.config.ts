@@ -18,6 +18,8 @@ const customPlugin = function () {
   }
 }
 
+const inputDir = resolve(__dirname, './src/views/newAttrs')
+
 export default defineConfig({
   resolve: {
     alias: {
@@ -38,6 +40,7 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     rollupOptions: {
+      input: {},
       output: {
         manualChunks: {
           vue: ['vue', 'vue-router'],
