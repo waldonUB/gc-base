@@ -4,6 +4,7 @@ define(function (require, exports, module) {
     foo: 'bar',
     doSomething: function () {
       console.log(`doSomething`)
-    }
+      // 随便加点注释提交
+    },
   }
 })
